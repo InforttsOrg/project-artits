@@ -16,7 +16,7 @@ import {
 // --- Terminal Logic & Data ---
 const SYSTEM_PREFIX = "sahil@infortts:~$ ";
 const BOOT_LOG = [
-  "INITIALIZING NEURAL LINK...",
+  "INITIALIZING ARTITS LINK...",
   "CONNECTING TO INFORTTS ORCHESTRATOR [OK]",
   "SYNCHRONIZING SWARM NODES (8 ACTIVE)...",
   "DECRYPTING SAHIL_RATHEE_ARCHIVE... [100%]",
@@ -108,7 +108,7 @@ const App = () => {
       <header className="flex items-center justify-between border-b border-cyan-500/30 pb-6 mb-8 text-xs tracking-[0.2em] font-bold">
         <div className="flex items-center gap-4">
           <Activity className="w-4 h-4 animate-pulse" />
-          <span>ZENITH_LINK :: STATUS_ACTIVE</span>
+          <span>ARTITS_CORE :: STATUS_ACTIVE</span>
         </div>
         <div className="hidden md:block">
           LOCATION :: 28.6139°N, 77.2090°E
