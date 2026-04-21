@@ -25,6 +25,28 @@
   }
 }
 
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+  }
+  
+  .crt-overlay {
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+  }
+  
+  .terminal-cursor {
+    border-right: 8px solid var(--accent);
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: var(--accent) }
+}
+
 @layer components {
   .glass-panel {
     @apply backdrop-blur-xl bg-slate-900/40 border border-slate-700/50 rounded-2xl shadow-2xl;
@@ -52,9 +74,23 @@
 }
 
 @keyframes scanline {
-  0% { bottom: 100%; }
-  80% { bottom: 100%; }
-  100% { bottom: -100px; }
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.terminal-flicker {
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.93; }
+  20% { opacity: 0.98; }
+  25% { opacity: 0.94; }
+  30% { opacity: 0.96; }
+  100% { opacity: 1; }
 }
 
 /* Custom Scrollbar */

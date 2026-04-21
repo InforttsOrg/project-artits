@@ -1,164 +1,183 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { 
-  Shield, 
-  Cpu, 
-  Network, 
   Terminal, 
-  ExternalLink, 
+  Cpu, 
+  Shield, 
+  Globe, 
+  Zap, 
   ArrowRight,
-  Code2,
-  BrainCircuit,
-  Orbit
+  Activity,
+  History,
+  Command,
+  Unlock
 } from 'lucide-react';
 
-const Portfolio = () => {
-  const [step, setStep] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
+// --- Terminal Logic & Data ---
+const SYSTEM_PREFIX = "sahil@infortts:~$ ";
+const BOOT_LOG = [
+  "INITIALIZING NEURAL LINK...",
+  "CONNECTING TO INFORTTS ORCHESTRATOR [OK]",
+  "SYNCHRONIZING SWARM NODES (8 ACTIVE)...",
+  "DECRYPTING SAHIL_RATHEE_ARCHIVE... [100%]",
+  "ACCESS GRANTED: WELCOME TO THE FACTORY."
+];
 
-  useEffect(() => {
-    // Initial entrance animation
-    const ctx = gsap.context(() => {
-      gsap.from(".reveal", {
-        y: 40,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: "power4.out"
-      });
-      
-      gsap.to(".orbit", {
-        rotation: 360,
-        duration: 20,
-        repeat: -1,
-        ease: "none"
-      });
-    }, containerRef);
-    
-    return () => ctx.revert();
+const PROJECTS = [
+  { id: "forensics", title: "FORENSICS", desc: "Institutional-grade trade telemetry. 2s latency.", link: "https://forensics.infortts.com" },
+  { id: "meeseek", title: "MEESEEK", desc: "AI Agent swarm intelligence. Multi-agent RAG.", link: "#" },
+  { id: "lexi", title: "LEXI", desc: "B2B Salon Commerce ecosystem.", link: "#" },
+];
+
+const App = () => {
+  const [log, setLog] = useState<string[]>([]);
+  const [isBooting, setIsBooting] = useState(true);
+  const [currentTyped, setCurrentTyped] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Typewriter Helper
+  const typeText = async (text: string, speed = 30) => {
+    let current = "";
+    for (const char of text) {
+      current += char;
+      setCurrentTyped(current);
+      await new Promise(r => setTimeout(r, speed));
+    }
+    setCurrentTyped("");
+  };
+
+  const addLog = useCallback((line: string) => {
+    setLog(prev => [...prev, line]);
   }, []);
 
-  const steps = [
-    {
-      title: "The Vision",
-      subtitle: "Sahil Rathee",
-      description: "Building the Operating System for the AI Era. I architect autonomous ecosystems that turn complex ideas into scalable SaaS economies.",
-      icon: <Orbit className="w-12 h-12 text-cyan-400 orbit" />
-    },
-    {
-      title: "The Project: Forensics",
-      subtitle: "Institutional Intelligence",
-      description: "The crown jewel of the Infortts Factory. A neural-powered backtesting and algorithmic trading hub designed for the next generation of institutional finance.",
-      link: "https://forensics.infortts.com",
-      icon: <BrainCircuit className="w-12 h-12 text-purple-400" />
-    },
-    {
-      title: "The Swarm",
-      subtitle: "Decentralized Growth",
-      description: "Scaling across sectors—from Dropship Logistics and Medical Booking to high-concurrency Social platforms. One brain, many nodes.",
-      icon: <Network className="w-12 h-12 text-emerald-400" />
+  // Boot Sequence
+  useEffect(() => {
+    const runBoot = async () => {
+      for (const line of BOOT_LOG) {
+        addLog(`>> ${line}`);
+        await new Promise(r => setTimeout(r, 600));
+      }
+      setIsBooting(false);
+      addLog(`${SYSTEM_PREFIX} help`);
+      await typeText("Displaying available system commands...", 20);
+    };
+    runBoot();
+  }, [addLog]);
+
+  // Command Handlers
+  const handleCommand = async (cmd: string) => {
+    if (isBooting) return;
+    addLog(`${SYSTEM_PREFIX} ${cmd.toLowerCase()}`);
+    
+    switch(cmd.toLowerCase()) {
+      case 'whoami':
+        await typeText("Sahil Rathee: System Architect. Building the AI OS.");
+        addLog("ARCHITECT BIO: Focused on decentralized agent swarms and hft-grade financial systems.");
+        break;
+      case 'ls':
+        await typeText("Listings active swarm nodes...");
+        PROJECTS.forEach(p => addLog(`[NODE] ${p.title} - ${p.desc}`));
+        break;
+      case 'clear':
+        setLog([]);
+        break;
+      case 'swarm':
+        addLog("SWARM STATUS: 12 Nodes operational. 2.1M Neural Events handled today.");
+        break;
+      default:
+        addLog(`ERR: COMMAND NOT FOUND: ${cmd}`);
     }
-  ];
+  };
+
+  // Auto-scroll
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [log]);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen selection:bg-cyan-500/30 overflow-hidden">
+    <div ref={containerRef} className="relative min-h-screen bg-[#020617] text-cyan-500 font-mono overflow-hidden flex flex-col p-6 md:p-12 terminal-flicker">
       {/* Background Ambience */}
-      <div className="fixed inset-0 bg-[#020617]">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-0 invert"></div>
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-cyan-500/10 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[120px]"></div>
-      </div>
+      <div className="fixed inset-0 crt-overlay opacity-30 z-50 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_center,_rgba(6,182,212,0.05)_0%,_transparent_70%)] pointer-events-none"></div>
+      <div className="scanline"></div>
 
-      <header ref={headerRef} className="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-6 backdrop-blur-md border-b border-white/5">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 shadow-lg shadow-cyan-500/20"></div>
-          <span className="font-bold text-xl tracking-tight uppercase font-outfit">S.R. / INFT</span>
+      {/* Terminal Header */}
+      <header className="flex items-center justify-between border-b border-cyan-500/30 pb-6 mb-8 text-xs tracking-[0.2em] font-bold">
+        <div className="flex items-center gap-4">
+          <Activity className="w-4 h-4 animate-pulse" />
+          <span>ZENITH_LINK :: STATUS_ACTIVE</span>
         </div>
-        <nav className="flex items-center gap-8 text-sm font-medium text-slate-400">
-          <a href="#" className="hover:text-cyan-400 transition-colors">THE FACTORY</a>
-          <a href="#" className="hover:text-cyan-400 transition-colors">RESEARCH</a>
-          <button className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all flex items-center gap-2">
-            CONTACT <ArrowRight className="w-4 h-4" />
-          </button>
-        </nav>
+        <div className="hidden md:block">
+          LOCATION :: 28.6139°N, 77.2090°E
+        </div>
+        <div className="flex items-center gap-2 text-cyan-400 capitalize">
+          Sahil_Rathee_Session
+        </div>
       </header>
 
-      <main className="relative pt-32 px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center min-h-[80vh]">
-        <div className="space-y-8">
-          <div className="reveal">
-            <span className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-xs font-bold text-cyan-400 tracking-widest uppercase">
-              <Terminal className="w-3 h-3" /> System Architect Active
-            </span>
+      {/* Terminal Output */}
+      <div 
+        ref={scrollRef}
+        className="flex-1 overflow-y-auto space-y-2 mb-8 selection:bg-cyan-500 selection:text-slate-900 scroll-smooth pr-4"
+      >
+        {log.map((line, i) => (
+          <div key={i} className={`reveal ${line.startsWith(SYSTEM_PREFIX) ? 'text-white font-bold' : ''}`}>
+            {line}
           </div>
+        ))}
+        {currentTyped && (
+          <div className="text-white">
+            {SYSTEM_PREFIX}{currentTyped}<span className="terminal-cursor"></span>
+          </div>
+        )}
+        {!currentTyped && !isBooting && (
+          <div className="text-white">
+            {SYSTEM_PREFIX}<span className="terminal-cursor"></span>
+          </div>
+        )}
+      </div>
 
-          <div className="space-y-4">
-            <h1 className="reveal text-7xl lg:text-8xl font-black leading-tight font-outfit tracking-tighter">
-              {steps[step].title}
-            </h1>
-            <h2 className="reveal text-2xl lg:text-3xl text-slate-400 font-medium">
-              {steps[step].subtitle}
-            </h2>
-          </div>
+      {/* Terminal Input / Command Chips */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-cyan-500/30">
+        <button 
+          onClick={() => handleCommand('WHOAMI')}
+          className="group flex items-center justify-center gap-2 p-4 bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 hover:border-cyan-500 transition-all text-xs font-bold uppercase tracking-widest"
+        >
+          <Unlock className="w-4 h-4 group-hover:scale-110 transition-transform" /> WHOAMI
+        </button>
+        <button 
+          onClick={() => handleCommand('LS')}
+          className="group flex items-center justify-center gap-2 p-4 bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 hover:border-cyan-500 transition-all text-xs font-bold uppercase tracking-widest"
+        >
+          <History className="w-4 h-4 group-hover:scale-110 transition-transform" /> SWARM_NODES
+        </button>
+        <button 
+          onClick={() => handleCommand('SWARM')}
+          className="group flex items-center justify-center gap-2 p-4 bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 hover:border-cyan-500 transition-all text-xs font-bold uppercase tracking-widest"
+        >
+          <Activity className="w-4 h-4 group-hover:scale-110 transition-transform" /> TELEMETRY
+        </button>
+        <button 
+          onClick={() => handleCommand('CLEAR')}
+          className="group flex items-center justify-center gap-2 p-4 bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 hover:border-cyan-500 transition-all text-xs font-bold uppercase tracking-widest"
+        >
+          <Terminal className="w-4 h-4 group-hover:scale-110 transition-transform" /> CLEAR_LOG
+        </button>
+      </div>
 
-          <p className="reveal text-lg text-slate-400 leading-relaxed max-w-xl">
-            {steps[step].description}
-          </p>
-
-          <div className="reveal pt-4 flex items-center gap-4">
-            {steps[step].link && (
-              <a 
-                href={steps[step].link} 
-                className="group flex items-center gap-2 px-6 py-3 bg-cyan-500 text-slate-900 font-bold rounded-xl hover:scale-105 active:scale-95 transition-all"
-              >
-                VISIT HUB <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-            )}
-            <button 
-              onClick={() => setStep((step + 1) % steps.length)}
-              className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all font-bold"
-            >
-              NEXT NODE
-            </button>
-          </div>
-        </div>
-
-        <div className="reveal relative flex justify-center items-center">
-          <div className="absolute inset-0 bg-cyan-400/20 blur-[100px] rounded-full scale-75 animate-pulse"></div>
-          <div className="relative w-full aspect-square glass-panel flex flex-col items-center justify-center gap-6 border-cyan-500/20 group hover:border-cyan-500/40 transition-all duration-700 overflow-hidden">
-             <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
-                <div className="w-full h-full border-[1px] border-cyan-500/10 bg-[radial-gradient(circle_at_center,_var(--accent-glow)_0%,_transparent_70%)]"></div>
-             </div>
-             {steps[step].icon}
-             <div className="text-center z-10">
-                <p className="text-xs font-mono text-cyan-400/60 uppercase tracking-[0.3em]">Neural Interface 0{step + 1}</p>
-                <p className="text-xl font-bold mt-1 text-white uppercase tracking-widest">{steps[step].subtitle}</p>
-             </div>
-             
-             {/* Micro-animations */}
-             <div className="absolute bottom-4 left-4 flex gap-1">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className={`w-1 h-${i*2} bg-cyan-500/40 rounded-full animate-pulse`} style={{animationDelay: `${i*100}ms`}}></div>
-                ))}
-             </div>
-          </div>
-        </div>
-      </main>
-
-      <footer className="relative mt-20 border-t border-white/5 px-8 py-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-sm text-slate-500">
-            © 2026 INFT / SAHIL RATHEE. ALL SYSTEMS OPERATIONAL.
-          </div>
-          <div className="flex gap-8">
-            <a href="#" className="text-slate-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">LinkedIn</a>
-            <a href="#" className="text-slate-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">GitHub</a>
-            <a href="#" className="text-slate-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">X / Twitter</a>
-          </div>
-        </div>
-      </footer>
+      {/* Footer Branded Bar */}
+      <div className="mt-8 flex justify-between items-center text-[10px] uppercase tracking-[0.4em] opacity-40 font-bold">
+        <span>© 2026 INFORTTS_FACTORY</span>
+        <span className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+          SECURE_CONNECTION_STABLE
+        </span>
+      </div>
     </div>
   );
 };
 
-export default Portfolio;
+export default App;
