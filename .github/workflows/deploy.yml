@@ -1,4 +1,4 @@
-name: Project Deployment (Artits)
+name: Deploy to Cloudflare Pages
 
 on:
   push:
@@ -7,42 +7,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-portfolio:
-    name: Deploy Story Portfolio to Cloudflare
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
+    name: Build and Deploy
     steps:
-      - name: Checkout Artits
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: artits
 
-      - name: Manual Clone Shared Brain
-        env:
-          SHARED_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
-        if: env.SHARED_TOKEN != ''
-        run: |
-          git clone https://${{ secrets.GH_PAT_TOKEN }}@github.com/InforttsOrg/shared.git shared
-          cd shared && git checkout main
+      - name: Install dependencies
+        run: npm install
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Build and Deploy Portfolio
-        run: |
-          cd artits
-          npm install
-          npm run build
-
-      - name: Create Cloudflare Pages Project
-        run: npx wrangler pages project create project-app-artits --production-branch main || true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Build
+        run: npm run build
 
       - name: Configure Custom Domain
         run: |
@@ -52,10 +31,8 @@ jobs:
                --data '{"name":"artits.infortts.com"}' || true
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: project-app-artits
-          directory: artits/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy dist --project-name=artits --commit-dirty=true
