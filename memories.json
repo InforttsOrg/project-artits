@@ -1,0 +1,16 @@
+[
+    {
+        "id": "1",
+        "date": "2026-05-01",
+        "title": "Architecting the Autonomous Job Agent",
+        "content": "Today I spent hours figuring out how to make a job search agent truly autonomous. The challenge was handling different DOM structures across multiple job boards. I ended up using a modular scraper pattern in Playwright. It felt great to see the logs start rolling in with matching roles.",
+        "status": "pending"
+    },
+    {
+        "id": "2",
+        "date": "2026-04-28",
+        "title": "The 80% Reduction Challenge",
+        "content": "Refactored a massive legacy infrastructure. Switched from manual EC2 management to full Infrastructure as Code with AWS. The application size dropped by 80% and latency went down by 60%. It was a lesson in the power of modern cloud abstractions.",
+        "status": "pending"
+    }
+]
