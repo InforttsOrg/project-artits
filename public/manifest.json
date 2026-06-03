@@ -1,0 +1,23 @@
+{
+  "short_name": "Artits",
+  "name": "Sahil Rathee | Architect of Infortts",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#020617",
+  "theme_color": "#0ea5e9",
+  "display": "standalone",
+  "orientation": "any"
+}

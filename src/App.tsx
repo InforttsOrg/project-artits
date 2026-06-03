@@ -34,6 +34,10 @@ const App: React.FC = () => {
             high-availability cloud fabrics, and production-scale automation.
             Known across the stack as <strong>rttss-sahil</strong>.
           </p>
+          <p style={{ maxWidth: '700px', fontSize: '1.0rem', marginTop: '1rem', color: '#666', lineHeight: '1.6' }}>
+            <strong>Artits</strong> is the second brain of Sahil Rathee, the owner of this laptop and the Director of Infortts (registered under MSME since 2024). 
+            This agent is available 24/7, actively connected to Sahil's paired <strong>Samsung S24 Ultra</strong> and rooted <strong>Redmi Note 10 Pro</strong> via <strong>infortts.com</strong>.
+          </p>
         </section>
 
         <section className="component">
