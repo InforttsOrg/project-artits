@@ -1,7 +1,63 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import GameOfLife from './components/GameOfLife';
 
 const App: React.FC = () => {
+  const [chatOpen, setChatOpen] = useState(false);
+  const [messages, setMessages] = useState<{ sender: 'user' | 'system', text: string, time: string }[]>([
+    { sender: 'system', text: 'ARTITS AI Terminal Initialized. Ready for authorization handshake.', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+  ]);
+  const [inputVal, setInputVal] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping]);
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputVal.trim()) return;
+
+    const userMsg = inputVal.trim();
+    setInputVal('');
+    
+    // Add user message
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setMessages(prev => [...prev, { sender: 'user', text: userMsg, time: now }]);
+    setIsTyping(true);
+
+    try {
+      const response = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg })
+      });
+      const data = await response.json();
+      
+      setTimeout(() => {
+        setMessages(prev => [...prev, { 
+          sender: 'system', 
+          text: data.reply || "Hi Me", 
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+        }]);
+        setIsTyping(false);
+      }, 600);
+    } catch (err) {
+      setTimeout(() => {
+        setMessages(prev => [...prev, { 
+          sender: 'system', 
+          text: "Hi Me", 
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+        }]);
+        setIsTyping(false);
+      }, 600);
+    }
+  };
+
   const socials = [
     { name: 'GITHUB', url: 'https://github.com/rttss-sahil' },
     { name: 'X.COM', url: 'https://x.com/rttss_sahil' },
@@ -138,6 +194,179 @@ const App: React.FC = () => {
           <div>@rttss-sahil // SYSTEM_9.2_PRODUCTION_STABLE</div>
           <div>EST. 2018 // BASED_IN_NEW_DELHI</div>
         </footer>
+      </div>
+
+      {/* Floating AI Terminal */}
+      <div style={{
+        position: 'fixed',
+        bottom: '2rem',
+        right: '2rem',
+        zIndex: 1000,
+        fontFamily: "'JetBrains Mono', monospace"
+      }}>
+        {!chatOpen ? (
+          <button 
+            onClick={() => setChatOpen(true)}
+            style={{
+              background: 'var(--fg)',
+              color: 'var(--bg)',
+              border: '1px solid var(--fg)',
+              padding: '0.75rem 1.5rem',
+              fontSize: '10px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 24px rgba(0,0,0,0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+            }}
+          >
+            <span className="pulse" style={{ width: '6px', height: '6px', background: 'var(--active)', borderRadius: '50%', display: 'inline-block' }}></span>
+            ARTITS_AI_v1.0
+          </button>
+        ) : (
+          <div style={{
+            width: '380px',
+            height: '450px',
+            background: '#090d16',
+            border: '1px solid rgba(56, 189, 248, 0.15)',
+            display: 'flex',
+            flexDirection: 'column',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+            backdropFilter: 'blur(16px)',
+            borderRadius: '2px',
+            position: 'relative'
+          }}>
+            {/* Header */}
+            <div style={{
+              background: '#121b2d',
+              borderBottom: '1px solid rgba(56, 189, 248, 0.1)',
+              padding: '0.75rem 1rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span className="pulse" style={{ width: '6px', height: '6px', background: 'var(--active)', borderRadius: '50%', display: 'inline-block' }}></span>
+                <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '1px', color: '#e2e8f0' }}>ARTITS_SECURE_COMMS</span>
+              </div>
+              <button 
+                onClick={() => setChatOpen(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#64748b',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontFamily: 'inherit'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#f1f5f9'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}
+              >
+                [X]
+              </button>
+            </div>
+
+            {/* Messages Area */}
+            <div style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
+              fontSize: '11px',
+              color: '#94a3b8'
+            }}>
+              {messages.map((msg, idx) => (
+                <div key={idx} style={{
+                  alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                  maxWidth: '85%'
+                }}>
+                  <div style={{
+                    background: msg.sender === 'user' ? '#1e293b' : '#0f172a',
+                    color: msg.sender === 'user' ? '#f1f5f9' : '#38bdf8',
+                    border: msg.sender === 'user' ? '1px solid #334155' : '1px solid rgba(56, 189, 248, 0.1)',
+                    padding: '0.5rem 0.75rem',
+                    borderRadius: '2px',
+                    whiteSpace: 'pre-wrap',
+                    lineHeight: '1.4'
+                  }}>
+                    {msg.text}
+                  </div>
+                  <div style={{
+                    fontSize: '8px',
+                    color: '#475569',
+                    marginTop: '0.25rem',
+                    textAlign: msg.sender === 'user' ? 'right' : 'left'
+                  }}>
+                    {msg.time}
+                  </div>
+                </div>
+              ))}
+              {isTyping && (
+                <div style={{ alignSelf: 'flex-start', color: '#38bdf8', fontSize: '10px' }}>
+                  System compiling response...
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Form */}
+            <form onSubmit={handleSendMessage} style={{
+              borderTop: '1px solid rgba(56, 189, 248, 0.1)',
+              padding: '0.75rem',
+              display: 'flex',
+              gap: '0.5rem',
+              background: '#090d16'
+            }}>
+              <input 
+                type="text"
+                value={inputVal}
+                onChange={(e) => setInputVal(e.target.value)}
+                placeholder="Type a secure message..."
+                style={{
+                  flex: 1,
+                  background: '#0f172a',
+                  border: '1px solid rgba(56, 189, 248, 0.15)',
+                  color: '#f1f5f9',
+                  padding: '0.5rem 0.75rem',
+                  fontSize: '11px',
+                  fontFamily: 'inherit',
+                  outline: 'none'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.4)'}
+                onBlur={(e) => e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.15)'}
+              />
+              <button 
+                type="submit"
+                style={{
+                  background: '#38bdf8',
+                  color: '#090d16',
+                  border: 'none',
+                  padding: '0.5rem 1rem',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  fontFamily: 'inherit'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              >
+                SEND
+              </button>
+            </form>
+          </div>
+        )}
       </div>
     </>
   );
