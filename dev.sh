@@ -14,6 +14,19 @@ PROJECT_NAME="Artits"
 TAG_VITE="${BLUE}[VITE]${NC} "
 TAG_WORKER="${CYAN}[WORKER]${NC} "
 
+# --- Command Parsing ---
+if [ "$1" = "clean" ]; then
+    echo -e "${YELLOW}🧹 Cleaning up Artits...${NC}"
+    exit 0
+fi
+
+if [ "$1" = "install" ]; then
+    echo -e "${YELLOW}📦 Installing Artits dependencies...${NC}"
+    npm install
+    exit 0
+fi
+
+
 # --- Functions ---
 kill_port() {
     local port=$1
