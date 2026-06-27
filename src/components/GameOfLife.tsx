@@ -12,7 +12,7 @@ const GameOfLife: React.FC = () => {
     return rows;
   });
 
-  const [running, setRunning] = useState(true);
+  const running = true;
 
   const runSimulation = useCallback(() => {
     setGrid((currentGrid) => {
