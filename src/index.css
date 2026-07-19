@@ -286,3 +286,15 @@ footer {
     height: 300px;
   }
 }
+
+@keyframes scrollArrowDown {
+  0% { transform: translateZ(10px) translateY(8px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateZ(10px) translateY(16px); opacity: 0; }
+}
+
+@keyframes scrollArrowUp {
+  0% { transform: translateZ(10px) translateY(-8px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateZ(10px) translateY(-16px); opacity: 0; }
+}

@@ -535,6 +535,12 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
     }
   };
 
+  const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+    // Avoid default page scroll when interacting with the graph
+    e.preventDefault();
+    angleRef.current.x += e.deltaY * 0.005;
+  };
+
   return (
     <div 
       ref={containerRef} 
@@ -555,6 +561,7 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
+        onWheel={handleWheel}
         style={{ display: 'block', position: 'absolute', top: 0, left: 0 }}
       />
       

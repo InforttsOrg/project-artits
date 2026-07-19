@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import GameOfLife from './components/GameOfLife';
 import { MemoryGraph3D, GraphNode, INITIAL_NODES } from './components/MemoryGraph3D';
+import { Cursor3D } from './components/Cursor3D';
 
 const App: React.FC = () => {
   const [chatOpen, setChatOpen] = useState(false);
@@ -55,7 +56,7 @@ const App: React.FC = () => {
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           sender: 'system', 
-          text: data.reply || "Hi Me", 
+          text: data.reply || "Handshake successful. Secure terminal mode active. Awaiting your instruction.", 
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }]);
         setIsTyping(false);
@@ -64,7 +65,7 @@ const App: React.FC = () => {
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           sender: 'system', 
-          text: "Hi Me", 
+          text: "Secure API connection offline. Local sandbox terminal mode enabled. Awaiting your instruction.", 
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }]);
         setIsTyping(false);
@@ -406,6 +407,7 @@ const App: React.FC = () => {
           </div>
         )}
       </div>
+      <Cursor3D />
     </>
   );
 };
