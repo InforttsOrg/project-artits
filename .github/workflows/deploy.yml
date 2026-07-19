@@ -34,6 +34,13 @@ jobs:
                -H "Content-Type: application/json" \
                --data '{"name":"project-app-artits", "production_branch":"live"}' || true
 
+      - name: Update Cloudflare Pages Production Branch to live
+        run: |
+          curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/project-app-artits" \
+               -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+               -H "Content-Type: application/json" \
+               --data '{"production_branch":"live"}' || true
+
       - name: Configure Custom Domain
         run: |
           curl -X POST "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/project-app-artits/domains" \
