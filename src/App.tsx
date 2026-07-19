@@ -1,8 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import GameOfLife from './components/GameOfLife';
+import { MemoryGraph3D, GraphNode, INITIAL_NODES } from './components/MemoryGraph3D';
 
 const App: React.FC = () => {
   const [chatOpen, setChatOpen] = useState(false);
+  const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
+
+  const handleSelectNodeById = (id: string) => {
+    const node = INITIAL_NODES.find(n => n.id === id);
+    if (node) {
+      setSelectedNode({
+        ...node,
+        x: 0, y: 0, z: 0
+      } as GraphNode);
+      document.getElementById('memory-graph-section')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const [messages, setMessages] = useState<{ sender: 'user' | 'system', text: string, time: string }[]>([
     { sender: 'system', text: 'ARTITS AI Terminal Initialized. Ready for authorization handshake.', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
   ]);
@@ -106,7 +120,7 @@ const App: React.FC = () => {
         <section className="component">
           <div className="label">PRODUCTION_SYSTEMS (LIVE)</div>
           <div className="node-grid">
-            <div className="node">
+            <div className="node" style={{ cursor: 'pointer' }} onClick={() => handleSelectNodeById('roost')}>
               <div>
                 <div className="node-title">ROOST</div>
                 <p className="node-desc">Integrated property management ecosystem with dedicated Tenant and Manager applications. High-scale multi-tenant architecture.</p>
@@ -118,7 +132,7 @@ const App: React.FC = () => {
                 <span className="tag">GCP</span>
               </div>
             </div>
-            <div className="node">
+            <div className="node" style={{ cursor: 'pointer' }} onClick={() => handleSelectNodeById('shadow_labs')}>
               <div>
                 <div className="node-title">SHADOW_LABS</div>
                 <p className="node-desc">Autonomous marketing engine for e-commerce. Features AI-driven asset generation and real-time inventory synchronization.</p>
@@ -130,7 +144,7 @@ const App: React.FC = () => {
                 <span className="tag">AI</span>
               </div>
             </div>
-            <div className="node">
+            <div className="node" style={{ cursor: 'pointer' }} onClick={() => handleSelectNodeById('meeseeks')}>
               <div>
                 <div className="node-title">MEESEEKS</div>
                 <p className="node-desc">A self-evolving network of autonomous agents designed for complex task orchestration and deployment automation.</p>
@@ -141,7 +155,7 @@ const App: React.FC = () => {
                 <span className="tag">LLM</span>
               </div>
             </div>
-            <div className="node">
+            <div className="node" style={{ cursor: 'pointer' }} onClick={() => handleSelectNodeById('bighit_cloud')}>
               <div>
                 <div className="node-title">BIGHIT_CLOUD</div>
                 <p className="node-desc">Cloud infrastructure optimization project resulting in an 80% reduction in footprint for a major sports platform.</p>
@@ -155,26 +169,50 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        <section className="component">
-          <div className="label">TECHNICAL_GRAPH (rttss-sahil)</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
-            <div className="node" style={{ minHeight: 'auto' }}>
-              <div style={{ fontWeight: 700, marginBottom: '1rem' }}>.core()</div>
-              <p style={{ color: '#666', fontSize: '10px' }}>
-                TYPESCRIPT, GO, PYTHON, DART, RUST, KOTLIN
-              </p>
+        <section className="component" id="memory-graph-section">
+          <div className="label">MEMORY_GRAPH_3D // SKILLS_AND_PROJECTS</div>
+          <div className="graph-3d-layout">
+            <div className="graph-3d-panel">
+              <MemoryGraph3D onSelectNode={setSelectedNode} activeNode={selectedNode} />
             </div>
-            <div className="node" style={{ minHeight: 'auto' }}>
-              <div style={{ fontWeight: 700, marginBottom: '1rem' }}>.infra()</div>
-              <p style={{ color: '#666', fontSize: '10px' }}>
-                AWS, GCP, SUPABASE, KUBERNETES, TERRAFORM
-              </p>
-            </div>
-            <div className="node" style={{ minHeight: 'auto' }}>
-              <div style={{ fontWeight: 700, marginBottom: '1rem' }}>.automation()</div>
-              <p style={{ color: '#666', fontSize: '10px' }}>
-                PLAYWRIGHT, PUPPETEER, CRON_ORCHESTRATION
-              </p>
+            <div className="graph-3d-details">
+              {selectedNode ? (
+                <>
+                  <div className="details-header">
+                    <div className="details-subtitle">{selectedNode.type === 'project' ? 'PROJECT_DOCUMENTATION' : 'SKILL_METRICS'}</div>
+                    <div className="details-title" style={{ color: selectedNode.type === 'project' ? 'var(--fg)' : 'var(--active)' }}>
+                      {selectedNode.label}
+                    </div>
+                    {selectedNode.status && (
+                      <span className="details-badge">STATUS: {selectedNode.status}</span>
+                    )}
+                  </div>
+                  <div className="details-body">
+                    <p style={{ fontWeight: 700, marginBottom: '1.2rem', fontSize: '11px' }}>{selectedNode.desc}</p>
+                    <p style={{ color: '#555', lineHeight: '1.6' }}>{selectedNode.details}</p>
+                    
+                    {selectedNode.link && (
+                      <a 
+                        href={selectedNode.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="details-link"
+                      >
+                        ACCESS LIVE PLATFORM &rarr;
+                      </a>
+                    )}
+                    {selectedNode.localPath && (
+                      <div style={{ marginTop: '1.5rem', fontSize: '9px', color: '#888', fontFamily: 'monospace' }}>
+                        MONOREPO TARGET: <span style={{ color: '#444' }}>./{selectedNode.localPath}</span>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div style={{ margin: 'auto', textAlign: 'center', color: '#888', fontSize: '10px', fontFamily: 'monospace' }}>
+                  [SELECT_NODE_IN_3D_GRAPH_TO_QUERY_DOCUMENTATION]
+                </div>
+              )}
             </div>
           </div>
         </section>
