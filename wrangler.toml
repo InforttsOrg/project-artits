@@ -1,0 +1,12 @@
+name = "project-app-artits"
+compatibility_date = "2024-04-23"
+pages_build_output_dir = "dist"
+
+# KV namespace used by functions/api/memories.ts (MEMORIES_KV).
+# Replace the id with the real namespace id from the Cloudflare dashboard.
+[[kv_namespaces]]
+binding = "MEMORIES_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+# Add any environment variables here

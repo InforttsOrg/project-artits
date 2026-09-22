@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "date": "2026-05-01",
+        "title": "Architecting the Autonomous Job Agent",
+        "content": "Today I spent hours figuring out how to make a job search agent truly autonomous. The challenge was handling different DOM structures across multiple job boards. I ended up using a modular scraper pattern in Playwright. It felt great to see the logs start rolling in with matching roles.",
+        "status": "pending"
+    },
+    {
+        "id": "2",
+        "date": "2026-04-28",
+        "title": "The 80% Reduction Challenge",
+        "content": "Refactored a massive legacy infrastructure. Switched from manual EC2 management to full Infrastructure as Code with AWS. The application size dropped by 80% and latency went down by 60%. It was a lesson in the power of modern cloud abstractions.",
+        "status": "pending"
+    },
+    {
+        "id": "3",
+        "date": "2024-01-01",
+        "title": "Infortts Foundation & MSME Registration",
+        "content": "Infortts is officially registered under MSME. Director: Sahil Rathee. Artits is initialized as Sahil's second brain on his local systems and VPS. The network is configured to maintain 24/7 connectivity to Sahil's paired Samsung S24 Ultra and rooted Redmi Note 10 Pro via infortts.site.",
+        "status": "completed"
+    }
+]
