@@ -77,8 +77,8 @@ const App: React.FC = () => {
     { name: 'GITHUB', url: 'https://github.com/rttss-sahil' },
     { name: 'X.COM', url: 'https://x.com/rttss_sahil' },
     { name: 'LINKEDIN', url: 'https://www.linkedin.com/in/rttss-sahil' },
-    { name: 'LEETCODE', url: 'https://leetcode.com/rttss-sahil' },
-    { name: 'STACKOVERFLOW', url: 'https://stackoverflow.com/users/rttss-sahil' }
+    { name: 'RESUME', url: '/Sahil-Rathee-Resume.pdf' },
+    { name: 'FORTHJANTA', url: 'https://github.com/rttss-sahil/root' }
   ];
 
   return (
@@ -94,19 +94,19 @@ const App: React.FC = () => {
             {socials.slice(0, 3).map(s => (
               <a key={s.name} href={s.url} style={{ color: 'inherit', textDecoration: 'none' }}>{s.name}</a>
             ))}
+            <a href="/Sahil-Rathee-Resume.pdf" style={{ color: 'var(--active)', textDecoration: 'none' }}>RESUME.PDF</a>
           </div>
         </div>
 
         <section className="component">
           <div className="label">IDENTITY_MANIFEST</div>
-          <h1>SAHIL<br />RATHEE<span style={{ fontSize: '1rem', verticalAlign: 'top', marginLeft: '1rem', color: 'var(--active)' }}>PROD_READY</span></h1>
+          <h1>SAHIL<br />RATHEE<span style={{ fontSize: '1rem', verticalAlign: 'top', marginLeft: '1rem', color: 'var(--active)' }}>OPEN_TO_WORK</span></h1>
           <p style={{ maxWidth: '700px', fontSize: '1.2rem', marginTop: '2rem', color: '#444' }}>
-            Full-stack Software Architect specializing in autonomous systems,
-            high-availability cloud fabrics, and production-scale automation.
-            Known across the stack as <strong>rttss-sahil</strong>.
+            Backend & Infrastructure Engineer specializing in Go, Kubernetes,
+            real-time event streaming, and AI-agent orchestration. Known across the stack as <strong>rttss-sahil</strong>.
           </p>
           <p style={{ maxWidth: '700px', fontSize: '1.0rem', marginTop: '1rem', color: '#666', lineHeight: '1.6' }}>
-            Senior Software Engineer and AI Architect with over 4 years of experience specializing in high-performance trading systems, agentic workflows, and scalable cloud infrastructure. Proven history of optimizing infrastructure footprints, streamlining e-commerce engines, and engineering robust financial integrations.
+            Go • Python • Kubernetes • Terraform • Ansible • NATS • PostgreSQL • Cloudflare Workers
           </p>
         </section>
 
@@ -140,7 +140,7 @@ const App: React.FC = () => {
               <div className="node-tags">
                 <span className="tag">NODE.JS</span>
                 <span className="tag">DOCKER</span>
-                <span className="tag">SUPABASE</span>
+                <span className="tag">GLYCOCALYX</span>
                 <span className="tag">AI</span>
               </div>
             </div>
