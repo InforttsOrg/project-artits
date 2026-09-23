@@ -14,6 +14,11 @@ NC='\033[0m' # No Color
 
 echo -e "${CYAN}🧬 Artits Release Validation Igniting...${NC}"
 
+TEST_ONLY=0
+if [ "${1:-}" = "--test-only" ]; then
+    TEST_ONLY=1
+fi
+
 # 1. Versioning Check & Bootstrap
 VERSION_FILE=".version"
 if [ ! -f "$VERSION_FILE" ]; then
@@ -34,6 +39,11 @@ if ! npm run build > /dev/null 2>&1; then
     exit 1
 fi
 echo -e "${GREEN}✅ Build compiled successfully.${NC}"
+
+if [ "$TEST_ONLY" = "1" ]; then
+    echo -e "${GREEN}✅ validate-release.sh: PASS (--test-only, no version bump)${NC}"
+    exit 0
+fi
 
 # 3. Bump version on successful validation (Epoch.Major.Minor concept)
 IFS='.' read -r epoch major minor <<< "$CURRENT_VERSION"
