@@ -45,7 +45,17 @@ stage('Cloudflare: artits') {
           }
         }
         script {
-          sh "curl -sf -o /dev/null --max-time 20 https://artits.workers.dev && echo LIVECHECK_OK || echo LIVECHECK_WARN"
+          def liveCheck = sh(script: "curl -sf -o /dev/null --max-time 20 https://artits.workers.dev && echo LIVECHECK_OK || echo LIVECHECK_WARN", returnStdout: true)?.trim()
+          try {
+            def common = load 'ci/jenkins-common.groovy'
+            common.updateBuildSummary([action: 'cloudflare', new_version: "worker-artits-${BUILD_NUMBER}"], [
+              web: "✅ Cloudflare Worker (https://artits.workers.dev)",
+              backend: "Cloudflare Edge",
+              health: liveCheck == 'LIVECHECK_OK' ? "🟢 LIVECHECK_OK (https://artits.workers.dev)" : "⚠️ LIVECHECK_WARN"
+            ])
+          } catch (Exception e) {
+            echo "Cloudflare summary notice: ${e.message}"
+          }
         }
       }
     }
