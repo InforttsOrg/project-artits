@@ -18,7 +18,7 @@ const App: React.FC = () => {
   };
 
   const [messages, setMessages] = useState<{ sender: 'user' | 'system', text: string, time: string }[]>([
-    { sender: 'system', text: 'Hi, I am Sahil\'s AI assistant. Ask me about his architecture work, production systems, or tech stack.', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+    { sender: 'system', text: 'Hi, I am Sahil\'s AI assistant. Ask me about his architecture work, financial engineering, or agentic AI workflows.', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
   ]);
   const [inputVal, setInputVal] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -54,7 +54,7 @@ const App: React.FC = () => {
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           sender: 'system', 
-          text: data.reply || "Sahil is a Backend & Infrastructure Engineer specializing in Go, Kubernetes, real-time distributed pipelines, and AI agent orchestration.", 
+          text: data.reply || "Sahil is a Senior Software Engineer & AI Architect with 4+ years of experience across Financial Systems Engineering, Scalable Cloud Infrastructure, and Agentic AI workflows.", 
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }]);
         setIsTyping(false);
@@ -63,7 +63,7 @@ const App: React.FC = () => {
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           sender: 'system', 
-          text: "Sahil specializes in Go, Kubernetes, real-time streaming, and autonomous multi-agent orchestration. Check out his featured production systems above!", 
+          text: "Sahil specializes in Go, Kubernetes, real-time distributed systems, and agentic AI orchestration (70% RAG cost optimization). Check out his featured production systems above!", 
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }]);
         setIsTyping(false);
@@ -80,38 +80,40 @@ const App: React.FC = () => {
 
   const featuredProjects = [
     {
+      id: 'mitochondria',
+      title: 'ZENITH & MITOCHONDRIA',
+      subtitle: 'Autonomous Forensic Trading Workstation',
+      desc: 'High-frequency algorithmic execution pipeline integrated with MetaTrader 5, NATS JetStream telemetry, real-time vector market analytics, and sub-millisecond in-memory ring buffers.',
+      tags: ['Python', 'MetaTrader 5', 'NATS', 'Qdrant', 'WebSockets', 'Flutter']
+    },
+    {
       id: 'roost',
       title: 'ROOST',
-      subtitle: 'Multi-Tenant Property Management Ecosystem',
-      desc: 'High-scale property management platform with dedicated tenant & manager suites, event-driven ledger, and real-time payment reconciliation.',
-      tags: ['Flutter', 'Go', 'PostgreSQL', 'GCP', 'Redis']
+      subtitle: 'Multi-Tenant Property Management SaaS',
+      desc: 'High-scale property & tenant management platform with automated payment escrow, GST-compliant financial ledger, and real-time transaction reconciliation.',
+      tags: ['Flutter', 'Go', 'PostgreSQL', 'GCP', 'Redis', 'Docker']
     },
     {
       id: 'meeseeks',
       title: 'MEESEEKS',
       subtitle: 'Autonomous AI Agent Swarm',
-      desc: 'Self-evolving multi-agent orchestration engine handling autonomous task planning, codebase refactoring, tool dispatch, and live deployments.',
-      tags: ['Python', 'FastAPI', 'Playwright', 'LLMs', 'Docker']
-    },
-    {
-      id: 'mitochondria',
-      title: 'MITOCHONDRIA',
-      subtitle: 'High-Throughput Algorithmic Execution',
-      desc: 'Micro-second in-memory tick cache and quantitative analysis pipeline processing continuous market telemetry with strict zero-loss risk gates.',
-      tags: ['Python', 'FastAPI', 'MetaTrader 5', 'Ring Buffers', 'SIEM']
+      desc: 'Self-evolving multi-agent orchestration engine handling autonomous task planning, codebase refactoring, tool dispatch, and live deployments with 70% reduced RAG token overhead.',
+      tags: ['Python', 'FastAPI', 'Playwright', 'LLMs', 'LangChain', 'Docker']
     },
     {
       id: 'bighit_cloud',
       title: 'BIGHIT CLOUD',
       subtitle: 'Cloud Infrastructure Modernization',
-      desc: 'High-availability Kubernetes and Terraform infrastructure architecture that reduced cloud operating footprint by 80% with zero downtime.',
-      tags: ['AWS', 'Terraform', 'Kubernetes', 'NATS', 'Zero-Spend']
+      desc: 'High-availability Kubernetes and AWS IaC architecture that reduced application bundle footprint by 80% and increased server efficiency by 60% with zero downtime.',
+      tags: ['AWS', 'Kubernetes', 'Terraform', 'Neptune', 'OpenSearch', 'NATS']
     }
   ];
 
   const skillsList = [
-    'Go', 'Python', 'Kubernetes', 'Terraform', 'Ansible', 'NATS', 'PostgreSQL', 'Redis', 'Docker', 'Cloudflare Workers', 'TypeScript', 'Flutter'
+    'Go', 'Python', 'TypeScript', 'Dart / Flutter', 'Kotlin', 'Kubernetes', 'Terraform', 'AWS', 'GCP', 'NATS', 'PostgreSQL', 'Redis', 'Qdrant', 'LangChain', 'Docker', 'Cloudflare Workers'
   ];
+
+  const resumeDocUrl = "https://docs.google.com/document/d/1cH4O32ABivQJ9m8zq35eX5fmPF60pcQVI9gA2JWdcEk/edit?usp=sharing";
 
   return (
     <div className="portfolio-wrapper">
@@ -123,7 +125,7 @@ const App: React.FC = () => {
         <header className="top-nav">
           <div className="status-indicator">
             <span className="live-dot"></span>
-            <span className="status-text">Sahil Rathee <span className="text-slate-500">•</span> <span className="status-sub">Available for Select Roles</span></span>
+            <span className="status-text">Sahil Rathee <span className="text-slate-500">•</span> <span className="status-sub">Available for Senior & Staff Roles</span></span>
           </div>
           <nav className="nav-links">
             {socials.map(s => (
@@ -131,8 +133,11 @@ const App: React.FC = () => {
                 {s.name}
               </a>
             ))}
+            <a href={resumeDocUrl} target="_blank" rel="noopener noreferrer" className="nav-link">
+              Google Doc ↗
+            </a>
             <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer" className="resume-btn">
-              Resume ↗
+              Download Resume PDF ↗
             </a>
           </nav>
         </header>
@@ -150,8 +155,8 @@ const App: React.FC = () => {
           </div>
 
           <p className="hero-bio">
-            Backend & Infrastructure Engineer specializing in <strong>Go</strong>, <strong>Kubernetes</strong>, 
-            real-time distributed event streaming, and <strong>autonomous AI agent orchestration</strong>.
+            Senior Software Engineer & AI Architect with <strong>4+ years of experience</strong> at the intersection of 
+            <strong> Financial Systems Engineering</strong>, <strong>Distributed Cloud Infrastructure</strong>, and <strong>Agentic AI Workflows</strong>.
           </p>
 
           <div className="skills-pill-row">
@@ -168,6 +173,7 @@ const App: React.FC = () => {
           <div className="section-header">
             <span className="section-label">Selected Work</span>
             <h2 className="section-title">Production Systems & Architecture</h2>
+            <p className="section-desc">Key engineering initiatives architected and scaled across financial engineering, real-time distributed streaming, and autonomous multi-agent swarms.</p>
           </div>
 
           <div className="cards-grid">
@@ -276,7 +282,7 @@ const App: React.FC = () => {
               href="mailto:sahil.artits.rathee@gmail.com" 
               className="connect-card"
             >
-              <span className="connect-name">Email</span>
+              <span className="connect-name">Email (sahil.artits.rathee@gmail.com)</span>
               <span className="connect-arrow">↗</span>
             </a>
           </div>
@@ -284,7 +290,7 @@ const App: React.FC = () => {
 
         {/* Footer */}
         <footer className="footer-bar">
-          <div>© {new Date().getFullYear()} Sahil Rathee • Backend & Infrastructure</div>
+          <div>© {new Date().getFullYear()} Sahil Rathee • Senior Software Engineer & AI Architect</div>
           <div>New Delhi, India</div>
         </footer>
       </div>
