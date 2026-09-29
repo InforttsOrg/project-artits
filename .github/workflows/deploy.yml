@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - live
+      - main
   workflow_dispatch:
 
 concurrency:
@@ -21,39 +22,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          channel: stable
-          cache: true
+          version: 9
 
-      - name: Resolve dependencies
-        working-directory: dashboard
-        run: flutter pub get
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
-      - name: Analyze
-        working-directory: dashboard
-        run: flutter analyze --no-fatal-infos
-
-      - name: Test
-        working-directory: dashboard
-        run: flutter test
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
-        working-directory: dashboard
-        run: flutter build web --release
-
-      # `wrangler.toml` pins pages_build_output_dir to "dist", so the Flutter
-      # bundle is staged there. The Pages Functions under functions/ are picked
-      # up separately by wrangler and are left untouched.
-      - name: Stage build output
-        run: |
-          rm -rf dist
-          mkdir -p dist
-          cp -R dashboard/build/web/. dist/
-          test -f dist/index.html
-          test -f dist/assets/og-image.png
-          test -f functions/api/ai.ts
+        run: pnpm run build
 
       - name: Create Cloudflare Pages Project (if missing)
         run: |
