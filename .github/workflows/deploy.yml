@@ -21,11 +21,39 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm install
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Resolve dependencies
+        working-directory: dashboard
+        run: flutter pub get
+
+      - name: Analyze
+        working-directory: dashboard
+        run: flutter analyze --no-fatal-infos
+
+      - name: Test
+        working-directory: dashboard
+        run: flutter test
 
       - name: Build
-        run: npm run build
+        working-directory: dashboard
+        run: flutter build web --release
+
+      # `wrangler.toml` pins pages_build_output_dir to "dist", so the Flutter
+      # bundle is staged there. The Pages Functions under functions/ are picked
+      # up separately by wrangler and are left untouched.
+      - name: Stage build output
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp -R dashboard/build/web/. dist/
+          test -f dist/index.html
+          test -f dist/assets/og-image.png
+          test -f functions/api/ai.ts
 
       - name: Create Cloudflare Pages Project (if missing)
         run: |
@@ -46,7 +74,7 @@ jobs:
           curl -X POST "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/project-app-artits/domains" \
                -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
                -H "Content-Type: application/json" \
-               --data '{"name":"artits.infortts.com"}' || true
+               --data '{"name":"artits.infortts.site"}' || true
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3

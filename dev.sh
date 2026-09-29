@@ -10,8 +10,10 @@ CYAN='\x1b[36m'
 YELLOW='\x1b[33m'
 NC='\x1b[0m' # No Color
 
+export PATH="$HOME/flutter/bin:$PATH"
+
 PROJECT_NAME="Artits"
-TAG_VITE="${BLUE}[VITE]${NC} "
+TAG_VITE="${BLUE}[FLUTTER]${NC} "
 TAG_WORKER="${CYAN}[WORKER]${NC} "
 
 # --- Command Parsing ---
@@ -22,7 +24,16 @@ fi
 
 if [ "$1" = "install" ]; then
     echo -e "${YELLOW}📦 Installing Artits dependencies...${NC}"
-    npm install
+    (cd dashboard && flutter pub get)
+    exit 0
+fi
+
+if [ "$1" = "build" ]; then
+    echo -e "${YELLOW}🏗️  Building Flutter dashboard...${NC}"
+    (cd dashboard && flutter build web --release)
+    rm -rf dist && mkdir -p dist
+    cp -R dashboard/build/web/. dist/
+    echo -e "${GREEN}✅ Staged Flutter build into dist/${NC}"
     exit 0
 fi
 
@@ -54,14 +65,16 @@ echo -e "${CYAN}🚀 Manifesting ${PROJECT_NAME} Environment...${NC}"
 kill_port 5173
 kill_port 8787
 
-# 1. Start Vite
-echo -e "${TAG_VITE}Launching Artits Frontend..."
-(npm run dev 2>&1 | sed "s/^/$TAG_VITE/") &
+# 1. Flutter dashboard (web dev server)
+echo -e "${TAG_VITE}Launching Artits Flutter dashboard..."
+(cd dashboard && flutter run -d web-server --web-port 5173 2>&1 | sed "s/^/$TAG_VITE/") &
 
-# 2. Start Wrangler (if applicable)
-if [ -f "wrangler.toml" ]; then
-    echo -e "${TAG_WORKER}Launching Cloudflare Worker locally..."
-    (npx wrangler dev 2>&1 | sed "s/^/$TAG_WORKER/") &
+# 2. Pages Functions + a built copy of the app, if one has been staged
+if [ -f "wrangler.toml" ] && [ -f "dist/index.html" ]; then
+    echo -e "${TAG_WORKER}Launching Cloudflare Pages Functions locally..."
+    (npx wrangler pages dev dist --port 8787 2>&1 | sed "s/^/$TAG_WORKER/") &
+elif [ -f "wrangler.toml" ]; then
+    echo -e "${YELLOW}⚠️  Run './dev.sh build' first to serve Functions via wrangler.${NC}"
 fi
 
 echo -e "${BLUE}⌨️  Press Ctrl+C to stop all services.${NC}"

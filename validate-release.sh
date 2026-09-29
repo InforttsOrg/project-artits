@@ -22,17 +22,41 @@ fi
 CURRENT_VERSION=$(cat "$VERSION_FILE" | tr -d '[:space:]')
 echo -e "${YELLOW}🔍 Current Version: v$CURRENT_VERSION${NC}"
 
-# 2. Frontend Production Build Verification
-echo -e "${YELLOW}📦 Verifying Frontend & Pages Production compilation...${NC}"
-if [ ! -d "node_modules" ]; then
-    echo -e "${YELLOW}📥 Installing dependencies...${NC}"
-    npm install > /dev/null 2>&1
+# 2. Frontend Production Build Verification (Flutter dashboard)
+echo -e "${YELLOW}📦 Verifying Flutter dashboard & Pages Functions...${NC}"
+
+export PATH="$HOME/flutter/bin:$PATH"
+
+if ! (cd dashboard && flutter pub get) > /dev/null 2>&1; then
+    echo -e "${RED}❌ Artits dependency resolution failed! Release rejected.${NC}"
+    exit 1
 fi
 
-if ! npm run build > /dev/null 2>&1; then
+if ! (cd dashboard && flutter analyze) > /dev/null 2>&1; then
+    echo -e "${RED}❌ Artits analysis failed! Release rejected.${NC}"
+    (cd dashboard && flutter analyze) || true
+    exit 1
+fi
+
+if ! (cd dashboard && flutter test) > /dev/null 2>&1; then
+    echo -e "${RED}❌ Artits tests failed! Release rejected.${NC}"
+    (cd dashboard && flutter test) || true
+    exit 1
+fi
+
+if ! (cd dashboard && flutter build web --release) > /dev/null 2>&1; then
     echo -e "${RED}❌ Artits build failed! Release rejected.${NC}"
     exit 1
 fi
+
+# Stage into dist/, the dir wrangler.toml publishes. Pages Functions under
+# functions/ are deployed alongside by wrangler and must remain in place.
+rm -rf dist
+mkdir -p dist
+cp -R dashboard/build/web/. dist/
+test -f dist/index.html || { echo -e "${RED}❌ dist/index.html missing.${NC}"; exit 1; }
+test -f functions/api/ai.ts || { echo -e "${RED}❌ functions/api/ai.ts missing.${NC}"; exit 1; }
+
 echo -e "${GREEN}✅ Build compiled successfully.${NC}"
 
 # 3. Bump version on successful validation (Epoch.Major.Minor concept)
