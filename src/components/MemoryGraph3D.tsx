@@ -9,6 +9,7 @@ export interface GraphNode {
   link?: string;
   localPath?: string;
   status?: string;
+  color?: string;
   x: number;
   y: number;
   z: number;
@@ -16,6 +17,7 @@ export interface GraphNode {
   px?: number;
   py?: number;
   pSize?: number;
+  z2?: number;
 }
 
 export interface GraphLink {
@@ -24,7 +26,7 @@ export interface GraphLink {
 }
 
 export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
-  // PROJECTS
+  // PROJECTS (Vibrant Cyan / Emerald / Sapphire)
   {
     id: 'meeseeks',
     label: 'Meeseeks',
@@ -32,7 +34,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Autonomous AI Agent Swarm',
     details: 'A self-evolving network of autonomous agents designed for complex task orchestration and deployment automation. Employs token optimization, dynamic model routing (Haiku/Sonnet/Opus), and agentic sandboxing.',
     link: 'https://meeseeks.infortts.site',
-    status: 'Active'
+    status: 'Active',
+    color: '#00f3ff'
   },
   {
     id: 'mitochondria',
@@ -41,7 +44,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'High-Frequency Forensics',
     details: 'Nanosecond-latency execution pipeline providing resources (hardware, capital) to the Infortts cell. Incorporates real-time Forex, currency, and commodity backtesting at 3-minute intervals using vector-search analytics.',
     link: 'https://forensics.infortts.site',
-    status: 'Active'
+    status: 'Active',
+    color: '#10b981'
   },
   {
     id: 'kimberella',
@@ -50,7 +54,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Wealth & UPI Engine',
     details: 'Private, encrypted transaction manager providing a holistic view of historical financial data, assets, and liabilities. Employs vector indices for semantic transaction search and a clean Flutter daily-drive interface.',
     localPath: 'projects/kimberella',
-    status: 'In Progress'
+    status: 'In Progress',
+    color: '#06b6d4'
   },
   {
     id: 'grypania',
@@ -59,7 +64,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Spotify AI Recommender',
     details: 'Edge-compute Cloudflare Worker suggesting music based on Spotify history using OpenRouter LLMs. Built with a high-performance C++ Core library for preference analysis.',
     link: 'https://grypania.infortts.site',
-    status: 'Initialized'
+    status: 'Initialized',
+    color: '#22c55e'
   },
   {
     id: 'ediacara',
@@ -68,7 +74,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Market Sentiment Symphony',
     details: 'Real-time market sentiment orchestrator. Cloudflare Worker generating procedural classical music driven by global ticker sentiment signals via Web Audio API.',
     link: 'https://ediacara.infortts.site',
-    status: 'Initialized'
+    status: 'Initialized',
+    color: '#38bdf8'
   },
   {
     id: 'dickinsonia',
@@ -77,7 +84,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Universal Volume Control',
     details: 'Cross-device nearby Bluetooth discovery and synchronized volume controls. Features a glassmorphism device grid with active device volume sliders.',
     localPath: 'projects/dickinsonia',
-    status: 'Started'
+    status: 'Started',
+    color: '#14b8a6'
   },
   {
     id: 'care4u',
@@ -86,7 +94,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Healthcare Operations & Escrow',
     details: 'Event-driven, serverless healthcare booking platform. Built with Go serverless handlers, PostgreSQL, and secure escrow payment integrations.',
     link: 'https://care4u.infortts.site',
-    status: 'Active'
+    status: 'Active',
+    color: '#0ea5e9'
   },
   {
     id: 'lexi',
@@ -95,7 +104,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Salon B2B E-commerce',
     details: 'Complex headless e-commerce ecosystem built on Next.js 14 and Medusa.js, managing dark stores, point-of-sale systems, and salon supplier inventories.',
     link: 'https://github.com/InforttsOrg/project-lexi',
-    status: 'Active'
+    status: 'Active',
+    color: '#3b82f6'
   },
   {
     id: 'spark',
@@ -104,7 +114,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Premium Dating Platform',
     details: 'High-concurrency matching monolith utilizing Go, Kafka, WebSockets, and Flutter. Features real-time location awareness and activity maps.',
     localPath: 'projects/spark',
-    status: 'Active'
+    status: 'Active',
+    color: '#f43f5e'
   },
   {
     id: 'artits',
@@ -113,7 +124,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Portfolio & Resume Engine',
     details: 'Sahil Rathee\'s personal portfolio. Serves as a dynamic, web-native resume with on-demand Playwright-based PDF print script and autonomous job application agents.',
     link: 'https://artits.infortts.site',
-    status: 'Production'
+    status: 'Production',
+    color: '#a855f7'
   },
   {
     id: 'roost',
@@ -121,7 +133,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Property Management Ecosystem',
     details: 'Integrated property management ecosystem with dedicated Tenant and Manager applications. High-scale multi-tenant architecture utilizing Flutter, Dart, Firebase, and Google Cloud Platform.',
-    status: 'Active'
+    status: 'Active',
+    color: '#8b5cf6'
   },
   {
     id: 'shadow_labs',
@@ -129,7 +142,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Autonomous Marketing Engine',
     details: 'Autonomous marketing engine for e-commerce. Features AI-driven asset generation and real-time inventory synchronization, built on Node.js, Docker, Glycocalyx, and AI.',
-    status: 'Active'
+    status: 'Active',
+    color: '#ec4899'
   },
   {
     id: 'bighit_cloud',
@@ -137,78 +151,89 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Cloud Infrastructure Optimization',
     details: 'Cloud infrastructure optimization project resulting in an 80% reduction in footprint for a major sports platform. Engineered using AWS, Terraform, and Kubernetes.',
-    status: 'Active'
+    status: 'Active',
+    color: '#6366f1'
   },
-  // SKILLS
+  // SKILLS (Luminous Neon Violet / Electric Amber / Laser Mint)
   {
     id: 'cpp',
     label: 'C++',
     type: 'skill',
     desc: 'Low-latency Core Systems',
-    details: 'The mandated backend language for all high-performance and latency-critical Infortts systems (Mitochondria, Grypania Core, Ediacara Composition).'
+    details: 'The mandated backend language for all high-performance and latency-critical Infortts systems (Mitochondria, Grypania Core, Ediacara Composition).',
+    color: '#60a5fa'
   },
   {
     id: 'go',
     label: 'Go (Golang)',
     type: 'skill',
     desc: 'Microservices & Orchestration',
-    details: 'Efficient concurrency programming used for service orchestrators, serverless booking (Care4u), transaction normalization (Kimberella), and scaling (Spark).'
+    details: 'Efficient concurrency programming used for service orchestrators, serverless booking (Care4u), transaction normalization (Kimberella), and scaling (Spark).',
+    color: '#00f3ff'
   },
   {
     id: 'python',
     label: 'Python',
     type: 'skill',
     desc: 'AI Cores & Data Ingestion',
-    details: 'Utilized for AI workflows, heavy calculations, and RAG execution (Meeseeks agent swarm, Mitochondria Zenith backtesting, Kimberella document extraction).'
+    details: 'Utilized for AI workflows, heavy calculations, and RAG execution (Meeseeks agent swarm, Mitochondria Zenith backtesting, Kimberella document extraction).',
+    color: '#facc15'
   },
   {
     id: 'flutter',
     label: 'Dart / Flutter',
     type: 'skill',
     desc: 'Native Cross-Platform UI',
-    details: 'Primary client development stack for premium fluid user interfaces (Mitochondria Zenith UI, Kimberella dashboard, Dickinsonia APK, Spark mobile client).'
+    details: 'Primary client development stack for premium fluid user interfaces (Mitochondria Zenith UI, Kimberella dashboard, Dickinsonia APK, Spark mobile client).',
+    color: '#38bdf8'
   },
   {
     id: 'react',
     label: 'React / Vite',
     type: 'skill',
     desc: 'Web Dashboards',
-    details: 'Default framework for web-based control centers and management interfaces (Cardiodictyon panel, Artits portfolio).'
+    details: 'Default framework for web-based control centers and management interfaces (Cardiodictyon panel, Artits portfolio).',
+    color: '#22d3ee'
   },
   {
     id: 'cloudflare',
     label: 'Cloudflare Workers',
     type: 'skill',
     desc: 'Edge serverless & deployment',
-    details: 'Serverless deployment at the edge, routing gateways, and audio processors (Grypania recommender, Ediacara audio worker, Artits deployment).'
+    details: 'Serverless deployment at the edge, routing gateways, and audio processors (Grypania recommender, Ediacara audio worker, Artits deployment).',
+    color: '#fb923c'
   },
   {
     id: 'qdrant',
     label: 'Qdrant Vector DB',
     type: 'skill',
     desc: 'Vector Search & AI Memory',
-    details: 'Powering semantic transaction indexing, LLM chat history embeddings, and AI agent memory storage.'
+    details: 'Powering semantic transaction indexing, LLM chat history embeddings, and AI agent memory storage.',
+    color: '#e879f9'
   },
   {
     id: 'nats',
     label: 'NATS JetStream',
     type: 'skill',
     desc: 'Event-Driven Messaging Bus',
-    details: 'The shared high-speed messaging backbone allowing microservices in the monorepo to communicate asynchronously and efficiently.'
+    details: 'The shared high-speed messaging backbone allowing microservices in the monorepo to communicate asynchronously and efficiently.',
+    color: '#4ade80'
   },
   {
     id: 'docker',
     label: 'Docker & Swarms',
     type: 'skill',
     desc: 'Infrastructure Isolation',
-    details: 'Container isolation to guarantee database security (no exposed host ports except through reverse proxies like Caddy or local Adminer).'
+    details: 'Container isolation to guarantee database security (no exposed host ports except through reverse proxies like Caddy or local Adminer).',
+    color: '#38bdf8'
   },
   {
     id: 'terraform',
     label: 'Terraform IaC',
     type: 'skill',
     desc: 'Infrastructure as Code',
-    details: 'Automated provisioning of core infrastructure, clusters, and databases across AWS, GCP, and Postgres.'
+    details: 'Automated provisioning of core infrastructure, clusters, and databases across AWS, GCP, and Postgres.',
+    color: '#a78bfa'
   }
 ];
 
@@ -255,14 +280,19 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [nodes, setNodes] = useState<GraphNode[]>([]);
-  const rotationRef = useRef({ x: 0.005, y: 0.005 }); // Auto-rotation speed
-  const angleRef = useRef({ x: 0, y: 0 }); // Current rotation angles
-  const mouseRef = useRef({ isDown: false, startX: 0, startY: 0, x: 0, y: 0 });
+  
+  // Rotation and kinetic drag physics
+  const angleRef = useRef({ x: 0.2, y: 0.4 });
+  const velocityRef = useRef({ vx: 0.002, vy: 0.002 });
+  const isInteractingRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0, time: 0 });
+  const mousePosRef = useRef({ x: -999, y: -999 });
   const hoveredNodeIdRef = useRef<string | null>(null);
+  const pulsePhaseRef = useRef(0);
 
   // Initialize node 3D coordinates evenly on a sphere (Fibonacci lattice)
   useEffect(() => {
-    const radius = 170;
+    const radius = 175;
     const count = INITIAL_NODES.length;
     const generated: GraphNode[] = INITIAL_NODES.map((n, i) => {
       const phi = Math.acos(1 - 2 * (i + 0.5) / count);
@@ -285,13 +315,15 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
     if (!ctx) return;
 
     let animationId: number;
-    const fov = 350; // Field of view
-    const nodeBaseSize = 6;
+    const fov = 380; // Field of view
+    const nodeBaseSize = 7;
 
     const resizeCanvas = () => {
       const rect = containerRef.current?.getBoundingClientRect();
-      canvas.width = (rect?.width || 500) * window.devicePixelRatio;
-      canvas.height = (rect?.height || 500) * window.devicePixelRatio;
+      const w = rect?.width || 500;
+      const h = rect?.height || 500;
+      canvas.width = w * window.devicePixelRatio;
+      canvas.height = h * window.devicePixelRatio;
       canvas.style.width = '100%';
       canvas.style.height = '100%';
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
@@ -300,7 +332,7 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Main Draw loop
+    // Main Draw loop at 60 FPS
     const render = () => {
       if (!canvas || !ctx) return;
 
@@ -311,18 +343,24 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
 
       ctx.clearRect(0, 0, width, height);
 
-      // Auto rotation if mouse is not down
-      if (!mouseRef.current.isDown) {
-        angleRef.current.x += rotationRef.current.x * 0.5;
-        angleRef.current.y += rotationRef.current.y * 0.5;
+      // Kinetic rotation physics: smooth decay when user releases
+      if (!isInteractingRef.current) {
+        angleRef.current.y += velocityRef.current.vx;
+        angleRef.current.x += velocityRef.current.vy;
+        
+        // Decay to gentle ambient rotation
+        velocityRef.current.vx = velocityRef.current.vx * 0.96 + 0.0018 * 0.04;
+        velocityRef.current.vy = velocityRef.current.vy * 0.96 + 0.0012 * 0.04;
       }
+
+      pulsePhaseRef.current += 0.04;
 
       const cosX = Math.cos(angleRef.current.x);
       const sinX = Math.sin(angleRef.current.x);
       const cosY = Math.cos(angleRef.current.y);
       const sinY = Math.sin(angleRef.current.y);
 
-      // Project all nodes
+      // 3D Matrix Projection
       const projectedNodes = nodes.map(node => {
         // Rotate around Y axis
         let x1 = node.x * cosY - node.z * sinY;
@@ -343,15 +381,15 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
           px,
           py,
           pSize,
-          z2 // Depth for sorting
+          z2
         };
       });
 
-      // Find hovered node based on 2D proximity to mouse
+      // Hover / Click detection with generous touch hit radius
       let closestNode: typeof projectedNodes[0] | null = null;
-      let minDistance = 15; // Hover range in pixels
-      const mouseX = mouseRef.current.x;
-      const mouseY = mouseRef.current.y;
+      let minDistance = 24; // Touch-friendly hit tolerance
+      const mouseX = mousePosRef.current.x;
+      const mouseY = mousePosRef.current.y;
 
       projectedNodes.forEach(node => {
         const dx = node.px - mouseX;
@@ -365,10 +403,10 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
 
       hoveredNodeIdRef.current = closestNode ? (closestNode as any).id : null;
 
-      // Draw background grid lines (Blueprint theme)
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+      // 1. Draw Subtle Cybernetic Blueprint Grid
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.04)';
       ctx.lineWidth = 1;
-      const gridSize = 30;
+      const gridSize = 32;
       for (let x = 0; x < width; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -382,7 +420,14 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
         ctx.stroke();
       }
 
-      // Draw Links
+      // 2. Draw Holographic Depth Rings
+      ctx.strokeStyle = 'rgba(0, 243, 255, 0.05)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 175 * (fov / (fov + 50)), 0, Math.PI * 2);
+      ctx.stroke();
+
+      // 3. Draw Links with dynamic neon glow and energy pulses
       LINKS.forEach(link => {
         const sourceNode = projectedNodes.find(n => n.id === link.source);
         const targetNode = projectedNodes.find(n => n.id === link.target);
@@ -391,89 +436,128 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
           const isRelatedToActive = activeNode && (activeNode.id === sourceNode.id || activeNode.id === targetNode.id);
           const isRelatedToHover = hoveredNodeIdRef.current && (hoveredNodeIdRef.current === sourceNode.id || hoveredNodeIdRef.current === targetNode.id);
 
-          // Compute link depth (average of both nodes)
           const avgZ = (sourceNode.z2 + targetNode.z2) / 2;
-          const alpha = Math.max(0.05, Math.min(0.6, 1 - (avgZ + 170) / 340));
+          const depthAlpha = Math.max(0.12, Math.min(0.85, 1 - (avgZ + 180) / 360));
 
           ctx.beginPath();
           ctx.moveTo(sourceNode.px, sourceNode.py);
           ctx.lineTo(targetNode.px, targetNode.py);
 
           if (isRelatedToActive) {
-            ctx.strokeStyle = 'rgba(0, 243, 255, 0.7)'; // Glow Sonar-Cyan
-            ctx.lineWidth = 1.5;
+            // Intense Electric Cyan Laser
+            ctx.strokeStyle = 'rgba(0, 243, 255, 0.9)';
+            ctx.lineWidth = 2.2;
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = 'rgba(0, 243, 255, 0.8)';
           } else if (isRelatedToHover) {
-            ctx.strokeStyle = 'rgba(0, 102, 255, 0.5)'; // Glow Sonar-Blue
-            ctx.lineWidth = 1.2;
+            // Glowing Neon Violet
+            ctx.strokeStyle = 'rgba(168, 85, 247, 0.85)';
+            ctx.lineWidth = 1.8;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = 'rgba(168, 85, 247, 0.7)';
           } else {
-            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha * 0.15})`;
-            ctx.lineWidth = 0.5;
+            // Vibrant ambient cyan link
+            ctx.strokeStyle = `rgba(56, 189, 248, ${depthAlpha * 0.28})`;
+            ctx.lineWidth = 0.8;
+            ctx.shadowBlur = 0;
           }
           ctx.stroke();
+          ctx.shadowBlur = 0;
+
+          // Traveling Energy Packet on Active Links
+          if (isRelatedToActive || isRelatedToHover) {
+            const packetT = (pulsePhaseRef.current % 1);
+            const packetX = sourceNode.px + (targetNode.px - sourceNode.px) * packetT;
+            const packetY = sourceNode.py + (targetNode.py - sourceNode.py) * packetT;
+
+            ctx.beginPath();
+            ctx.arc(packetX, packetY, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#00f3ff';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
         }
       });
 
-      // Sort nodes by depth (z2 desc, draw back-to-front)
+      // 4. Sort nodes back-to-front for proper 3D occlusion
       const sortedNodes = [...projectedNodes].sort((a, b) => b.z2 - a.z2);
 
-      // Draw Nodes
+      // 5. Draw Nodes with vibrant bioluminescent aesthetics
       sortedNodes.forEach(node => {
         const isActive = activeNode && activeNode.id === node.id;
         const isHovered = hoveredNodeIdRef.current === node.id;
+        const depthAlpha = Math.max(0.35, Math.min(1.0, 1 - (node.z2 + 180) / 360));
+        const themeColor = node.color || (node.type === 'project' ? '#00f3ff' : '#a855f7');
 
-        // Calculate opacity based on Z coordinate
-        const alpha = Math.max(0.2, Math.min(1.0, 1 - (node.z2 + 170) / 340));
-        
+        const currentSize = node.pSize * (isActive ? 1.6 : isHovered ? 1.35 : 1.0);
+
+        // A. Pulsing Outer Aura for Active / Hovered
+        if (isActive || isHovered) {
+          const pulseSize = currentSize * (1.6 + Math.sin(pulsePhaseRef.current * 3) * 0.25);
+          ctx.beginPath();
+          ctx.arc(node.px, node.py, pulseSize, 0, Math.PI * 2);
+          ctx.fillStyle = isActive ? 'rgba(0, 243, 255, 0.25)' : 'rgba(168, 85, 247, 0.2)';
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(node.px, node.py, pulseSize * 1.15, 0, Math.PI * 2);
+          ctx.strokeStyle = isActive ? 'rgba(0, 243, 255, 0.6)' : 'rgba(168, 85, 247, 0.5)';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        }
+
+        // B. Node Outer Shell
         ctx.beginPath();
-        ctx.arc(node.px, node.py, node.pSize * (isActive ? 1.5 : isHovered ? 1.25 : 1), 0, Math.PI * 2);
+        ctx.arc(node.px, node.py, currentSize, 0, Math.PI * 2);
+        ctx.fillStyle = themeColor;
+        ctx.shadowBlur = isActive ? 18 : isHovered ? 14 : 6;
+        ctx.shadowColor = themeColor;
+        ctx.globalAlpha = depthAlpha;
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
 
-        // Styling based on active/hovered state
+        // C. Bright Glowing White Center Core
+        ctx.beginPath();
+        ctx.arc(node.px, node.py, currentSize * 0.45, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+
+        // D. Luminous Text Label with Contrast Pill
+        const fontSize = isActive ? 12 : isHovered ? 11 : 9.5;
+        ctx.font = `${isActive ? '700' : isHovered ? '600' : '500'} ${fontSize}px 'JetBrains Mono', monospace`;
+        ctx.textAlign = 'center';
+        
+        const textY = node.py - (currentSize + 7);
+        const textWidth = ctx.measureText(node.label).width;
+
+        // Subtle dark backdrop pill for crystal readability
+        ctx.fillStyle = 'rgba(9, 13, 22, 0.8)';
+        ctx.fillRect(node.px - textWidth / 2 - 4, textY - fontSize + 1, textWidth + 8, fontSize + 3);
+
         if (isActive) {
-          ctx.fillStyle = 'rgba(0, 243, 255, 1.0)'; // Sonar Cyan
-          ctx.shadowBlur = 15;
-          ctx.shadowColor = 'rgba(0, 243, 255, 0.8)';
+          ctx.fillStyle = '#00f3ff';
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#00f3ff';
         } else if (isHovered) {
-          ctx.fillStyle = 'rgba(0, 102, 255, 1.0)'; // Sonar Blue
-          ctx.shadowBlur = 10;
-          ctx.shadowColor = 'rgba(0, 102, 255, 0.6)';
+          ctx.fillStyle = '#38bdf8';
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = '#38bdf8';
         } else {
-          ctx.fillStyle = node.type === 'project' 
-            ? `rgba(226, 232, 240, ${alpha})` // Titanium for projects
-            : `rgba(100, 116, 139, ${alpha})`; // Steel for skills
+          ctx.fillStyle = `rgba(226, 232, 240, ${depthAlpha * 0.95})`;
           ctx.shadowBlur = 0;
         }
 
-        ctx.fill();
-        ctx.shadowBlur = 0; // Reset shadow
-
-        // Inner core circle for active node
-        if (isActive) {
-          ctx.beginPath();
-          ctx.arc(node.px, node.py, node.pSize * 0.6, 0, Math.PI * 2);
-          ctx.fillStyle = '#090d16'; // Obsidian hole
-          ctx.fill();
-        }
-
-        // Draw text label
-        const fontSize = isActive ? 11 : isHovered ? 10 : 9;
-        ctx.font = `${isActive ? 'bold' : 'normal'} ${fontSize}px 'JetBrains Mono', monospace`;
-        ctx.textAlign = 'center';
-        
-        if (isActive) {
-          ctx.fillStyle = '#00f3ff';
-        } else if (isHovered) {
-          ctx.fillStyle = '#38bdf8';
-        } else {
-          ctx.fillStyle = `rgba(148, 163, 184, ${alpha * 0.8})`;
-        }
-
-        ctx.fillText(node.label, node.px, node.py - (node.pSize + 6));
+        ctx.fillText(node.label, node.px, textY);
+        ctx.shadowBlur = 0;
       });
 
       animationId = requestAnimationFrame(render);
     };
 
-    render();
+    animationId = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(animationId);
@@ -481,49 +565,100 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
     };
   }, [nodes, activeNode]);
 
-  // Event handlers
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Unified Mouse & Touch Interaction (Smooth Mobile Drag & Momentum)
+  const startDrag = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    mouseRef.current.isDown = true;
-    mouseRef.current.startX = e.clientX - rect.left;
-    mouseRef.current.startY = e.clientY - rect.top;
+    isInteractingRef.current = true;
+    dragStartRef.current = {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+      time: performance.now()
+    };
+    mousePosRef.current = {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const moveDrag = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    const currentX = clientX - rect.left;
+    const currentY = clientY - rect.top;
 
-    mouseRef.current.x = mouseX;
-    mouseRef.current.y = mouseY;
+    mousePosRef.current = { x: currentX, y: currentY };
 
-    if (mouseRef.current.isDown) {
-      const dx = mouseX - mouseRef.current.startX;
-      const dy = mouseY - mouseRef.current.startY;
+    if (isInteractingRef.current) {
+      const dx = currentX - dragStartRef.current.x;
+      const dy = currentY - dragStartRef.current.y;
 
-      // Adjust rotation angles based on delta drag
-      angleRef.current.y += dx * 0.007;
-      angleRef.current.x += dy * 0.007;
+      const sensitivity = 0.0075;
+      angleRef.current.y += dx * sensitivity;
+      angleRef.current.x += dy * sensitivity;
 
-      mouseRef.current.startX = mouseX;
-      mouseRef.current.startY = mouseY;
+      // Calculate instantaneous drag velocity for momentum
+      velocityRef.current = {
+        vx: dx * 0.0035,
+        vy: dy * 0.0035
+      };
+
+      dragStartRef.current = {
+        x: currentX,
+        y: currentY,
+        time: performance.now()
+      };
     }
   };
 
+  const endDrag = () => {
+    isInteractingRef.current = false;
+  };
+
+  // Mouse Handlers
+  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    startDrag(e.clientX, e.clientY);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    moveDrag(e.clientX, e.clientY);
+  };
+
   const handleMouseUp = () => {
-    mouseRef.current.isDown = false;
+    endDrag();
   };
 
   const handleMouseLeave = () => {
-    mouseRef.current.isDown = false;
-    mouseRef.current.x = -999;
-    mouseRef.current.y = -999;
+    endDrag();
+    mousePosRef.current = { x: -999, y: -999 };
+  };
+
+  // Touch Handlers (Full Mobile Support)
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (e.touches.length > 0) {
+      startDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (e.touches.length > 0) {
+      moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    endDrag();
+    // On touch tap: select closest node if tapped
+    if (hoveredNodeIdRef.current) {
+      const selected = nodes.find(n => n.id === hoveredNodeIdRef.current);
+      if (selected) {
+        onSelectNode(selected);
+      }
+    }
   };
 
   const handleClick = () => {
@@ -535,12 +670,6 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
     }
   };
 
-  const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
-    // Avoid default page scroll when interacting with the graph
-    e.preventDefault();
-    angleRef.current.x += e.deltaY * 0.005;
-  };
-
   return (
     <div 
       ref={containerRef} 
@@ -548,10 +677,13 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
         width: '100%', 
         height: '100%', 
         position: 'relative',
-        cursor: hoveredNodeIdRef.current ? 'pointer' : mouseRef.current.isDown ? 'grabbing' : 'grab',
-        background: '#090d16',
-        borderRadius: '2px',
-        border: '1px solid rgba(56, 189, 248, 0.08)'
+        cursor: hoveredNodeIdRef.current ? 'pointer' : isInteractingRef.current ? 'grabbing' : 'grab',
+        background: 'radial-gradient(ellipse at center, rgba(14, 23, 42, 0.95) 0%, rgba(9, 13, 22, 1) 100%)',
+        borderRadius: '8px',
+        border: '1px solid rgba(0, 243, 255, 0.15)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.45), inset 0 0 24px rgba(0, 243, 255, 0.03)',
+        touchAction: 'none',
+        overflow: 'hidden'
       }}
     >
       <canvas 
@@ -560,22 +692,35 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         onClick={handleClick}
-        onWheel={handleWheel}
-        style={{ display: 'block', position: 'absolute', top: 0, left: 0 }}
+        style={{ 
+          display: 'block', 
+          position: 'absolute', 
+          top: 0, 
+          left: 0,
+          touchAction: 'none'
+        }}
       />
       
-      {/* 3D Space control overlay details */}
+      {/* 3D Space control overlay badge */}
       <div style={{
         position: 'absolute',
-        bottom: '10px',
-        left: '10px',
-        fontSize: '8px',
-        color: '#475569',
+        bottom: '12px',
+        left: '12px',
+        fontSize: '9px',
+        letterSpacing: '0.05em',
+        color: 'rgba(56, 189, 248, 0.7)',
         fontFamily: "'JetBrains Mono', monospace",
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        background: 'rgba(9, 13, 22, 0.75)',
+        padding: '3px 8px',
+        borderRadius: '4px',
+        border: '1px solid rgba(56, 189, 248, 0.15)'
       }}>
-        DRAG TO ROTATE // CLICK TO PREVIEW NODE // DEPTH: FIBONACCI_SPHERE
+        TOUCH / DRAG TO ROTATE // CLICK NODE FOR METRICS
       </div>
     </div>
   );

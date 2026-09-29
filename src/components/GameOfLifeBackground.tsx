@@ -14,13 +14,14 @@ export const GameOfLifeBackground: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const cellSize = 14; // Size of each cell in pixels
+    const cellSize = 14;
     let cols = Math.floor(width / cellSize);
     let rows = Math.floor(height / cellSize);
 
-    // Create and seed grid
-    let grid = createGrid(rows, cols, 0.12);
+    // Create and seed grid with balanced density
+    let grid = createGrid(rows, cols, 0.14);
     let nextGrid = createEmptyGrid(rows, cols);
+    let ageGrid = new Uint8Array(rows * cols); // Tracks cell age for radiant bloom gradient
 
     function createEmptyGrid(r: number, c: number): Uint8Array {
       return new Uint8Array(r * c);
@@ -34,19 +35,19 @@ export const GameOfLifeBackground: React.FC = () => {
       return g;
     }
 
-    // Handle window resize
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
       cols = Math.floor(width / cellSize);
       rows = Math.floor(height / cellSize);
-      grid = createGrid(rows, cols, 0.12);
+      grid = createGrid(rows, cols, 0.14);
       nextGrid = createEmptyGrid(rows, cols);
+      ageGrid = new Uint8Array(rows * cols);
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Mouse / Touch interaction: Spawn living cells on movement
+    // Interactive pointer spawning with radius
     const spawnAt = (clientX: number, clientY: number) => {
       const col = Math.floor(clientX / cellSize);
       const row = Math.floor(clientY / cellSize);
@@ -56,8 +57,10 @@ export const GameOfLifeBackground: React.FC = () => {
         for (let dc = -radius; dc <= radius; dc++) {
           const r = (row + dr + rows) % rows;
           const c = (col + dc + cols) % cols;
-          if (Math.random() > 0.4) {
-            grid[r * cols + c] = 1;
+          if (Math.random() > 0.3) {
+            const idx = r * cols + c;
+            grid[idx] = 1;
+            ageGrid[idx] = 1;
           }
         }
       }
@@ -77,14 +80,12 @@ export const GameOfLifeBackground: React.FC = () => {
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     let lastTick = performance.now();
-    const tickInterval = 120; // Cellular simulation step every 120ms (smooth evolution)
+    const tickInterval = 110; // Cellular evolution step
 
     const render = (time: number) => {
-      // Step simulation if interval passed
       if (time - lastTick >= tickInterval) {
         lastTick = time;
 
-        // Conway's Game of Life logic with toroidal wrapping
         for (let r = 0; r < rows; r++) {
           const rAbove = (r - 1 + rows) % rows;
           const rBelow = (r + 1) % rows;
@@ -111,45 +112,68 @@ export const GameOfLifeBackground: React.FC = () => {
 
             if (state === 1 && (neighbors === 2 || neighbors === 3)) {
               nextGrid[idx] = 1;
+              ageGrid[idx] = Math.min(255, ageGrid[idx] + 1);
             } else if (state === 0 && neighbors === 3) {
               nextGrid[idx] = 1;
+              ageGrid[idx] = 1;
             } else {
               nextGrid[idx] = 0;
+              ageGrid[idx] = 0;
             }
           }
         }
 
-        // Swap grids
         const temp = grid;
         grid = nextGrid;
         nextGrid = temp;
       }
 
-      // Draw canvas
       ctx.clearRect(0, 0, width, height);
 
-      // Subtle ambient grid dots
-      ctx.fillStyle = 'rgba(56, 189, 248, 0.03)';
+      // 1. Subtle acoustic matrix guide points
+      ctx.fillStyle = 'rgba(0, 210, 255, 0.05)';
       for (let r = 0; r < rows; r += 2) {
         for (let c = 0; c < cols; c += 2) {
-          ctx.fillRect(c * cellSize + 6, r * cellSize + 6, 2, 2);
+          ctx.fillRect(c * cellSize + 6, r * cellSize + 6, 1.5, 1.5);
         }
       }
 
-      // Live cells with subtle glowing emerald/cyan phosphor color
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.22)';
-      const liveCellInner = cellSize - 3;
-
+      // 2. Glowing Infortts Sonar Cyan / Emerald bioluminescent cells
+      const innerSize = cellSize - 3;
       for (let r = 0; r < rows; r++) {
         const rRow = r * cols;
         const y = r * cellSize + 1.5;
         for (let c = 0; c < cols; c++) {
-          if (grid[rRow + c] === 1) {
+          const idx = rRow + c;
+          if (grid[idx] === 1) {
             const x = c * cellSize + 1.5;
-            ctx.fillRect(x, y, liveCellInner, liveCellInner);
+            const age = ageGrid[idx];
+
+            // Color gradient based on cluster age / energy
+            if (age > 4) {
+              // Vibrant Electric Sonar Cyan
+              ctx.fillStyle = 'rgba(0, 225, 255, 0.45)';
+              ctx.shadowColor = '#00D2FF';
+              ctx.shadowBlur = 6;
+            } else if (age > 2) {
+              // Acoustic Emerald Glow
+              ctx.fillStyle = 'rgba(0, 255, 170, 0.4)';
+              ctx.shadowColor = '#00FF9D';
+              ctx.shadowBlur = 4;
+            } else {
+              // Freshly spawned Sonar Blue
+              ctx.fillStyle = 'rgba(0, 180, 255, 0.35)';
+              ctx.shadowColor = '#0066FF';
+              ctx.shadowBlur = 2;
+            }
+
+            ctx.fillRect(x, y, innerSize, innerSize);
           }
         }
       }
+
+      // Reset shadow for performance
+      ctx.shadowBlur = 0;
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -167,7 +191,7 @@ export const GameOfLifeBackground: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
+      className="fixed inset-0 pointer-events-none"
       style={{
         position: 'fixed',
         top: 0,
@@ -176,7 +200,7 @@ export const GameOfLifeBackground: React.FC = () => {
         height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.85
+        opacity: 0.95
       }}
     />
   );
