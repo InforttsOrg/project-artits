@@ -5,7 +5,7 @@ A premium, AI-driven platform for automated career growth and autonomous system 
 
 ## 🛠 Features
 - **AI Job Agent**: Autonomous bot targeting global remote markets (English-speaking) with real-time application tracking.
-- **Dynamic Resume Engine**: On-demand PDF generation from live web source (`artits.infortts.com`).
+- **Dynamic Resume Engine**: On-demand PDF generation from live web source (`artits.infortts.site`).
 - **Premium Frontend**: Glassmorphism UI with real-time activity feeds and market analytics.
 
 ## 🏗 Architecture

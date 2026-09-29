@@ -31,7 +31,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Autonomous AI Agent Swarm',
     details: 'A self-evolving network of autonomous agents designed for complex task orchestration and deployment automation. Employs token optimization, dynamic model routing (Haiku/Sonnet/Opus), and agentic sandboxing.',
-    link: 'https://meeseeks.infortts.com',
+    link: 'https://meeseeks.infortts.site',
     status: 'Active'
   },
   {
@@ -40,7 +40,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'High-Frequency Forensics',
     details: 'Nanosecond-latency execution pipeline providing resources (hardware, capital) to the Infortts cell. Incorporates real-time Forex, currency, and commodity backtesting at 3-minute intervals using vector-search analytics.',
-    link: 'https://forensics.infortts.com',
+    link: 'https://forensics.infortts.site',
     status: 'Active'
   },
   {
@@ -58,7 +58,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Spotify AI Recommender',
     details: 'Edge-compute Cloudflare Worker suggesting music based on Spotify history using OpenRouter LLMs. Built with a high-performance C++ Core library for preference analysis.',
-    link: 'https://grypania.infortts.com',
+    link: 'https://grypania.infortts.site',
     status: 'Initialized'
   },
   {
@@ -67,7 +67,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Market Sentiment Symphony',
     details: 'Real-time market sentiment orchestrator. Cloudflare Worker generating procedural classical music driven by global ticker sentiment signals via Web Audio API.',
-    link: 'https://ediacara.infortts.com',
+    link: 'https://ediacara.infortts.site',
     status: 'Initialized'
   },
   {
@@ -85,7 +85,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Healthcare Operations & Escrow',
     details: 'Event-driven, serverless healthcare booking platform. Built with Go serverless handlers, PostgreSQL, and secure escrow payment integrations.',
-    link: 'https://care4u.infortts.com',
+    link: 'https://care4u.infortts.site',
     status: 'Active'
   },
   {
@@ -112,7 +112,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     type: 'project',
     desc: 'Portfolio & Resume Engine',
     details: 'Sahil Rathee\'s personal portfolio. Serves as a dynamic, web-native resume with on-demand Playwright-based PDF print script and autonomous job application agents.',
-    link: 'https://artits.infortts.com',
+    link: 'https://artits.infortts.site',
     status: 'Production'
   },
   {
@@ -128,7 +128,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     label: 'Shadow Labs',
     type: 'project',
     desc: 'Autonomous Marketing Engine',
-    details: 'Autonomous marketing engine for e-commerce. Features AI-driven asset generation and real-time inventory synchronization, built on Node.js, Docker, Supabase, and AI.',
+    details: 'Autonomous marketing engine for e-commerce. Features AI-driven asset generation and real-time inventory synchronization, built on Node.js, Docker, Glycocalyx, and AI.',
     status: 'Active'
   },
   {
@@ -208,7 +208,7 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     label: 'Terraform IaC',
     type: 'skill',
     desc: 'Infrastructure as Code',
-    details: 'Automated provisioning of core infrastructure, clusters, and databases across AWS, GCP, and Supabase.'
+    details: 'Automated provisioning of core infrastructure, clusters, and databases across AWS, GCP, and Postgres.'
   }
 ];
 

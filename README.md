@@ -1,6 +1,6 @@
 # Artits — Personal Portfolio & Resume
 
-**Live domain:** `artits.infortts.com`
+**Live domain:** `artits.infortts.site`
 
 Artits is Sahil Rathee’s personal portfolio and professional resume hub. It is the canonical public surface for his work, skills, projects, and connections.
 
