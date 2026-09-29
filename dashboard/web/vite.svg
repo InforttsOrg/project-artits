@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Intense Sonar Glow Filter -->
+    <filter id="sonar-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur1" />
+      <feGaussianBlur stdDeviation="3" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <!-- Subtle Inner Glow -->
+    <filter id="subtle-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <!-- Background Space Gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0b132b" />
+      <stop offset="60%" stop-color="#050814" />
+      <stop offset="100%" stop-color="#020308" />
+    </radialGradient>
+    <!-- Backlit Sonar Crescent Gradient -->
+    <linearGradient id="ring-grad" x1="0.8" y1="0.1" x2="0.2" y2="0.9">
+      <stop offset="0%" stop-color="#f0f9ff" stop-opacity="1" />
+      <stop offset="25%" stop-color="#38bdf8" stop-opacity="0.95" />
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.8" />
+      <stop offset="85%" stop-color="#0369a1" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#0c4a6e" stop-opacity="0.0" />
+    </linearGradient>
+    <!-- Planet Silhouette Depth Gradient -->
+    <radialGradient id="planet-grad" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#090d1a" />
+      <stop offset="85%" stop-color="#03050a" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+  </defs>
+  <!-- Deep Space Canvas -->
+  <rect width="512" height="512" fill="url(#bg-grad)" />
+  <!-- Sonar Star Fields (Point Echoes) -->
+  <circle cx="120" cy="150" r="1.5" fill="#38bdf8" opacity="0.4" />
+  <circle cx="390" cy="110" r="1.5" fill="#38bdf8" opacity="0.3" />
+  <circle cx="80" cy="320" r="1.5" fill="#38bdf8" opacity="0.5" />
+  <circle cx="420" cy="380" r="1.5" fill="#38bdf8" opacity="0.4" />
+  <circle cx="200" cy="80" r="1.5" fill="#38bdf8" opacity="0.35" />
+  <circle cx="320" cy="440" r="1.5" fill="#38bdf8" opacity="0.45" />
+  <circle cx="150" cy="420" r="1.5" fill="#38bdf8" opacity="0.3" />
+  <circle cx="370" cy="70" r="1.5" fill="#38bdf8" opacity="0.5" />
+  <circle cx="256" cy="40" r="1.5" fill="#38bdf8" opacity="0.2" />
+  <circle cx="50" cy="220" r="1.5" fill="#38bdf8" opacity="0.3" />
+  <circle cx="460" cy="200" r="1.5" fill="#38bdf8" opacity="0.4" />
+  <!-- Propagating Acoustic Wavefronts -->
+  <circle cx="256.0" cy="256.0" r="210" fill="none" stroke="#0ea5e9" stroke-width="0.75" stroke-dasharray="10.5 21.0" opacity="0.12" />
+  <circle cx="256.0" cy="256.0" r="230" fill="none" stroke="#0ea5e9" stroke-width="0.75" stroke-dasharray="11.5 23.0" opacity="0.12" />
+  <circle cx="256.0" cy="256.0" r="250" fill="none" stroke="#0ea5e9" stroke-width="0.75" stroke-dasharray="12.5 25.0" opacity="0.12" />
+  <circle cx="256.0" cy="256.0" r="275" fill="none" stroke="#0ea5e9" stroke-width="0.75" stroke-dasharray="13.8 27.5" opacity="0.12" />
+  <!-- Eridian 5-Fold Sonar Scan Axes -->
+  <line x1="256.0" y1="256.0" x2="512.7852593996914" y2="172.56541151876422" stroke="#06b6d4" stroke-width="0.5" stroke-dasharray="5 15" opacity="0.25" />
+  <circle cx="351.10565162951536" cy="225.09830056250527" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="389.1479122813215" cy="212.73762078750735" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="427.19017293312766" cy="200.37694101250946" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="465.2324335849338" cy="188.01626123751157" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="493.76412907378835" cy="178.74575140626314" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <line x1="256.0" y1="256.0" x2="256.0" y2="-14.0" stroke="#06b6d4" stroke-width="0.5" stroke-dasharray="5 15" opacity="0.25" />
+  <circle cx="256.0" cy="156.0" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="256.0" cy="116.0" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="256.0" cy="76.0" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="256.0" cy="36.0" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="256.0" cy="6.0" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <line x1="256.0" y1="256.0" x2="-0.7852593996914266" y2="172.56541151876417" stroke="#06b6d4" stroke-width="0.5" stroke-dasharray="5 15" opacity="0.25" />
+  <circle cx="160.89434837048464" cy="225.09830056250524" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="122.85208771867852" cy="212.73762078750735" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="84.80982706687237" cy="200.37694101250946" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="46.76756641506623" cy="188.01626123751154" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="18.235870926211618" cy="178.74575140626314" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <line x1="256.0" y1="256.0" x2="97.29798188103223" y2="474.4345884812358" stroke="#06b6d4" stroke-width="0.5" stroke-dasharray="5 15" opacity="0.25" />
+  <circle cx="197.22147477075268" cy="336.9016994374947" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="173.71006467905374" cy="369.26237921249265" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="150.1986545873548" cy="401.6230589874905" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="126.68724449565588" cy="433.98373876248843" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="109.05368692688168" cy="458.25424859373686" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <line x1="256.0" y1="256.0" x2="414.70201811896766" y2="474.43458848123583" stroke="#06b6d4" stroke-width="0.5" stroke-dasharray="5 15" opacity="0.25" />
+  <circle cx="314.7785252292473" cy="336.90169943749476" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="338.2899353209462" cy="369.26237921249265" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="361.8013454126451" cy="401.6230589874906" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="385.31275550434407" cy="433.98373876248843" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <circle cx="402.94631307311823" cy="458.25424859373686" r="1.5" fill="#22d3ee" opacity="0.4" />
+  <!-- Backlit Echolocation Corona (Acoustic Atmosphere) -->
+  <circle cx="256.0" cy="256.0" r="180" fill="none" stroke="url(#ring-grad)" stroke-width="4.0" opacity="0.45" filter="url(#sonar-glow)" />
+  <circle cx="255.5" cy="255.5" r="180" fill="none" stroke="url(#ring-grad)" stroke-width="1.5" opacity="0.9" filter="url(#sonar-glow)" />
+  <circle cx="255.0" cy="255.5" r="177" fill="none" stroke="url(#ring-grad)" stroke-width="1.0" stroke-dasharray="150 15 50 10" opacity="0.6" filter="url(#sonar-glow)" />
+  <circle cx="256.5" cy="256.5" r="183" fill="none" stroke="url(#ring-grad)" stroke-width="1.5" stroke-dasharray="80 40 120 30" opacity="0.5" filter="url(#sonar-glow)" />
+  <circle cx="256.0" cy="257.0" r="186" fill="none" stroke="url(#ring-grad)" stroke-width="0.75" stroke-dasharray="10 5 20 8" opacity="0.35" filter="url(#sonar-glow)" />
+  <circle cx="255.5" cy="255.0" r="174" fill="none" stroke="url(#ring-grad)" stroke-width="1.25" stroke-dasharray="40 10 60 15" opacity="0.4" filter="url(#sonar-glow)" />
+  <!-- Internal Eridian Pentagonal Lattice -->
+  <polygon points="294.04,243.64 256.00,216.00 217.96,243.64 232.49,288.36 279.51,288.36" fill="none" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3 6" opacity="0.18" filter="url(#subtle-glow)" />
+  <polygon points="327.33,232.82 256.00,181.00 184.67,232.82 211.92,316.68 300.08,316.68" fill="none" stroke="#22d3ee" stroke-width="0.8" opacity="0.28" filter="url(#subtle-glow)" />
+  <polygon points="360.62,222.01 256.00,146.00 151.38,222.01 191.34,344.99 320.66,344.99" fill="none" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3 6" opacity="0.18" filter="url(#subtle-glow)" />
+  <polygon points="393.90,211.19 256.00,111.00 118.10,211.19 170.77,373.31 341.23,373.31" fill="none" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="10 4 2 4" opacity="0.18" filter="url(#subtle-glow)" />
+  <!-- Acoustic Density Lattice Lines -->
+  <line x1="393.90" y1="211.19" x2="118.10" y2="211.19" stroke="#06b6d4" stroke-width="0.5" opacity="0.12" />
+  <line x1="256.00" y1="111.00" x2="170.77" y2="373.31" stroke="#06b6d4" stroke-width="0.5" opacity="0.12" />
+  <line x1="118.10" y1="211.19" x2="341.23" y2="373.31" stroke="#06b6d4" stroke-width="0.5" opacity="0.12" />
+  <line x1="170.77" y1="373.31" x2="393.90" y2="211.19" stroke="#06b6d4" stroke-width="0.5" opacity="0.12" />
+  <line x1="341.23" y1="373.31" x2="256.00" y2="111.00" stroke="#06b6d4" stroke-width="0.5" opacity="0.12" />
+  <!-- Core Acoustic Pulse Ripples -->
+  <circle cx="256.0" cy="256.0" r="20" fill="none" stroke="#0ea5e9" stroke-width="0.5" stroke-dasharray="2 15" opacity="0.2" />
+  <circle cx="256.0" cy="256.0" r="55" fill="none" stroke="#0ea5e9" stroke-width="0.5" stroke-dasharray="2 15" opacity="0.2" />
+  <circle cx="256.0" cy="256.0" r="95" fill="none" stroke="#0ea5e9" stroke-width="0.5" stroke-dasharray="2 15" opacity="0.2" />
+  <circle cx="256.0" cy="256.0" r="130" fill="none" stroke="#0ea5e9" stroke-width="0.5" stroke-dasharray="2 15" opacity="0.2" />
+  <!-- Sonar Signal Core -->
+  <circle cx="256.0" cy="256.0" r="6" fill="#e0f2fe" opacity="0.85" filter="url(#subtle-glow)" />
+  <circle cx="256.0" cy="256.0" r="12" fill="none" stroke="#38bdf8" stroke-width="1" opacity="0.5" />
+  <circle cx="256.0" cy="256.0" r="22" fill="none" stroke="#0ea5e9" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.3" />
+  <!-- Silhouette Foreground Planet Sphere (Solid core body) -->
+  <circle cx="256.0" cy="256.0" r="174" fill="url(#planet-grad)" />
+  <!-- X-Ray Sonar Vision Core Overlays (mapping internal structure) -->
+  <polygon points="294.04,243.64 256.00,216.00 217.96,243.64 232.49,288.36 279.51,288.36" fill="none" stroke="#38bdf8" stroke-width="0.75" stroke-dasharray="3 5" opacity="0.08" />
+  <polygon points="327.33,232.82 256.00,181.00 184.67,232.82 211.92,316.68 300.08,316.68" fill="none" stroke="#38bdf8" stroke-width="0.75" opacity="0.14" />
+  <polygon points="360.62,222.01 256.00,146.00 151.38,222.01 191.34,344.99 320.66,344.99" fill="none" stroke="#38bdf8" stroke-width="0.75" stroke-dasharray="3 5" opacity="0.08" />
+  <polygon points="393.90,211.19 256.00,111.00 118.10,211.19 170.77,373.31 341.23,373.31" fill="none" stroke="#38bdf8" stroke-width="0.75" stroke-dasharray="6 3" opacity="0.08" />
+  <!-- Refracted Surface Echoes (Surface Crescent) -->
+  <path d="M 124.5 137.5 A 174 174 0 0 1 387.5 137.5 A 171 171 0 0 0 124.5 137.5 Z" 
+        fill="url(#ring-grad)" opacity="0.25" filter="url(#subtle-glow)" />
+</svg>
