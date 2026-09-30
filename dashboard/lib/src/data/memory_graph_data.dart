@@ -289,6 +289,123 @@ const List<GraphNode> initialNodes = <GraphNode>[
         'Automated provisioning of core infrastructure, clusters, and databases '
         'across AWS, GCP, and Postgres.',
   ),
+  GraphNode(
+    id: 'cocos',
+    label: 'Cocos Creator',
+    type: GraphNodeType.skill,
+    desc: 'Game Engine & Instant Games',
+    details:
+        'High-performance 2D/3D web and Facebook Instant game engine '
+        'development with TypeScript, Canvas/WebGL rendering, and live state sync.',
+  ),
+  GraphNode(
+    id: 'nodejs',
+    label: 'Node.js',
+    type: GraphNodeType.skill,
+    desc: 'Async Backend & Event Streams',
+    details:
+        'Event-driven high-throughput microservices, WebSockets, and real-time '
+        'streaming backends for gaming and e-commerce platforms.',
+  ),
+  GraphNode(
+    id: 'nextjs',
+    label: 'Next.js',
+    type: GraphNodeType.skill,
+    desc: 'Full-Stack React Framework',
+    details:
+        'SSR/SSG enterprise web apps, headless e-commerce (Lexi), and '
+        'high-conversion client dashboards with optimized edge rendering.',
+  ),
+  GraphNode(
+    id: 'angular',
+    label: 'Angular',
+    type: GraphNodeType.skill,
+    desc: 'Enterprise Frontend Architecture',
+    details:
+        'Structured TypeScript SPAs, admin consoles, and complex real-time '
+        'enterprise management systems.',
+  ),
+  GraphNode(
+    id: 'react_native',
+    label: 'React Native',
+    type: GraphNodeType.skill,
+    desc: 'Cross-Platform Mobile Apps',
+    details:
+        'High-performance mobile engineering (BigHit app rebuild, ~80% size '
+        'reduction, native bridge modules, GPS geofencing, real-time chat).',
+  ),
+  GraphNode(
+    id: 'ansible',
+    label: 'Ansible',
+    type: GraphNodeType.skill,
+    desc: 'Configuration Automation',
+    details:
+        'Idempotent infrastructure provisioning, multi-node configuration '
+        'orchestration, and immutable environment deployment.',
+  ),
+  GraphNode(
+    id: 'jenkins',
+    label: 'Jenkins CI/CD',
+    type: GraphNodeType.skill,
+    desc: 'Automated Build Pipelines',
+    details:
+        'Declarative multi-stage CI/CD pipelines, containerized test automation, '
+        'and release verification across all Infortts monorepo projects.',
+  ),
+  GraphNode(
+    id: 'opensearch',
+    label: 'OpenSearch / Elastic',
+    type: GraphNodeType.skill,
+    desc: 'Distributed Search & Analytics',
+    details:
+        'High-scale log aggregation, distributed search clustering, and fast '
+        'telemetry query engines powering real-time analytics.',
+  ),
+  GraphNode(
+    id: 'gis',
+    label: 'GIS & Spatial Engine',
+    type: GraphNodeType.skill,
+    desc: 'Geospatial Analytics & Mapping',
+    details:
+        'Location tracking, spatial indexing, geofencing, and real-time '
+        'interactive mapping layers for sports and venue applications.',
+  ),
+  GraphNode(
+    id: 'mysql',
+    label: 'MySQL',
+    type: GraphNodeType.skill,
+    desc: 'Relational Database Management',
+    details:
+        'High-volume ACID transactional data storage, indexing optimization, '
+        'and relational schema modeling.',
+  ),
+  GraphNode(
+    id: 'mongodb',
+    label: 'MongoDB',
+    type: GraphNodeType.skill,
+    desc: 'Document Store & Caching',
+    details:
+        'High-write throughput NoSQL document storage for gaming servers, event '
+        'telemetry, and dynamic schemas.',
+  ),
+  GraphNode(
+    id: 'podman',
+    label: 'Podman',
+    type: GraphNodeType.skill,
+    desc: 'Daemonless Container Engine',
+    details:
+        'Rootless and secure OCI container management, local dev sandboxing, '
+        'and Kubernetes-compatible pods.',
+  ),
+  GraphNode(
+    id: 'serverless',
+    label: 'Serverless & Lambda',
+    type: GraphNodeType.skill,
+    desc: 'Event-Driven Edge & Cloud Compute',
+    details:
+        'Zero-idle compute scaling, Cloudflare Workers edge execution, and '
+        'AWS Lambda microservices for bursty workloads.',
+  ),
 ];
 
 const List<GraphLink> initialLinks = <GraphLink>[
@@ -323,6 +440,20 @@ const List<GraphLink> initialLinks = <GraphLink>[
   GraphLink('docker', 'shadow_labs'),
   GraphLink('terraform', 'bighit_cloud'),
   GraphLink('docker', 'bighit_cloud'),
+  GraphLink('react_native', 'bighit_cloud'),
+  GraphLink('opensearch', 'bighit_cloud'),
+  GraphLink('serverless', 'care4u'),
+  GraphLink('serverless', 'bighit_cloud'),
+  GraphLink('nextjs', 'lexi'),
+  GraphLink('nodejs', 'shadow_labs'),
+  GraphLink('nodejs', 'lexi'),
+  GraphLink('mongodb', 'shadow_labs'),
+  GraphLink('jenkins', 'meeseeks'),
+  GraphLink('podman', 'meeseeks'),
+  GraphLink('gis', 'bighit_cloud'),
+  GraphLink('gis', 'spark'),
+  GraphLink('mysql', 'care4u'),
+  GraphLink('ansible', 'bighit_cloud'),
 ];
 
 /// Project cards rendered in the PRODUCTION_SYSTEMS section.

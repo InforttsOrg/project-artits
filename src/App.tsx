@@ -63,7 +63,7 @@ const App: React.FC = () => {
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           sender: 'system', 
-          text: "Sahil specializes in Go, Kubernetes, real-time distributed systems, and agentic AI orchestration (70% RAG cost optimization). Check out his featured production systems above!", 
+          text: "Sahil specializes in Go, Python, TypeScript, Cocos, Node/Next/Angular, React Native, Kubernetes, Ansible/Jenkins, OpenSearch, GIS, MySQL/MongoDB, and Agentic AI workflows (70% RAG cost optimization). Check out his featured production systems above!", 
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }]);
         setIsTyping(false);
@@ -110,7 +110,7 @@ const App: React.FC = () => {
   ];
 
   const skillsList = [
-    'Go', 'Python', 'TypeScript', 'Dart / Flutter', 'Kotlin', 'Kubernetes', 'Terraform', 'AWS', 'GCP', 'NATS', 'PostgreSQL', 'Redis', 'Qdrant', 'LangChain', 'Docker', 'Cloudflare Workers'
+    'Go', 'Python', 'TypeScript', 'Dart / Flutter', 'Cocos', 'Node.js', 'Next.js', 'Angular', 'React Native', 'Kotlin', 'Kubernetes', 'Terraform', 'Ansible', 'Jenkins', 'Podman / Docker', 'AWS Lambda / Serverless', 'OpenSearch / Elastic', 'GIS', 'PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Qdrant', 'NATS'
   ];
 
   const resumeDocUrl = "https://docs.google.com/document/d/1cH4O32ABivQJ9m8zq35eX5fmPF60pcQVI9gA2JWdcEk/edit?usp=sharing";

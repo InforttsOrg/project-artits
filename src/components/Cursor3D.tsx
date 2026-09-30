@@ -8,7 +8,7 @@ export const Cursor3D: React.FC = () => {
   const velocityRef = useRef({ x: 0, y: 0 });
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null);
   const lastScrollY = useRef(0);
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 

@@ -234,6 +234,110 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     desc: 'Infrastructure as Code',
     details: 'Automated provisioning of core infrastructure, clusters, and databases across AWS, GCP, and Postgres.',
     color: '#a78bfa'
+  },
+  {
+    id: 'cocos',
+    label: 'Cocos Creator',
+    type: 'skill',
+    desc: 'Game Engine & Instant Games',
+    details: 'High-performance 2D/3D web and Facebook Instant game engine development with TypeScript, Canvas/WebGL rendering, and live state sync.',
+    color: '#f59e0b'
+  },
+  {
+    id: 'nodejs',
+    label: 'Node.js',
+    type: 'skill',
+    desc: 'Async Backend & Event Streams',
+    details: 'Event-driven high-throughput microservices, WebSockets, and real-time streaming backends for gaming and e-commerce platforms.',
+    color: '#22c55e'
+  },
+  {
+    id: 'nextjs',
+    label: 'Next.js',
+    type: 'skill',
+    desc: 'Full-Stack React Framework',
+    details: 'SSR/SSG enterprise web apps, headless e-commerce (Lexi), and high-conversion client dashboards with optimized edge rendering.',
+    color: '#ffffff'
+  },
+  {
+    id: 'angular',
+    label: 'Angular',
+    type: 'skill',
+    desc: 'Enterprise Frontend Architecture',
+    details: 'Structured TypeScript SPAs, admin consoles, and complex real-time enterprise management systems.',
+    color: '#ef4444'
+  },
+  {
+    id: 'react_native',
+    label: 'React Native',
+    type: 'skill',
+    desc: 'Cross-Platform Mobile Apps',
+    details: 'High-performance mobile engineering (BigHit app rebuild, ~80% size reduction, native bridge modules, GPS geofencing, real-time chat).',
+    color: '#61dafb'
+  },
+  {
+    id: 'ansible',
+    label: 'Ansible',
+    type: 'skill',
+    desc: 'Configuration Automation',
+    details: 'Idempotent infrastructure provisioning, multi-node configuration orchestration, and immutable environment deployment.',
+    color: '#ee0000'
+  },
+  {
+    id: 'jenkins',
+    label: 'Jenkins CI/CD',
+    type: 'skill',
+    desc: 'Automated Build Pipelines',
+    details: 'Declarative multi-stage CI/CD pipelines, containerized test automation, and release verification across all Infortts monorepo projects.',
+    color: '#d33833'
+  },
+  {
+    id: 'opensearch',
+    label: 'OpenSearch / Elastic',
+    type: 'skill',
+    desc: 'Distributed Search & Analytics',
+    details: 'High-scale log aggregation, distributed search clustering, and fast telemetry query engines powering real-time analytics.',
+    color: '#005ea2'
+  },
+  {
+    id: 'gis',
+    label: 'GIS & Spatial Engine',
+    type: 'skill',
+    desc: 'Geospatial Analytics & Mapping',
+    details: 'Location tracking, spatial indexing, geofencing, and real-time interactive mapping layers for sports and venue applications.',
+    color: '#10b981'
+  },
+  {
+    id: 'mysql',
+    label: 'MySQL',
+    type: 'skill',
+    desc: 'Relational Database Management',
+    details: 'High-volume ACID transactional data storage, indexing optimization, and relational schema modeling.',
+    color: '#00758f'
+  },
+  {
+    id: 'mongodb',
+    label: 'MongoDB',
+    type: 'skill',
+    desc: 'Document Store & Caching',
+    details: 'High-write throughput NoSQL document storage for gaming servers, event telemetry, and dynamic schemas.',
+    color: '#13aa52'
+  },
+  {
+    id: 'podman',
+    label: 'Podman',
+    type: 'skill',
+    desc: 'Daemonless Container Engine',
+    details: 'Rootless and secure OCI container management, local dev sandboxing, and Kubernetes-compatible pods.',
+    color: '#892ca0'
+  },
+  {
+    id: 'serverless',
+    label: 'Serverless & Lambda',
+    type: 'skill',
+    desc: 'Event-Driven Edge & Cloud Compute',
+    details: 'Zero-idle compute scaling, Cloudflare Workers edge execution, and AWS Lambda microservices for bursty workloads.',
+    color: '#ff9900'
   }
 ];
 
@@ -268,7 +372,21 @@ const LINKS: GraphLink[] = [
   { source: 'react', target: 'shadow_labs' },
   { source: 'docker', target: 'shadow_labs' },
   { source: 'terraform', target: 'bighit_cloud' },
-  { source: 'docker', target: 'bighit_cloud' }
+  { source: 'docker', target: 'bighit_cloud' },
+  { source: 'react_native', target: 'bighit_cloud' },
+  { source: 'opensearch', target: 'bighit_cloud' },
+  { source: 'serverless', target: 'care4u' },
+  { source: 'serverless', target: 'bighit_cloud' },
+  { source: 'nextjs', target: 'lexi' },
+  { source: 'nodejs', target: 'shadow_labs' },
+  { source: 'nodejs', target: 'lexi' },
+  { source: 'mongodb', target: 'shadow_labs' },
+  { source: 'jenkins', target: 'meeseeks' },
+  { source: 'podman', target: 'meeseeks' },
+  { source: 'gis', target: 'bighit_cloud' },
+  { source: 'gis', target: 'spark' },
+  { source: 'mysql', target: 'care4u' },
+  { source: 'ansible', target: 'bighit_cloud' }
 ];
 
 interface MemoryGraph3DProps {
