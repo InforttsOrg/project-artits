@@ -126,8 +126,11 @@ def main():
     
     dossier_content = format_dossier(system_info, profile, repos)
     
-    # Save files to scratch
-    scratch_dir = "/Users/admin/rttss-sahil/inforttsOrg/projects/artits/scratch"
+    # Save files next to this script. This used to be a hardcoded macOS path
+    # ("/Users/admin/rttss-sahil/inforttsOrg/projects/artits/scratch"), so the
+    # script created that tree as root on a Mac and died with FileNotFoundError on
+    # every other host (CI, the vps, a fresh clone anywhere but that laptop).
+    scratch_dir = os.path.dirname(os.path.abspath(__file__))
     os.makedirs(scratch_dir, exist_ok=True)
     
     json_path = os.path.join(scratch_dir, "sahil_rathee_profile.json")

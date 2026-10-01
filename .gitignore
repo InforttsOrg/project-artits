@@ -5,6 +5,9 @@ Thumbs.db
 # Env / secrets (never commit)
 .env
 .env.*
+# ...but the template is documentation and must be committable. Without this,
+# `.env.*` also matched .env.example and the env declarations could never land.
+!.env.example
 *.pem
 *.key
 id_rsa*
@@ -12,6 +15,17 @@ credentials*
 secrets*
 *.p12
 *.jks
+*.keystore
+
+# Signing material / mobile config (fleet standard; anchored so it cannot shadow a
+# legitimate path at the repo root)
+**/key.properties
+**/local.properties
+**/*.jks
+**/*.keystore
+**/*.p12
+**/google-services.json
+**/GoogleService-Info.plist
 
 # Node
 node_modules/
@@ -21,6 +35,8 @@ build/
 
 # Cloudflare / Wrangler
 .wrangler/
+# Written at the repo root by ci/jenkins-common.groovy otaBump() during a release.
+/ota-release.json
 
 # Python
 __pycache__/
