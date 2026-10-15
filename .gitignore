@@ -1,1 +1,19 @@
 node_modules
+
+# Env / secrets (never commit)
+.env
+.env.*
+# ...but the template is documentation and must be committable. Without this,
+# `.env.*` also matched .env.example and the env declarations could never land.
+!.env.example
+*.pem
+*.key
+id_rsa*
+credentials*
+secrets*
+*.p12
+*.jks
+*.keystore
+**/key.properties
+**/google-services.json
+**/GoogleService-Info.plist
