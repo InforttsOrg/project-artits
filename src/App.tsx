@@ -43,12 +43,24 @@ const App: React.FC = () => {
     setMessages(prev => [...prev, { sender: 'user', text: userMsg, time: now }]);
     setIsTyping(true);
 
+    const clientNow = new Date();
+    const timeFormatted = clientNow.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const fullTimeStr = clientNow.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
     try {
       const response = await fetch('/api/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg })
+        body: JSON.stringify({ 
+          message: userMsg,
+          clientTime: fullTimeStr,
+          timeZone: userTimeZone
+        })
       });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
       const data = await response.json();
       
       setTimeout(() => {
@@ -58,16 +70,27 @@ const App: React.FC = () => {
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }]);
         setIsTyping(false);
-      }, 500);
+      }, 400);
     } catch {
       setTimeout(() => {
+        const lower = userMsg.toLowerCase();
+        let fallbackReply = "Sahil is a Senior Software Engineer & AI Architect specializing in Financial Systems, Distributed Cloud Infrastructure, and Agentic AI workflows. Feel free to explore the interactive 3D architecture graph or download his resume above!";
+        
+        if (lower.includes("time") || lower.includes("date") || lower.includes("clock")) {
+          fallbackReply = `The current time is ${fullTimeStr} (${userTimeZone}). How can I help you explore Sahil's systems architecture or background?`;
+        } else if (lower.includes("contact") || lower.includes("hire") || lower.includes("email") || lower.includes("phone")) {
+          fallbackReply = "You can reach Sahil directly via email at sahil.artits.rathee@gmail.com or by phone at +91 9625213480.";
+        } else if (lower.includes("resume") || lower.includes("cv")) {
+          fallbackReply = "You can download Sahil's ATS-optimized resume directly using the 'Download Resume PDF' button in the header.";
+        }
+
         setMessages(prev => [...prev, { 
           sender: 'system', 
-          text: "Sahil specializes in Go, Python, TypeScript, Cocos, Node/Next/Angular, React Native, Kubernetes, Ansible/Jenkins, OpenSearch, GIS, MySQL/MongoDB, and Agentic AI workflows (70% RAG cost optimization). Check out his featured production systems above!", 
+          text: fallbackReply, 
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }]);
         setIsTyping(false);
-      }, 500);
+      }, 400);
     }
   };
 
