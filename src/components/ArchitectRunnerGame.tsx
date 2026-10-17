@@ -1440,9 +1440,6 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
               SAHIL RATHEE <span>// ARCHITECT</span>
             </h1>
             <div className="hi">High-Throughput Distributed Infrastructure & Autonomous AI Swarms</div>
-            <p className="tag">
-              Senior Software Engineer architecting sub-millisecond market execution, multi-agent swarms, and high-scale SaaS. Explore the 1km world or view system specs:
-            </p>
 
             {/* Flagship Production Systems Showcase Matrix (Single-View Showcase) */}
             <div className="systems-showcase-grid">
