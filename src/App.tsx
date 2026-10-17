@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { GameOfLifeBackground } from './components/GameOfLifeBackground';
+import { QuantumSpacetimeMap } from './components/QuantumSpacetimeMap';
+import { PhoneCallModal } from './components/PhoneCallModal';
 import { ConwayCoOpGame } from './components/ConwayCoOpGame';
 import { ThreeB1BOrbitalGame } from './components/ThreeB1BOrbitalGame';
 import { MemoryGraph3D, GraphNode, INITIAL_NODES } from './components/MemoryGraph3D';
 
 const App: React.FC = () => {
   const [chatOpen, setChatOpen] = useState(false);
+  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [graphViewMode, setGraphViewMode] = useState<'3d' | 'list'>('3d');
   const [activeFilter, setActiveFilter] = useState<'all' | 'project' | 'skill'>('all');
@@ -228,6 +231,9 @@ const App: React.FC = () => {
           </div>
 
           <nav aria-label="Main Navigation" className="nav-links">
+            <a href="#quantum-map-section" className="nav-link">
+              Cosmic Map 🗺️
+            </a>
             <a href="#featured-work-heading" className="nav-link">
               Systems
             </a>
@@ -237,6 +243,14 @@ const App: React.FC = () => {
             <a href="#physics-game-section" className="nav-link">
               3B1B Game 🚀
             </a>
+            <button
+              type="button"
+              onClick={() => setIsPhoneModalOpen(true)}
+              className="schedule-call-nav-btn"
+              aria-label="Open Schedule a Call with Sahil modal"
+            >
+              📞 Call Sahil
+            </button>
             <a href="#knowledge-graph-section" className="nav-link">
               3D Graph ❖
             </a>
@@ -411,6 +425,20 @@ const App: React.FC = () => {
                 </div>
               </div>
             </div>
+          </section>
+
+          {/* Explorable Quantum Spacetime Cosmic Map */}
+          <section className="section-block" id="quantum-map-section" aria-labelledby="quantum-map-heading">
+            <div className="section-header">
+              <span className="section-label">Interactive Quantum World Map</span>
+              <h2 id="quantum-map-heading" className="section-title">Cosmic Map: Event Horizon Survival & Direct Connection</h2>
+              <p className="section-desc">
+                An interactive map of Sahil's engineering universe. Navigate your character across 3D quantum spacetime fluctuations, 
+                evade project black hole event horizons (the more time you stay away is your highscore), and run to the Phone Booth to schedule a direct call with Sahil!
+              </p>
+            </div>
+
+            <QuantumSpacetimeMap onOpenPhoneCall={() => setIsPhoneModalOpen(true)} />
           </section>
 
           {/* Featured Production Systems */}
@@ -788,6 +816,11 @@ const App: React.FC = () => {
             </form>
           </div>
         )}
+        {/* Quantum Phone Call Modal */}
+        <PhoneCallModal 
+          isOpen={isPhoneModalOpen} 
+          onClose={() => setIsPhoneModalOpen(false)} 
+        />
       </div>
     </div>
   );
