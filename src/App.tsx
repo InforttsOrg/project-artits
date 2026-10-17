@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
+import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
+import { PlaygroundView } from './components/PlaygroundView';
+import { NavigationBar } from './components/NavigationBar';
+import { EntryLoader } from './components/EntryLoader';
 import { PhoneCallModal } from './components/PhoneCallModal';
 import { PortfolioDrawer } from './components/PortfolioDrawer';
 
-const App: React.FC = () => {
+// Automatic scroll-to-top on route changes
+const ScrollToTop: React.FC = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+export const AppContent: React.FC = () => {
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState<boolean>(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
   const [inforttsFeedsCount, setInforttsFeedsCount] = useState<number>(40);
+  const [showLoader, setShowLoader] = useState<boolean>(() => {
+    return sessionStorage.getItem('has_loaded_artits_deck') !== 'true';
+  });
 
   // Sync live Infortts Shared Backend telemetry
   useEffect(() => {
@@ -20,13 +37,60 @@ const App: React.FC = () => {
       .catch(() => {});
   }, []);
 
+  const handleLoaderComplete = () => {
+    sessionStorage.setItem('has_loaded_artits_deck', 'true');
+    setShowLoader(false);
+  };
+
   return (
     <div className="architect-deck-app">
-      {/* Primary Clean Architectural Systems & Skills Command Deck */}
-      <ArchitectPortfolioView
-        onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-        inforttsFeedsCount={inforttsFeedsCount}
-      />
+      <ScrollToTop />
+
+      {/* Huyml-inspired kinetic entry loader (00% -> 100%) */}
+      {showLoader && <EntryLoader onComplete={handleLoaderComplete} />}
+
+      {/* Global Navigation Bar */}
+      <NavigationBar onOpenPhoneCall={() => setIsPhoneModalOpen(true)} />
+
+      {/* Routed Content View */}
+      <main className="deck-main-content">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ArchitectPortfolioView
+                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
+                inforttsFeedsCount={inforttsFeedsCount}
+              />
+            }
+          />
+          <Route
+            path="/work/:slug"
+            element={
+              <ProjectCaseStudyView
+                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
+              />
+            }
+          />
+          <Route
+            path="/playground"
+            element={
+              <PlaygroundView
+                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
+              />
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <ArchitectPortfolioView
+                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
+                inforttsFeedsCount={inforttsFeedsCount}
+              />
+            }
+          />
+        </Routes>
+      </main>
 
       {/* Direct Phone Connection Modal */}
       <PhoneCallModal
@@ -41,6 +105,14 @@ const App: React.FC = () => {
         onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
       />
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 };
 

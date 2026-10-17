@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 interface ArchitectPortfolioViewProps {
   onOpenPhoneCall: () => void;
@@ -332,6 +333,12 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
                   <span className="tech-badge">WebSockets</span>
                   <span className="tech-badge">Flutter Desktop</span>
                 </div>
+
+                <div className="spec-card-actions">
+                  <Link to="/work/zenith" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
+                    Explore Technical Case Study (Shelby Kho Format) →
+                  </Link>
+                </div>
               </div>
             </article>
 
@@ -377,6 +384,12 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
                   <span className="tech-badge">Playwright</span>
                   <span className="tech-badge">Model Context Protocol</span>
                   <span className="tech-badge">Docker Sandboxes</span>
+                </div>
+
+                <div className="spec-card-actions">
+                  <Link to="/work/meeseeks" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
+                    Explore Technical Case Study (Shelby Kho Format) →
+                  </Link>
                 </div>
               </div>
             </article>
@@ -424,6 +437,12 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
                   <span className="tech-badge">Google Cloud Platform</span>
                   <span className="tech-badge">Docker</span>
                 </div>
+
+                <div className="spec-card-actions">
+                  <Link to="/work/roost" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
+                    Explore Technical Case Study (Shelby Kho Format) →
+                  </Link>
+                </div>
               </div>
             </article>
 
@@ -470,13 +489,19 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
                   <span className="tech-badge">Docker</span>
                   <span className="tech-badge">CI/CD GitOps</span>
                 </div>
+
+                <div className="spec-card-actions">
+                  <Link to="/work/bighit" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
+                    Explore Technical Case Study (Shelby Kho Format) →
+                  </Link>
+                </div>
               </div>
             </article>
           </div>
         </section>
 
         {/* Right Column: Interactive Architecture Topology & Node Inspector */}
-        <aside className="topology-sidebar-section">
+        <aside className="topology-sidebar-section" id="topology">
           <div className="section-header-row">
             <h2 className="deck-section-title">Live Architecture Topology</h2>
             <span className="deck-section-hint">Click any node to inspect telemetry</span>
