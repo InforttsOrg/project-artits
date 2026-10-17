@@ -108,6 +108,17 @@ export const NavigationBar: React.FC = () => {
             <Linkedin className="w-4 h-4" />
           </a>
           <a
+            href="https://x.com/rttss_sahil"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 rounded-md transition-colors"
+            title="X (Twitter)"
+          >
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+          <a
             href="/Sahil-Rathee-Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"

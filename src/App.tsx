@@ -42,7 +42,7 @@ export const AppContent: React.FC = () => {
             <span>•</span>
             <span className="font-mono text-xs">rttss-sahil</span>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <a
               href="mailto:sahil.artits.rathee@gmail.com"
               className="text-zinc-400 hover:text-zinc-200 transition-colors"
@@ -64,6 +64,38 @@ export const AppContent: React.FC = () => {
               className="text-zinc-400 hover:text-zinc-200 transition-colors"
             >
               LinkedIn
+            </a>
+            <a
+              href="https://x.com/rttss_sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              X
+            </a>
+            <a
+              href="https://leetcode.com/u/rttss-sahil/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              LeetCode
+            </a>
+            <a
+              href="https://stackoverflow.com/users/14934835/rttss-sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              Stack Overflow
+            </a>
+            <a
+              href="https://www.instagram.com/rttss_sahil/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              Instagram
             </a>
             <a
               href="/Sahil-Rathee-Resume.pdf"
