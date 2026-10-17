@@ -51,16 +51,37 @@ export const ComeSayHiModal: React.FC<ComeSayHiModalProps> = ({
           {/* Direct Phone */}
           <div className="say-hi-group">
             <span className="say-hi-label">Direct connection & consultation</span>
-            <button
-              type="button"
-              className="say-hi-phone-trigger"
-              onClick={() => {
-                onClose();
-                onOpenPhoneCall();
-              }}
-            >
-              📞 Call Sahil (+91 9625213480)
-            </button>
+            <div className="say-hi-phones-row">
+              <button
+                type="button"
+                className="say-hi-phone-trigger"
+                onClick={() => {
+                  onClose();
+                  onOpenPhoneCall();
+                }}
+              >
+                📞 Call Primary (+91 9625213480)
+              </button>
+              <a href="tel:+919992396866" className="say-hi-phone-trigger secondary">
+                📱 Meta Direct (+91 9992396866)
+              </a>
+            </div>
+          </div>
+
+          {/* Official Organizations & Companies */}
+          <div className="say-hi-group">
+            <span className="say-hi-label">Commercial Organizations & Portfolios</span>
+            <div className="say-hi-links-list">
+              <a href="https://www.linkedin.com/company/infortts-inc/" target="_blank" rel="noopener noreferrer">
+                🌐 Infortts Inc. (LinkedIn) ↗
+              </a>
+              <a href="https://www.linkedin.com/company/bighitsports/" target="_blank" rel="noopener noreferrer">
+                ⚽ BigHit Sports (LinkedIn) ↗
+              </a>
+              <a href="https://www.linkedin.com/company/gym-wise/" target="_blank" rel="noopener noreferrer">
+                🏋️ Gym Wise India (LinkedIn) ↗
+              </a>
+            </div>
           </div>
 
           {/* Code & Repos */}
@@ -81,7 +102,7 @@ export const ComeSayHiModal: React.FC<ComeSayHiModalProps> = ({
             <span className="say-hi-label">Design & systems updates lately</span>
             <div className="say-hi-links-list">
               <a href="https://linkedin.com/in/rttss-sahil" target="_blank" rel="noopener noreferrer">
-                💼 LinkedIn Profile
+                💼 Sahil Rathee LinkedIn Profile
               </a>
               <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer">
                 ⬇ Download Resume PDF

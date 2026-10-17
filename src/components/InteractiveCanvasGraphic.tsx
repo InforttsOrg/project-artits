@@ -1,10 +1,26 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 export const InteractiveCanvasGraphic: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [activeBadge, setActiveBadge] = useState<string | null>(null);
 
+  // Toggle video playback
+  const handleTogglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isPlaying) {
+      video.pause();
+      setIsPlaying(false);
+    } else {
+      video.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
+  // Kinetic particle & aura overlay on canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -15,6 +31,17 @@ export const InteractiveCanvasGraphic: React.FC = () => {
     let t = 0;
     let mouseX = canvas.width / 2;
     let mouseY = canvas.height / 2;
+
+    // Ambient floating particles
+    const particles = Array.from({ length: 32 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.8,
+      vy: -0.3 - Math.random() * 0.5,
+      size: 1 + Math.random() * 2,
+      hue: Math.random() > 0.5 ? 185 : 260,
+      alpha: 0.2 + Math.random() * 0.6,
+    }));
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
@@ -27,140 +54,39 @@ export const InteractiveCanvasGraphic: React.FC = () => {
     canvas.addEventListener('mousemove', handleMouseMove);
 
     const render = () => {
-      if (isPlaying) {
-        t += 0.035;
-      }
-
+      t += 0.03;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2 + 10;
-
-      // Draw stylized kinetic architectural figure with organic flowing ribbons / garment contours
-      ctx.save();
-
-      // Ambient glow
-      const grad = ctx.createRadialGradient(cx, cy, 30, cx, cy, 180);
+      // 1. Draw glowing ambient cursor follower
+      const grad = ctx.createRadialGradient(mouseX, mouseY, 10, mouseX, mouseY, 90);
       grad.addColorStop(0, 'rgba(0, 210, 255, 0.12)');
-      grad.addColorStop(0.6, 'rgba(99, 102, 241, 0.05)');
+      grad.addColorStop(0.5, 'rgba(168, 85, 247, 0.05)');
       grad.addColorStop(1, 'transparent');
       ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.arc(cx, cy, 180, 0, Math.PI * 2);
+      ctx.arc(mouseX, mouseY, 90, 0, Math.PI * 2);
       ctx.fill();
 
-      // Head / Hair contour (minimalist hand-drawn style like Shelby Kho)
-      const headBob = Math.sin(t * 1.5) * 4;
-      const hx = cx - 5 + (mouseX - cx) * 0.04;
-      const hy = cy - 110 + headBob;
+      // 2. Draw rising cyber particles
+      particles.forEach((p) => {
+        p.x += p.vx + Math.sin(t + p.y * 0.05) * 0.3;
+        p.y += p.vy;
 
-      // Head silhouette
-      ctx.strokeStyle = '#00d2ff';
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.ellipse(hx, hy + 20, 22, 28, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
+        if (p.y < 0) {
+          p.y = canvas.height;
+          p.x = Math.random() * canvas.width;
+        }
 
-      // Hair strands flowing
-      ctx.fillStyle = '#38bdf8';
-      ctx.beginPath();
-      ctx.moveTo(hx - 22, hy + 10);
-      ctx.quadraticCurveTo(hx - 15, hy - 25, hx + 10, hy - 22);
-      ctx.quadraticCurveTo(hx + 30, hy - 10, hx + 35, hy + 28);
-      ctx.quadraticCurveTo(hx + 20, hy + 18, hx + 12, hy + 2);
-      ctx.quadraticCurveTo(hx - 5, hy - 5, hx - 22, hy + 10);
-      ctx.fill();
-
-      // Streaming hair ribbons
-      for (let i = 0; i < 5; i++) {
-        const offset = i * 6;
-        const wave = Math.sin(t * 2 + i * 0.8) * 8;
-        ctx.strokeStyle = i % 2 === 0 ? '#00d2ff' : '#818cf8';
-        ctx.lineWidth = 1.8;
+        ctx.fillStyle = `hsla(${p.hue}, 90%, 65%, ${p.alpha * (0.8 + Math.sin(t * 3 + p.x) * 0.2)})`;
         ctx.beginPath();
-        ctx.moveTo(hx + 15 + offset, hy - 5 + i * 4);
-        ctx.quadraticCurveTo(
-          hx + 35 + offset + wave,
-          hy + 15 + i * 5,
-          hx + 50 + wave * 1.5,
-          hy + 35 + i * 7
-        );
-        ctx.stroke();
-      }
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
 
-      // Flowing Garment / Body (Yellow / Cyber Lime tone with hand-drawn hatching)
-      const sway = Math.sin(t) * 12;
-      const garmentTopY = hy + 45;
-      const garmentBottomY = cy + 140;
-
-      // Base coat fill
-      ctx.fillStyle = '#eab308'; // Shelby Kho signature warm yellow garment
-      ctx.strokeStyle = '#020617';
-      ctx.lineWidth = 2;
-
-      ctx.beginPath();
-      ctx.moveTo(hx - 16, garmentTopY);
-      // Left contour with dynamic wind sway
-      ctx.bezierCurveTo(
-        cx - 70 + sway * 0.5,
-        cy - 20,
-        cx - 60 - sway * 0.8,
-        cy + 70,
-        cx - 55 + sway,
-        garmentBottomY
-      );
-      // Bottom folds
-      ctx.quadraticCurveTo(cx - 20, garmentBottomY - 10 + sway * 0.3, cx + 10, garmentBottomY + 5);
-      ctx.quadraticCurveTo(cx + 40, garmentBottomY - 8, cx + 65 + sway * 0.4, garmentBottomY - 2);
-      // Right contour
-      ctx.bezierCurveTo(
-        cx + 50 + sway * 0.3,
-        cy + 60,
-        cx + 40 - sway * 0.4,
-        cy - 10,
-        hx + 16,
-        garmentTopY
-      );
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      // Hand-drawn crosshatching texture inside garment (characteristic of Shelby Kho's art style)
-      ctx.strokeStyle = 'rgba(2, 6, 23, 0.4)';
-      ctx.lineWidth = 1.2;
-      for (let y = garmentTopY + 15; y < garmentBottomY - 10; y += 7) {
-        const progress = (y - garmentTopY) / (garmentBottomY - garmentTopY);
-        const wLeft = (cx - 40) - progress * 25 + sway * (0.2 + progress * 0.5);
-        const wRight = (cx + 25) + progress * 35;
-        const lineOffset = Math.sin(t * 1.5 + y * 0.05) * 3;
-
-        ctx.beginPath();
-        ctx.moveTo(wLeft + 8, y + lineOffset);
-        ctx.lineTo(wLeft + 28, y - 6 + lineOffset);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(wRight - 28, y + lineOffset);
-        ctx.lineTo(wRight - 10, y - 5 + lineOffset);
-        ctx.stroke();
-      }
-
-      // Sleeve / draped arm fold
-      ctx.strokeStyle = '#020617';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(cx - 25, cy - 20);
-      ctx.quadraticCurveTo(cx - 45 + sway * 0.5, cy + 15, cx - 15, cy + 40);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(cx + 25, cy - 10);
-      ctx.quadraticCurveTo(cx + 48 + sway * 0.3, cy + 25, cx + 18, cy + 45);
-      ctx.stroke();
-
-      ctx.restore();
+      // 3. Cyber telemetry coordinate badge
+      ctx.font = '9px "Agave Nerd Font", monospace';
+      ctx.fillStyle = 'rgba(0, 210, 255, 0.5)';
+      ctx.fillText(`KINETIC_AURA // X:${Math.round(mouseX)} Y:${Math.round(mouseY)}`, 14, canvas.height - 14);
 
       animId = requestAnimationFrame(render);
     };
@@ -171,12 +97,12 @@ export const InteractiveCanvasGraphic: React.FC = () => {
       canvas.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animId);
     };
-  }, [isPlaying]);
+  }, []);
 
   return (
     <div className="shelby-canvas-hero-card">
       <div className="canvas-header-strip">
-        <span className="canvas-label-tag">HAND-CRAFTED KINETIC GRAPHIC // 2002</span>
+        <span className="canvas-label-tag">AUTHENTIC KINETIC GRAPHIC // SHELBY KHO INSPIRATION</span>
         <div className="canvas-badges-row">
           <button
             type="button"
@@ -205,23 +131,46 @@ export const InteractiveCanvasGraphic: React.FC = () => {
             <span>ARCHITECT</span>
             <small>⚡</small>
           </button>
+          <button
+            type="button"
+            className={`canvas-circle-badge badge-emerald ${activeBadge === 'infortts' ? 'active' : ''}`}
+            onClick={() => setActiveBadge(activeBadge === 'infortts' ? null : 'infortts')}
+            title="Infortts Inc."
+          >
+            <span>INFORTTS</span>
+            <small>🌐</small>
+          </button>
         </div>
       </div>
 
-      {/* Interactive canvas */}
+      {/* Main Interactive Stage with Authentic 60fps Video Loop & Canvas Effects */}
       <div className="canvas-display-wrap">
+        <video
+          ref={videoRef}
+          className="shelby-character-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/assets/character-poster.png"
+        >
+          <source src="/assets/character-loop.webm" type="video/webm" />
+          <source src="/assets/character-loop.mp4" type="video/mp4" />
+        </video>
+
+        {/* Interactive canvas overlay for particles & telemetry */}
         <canvas
           ref={canvasRef}
-          width={420}
-          height={380}
-          className="shelby-interactive-canvas"
+          width={600}
+          height={400}
+          className="shelby-interactive-canvas overlay"
         />
 
         {/* Floating play / pause button */}
         <button
           type="button"
           className="canvas-pause-btn"
-          onClick={() => setIsPlaying(!isPlaying)}
+          onClick={handleTogglePlay}
           title={isPlaying ? 'Pause Animation' : 'Play Animation'}
           aria-label={isPlaying ? 'Pause Animation' : 'Play Animation'}
         >
@@ -239,6 +188,9 @@ export const InteractiveCanvasGraphic: React.FC = () => {
             )}
             {activeBadge === 'architect' && (
               <span>🛠️ <b>Architecture Core:</b> Go, C++, Python, MT5 In-Memory IPC, Kubernetes & Autonomous Agentic DAGs.</span>
+            )}
+            {activeBadge === 'infortts' && (
+              <span>🌐 <b>Infortts Inc:</b> Commercial umbrella & distributed infrastructure systems founded in 2021.</span>
             )}
           </div>
         )}

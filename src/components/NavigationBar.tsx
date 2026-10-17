@@ -4,9 +4,14 @@ import { Link, useLocation } from 'react-router-dom';
 interface NavigationBarProps {
   onOpenPhoneCall: () => void;
   onOpenSayHi?: () => void;
+  onReplayIntro?: () => void;
 }
 
-export const NavigationBar: React.FC<NavigationBarProps> = ({ onOpenPhoneCall, onOpenSayHi }) => {
+export const NavigationBar: React.FC<NavigationBarProps> = ({
+  onOpenPhoneCall,
+  onOpenSayHi,
+  onReplayIntro,
+}) => {
   const location = useLocation();
 
   return (
@@ -39,6 +44,16 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ onOpenPhoneCall, o
 
         {/* Right: Direct Actions */}
         <div className="nav-actions">
+          {onReplayIntro && (
+            <button
+              type="button"
+              className="nav-action-btn secondary intro-replay-btn"
+              onClick={onReplayIntro}
+              title="Replay 5s Entry Loading Animation"
+            >
+              ↺ Intro
+            </button>
+          )}
           {onOpenSayHi && (
             <button
               type="button"

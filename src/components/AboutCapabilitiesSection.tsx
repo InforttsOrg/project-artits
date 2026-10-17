@@ -76,10 +76,59 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
         </div>
 
         <div className="companies-cards-grid">
+          {/* Company 0: Infortts Inc (Parent Organization) */}
+          <div className="company-card-anchor flagship-org">
+            <div className="company-logo-slot">
+              <img src="/companies/infortts.png" alt="Infortts Inc" className="company-logo-img square infortts-orb" />
+            </div>
+            <div className="company-info-slot">
+              <div className="company-header-row">
+                <span className="company-name">Infortts Inc. (Infortts India)</span>
+                <span className="company-badge-pill highlight-cyan">Founding Entity • 2021</span>
+              </div>
+              <span className="company-role-meta">Founding Architect & Principal Engineer • Jun 2021 – Present</span>
+              <p className="company-impact-text">
+                Commercial ecosystem & autonomous systems foundry. Meta Business Verified Portfolio (ID: <b>1160500881122893</b>).
+                Architected high-throughput algorithmic pipelines (Mitochondria), autonomous swarms (Meeseeks), and cross-cloud infrastructure.
+              </p>
+              
+              {/* Direct Real Links */}
+              <div className="company-links-row">
+                <a
+                  href="https://www.linkedin.com/company/infortts-inc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link highlight"
+                >
+                  💼 Infortts LinkedIn ↗
+                </a>
+                <a
+                  href="https://infortts.site/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link"
+                >
+                  🌐 infortts.site ↗
+                </a>
+                <span className="company-direct-link meta-badge">
+                  🏢 Meta ID: 1160500881122893
+                </span>
+              </div>
+
+              <div className="company-pill-row">
+                <span className="company-tech-tag">Distributed Systems</span>
+                <span className="company-tech-tag">NATS JetStream</span>
+                <span className="company-tech-tag">C++ / MT5</span>
+                <span className="company-tech-tag">Autonomous AI</span>
+                <span className="company-tech-tag">Qdrant Vector</span>
+              </div>
+            </div>
+          </div>
+
           {/* Company 1: Gym Wise India */}
           <div className="company-card-anchor">
             <div className="company-logo-slot">
-              <img src="/companies/gymwise.png" alt="Gym Wise India" className="company-logo-img" />
+              <img src="/companies/gymwise.png" alt="Gym Wise India" className="company-logo-img square" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">
@@ -103,12 +152,12 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
                   ▶ Google Play App ↗
                 </a>
                 <a
-                  href="https://www.linkedin.com/company/gymwise-india/"
+                  href="https://www.linkedin.com/company/gym-wise/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="company-direct-link"
                 >
-                  💼 LinkedIn (290+) ↗
+                  💼 LinkedIn (gym-wise) ↗
                 </a>
                 <a
                   href="https://gymwise.in"
@@ -132,7 +181,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
           {/* Company 2: BigHit Sportz */}
           <div className="company-card-anchor">
             <div className="company-logo-slot">
-              <img src="/companies/bighit.png" alt="BigHit Sportz" className="company-logo-img" />
+              <img src="/companies/bighit.png" alt="BigHit Sportz" className="company-logo-img square" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">
@@ -156,12 +205,12 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
                   ▶ Google Play (4.0★) ↗
                 </a>
                 <a
-                  href="https://www.linkedin.com/company/bighit-sportz/"
+                  href="https://www.linkedin.com/company/bighitsports/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="company-direct-link"
                 >
-                  💼 LinkedIn (5.1K) ↗
+                  💼 LinkedIn (bighitsports) ↗
                 </a>
                 <a
                   href="https://bighit.pro"

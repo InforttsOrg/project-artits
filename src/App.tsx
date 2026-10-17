@@ -23,9 +23,7 @@ export const AppContent: React.FC = () => {
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
   const [isSayHiOpen, setIsSayHiOpen] = useState<boolean>(false);
   const [inforttsFeedsCount, setInforttsFeedsCount] = useState<number>(40);
-  const [showLoader, setShowLoader] = useState<boolean>(() => {
-    return sessionStorage.getItem('has_loaded_artits_deck') !== 'true';
-  });
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   // Sync live Infortts Shared Backend telemetry
   useEffect(() => {
@@ -40,7 +38,6 @@ export const AppContent: React.FC = () => {
   }, []);
 
   const handleLoaderComplete = () => {
-    sessionStorage.setItem('has_loaded_artits_deck', 'true');
     setShowLoader(false);
   };
 
@@ -55,6 +52,7 @@ export const AppContent: React.FC = () => {
       <NavigationBar
         onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
         onOpenSayHi={() => setIsSayHiOpen(true)}
+        onReplayIntro={() => setShowLoader(true)}
       />
 
       {/* Routed Content View */}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface EntryLoaderProps {
   onComplete: () => void;
@@ -9,10 +9,28 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
   const [statusText, setStatusText] = useState<string>('SYNCHRONIZING INFORTTS TELEMETRY RUNTIME');
   const [isDismissing, setIsDismissing] = useState<boolean>(false);
 
+  const handleFinish = useCallback(() => {
+    setIsDismissing(true);
+    setTimeout(() => {
+      onComplete();
+    }, 600);
+  }, [onComplete]);
+
+  // Keyboard shortcut listener: Enter, Space, or Escape immediately skips
   useEffect(() => {
-    // 5-second smooth loading sequence (5000ms total)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+        handleFinish();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleFinish]);
+
+  useEffect(() => {
+    // 5-second smooth loading sequence (4800ms total)
     const startTime = Date.now();
-    const duration = 4800; // ~5 seconds
+    const duration = 4800; // 5 seconds
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -31,117 +49,102 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
         clearInterval(interval);
         setStatusText('SYSTEMS ONLINE • REVEALING COMMAND DECK');
         setTimeout(() => {
-          setIsDismissing(true);
-          setTimeout(() => {
-            onComplete();
-          }, 700);
-        }, 300);
+          handleFinish();
+        }, 350);
       }
-    }, 50);
+    }, 40);
 
     return () => clearInterval(interval);
-  }, [onComplete]);
+  }, [handleFinish]);
 
-  const handleSkip = () => {
-    setIsDismissing(true);
-    setTimeout(() => {
-      onComplete();
-    }, 200);
-  };
+  // Seam position: starts around 36% and pushes toward 88% as progress reaches 100%
+  const seamPercent = 36 + (progress / 100) * 52;
+  // Straining bobbing motion
+  const strainY = Math.sin((progress / 100) * Math.PI * 18) * 3;
 
   return (
     <div
-      className={`entry-loader-overlay ${isDismissing ? 'dismiss' : ''}`}
+      className={`entry-loader-stage ${isDismissing ? 'dismiss' : ''}`}
       role="progressbar"
       aria-valuenow={progress}
       aria-valuemin={0}
       aria-valuemax={100}
+      onClick={handleFinish}
+      title="Click anywhere or press Enter to skip"
     >
-      {/* Huyml-style Split-screen character reveal */}
-      <div className={`split-left-curtain ${isDismissing ? 'open-left' : ''}`}>
-        <div className="curtain-content">
-          <span className="split-brand-half left">SAHIL</span>
+      {/* Split Stage: Left Light Panel with Huy ML-inspired Bold Red Typography */}
+      <div
+        className="loader-left-panel"
+        style={{ width: `${seamPercent}%` }}
+      >
+        <div className="loader-left-inner">
+          <div className="loader-brand-serif">
+            <span className="serif-word">SAHIL</span>
+            <span className="serif-word">RATHEE</span>
+          </div>
+          <div className="loader-architect-tag">
+            <span>ARCHITECT &bull; BORN 2002 &bull; INFORTTS INC.</span>
+          </div>
         </div>
       </div>
 
-      <div className={`split-right-curtain ${isDismissing ? 'open-right' : ''}`}>
-        <div className="curtain-content">
-          <span className="split-brand-half right">RATHEE</span>
+      {/* Split Stage: Right Dark Curtain that gets pushed away */}
+      <div
+        className="loader-right-curtain"
+        style={{ left: `${seamPercent}%` }}
+      >
+        <div className="curtain-edge-shadow" />
+      </div>
+
+      {/* Pushing Character: Attached directly to the seam, hands pushing against the dark door */}
+      <div
+        className="loader-pusher-anchor"
+        style={{
+          left: `${seamPercent}%`,
+          transform: `translate(-98%, -50%) translateY(${strainY}px)`,
+        }}
+      >
+        <img
+          src="/assets/pushing-character-transparent.png"
+          alt="Pushing Character"
+          className="pushing-character-img"
+        />
+        {/* Effort indicator */}
+        <div className="push-effort-spark">
+          <span>💦</span>
         </div>
       </div>
 
-      {/* Center Illustrated Pushing Character (Huyml aesthetic) */}
-      <div className="loader-center-stage">
-        {/* Animated Figure Pushing the Wall */}
-        <div className="pushing-figure-container">
-          <svg
-            className="pushing-character-svg"
-            viewBox="0 0 200 240"
-            width="180"
-            height="216"
+      {/* Bottom HUD Telemetry & Progress Control */}
+      <div className="loader-hud-dock" onClick={(e) => e.stopPropagation()}>
+        <div className="hud-top-meta">
+          <div className="hud-telemetry-badge">
+            <span className="live-indicator-dot" />
+            <span className="hud-text-mono">{statusText}</span>
+          </div>
+          <button
+            type="button"
+            className="hud-skip-btn"
+            onClick={handleFinish}
           >
-            {/* Pushing Character Silhouette */}
-            {/* Cap */}
-            <path d="M70,55 Q100,45 130,52 Q150,56 160,65 L125,65 Z" fill="#38bdf8" stroke="#020617" strokeWidth="2.5" />
-            <path d="M125,65 Q155,68 175,72 Q145,78 125,72 Z" fill="#00d2ff" stroke="#020617" strokeWidth="2" />
-            {/* Head */}
-            <circle cx="105" cy="78" r="24" fill="#ffffff" stroke="#020617" strokeWidth="2.5" />
-            {/* Glasses */}
-            <rect x="96" y="70" width="16" height="12" rx="2" fill="none" stroke="#020617" strokeWidth="2" />
-            <rect x="116" y="70" width="16" height="12" rx="2" fill="none" stroke="#020617" strokeWidth="2" />
-            <line x1="112" y1="76" x2="116" y2="76" stroke="#020617" strokeWidth="2" />
-            {/* Pushing Arm 1 */}
-            <path d="M95,115 L145,108 L170,105" fill="none" stroke="#020617" strokeWidth="6" strokeLinecap="round" />
-            {/* Pushing Arm 2 */}
-            <path d="M90,122 L140,118 L168,115" fill="none" stroke="#020617" strokeWidth="6" strokeLinecap="round" />
-            {/* Hands on wall */}
-            <circle cx="172" cy="104" r="5" fill="#ffffff" stroke="#020617" strokeWidth="2" />
-            <circle cx="170" cy="115" r="5" fill="#ffffff" stroke="#020617" strokeWidth="2" />
-            {/* Torso / Shirt */}
-            <path d="M80,100 L125,98 L115,160 L65,155 Z" fill="#00d2ff" stroke="#020617" strokeWidth="2.5" />
-            {/* Shorts */}
-            <path d="M65,155 L115,160 L110,190 L85,188 L80,195 L55,185 Z" fill="#0f172a" stroke="#020617" strokeWidth="2.5" />
-            {/* Legs straining */}
-            <path d="M60,185 L45,215 L35,225" fill="none" stroke="#020617" strokeWidth="5" strokeLinecap="round" />
-            <path d="M100,190 L95,220 L110,228" fill="none" stroke="#020617" strokeWidth="5" strokeLinecap="round" />
-            {/* Shoes */}
-            <ellipse cx="32" cy="226" rx="14" ry="6" fill="#ffffff" stroke="#020617" strokeWidth="2" />
-            <ellipse cx="112" cy="230" rx="14" ry="6" fill="#ffffff" stroke="#020617" strokeWidth="2" />
-            {/* Wall Line */}
-            <line x1="174" y1="10" x2="174" y2="235" stroke="#00d2ff" strokeWidth="3" strokeDasharray="4 4" />
-          </svg>
+            SKIP [ENTER] ↗
+          </button>
         </div>
 
-        {/* Counter and Telemetry */}
-        <div className="loader-inner-container">
-          <div className="loader-header-row">
-            <span className="loader-brand-tag">SAHIL RATHEE // ARCHITECT // BORN 2002</span>
-            <button type="button" className="loader-skip-btn" onClick={handleSkip}>
-              SKIP [ENTER] ↗
-            </button>
+        {/* Big Counter & Bar */}
+        <div className="hud-progress-row">
+          <div className="hud-counter">
+            <span className="counter-val">{progress < 10 ? `0${progress}` : progress}</span>
+            <span className="counter-unit">%</span>
           </div>
+          <div className="hud-track-bar">
+            <div className="hud-track-fill" style={{ width: `${progress}%` }} />
+          </div>
+        </div>
 
-          {/* 5-second Counter */}
-          <div className="loader-counter-wrapper">
-            <span className="loader-counter-number">
-              {progress < 10 ? `0${progress}` : progress}
-            </span>
-            <span className="loader-counter-symbol">%</span>
-          </div>
-
-          {/* Progress bar */}
-          <div className="loader-progress-track">
-            <div className="loader-progress-fill" style={{ width: `${progress}%` }} />
-          </div>
-
-          {/* Checkpoint text */}
-          <div className="loader-footer-row">
-            <div className="loader-status-text">
-              <span className="loader-pulse-dot" />
-              <span>{statusText}</span>
-            </div>
-            <span className="loader-meta-stamp">5.0s BOOT SEQUENCE • NEW DELHI</span>
-          </div>
+        <div className="hud-bottom-meta">
+          <span className="hud-foot-note">5.0s ARCHITECTURAL BOOT SEQUENCE // NEW DELHI // 2002</span>
+          <span className="hud-foot-note">CLICK ANYWHERE TO REVEAL</span>
         </div>
       </div>
     </div>
