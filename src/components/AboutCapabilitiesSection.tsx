@@ -79,7 +79,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
           {/* Company 1: Gym Wise India */}
           <div className="company-card-anchor">
             <div className="company-logo-slot">
-              <img src="/companies/gymwise.png" alt="Gym Wise India" className="company-logo-img square" />
+              <img src="/companies/gymwise.png" alt="Gym Wise India" className="company-logo-img" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">
@@ -132,7 +132,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
           {/* Company 2: BigHit Sportz */}
           <div className="company-card-anchor">
             <div className="company-logo-slot">
-              <img src="/companies/bighit.png" alt="BigHit Sportz" className="company-logo-img square" />
+              <img src="/companies/bighit.png" alt="BigHit Sportz" className="company-logo-img" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">

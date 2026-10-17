@@ -1731,9 +1731,52 @@ kbd {
   gap: 12px;
 }
 
+.topology-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topology-view-toggle {
+  display: flex;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 210, 255, 0.2);
+}
+
+.topology-toggle-pill {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.topology-toggle-pill:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.topology-toggle-pill.active {
+  background: rgba(0, 210, 255, 0.2);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.25);
+}
+
 .topology-canvas-container {
   width: 100%;
-  aspect-ratio: 720 / 480;
+  height: 480px;
+  min-height: 480px;
   background: #070b14;
   border: 1px solid var(--border-cyan);
   border-radius: 10px;
@@ -1814,6 +1857,27 @@ kbd {
 
 .meta-val.highlight {
   color: #10b981;
+}
+
+.node-meta-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.node-link-pill {
+  color: #00f3ff;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  transition: opacity 0.15s;
+}
+
+.node-link-pill:hover {
+  text-decoration: underline;
+  opacity: 0.85;
 }
 
 /* Competency Matrix Card */
@@ -3341,21 +3405,26 @@ kbd {
 }
 
 .company-logo-slot {
-  height: 48px;
+  min-height: 44px;
   display: flex;
   align-items: center;
 }
 
 .company-logo-img {
-  max-height: 42px;
-  max-width: 180px;
-  object-fit: contain;
+  height: 44px;
+  width: 44px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  background: #000;
 }
 
 .company-logo-img.square {
-  max-height: 42px;
-  width: auto;
-  border-radius: 6px;
+  height: 44px;
+  width: 44px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .company-info-slot {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { InteractiveCanvasGraphic } from './InteractiveCanvasGraphic';
+import { MemoryGraph3D, GraphNode } from './MemoryGraph3D';
 import { AboutCapabilitiesSection } from './AboutCapabilitiesSection';
 import { ComeSayHiModal } from './ComeSayHiModal';
 
@@ -78,6 +79,8 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'mitochondria' | 'meeseeks' | 'roost' | 'bighit'>('all');
   const [selectedNode, setSelectedNode] = useState<SystemNode | null>(TOPOLOGY_NODES[0]);
+  const [selected3DNode, setSelected3DNode] = useState<GraphNode | null>(null);
+  const [topologyViewMode, setTopologyViewMode] = useState<'3d' | '2d'>('3d');
   const [expandedSystem, setExpandedSystem] = useState<string>('mitochondria');
   const [isSayHiOpen, setIsSayHiOpen] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -522,23 +525,90 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 
         {/* Right Column: Interactive Architecture Topology & Node Inspector */}
         <aside className="topology-sidebar-section" id="topology">
-          <div className="section-header-row">
-            <h2 className="deck-section-title">Live Architecture Topology</h2>
-            <span className="deck-section-hint">Click any node to inspect telemetry</span>
+          <div className="section-header-row topology-header-row">
+            <div>
+              <h2 className="deck-section-title">Live Architecture Topology</h2>
+              <span className="deck-section-hint">
+                {topologyViewMode === '3d' ? 'Drag to rotate 3D sphere • Click node for telemetry' : 'Click any node to inspect pipeline telemetry'}
+              </span>
+            </div>
+            <div className="topology-view-toggle">
+              <button
+                type="button"
+                className={`topology-toggle-pill ${topologyViewMode === '3d' ? 'active' : ''}`}
+                onClick={() => setTopologyViewMode('3d')}
+              >
+                ❖ 3D Vector Graph
+              </button>
+              <button
+                type="button"
+                className={`topology-toggle-pill ${topologyViewMode === '2d' ? 'active' : ''}`}
+                onClick={() => setTopologyViewMode('2d')}
+              >
+                ☷ 2D Pipeline Grid
+              </button>
+            </div>
           </div>
 
           <div className="topology-canvas-container">
-            <canvas
-              ref={canvasRef}
-              width={720}
-              height={480}
-              className="topology-canvas"
-              onClick={handleCanvasClick}
-            />
+            {topologyViewMode === '3d' ? (
+              <MemoryGraph3D
+                onSelectNode={(node) => {
+                  setSelected3DNode(node);
+                  if (node.id === 'mitochondria') setExpandedSystem('mitochondria');
+                  else if (node.id === 'meeseeks') setExpandedSystem('meeseeks');
+                  else if (node.id === 'roost') setExpandedSystem('roost');
+                  else if (node.id === 'bighit_cloud' || node.id === 'bighit') setExpandedSystem('bighit');
+                }}
+                activeNode={selected3DNode}
+              />
+            ) : (
+              <canvas
+                ref={canvasRef}
+                width={720}
+                height={480}
+                className="topology-canvas"
+                onClick={handleCanvasClick}
+              />
+            )}
           </div>
 
           {/* Selected Node Technical Telemetry Box */}
-          {selectedNode && (
+          {topologyViewMode === '3d' ? (
+            <div className="node-telemetry-box">
+              <div className="node-telemetry-header">
+                <div>
+                  <span className="node-sys-id">
+                    {selected3DNode ? (selected3DNode.type === 'project' ? 'PRODUCTION PROJECT NODE' : 'ENGINEERING CAPABILITY NODE') : '3D SPATIAL VECTOR NODE'}
+                  </span>
+                  <h4 className="node-title">{selected3DNode ? selected3DNode.label : 'Mitochondria Forensics'}</h4>
+                </div>
+                <span className="node-status-pill">{selected3DNode?.status?.toUpperCase() || 'ACTIVE'}</span>
+              </div>
+              <div className="node-meta-grid">
+                <div className="node-meta-item">
+                  <span className="meta-label">Classification:</span>
+                  <span className="meta-val">{selected3DNode ? (selected3DNode.type === 'project' ? 'Production System' : 'Core Technology') : 'Algorithmic Forex System'}</span>
+                </div>
+                <div className="node-meta-item">
+                  <span className="meta-label">Operational Role:</span>
+                  <span className="meta-val">{selected3DNode ? selected3DNode.desc : 'Forex Tick Ingestion & Lock-Free RingBuffers'}</span>
+                </div>
+                <div className="node-meta-item full-width">
+                  <span className="meta-label">Architecture Invariants:</span>
+                  <span className="meta-val highlight">{selected3DNode ? selected3DNode.details : 'Nanosecond-latency execution pipeline with zero-loss NATS JetStream and Qdrant vector memory analytics.'}</span>
+                </div>
+                {selected3DNode?.link && (
+                  <div className="node-meta-item full-width">
+                    <span className="meta-label">Direct Endpoint:</span>
+                    <a href={selected3DNode.link} target="_blank" rel="noopener noreferrer" className="node-link-pill">
+                      {selected3DNode.link} ↗
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : selectedNode && (
             <div className="node-telemetry-box">
               <div className="node-telemetry-header">
                 <div>

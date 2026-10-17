@@ -154,6 +154,26 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     status: 'Active',
     color: '#6366f1'
   },
+  {
+    id: 'gymwise',
+    label: 'GymWise India',
+    type: 'project',
+    desc: 'Enterprise Fitness ERP & K8s',
+    details: 'Global fitness operations SaaS serving 300+ gyms across Delhi NCR, Australia, and Singapore. Containerized microservices & Terraform IaC with 99.99% high availability.',
+    status: 'Active',
+    color: '#10b981',
+    link: 'https://gymwise.in'
+  },
+  {
+    id: 'gamixlabs',
+    label: 'Gamix Labs',
+    type: 'project',
+    desc: 'Online Game Engine & Backend',
+    details: 'Engineered online game backends and HTML5/PWA gaming titles for tier-1 clients (OneFC, Bombay Play) using Cocos Creator engine and high-throughput Node.js streaming.',
+    status: 'Active',
+    color: '#f59e0b',
+    link: 'https://gamixlabs.com'
+  },
   // SKILLS (Luminous Neon Violet / Electric Amber / Laser Mint)
   {
     id: 'cpp',
@@ -386,7 +406,12 @@ const LINKS: GraphLink[] = [
   { source: 'gis', target: 'bighit_cloud' },
   { source: 'gis', target: 'spark' },
   { source: 'mysql', target: 'care4u' },
-  { source: 'ansible', target: 'bighit_cloud' }
+  { source: 'ansible', target: 'bighit_cloud' },
+  { source: 'k8s', target: 'gymwise' },
+  { source: 'terraform', target: 'gymwise' },
+  { source: 'go', target: 'gymwise' },
+  { source: 'cocos', target: 'gamixlabs' },
+  { source: 'nodejs', target: 'gamixlabs' }
 ];
 
 interface MemoryGraph3DProps {
