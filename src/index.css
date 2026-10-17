@@ -2176,239 +2176,316 @@ kbd {
 }
 
 /* ========================================================
-   AUTHENTIC HUYML PUSHING CHARACTER ENTRY LOADER
+   CYBERNETIC ARCHITECTURAL ENTRY LOADER
    ======================================================== */
-.entry-loader-stage {
+.cyber-entry-loader {
   position: fixed;
   inset: 0;
   z-index: 999999;
   background: #020617;
   overflow: hidden;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.entry-loader-stage.dismiss {
+.cyber-entry-loader.dismissing {
   opacity: 0;
-  transform: translateY(-100%);
   pointer-events: none;
 }
 
-.loader-left-panel {
+.loader-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 210, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.loader-radial-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, 90vw);
+  height: min(600px, 90vw);
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.12) 0%, rgba(14, 165, 233, 0.04) 45%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Cinematic Dual Split Shutters */
+.shutter {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  background: #fdfdfd;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  transition: width 0.05s linear;
-  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
-  z-index: 2;
-}
-
-.loader-left-inner {
-  position: absolute;
-  left: clamp(16px, 6vw, 80px);
-  top: 45%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.loader-brand-serif {
-  display: flex;
-  flex-direction: column;
-  line-height: 0.84;
-}
-
-.serif-word {
-  font-family: 'Playfair Display', Didot, 'Bodoni MT', Georgia, serif;
-  font-size: clamp(60px, 13vw, 175px);
-  font-weight: 900;
-  color: #ff3b30;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  text-shadow: 0 4px 20px rgba(255, 59, 48, 0.15);
-}
-
-.loader-architect-tag {
-  font-family: 'Agave Nerd Font', 'Fira Code', monospace;
-  font-size: clamp(8.5px, 1.2vw, 12px);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: #0f172a;
-}
-
-.loader-right-curtain {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
+  width: 50%;
   background: #020617;
-  transition: left 0.05s linear;
-  z-index: 1;
-}
-
-.curtain-edge-shadow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 14px;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-}
-
-.loader-pusher-anchor {
-  position: absolute;
-  top: 45%;
-  z-index: 10;
-  transition: left 0.05s linear;
+  z-index: 5;
+  transition: transform 0.65s cubic-bezier(0.77, 0, 0.175, 1);
   pointer-events: none;
 }
 
-.pushing-character-img {
-  height: clamp(230px, 46vh, 430px);
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.4));
-}
-
-.push-effort-spark {
-  position: absolute;
-  top: 15%;
-  right: 15%;
-  font-size: 22px;
-  animation: pulse 0.8s infinite alternate;
-}
-
-/* Bottom HUD Dock */
-.loader-hud-dock {
-  position: absolute;
-  bottom: 0;
+.shutter-left {
   left: 0;
+  border-right: 1px solid rgba(0, 210, 255, 0.3);
+}
+
+.shutter-right {
   right: 0;
-  z-index: 30;
-  padding: 14px 24px;
-  background: rgba(2, 6, 23, 0.94);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(0, 210, 255, 0.25);
+  border-left: 1px solid rgba(0, 210, 255, 0.3);
+}
+
+.shutter-left.open-left {
+  transform: translateX(-100%);
+}
+
+.shutter-right.open-right {
+  transform: translateX(100%);
+}
+
+/* Central Holographic Stage */
+.loader-central-stage {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 560px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
 }
 
-.hud-top-meta {
+/* Hologram Emblem with Orbiting Rings */
+.hologram-emblem-wrap {
+  position: relative;
+  width: 170px;
+  height: 170px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
 }
 
-.hud-telemetry-badge {
+.hologram-rings-svg {
+  position: absolute;
+  inset: -25px;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+}
+
+.ring-spin-clockwise {
+  transform-origin: center;
+  animation: spinClockwise 12s linear infinite;
+}
+
+.ring-spin-counter {
+  transform-origin: center;
+  animation: spinCounter 8s linear infinite;
+}
+
+@keyframes spinClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCounter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.hologram-logo-core {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(0, 243, 255, 0.4), inset 0 0 20px rgba(0, 243, 255, 0.2);
+  border: 1.5px solid rgba(0, 243, 255, 0.6);
+  background: #050814;
+}
+
+.hologram-infortts-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.hologram-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00f3ff, transparent);
+  box-shadow: 0 0 8px #00f3ff;
+  animation: scanlineMove 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes scanlineMove {
+  0% { top: 0%; opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { top: 96%; opacity: 0.3; }
+}
+
+/* Typography Block */
+.loader-typography-block {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.live-indicator-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  animation: pulse 1.2s infinite;
-}
-
-.hud-text-mono {
-  font-family: 'Agave Nerd Font', monospace;
-  font-size: 10.5px;
-  color: #38bdf8;
-  letter-spacing: 0.06em;
-  font-weight: 600;
-}
-
-.hud-skip-btn {
-  background: rgba(0, 210, 255, 0.08);
-  border: 1px solid rgba(0, 210, 255, 0.35);
-  color: #00d2ff;
-  font-family: 'Agave Nerd Font', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.hud-skip-btn:hover {
-  background: #00d2ff;
-  color: #020617;
-  box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
-}
-
-.hud-progress-row {
+.loader-name-row {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  letter-spacing: -0.03em;
 }
 
-.hud-counter {
+.loader-first-name {
+  font-family: 'Outfit', 'Playfair Display', sans-serif;
+  font-size: clamp(34px, 7vw, 56px);
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: 0.04em;
+}
+
+.loader-last-name {
+  font-family: 'Outfit', 'Playfair Display', sans-serif;
+  font-size: clamp(34px, 7vw, 56px);
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f3ff 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.04em;
+  filter: drop-shadow(0 0 16px rgba(0, 243, 255, 0.4));
+}
+
+.loader-architect-subtitle {
+  font-family: 'Agave Nerd Font', monospace;
+  font-size: clamp(10px, 1.8vw, 12px);
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.12em;
+}
+
+.cyan-prefix {
+  color: var(--cyan-primary);
+  margin-right: 4px;
+}
+
+/* Digital Counter */
+.loader-counter-block {
   display: flex;
   align-items: baseline;
   font-family: 'Agave Nerd Font', monospace;
   line-height: 1;
 }
 
-.counter-val {
-  font-size: clamp(26px, 3.8vw, 38px);
+.loader-counter-digits {
+  font-size: clamp(48px, 10vw, 76px);
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+  text-shadow: 0 0 25px rgba(0, 243, 255, 0.45);
 }
 
-.counter-unit {
-  font-size: 15px;
-  color: #00d2ff;
+.loader-counter-percent {
+  font-size: clamp(18px, 3.5vw, 28px);
+  color: var(--cyan-primary);
   font-weight: 700;
-  margin-left: 2px;
+  margin-left: 4px;
 }
 
-.hud-track-bar {
-  flex: 1;
+/* Progress Track */
+.loader-track-wrapper {
+  position: relative;
+  width: 100%;
   height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: visible;
 }
 
-.hud-track-fill {
+.loader-track-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00d2ff 0%, #38bdf8 50%, #10b981 100%);
-  box-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
+  background: linear-gradient(90deg, #00f3ff 0%, #38bdf8 50%, #10b981 100%);
+  border-radius: 3px;
+  box-shadow: 0 0 14px rgba(0, 243, 255, 0.7);
   transition: width 0.05s linear;
 }
 
-.hud-bottom-meta {
+.loader-track-glow-head {
+  position: absolute;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00f3ff;
+  box-shadow: 0 0 12px #00f3ff;
+  transform: translateX(-50%);
+  transition: left 0.05s linear;
+}
+
+/* Status Strip */
+.loader-status-strip {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Agave Nerd Font', monospace;
-  font-size: 9px;
-  color: #64748b;
-  letter-spacing: 0.05em;
+  font-size: 10px;
+  gap: 12px;
 }
 
-@media (max-width: 640px) {
-  .hud-bottom-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
+.loader-status-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #38bdf8;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+.loader-status-msg {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: clamp(200px, 50vw, 380px);
+}
+
+.loader-skip-action-btn {
+  background: rgba(0, 243, 255, 0.08);
+  border: 1px solid rgba(0, 243, 255, 0.35);
+  color: #00f3ff;
+  font-family: 'Agave Nerd Font', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.loader-skip-action-btn:hover {
+  background: #00f3ff;
+  color: #020617;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.5);
 }
 
 /* ========================================================

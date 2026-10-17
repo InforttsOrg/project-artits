@@ -38,16 +38,16 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
       setProgress(current);
 
       if (current < 25) {
-        setStatusText('[01/04] BOOTING DISTRIBUTED RUNTIME & IN-MEMORY IPC');
+        setStatusText('[01/04] INITIALIZING INFORTTS DISTRIBUTED RUNTIME');
       } else if (current < 50) {
-        setStatusText('[02/04] MOUNTING MITOCHONDRIA HFT RINGBUFFERS');
+        setStatusText('[02/04] MOUNTING MITOCHONDRIA HFT CLUSTERS (MT5 WINE ORACLE)');
       } else if (current < 75) {
-        setStatusText('[03/04] VERIFYING AUTONOMOUS MEESEEKS AGENT SWARMS');
+        setStatusText('[03/04] CHARNIA NATS DB.QUERY PROXY VERIFIED');
       } else if (current < 100) {
-        setStatusText('[04/04] SYNCHRONIZING CLUSTER TOPOLOGY • 2002 -> 2026');
+        setStatusText('[04/04] SYNCHRONIZING AGENT SWARMS • NEW DELHI // 2002');
       } else {
         clearInterval(interval);
-        setStatusText('SYSTEMS ONLINE • REVEALING COMMAND DECK');
+        setStatusText('SYSTEMS ONLINE // COMMAND DECK ENGAGED');
         setTimeout(() => {
           handleFinish();
         }, 350);
@@ -57,14 +57,9 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
     return () => clearInterval(interval);
   }, [handleFinish]);
 
-  // Seam position: starts around 36% and pushes toward 88% as progress reaches 100%
-  const seamPercent = 36 + (progress / 100) * 52;
-  // Straining bobbing motion
-  const strainY = Math.sin((progress / 100) * Math.PI * 18) * 3;
-
   return (
     <div
-      className={`entry-loader-stage ${isDismissing ? 'dismiss' : ''}`}
+      className={`cyber-entry-loader ${isDismissing ? 'dismissing' : ''}`}
       role="progressbar"
       aria-valuenow={progress}
       aria-valuemin={0}
@@ -72,79 +67,105 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
       onClick={handleFinish}
       title="Click anywhere or press Enter to skip"
     >
-      {/* Split Stage: Left Light Panel with Huy ML-inspired Bold Red Typography */}
-      <div
-        className="loader-left-panel"
-        style={{ width: `${seamPercent}%` }}
-      >
-        <div className="loader-left-inner">
-          <div className="loader-brand-serif">
-            <span className="serif-word">SAHIL</span>
-            <span className="serif-word">RATHEE</span>
-          </div>
-          <div className="loader-architect-tag">
-            <span>ARCHITECT &bull; BORN 2002 &bull; INFORTTS INC.</span>
+      {/* Background Matrix Blueprint Grid */}
+      <div className="loader-bg-grid" />
+      <div className="loader-radial-glow" />
+
+      {/* Cinematic Dual Split Shutters for 100% Reveal */}
+      <div className={`shutter shutter-left ${isDismissing ? 'open-left' : ''}`} />
+      <div className={`shutter shutter-right ${isDismissing ? 'open-right' : ''}`} />
+
+      {/* Central Holographic Stage */}
+      <div className="loader-central-stage" onClick={(e) => e.stopPropagation()}>
+        {/* Holographic Infortts Emblem with Orbiting Rings */}
+        <div className="hologram-emblem-wrap">
+          <svg className="hologram-rings-svg" viewBox="0 0 220 220" width="220" height="220">
+            {/* Outer dashed spinning ring */}
+            <circle
+              cx="110"
+              cy="110"
+              r="102"
+              fill="none"
+              stroke="#00f3ff"
+              strokeWidth="1.5"
+              strokeDasharray="8 14"
+              className="ring-spin-clockwise"
+            />
+            {/* Middle counter-spinning ring */}
+            <circle
+              cx="110"
+              cy="110"
+              r="88"
+              fill="none"
+              stroke="#38bdf8"
+              strokeWidth="1"
+              strokeDasharray="4 8"
+              opacity="0.6"
+              className="ring-spin-counter"
+            />
+            {/* Inner target ticks */}
+            <circle
+              cx="110"
+              cy="110"
+              r="76"
+              fill="none"
+              stroke="#00d2ff"
+              strokeWidth="1"
+              strokeDasharray="2 12"
+              opacity="0.8"
+            />
+          </svg>
+
+          {/* Real Official Infortts Emblem */}
+          <div className="hologram-logo-core">
+            <img
+              src="/companies/infortts.png"
+              alt="Infortts Emblem"
+              className="hologram-infortts-img"
+            />
+            {/* Vertical scanning laser beam */}
+            <div className="hologram-scanline" />
           </div>
         </div>
-      </div>
 
-      {/* Split Stage: Right Dark Curtain that gets pushed away */}
-      <div
-        className="loader-right-curtain"
-        style={{ left: `${seamPercent}%` }}
-      >
-        <div className="curtain-edge-shadow" />
-      </div>
-
-      {/* Pushing Character: Attached directly to the seam, hands pushing against the dark door */}
-      <div
-        className="loader-pusher-anchor"
-        style={{
-          left: `${seamPercent}%`,
-          transform: `translate(-98%, -50%) translateY(${strainY}px)`,
-        }}
-      >
-        <img
-          src="/assets/pushing-character-transparent.png"
-          alt="Pushing Character"
-          className="pushing-character-img"
-        />
-        {/* Effort indicator */}
-        <div className="push-effort-spark">
-          <span>💦</span>
+        {/* Architectural Identity Typography */}
+        <div className="loader-typography-block">
+          <div className="loader-name-row">
+            <span className="loader-first-name">SAHIL</span>
+            <span className="loader-last-name">RATHEE</span>
+          </div>
+          <div className="loader-architect-subtitle">
+            <span className="cyan-prefix">&gt;</span> SYSTEMS ARCHITECT // BORN 2002 // INFORTTS INC.
+          </div>
         </div>
-      </div>
 
-      {/* Bottom HUD Telemetry & Progress Control */}
-      <div className="loader-hud-dock" onClick={(e) => e.stopPropagation()}>
-        <div className="hud-top-meta">
-          <div className="hud-telemetry-badge">
-            <span className="live-indicator-dot" />
-            <span className="hud-text-mono">{statusText}</span>
+        {/* Real-Time Digital Millisecond Counter */}
+        <div className="loader-counter-block">
+          <span className="loader-counter-digits">
+            {progress < 10 ? `0${progress}` : progress}
+          </span>
+          <span className="loader-counter-percent">%</span>
+        </div>
+
+        {/* Glowing Progress Track */}
+        <div className="loader-track-wrapper">
+          <div className="loader-track-fill" style={{ width: `${progress}%` }} />
+          <div className="loader-track-glow-head" style={{ left: `${progress}%` }} />
+        </div>
+
+        {/* Telemetry Status Strip */}
+        <div className="loader-status-strip">
+          <div className="loader-status-left">
+            <span className="loader-pulse-dot" />
+            <span className="loader-status-msg">{statusText}</span>
           </div>
           <button
             type="button"
-            className="hud-skip-btn"
+            className="loader-skip-action-btn"
             onClick={handleFinish}
           >
             SKIP [ENTER] ↗
           </button>
-        </div>
-
-        {/* Big Counter & Bar */}
-        <div className="hud-progress-row">
-          <div className="hud-counter">
-            <span className="counter-val">{progress < 10 ? `0${progress}` : progress}</span>
-            <span className="counter-unit">%</span>
-          </div>
-          <div className="hud-track-bar">
-            <div className="hud-track-fill" style={{ width: `${progress}%` }} />
-          </div>
-        </div>
-
-        <div className="hud-bottom-meta">
-          <span className="hud-foot-note">5.0s ARCHITECTURAL BOOT SEQUENCE // NEW DELHI // 2002</span>
-          <span className="hud-foot-note">CLICK ANYWHERE TO REVEAL</span>
         </div>
       </div>
     </div>
