@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { GameOfLifeBackground } from './components/GameOfLifeBackground';
+import { ThreeB1BOrbitalGame } from './components/ThreeB1BOrbitalGame';
 import { MemoryGraph3D, GraphNode, INITIAL_NODES } from './components/MemoryGraph3D';
 
 const App: React.FC = () => {
@@ -93,7 +93,7 @@ const App: React.FC = () => {
     } catch {
       setTimeout(() => {
         const lower = userMsg.toLowerCase();
-        let fallbackReply = "Sahil is a Senior Software Engineer & AI Architect specializing in Financial Systems, Distributed Cloud Infrastructure, and Agentic AI workflows. Feel free to explore the interactive 3D architecture graph or download his resume above!";
+        let fallbackReply = "Sahil is a Senior Software Engineer & AI Architect specializing in Financial Systems, Distributed Cloud Infrastructure, and Agentic AI workflows. Feel free to explore the interactive 3D architecture graph, play the 3Blue1Brown orbital simulator, or download his resume above!";
         
         if (lower.includes("time") || lower.includes("date") || lower.includes("clock")) {
           fallbackReply = `The current time is ${fullTimeStr} (${userTimeZone}). How can I help you explore Sahil's systems architecture or background?`;
@@ -105,6 +105,8 @@ const App: React.FC = () => {
           fallbackReply = "Zenith & Mitochondria is Sahil's algorithmic trading pipeline featuring MetaTrader 5 integration, sub-millisecond in-memory ring buffers, vector market analytics, and NATS JetStream telemetry.";
         } else if (lower.includes("agent") || lower.includes("meeseeks") || lower.includes("swarm")) {
           fallbackReply = "Meeseeks is an autonomous AI agent swarm handling task planning, automated code refactoring, tool dispatch, and live deployments with 70% reduced RAG token overhead.";
+        } else if (lower.includes("game") || lower.includes("3b1b") || lower.includes("orbital")) {
+          fallbackReply = "The 3Blue1Brown orbital mechanics simulator above demonstrates real Newtonian n-body gravitation, slingshot vectors, and trajectory prediction! You can drag to set launch velocity and use Spacebar for thruster impulses.";
         }
 
         setMessages(prev => [...prev, { 
@@ -168,7 +170,8 @@ const App: React.FC = () => {
 
   const quickPrompts = [
     "Architecture overview",
-    "Zenith & Mitochondria",
+    "3B1B Orbital Game",
+    "Zenith & Forensics",
     "Meeseeks Agent Swarm",
     "Contact & Availability"
   ];
@@ -187,9 +190,6 @@ const App: React.FC = () => {
         Skip to main content
       </a>
 
-      {/* Dynamic Ambient Fullscreen Background (Decorative, Hidden from Screen Readers) */}
-      <GameOfLifeBackground />
-
       <div className="content-container">
         {/* Top Header Navigation */}
         <header role="banner" className="top-nav">
@@ -201,7 +201,16 @@ const App: React.FC = () => {
             </span>
           </div>
 
-          <nav aria-label="Social and Resume Navigation" className="nav-links">
+          <nav aria-label="Main Navigation" className="nav-links">
+            <a href="#featured-work-heading" className="nav-link">
+              Systems
+            </a>
+            <a href="#physics-game-section" className="nav-link">
+              3B1B Game 🚀
+            </a>
+            <a href="#knowledge-graph-section" className="nav-link">
+              3D Graph ❖
+            </a>
             {socials.map(s => (
               <a 
                 key={s.name} 
@@ -296,21 +305,21 @@ const App: React.FC = () => {
                   </a>
 
                   <a 
-                    href="#knowledge-graph-section" 
+                    href="#physics-game-section" 
                     className="hero-secondary-btn"
-                    aria-label="Explore 3D Architecture and Skill Graph"
+                    aria-label="Play the 3Blue1Brown Orbital Mechanics Game"
                   >
-                    <span>Explore Architecture</span>
-                    <span aria-hidden="true">❖</span>
+                    <span>Play 3B1B Game</span>
+                    <span aria-hidden="true">🚀</span>
                   </a>
 
                   <a 
-                    href="mailto:sahil.artits.rathee@gmail.com" 
+                    href="#knowledge-graph-section" 
                     className="hero-tertiary-btn"
-                    aria-label="Send Email directly to Sahil Rathee"
+                    aria-label="Explore 3D Architecture and Skill Graph"
                   >
-                    <span>Email Me</span>
-                    <span aria-hidden="true">✉</span>
+                    <span>Explore 3D Graph</span>
+                    <span aria-hidden="true">❖</span>
                   </a>
                 </div>
 
@@ -418,6 +427,20 @@ const App: React.FC = () => {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* 3Blue1Brown Real-World Orbital Physics Game */}
+          <section className="section-block" id="physics-game-section" aria-labelledby="physics-game-heading">
+            <div className="section-header">
+              <span className="section-label">3Blue1Brown Mathematical Physics</span>
+              <h2 id="physics-game-heading" className="section-title">Orbital Mechanics: Real-World Slingshot Simulator</h2>
+              <p className="section-desc">
+                An interactive celestial mechanics game rendered with 3Blue1Brown open-source mathematical aesthetics. 
+                Utilize real Newtonian gravity, trajectory prediction, and planetary slingshot maneuvers to dock probes across deep space.
+              </p>
+            </div>
+
+            <ThreeB1BOrbitalGame />
           </section>
 
           {/* Interactive Knowledge & Skill Graph */}
