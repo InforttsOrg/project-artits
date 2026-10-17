@@ -9,6 +9,21 @@ const App: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [graphViewMode, setGraphViewMode] = useState<'3d' | 'list'>('3d');
   const [activeFilter, setActiveFilter] = useState<'all' | 'project' | 'skill'>('all');
+  const [inforttsHealth, setInforttsHealth] = useState<{ activeFeedsCount: number; status: string } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/infortts?action=health')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data && data.telemetry && Array.isArray(data.telemetry.m5_loaded)) {
+          setInforttsHealth({
+            activeFeedsCount: data.telemetry.m5_loaded.length,
+            status: 'Operational'
+          });
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const handleSelectNodeById = useCallback((id: string) => {
     const node = INITIAL_NODES.find(n => n.id === id);
@@ -204,6 +219,12 @@ const App: React.FC = () => {
               Sahil Rathee <span className="text-slate-500" aria-hidden="true">•</span>{' '}
               <span className="status-sub">Available for Senior & Staff Roles</span>
             </span>
+            {inforttsHealth && (
+              <span className="infortts-backend-badge" title="Live Shared Infortts Forensics Backend Telemetry">
+                <span className="live-dot-cyan" aria-hidden="true"></span>
+                <span>Infortts Shared API: <strong>{inforttsHealth.activeFeedsCount} Feeds Online</strong></span>
+              </span>
+            )}
           </div>
 
           <nav aria-label="Main Navigation" className="nav-links">

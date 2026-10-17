@@ -1864,6 +1864,42 @@ body {
   margin-top: 1.5rem;
 }
 
+.infortts-backend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(0, 210, 255, 0.1);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  color: #00D2FF;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.15);
+}
+
+.live-dot-cyan {
+  width: 6px;
+  height: 6px;
+  background-color: #00D2FF;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00D2FF;
+  display: inline-block;
+  animation: pulseBeacon 1.5s infinite;
+}
+
+.badge-shared-backend {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(0, 210, 255, 0.15);
+  color: #00D2FF;
+  border: 1px solid rgba(0, 210, 255, 0.4);
+}
+
 .badge-wave {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;

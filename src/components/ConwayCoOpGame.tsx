@@ -249,17 +249,26 @@ export const ConwayCoOpGame: React.FC = () => {
         try {
           localStorage.setItem('artits_conway_coop_highscore', newScore.toString());
         } catch {}
+        const payload = {
+          name: 'Sahil & Co-Pilot',
+          score: newScore,
+          multiplier: peakMultiplier,
+          missionId: `entropy_wave_${currentWave}`,
+          game: 'conway_coop',
+        };
+
         fetch('/api/highscore', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: 'Sahil & Co-Pilot',
-            score: newScore,
-            multiplier: peakMultiplier,
-            missionId: `entropy_wave_${currentWave}`,
-            game: 'conway_coop',
-          }),
+          body: JSON.stringify(payload),
         }).catch(() => {});
+
+        fetch('/api/infortts?action=submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }).catch(() => {});
+
         return newScore;
       }
       return prev;
@@ -712,6 +721,7 @@ export const ConwayCoOpGame: React.FC = () => {
         <div>
           <div className="game-badge-row">
             <span className="badge-3b1b">Conway 2-Player Co-Op</span>
+            <span className="badge-shared-backend">🌐 Infortts Shared Core API</span>
             <span className="badge-wave">Wave {wave}</span>
             <span className={`badge-mode ${coOpMode === 'ai_copilot' ? 'ai' : 'hotseat'}`}>
               {coOpMode === 'ai_copilot' ? '🤖 AI Co-Pilot Active' : '👥 2-Player Hotseat'}
