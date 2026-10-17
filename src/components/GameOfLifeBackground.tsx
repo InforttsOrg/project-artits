@@ -1,7 +1,31 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const GameOfLifeBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  // Accessibility Controls
+  const [opacity, setOpacity] = useState<number>(0.14); // Default subtle opacity for 100% text readability
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [speed, setSpeed] = useState<number>(1); // 0.5x, 1x, 2x
+  const [showControls, setShowControls] = useState<boolean>(false);
+
+  const stateRef = useRef({
+    opacity: 0.14,
+    isPaused: false,
+    speed: 1,
+  });
+
+  useEffect(() => {
+    stateRef.current = { opacity, isPaused, speed };
+  }, [opacity, isPaused, speed]);
+
+  useEffect(() => {
+    // Check user's OS preference for reduced motion
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionQuery.matches) {
+      setIsPaused(true);
+    }
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,18 +38,14 @@ export const GameOfLifeBackground: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const cellSize = 14;
+    const cellSize = 16;
     let cols = Math.floor(width / cellSize);
     let rows = Math.floor(height / cellSize);
 
-    // Create and seed grid with balanced density
-    let grid = createGrid(rows, cols, 0.14);
-    let nextGrid = createEmptyGrid(rows, cols);
-    let ageGrid = new Uint8Array(rows * cols); // Tracks cell age for radiant bloom gradient
-
-    function createEmptyGrid(r: number, c: number): Uint8Array {
-      return new Uint8Array(r * c);
-    }
+    // Create and seed grid
+    let grid = createGrid(rows, cols, 0.12);
+    let nextGrid = new Uint8Array(rows * cols);
+    let ageGrid = new Uint8Array(rows * cols);
 
     function createGrid(r: number, c: number, density: number): Uint8Array {
       const g = new Uint8Array(r * c);
@@ -40,15 +60,16 @@ export const GameOfLifeBackground: React.FC = () => {
       height = canvas.height = window.innerHeight;
       cols = Math.floor(width / cellSize);
       rows = Math.floor(height / cellSize);
-      grid = createGrid(rows, cols, 0.14);
-      nextGrid = createEmptyGrid(rows, cols);
+      grid = createGrid(rows, cols, 0.12);
+      nextGrid = new Uint8Array(rows * cols);
       ageGrid = new Uint8Array(rows * cols);
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Interactive pointer spawning with radius
+    // Interactive pointer spawning
     const spawnAt = (clientX: number, clientY: number) => {
+      if (stateRef.current.isPaused) return;
       const col = Math.floor(clientX / cellSize);
       const row = Math.floor(clientY / cellSize);
       const radius = 2;
@@ -57,7 +78,7 @@ export const GameOfLifeBackground: React.FC = () => {
         for (let dc = -radius; dc <= radius; dc++) {
           const r = (row + dr + rows) % rows;
           const c = (col + dc + cols) % cols;
-          if (Math.random() > 0.3) {
+          if (Math.random() > 0.4) {
             const idx = r * cols + c;
             grid[idx] = 1;
             ageGrid[idx] = 1;
@@ -66,10 +87,7 @@ export const GameOfLifeBackground: React.FC = () => {
       }
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      spawnAt(e.clientX, e.clientY);
-    };
-
+    const handleMouseMove = (e: MouseEvent) => spawnAt(e.clientX, e.clientY);
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
         spawnAt(e.touches[0].clientX, e.touches[0].clientY);
@@ -80,10 +98,12 @@ export const GameOfLifeBackground: React.FC = () => {
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     let lastTick = performance.now();
-    const tickInterval = 110; // Cellular evolution step
 
     const render = (time: number) => {
-      if (time - lastTick >= tickInterval) {
+      const { isPaused, speed, opacity: curOpacity } = stateRef.current;
+      const tickInterval = Math.max(50, 120 / speed);
+
+      if (!isPaused && time - lastTick >= tickInterval) {
         lastTick = time;
 
         for (let r = 0; r < rows; r++) {
@@ -130,55 +150,43 @@ export const GameOfLifeBackground: React.FC = () => {
 
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Subtle acoustic matrix guide points
-      ctx.fillStyle = 'rgba(0, 210, 255, 0.05)';
-      for (let r = 0; r < rows; r += 2) {
-        for (let c = 0; c < cols; c += 2) {
-          ctx.fillRect(c * cellSize + 6, r * cellSize + 6, 1.5, 1.5);
+      // Only draw if opacity > 0
+      if (curOpacity > 0.01) {
+        // Subtle coordinate points
+        ctx.fillStyle = `rgba(0, 210, 255, ${curOpacity * 0.25})`;
+        for (let r = 0; r < rows; r += 2) {
+          for (let c = 0; c < cols; c += 2) {
+            ctx.fillRect(c * cellSize + 7, r * cellSize + 7, 1.5, 1.5);
+          }
         }
-      }
 
-      // 2. Glowing Infortts Sonar Cyan / Emerald bioluminescent cells
-      const innerSize = cellSize - 3;
-      for (let r = 0; r < rows; r++) {
-        const rRow = r * cols;
-        const y = r * cellSize + 1.5;
-        for (let c = 0; c < cols; c++) {
-          const idx = rRow + c;
-          if (grid[idx] === 1) {
-            const x = c * cellSize + 1.5;
-            const age = ageGrid[idx];
+        // Bioluminescent Infortts Sonar Cyan & Emerald cells
+        const innerSize = cellSize - 3;
+        for (let r = 0; r < rows; r++) {
+          const rRow = r * cols;
+          const y = r * cellSize + 1.5;
+          for (let c = 0; c < cols; c++) {
+            const idx = rRow + c;
+            if (grid[idx] === 1) {
+              const x = c * cellSize + 1.5;
+              const age = ageGrid[idx];
 
-            // Color gradient based on cluster age / energy
-            if (age > 4) {
-              // Vibrant Electric Sonar Cyan
-              ctx.fillStyle = 'rgba(0, 225, 255, 0.45)';
-              ctx.shadowColor = '#00D2FF';
-              ctx.shadowBlur = 6;
-            } else if (age > 2) {
-              // Acoustic Emerald Glow
-              ctx.fillStyle = 'rgba(0, 255, 170, 0.4)';
-              ctx.shadowColor = '#00FF9D';
-              ctx.shadowBlur = 4;
-            } else {
-              // Freshly spawned Sonar Blue
-              ctx.fillStyle = 'rgba(0, 180, 255, 0.35)';
-              ctx.shadowColor = '#0066FF';
-              ctx.shadowBlur = 2;
+              if (age > 4) {
+                ctx.fillStyle = `rgba(0, 225, 255, ${curOpacity})`;
+              } else if (age > 2) {
+                ctx.fillStyle = `rgba(0, 255, 170, ${curOpacity * 0.9})`;
+              } else {
+                ctx.fillStyle = `rgba(0, 180, 255, ${curOpacity * 0.8})`;
+              }
+
+              ctx.fillRect(x, y, innerSize, innerSize);
             }
-
-            ctx.fillRect(x, y, innerSize, innerSize);
           }
         }
       }
 
-      // Reset shadow for performance
-      ctx.shadowBlur = 0;
-
       animationFrameId = requestAnimationFrame(render);
     };
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     animationFrameId = requestAnimationFrame(render);
 
@@ -191,21 +199,109 @@ export const GameOfLifeBackground: React.FC = () => {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      role="presentation"
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        zIndex: 0,
-        pointerEvents: 'none',
-        opacity: 0.95
-      }}
-    />
+    <>
+      {/* Background Canvas */}
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        role="presentation"
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Floating Accessibility & Background Controller Widget */}
+      <div 
+        className="fixed bottom-4 left-4 z-40 flex flex-col gap-2 font-mono text-xs select-none"
+        role="region" 
+        aria-label="Conway Background Accessibility Controls"
+      >
+        {showControls ? (
+          <div className="bg-slate-900/95 border border-cyan-500/30 p-3 rounded-xl shadow-2xl backdrop-blur-md flex flex-col gap-2.5 text-slate-200 w-64">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
+              <span className="font-semibold text-cyan-400 flex items-center gap-1.5">
+                <span>🧬</span> Game of Life Ambient
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowControls(false)}
+                className="text-slate-400 hover:text-white px-1"
+                aria-label="Close controls"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Opacity Control Slider */}
+            <div className="flex flex-col gap-1">
+              <div className="flex justify-between text-[11px] text-slate-400">
+                <span>Contrast / Opacity</span>
+                <span>{Math.round(opacity * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="0.5"
+                step="0.02"
+                value={opacity}
+                onChange={(e) => setOpacity(parseFloat(e.target.value))}
+                aria-label="Background cellular opacity slider"
+                className="w-full accent-cyan-400 cursor-pointer h-1.5 bg-slate-800 rounded-lg"
+              />
+            </div>
+
+            {/* Pause & Speed Toggles */}
+            <div className="flex items-center gap-1.5 pt-1">
+              <button
+                type="button"
+                onClick={() => setIsPaused(!isPaused)}
+                className={`flex-1 py-1 px-2 rounded border text-center transition-colors ${
+                  isPaused 
+                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-300' 
+                    : 'bg-slate-800 border-slate-700 hover:border-slate-600 text-slate-300'
+                }`}
+                aria-pressed={isPaused}
+              >
+                {isPaused ? '▶ Resume' : '⏸ Pause'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSpeed(speed === 1 ? 2 : speed === 2 ? 0.5 : 1)}
+                className="py-1 px-2 rounded border border-slate-700 bg-slate-800 hover:border-slate-600 text-slate-300 transition-colors"
+                aria-label={`Toggle simulation speed. Current: ${speed}x`}
+              >
+                ⚡ {speed}x
+              </button>
+            </div>
+
+            {/* Quick jump to Co-Op Game section */}
+            <a
+              href="#conway-coop-section"
+              className="text-center py-1 px-2 rounded bg-cyan-950/60 border border-cyan-500/40 hover:bg-cyan-900/60 text-cyan-300 font-semibold text-[11px] transition-colors mt-0.5"
+            >
+              🎮 Enter Co-Op Defense Game ↗
+            </a>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setShowControls(true)}
+            className="flex items-center gap-2 bg-slate-900/90 hover:bg-slate-800/90 border border-cyan-500/30 text-cyan-400 py-1.5 px-3 rounded-full shadow-lg backdrop-blur-md transition-all hover:scale-105"
+            aria-label="Open Game of Life background accessibility settings"
+          >
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="text-[11px] font-semibold">🧬 Ambient Life ({Math.round(opacity * 100)}%)</span>
+          </button>
+        )}
+      </div>
+    </>
   );
 };

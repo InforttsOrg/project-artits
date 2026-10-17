@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { GameOfLifeBackground } from './components/GameOfLifeBackground';
+import { ConwayCoOpGame } from './components/ConwayCoOpGame';
 import { ThreeB1BOrbitalGame } from './components/ThreeB1BOrbitalGame';
 import { MemoryGraph3D, GraphNode, INITIAL_NODES } from './components/MemoryGraph3D';
 
@@ -185,6 +187,9 @@ const App: React.FC = () => {
 
   return (
     <div className="portfolio-wrapper">
+      {/* Living Accessible Cellular Background */}
+      <GameOfLifeBackground />
+
       {/* Accessible Skip Link for Keyboard / Screen Reader Users */}
       <a href="#main-content" className="skip-link">
         Skip to main content
@@ -204,6 +209,9 @@ const App: React.FC = () => {
           <nav aria-label="Main Navigation" className="nav-links">
             <a href="#featured-work-heading" className="nav-link">
               Systems
+            </a>
+            <a href="#conway-coop-section" className="nav-link">
+              Conway Co-Op 🧬
             </a>
             <a href="#physics-game-section" className="nav-link">
               3B1B Game 🚀
@@ -427,6 +435,20 @@ const App: React.FC = () => {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* Conway Co-Op: Cellular Entropy Defense Simulator */}
+          <section className="section-block" id="conway-coop-section" aria-labelledby="conway-coop-heading">
+            <div className="section-header">
+              <span className="section-label">Accessible Cellular Automata & Multi-Agent Defense</span>
+              <h2 id="conway-coop-heading" className="section-title">Conway Co-Op: Cellular Entropy Defense</h2>
+              <p className="section-desc">
+                A collaborative multiplayer cellular automaton survival simulator. Team up in real-time with an adaptive AI Co-Pilot 
+                or in 2-player hotseat to defend the endangered Core Colony Beacons from encroaching cosmic entropy waves.
+              </p>
+            </div>
+
+            <ConwayCoOpGame />
           </section>
 
           {/* 3Blue1Brown Real-World Orbital Physics Game */}

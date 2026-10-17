@@ -7,14 +7,18 @@ interface HighScoreEntry {
     score: number;
     multiplier: number;
     missionId: string;
+    game?: string;
     timestamp: string;
 }
 
 // In-memory edge cache fallback for fast reads and zero-config deployment
 let inMemoryLeaderboard: HighScoreEntry[] = [
-    { name: "Sahil (Architect)", score: 48500, multiplier: 5, missionId: "voyager_interstellar", timestamp: new Date().toISOString() },
-    { name: "Orbital Pioneer", score: 32400, multiplier: 4, missionId: "lunar_freereturn", timestamp: new Date().toISOString() },
-    { name: "Lagrange Navigator", score: 21800, multiplier: 3, missionId: "lagrange_point", timestamp: new Date().toISOString() }
+    { name: "Sahil (Architect)", score: 48500, multiplier: 5, missionId: "voyager_interstellar", game: "orbital", timestamp: new Date().toISOString() },
+    { name: "Sahil & AI Co-Pilot", score: 62800, multiplier: 5, missionId: "entropy_wave_18", game: "conway_coop", timestamp: new Date().toISOString() },
+    { name: "Orbital Pioneer", score: 32400, multiplier: 4, missionId: "lunar_freereturn", game: "orbital", timestamp: new Date().toISOString() },
+    { name: "Entropy Vanguard", score: 44200, multiplier: 4, missionId: "entropy_wave_14", game: "conway_coop", timestamp: new Date().toISOString() },
+    { name: "Lagrange Navigator", score: 21800, multiplier: 3, missionId: "lagrange_point", game: "orbital", timestamp: new Date().toISOString() },
+    { name: "Glider Rescuers", score: 29500, multiplier: 3, missionId: "entropy_wave_9", game: "conway_coop", timestamp: new Date().toISOString() }
 ];
 
 export const onRequestOptions: PagesFunction<Env> = async () => {
@@ -31,6 +35,9 @@ export const onRequestOptions: PagesFunction<Env> = async () => {
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
     try {
+        const url = new URL(context.request.url);
+        const gameFilter = url.searchParams.get('game');
+
         let scores = inMemoryLeaderboard;
 
         if (context.env.MEMORIES_KV) {
@@ -38,6 +45,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
             if (kvVal) {
                 scores = JSON.parse(kvVal);
             }
+        }
+
+        if (gameFilter) {
+            scores = scores.filter(s => (s.game || 'orbital') === gameFilter);
         }
 
         // Return top scores sorted descending
@@ -71,24 +82,26 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
     try {
-        const body: { name?: string; score?: number; multiplier?: number; missionId?: string } = await context.request.json();
+        const body: { name?: string; score?: number; multiplier?: number; missionId?: string; game?: string } = await context.request.json();
         
         const score = typeof body.score === 'number' ? Math.round(body.score) : 0;
         const multiplier = typeof body.multiplier === 'number' ? Math.round(body.multiplier) : 1;
-        const name = (body.name || 'Anonymous Navigator').slice(0, 32);
-        const missionId = body.missionId || 'lunar_freereturn';
+        const name = (body.name || 'Anonymous Commander').slice(0, 32);
+        const missionId = body.missionId || 'general_session';
+        const game = body.game || 'conway_coop';
 
         const newEntry: HighScoreEntry = {
             name,
             score,
             multiplier,
             missionId,
+            game,
             timestamp: new Date().toISOString()
         };
 
         inMemoryLeaderboard.push(newEntry);
         inMemoryLeaderboard.sort((a, b) => b.score - a.score);
-        inMemoryLeaderboard = inMemoryLeaderboard.slice(0, 20);
+        inMemoryLeaderboard = inMemoryLeaderboard.slice(0, 30);
 
         if (context.env.MEMORIES_KV) {
             await context.env.MEMORIES_KV.put('artits_highscores', JSON.stringify(inMemoryLeaderboard));
