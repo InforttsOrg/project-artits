@@ -1425,13 +1425,13 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         <div id="menu">
           {/* Top Profile Banner */}
           <div id="getapp" className="on" role="region" aria-label="Sahil Rathee Profile Banner">
-            <img src="/sahil.png" alt="Sahil Rathee" width="44" height="44" />
+            <img src="/sahil.png" alt="Sahil Rathee" width="32" height="32" />
             <div className="t">
               <b>Sahil Rathee • Senior Software Engineer & AI Systems Architect</b>
               <small>Infortts Core • {inforttsFeedsCount}+ Telemetry Feeds Online • New Delhi, India</small>
             </div>
             <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer">
-              ⬇ Download Resume PDF
+              ⬇ Resume PDF
             </a>
           </div>
 
@@ -1441,10 +1441,75 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
             </h1>
             <div className="hi">High-Throughput Distributed Infrastructure & Autonomous AI Swarms</div>
             <p className="tag">
-              Explore the full reverse-engineered 6000×6000 Delhi simulation map. Navigate across 4 massive district cores, 
-              gather microservices into your trailing pipeline swarm with real flocking collision physics, 
-              purge system anomalies with Telemetry Pulse, and reach the Infortts Telecom Spire at Connaught Place to directly call Sahil!
+              Senior Software Engineer architecting sub-millisecond market execution, multi-agent swarms, and high-scale SaaS. Explore the 1km world or view system specs:
             </p>
+
+            {/* Flagship Production Systems Showcase Matrix (Single-View Showcase) */}
+            <div className="systems-showcase-grid">
+              <div 
+                className="system-card"
+                onClick={() => {
+                  setInMenu(false);
+                  onOpenPortfolio();
+                }}
+                title="Click to view full architecture & metrics"
+              >
+                <div className="system-top">
+                  <span className="system-name">⚡ ZENITH // FORENSICS</span>
+                  <span className="system-tag">&lt;1ms MT5</span>
+                </div>
+                <div className="system-metric">Algorithmic Forex Telemetry • NATS</div>
+                <div className="system-desc">Low-latency order routing with MT5, zero-loss NATS streaming & ring buffers.</div>
+              </div>
+
+              <div 
+                className="system-card"
+                onClick={() => {
+                  setInMenu(false);
+                  onOpenPortfolio();
+                }}
+                title="Click to view full architecture & metrics"
+              >
+                <div className="system-top">
+                  <span className="system-name">🤖 MEESEEKS // AGENT SWARM</span>
+                  <span className="system-tag">-70% RAG Cost</span>
+                </div>
+                <div className="system-metric">Autonomous Multi-Agent AI Swarms</div>
+                <div className="system-desc">Self-evolving tool dispatch, multi-agent task planning & automated workflows.</div>
+              </div>
+
+              <div 
+                className="system-card"
+                onClick={() => {
+                  setInMenu(false);
+                  onOpenPortfolio();
+                }}
+                title="Click to view full architecture & metrics"
+              >
+                <div className="system-top">
+                  <span className="system-name">🏢 ROOST // ESCROW SAAS</span>
+                  <span className="system-tag">99.99% Uptime</span>
+                </div>
+                <div className="system-metric">Multi-Tenant Financial Ledger • Go</div>
+                <div className="system-desc">Automated escrow management, GST ledgering & real-time reconciliation.</div>
+              </div>
+
+              <div 
+                className="system-card"
+                onClick={() => {
+                  setInMenu(false);
+                  onOpenPortfolio();
+                }}
+                title="Click to view full architecture & metrics"
+              >
+                <div className="system-top">
+                  <span className="system-name">☁️ BIGHIT // K8S FOUNDRY</span>
+                  <span className="system-tag">-80% Bundle</span>
+                </div>
+                <div className="system-metric">Cloud K8s Modernization • AWS IaC</div>
+                <div className="system-desc">High-density containerization, Terraform IaC, zero-downtime scaling.</div>
+              </div>
+            </div>
 
             {/* Recruiter / Guest Input */}
             <input
@@ -1467,7 +1532,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
                 <b>Distributed Systems Engineer</b>
                 <p>Low-latency telemetry streaming (NATS JetStream), in-memory execution engines, and sub-millisecond ring buffers.</p>
                 <div className="keys">
-                  <span>🕹️ WASD / Touch Joystick to Navigate · <kbd>Space</kbd> for Telemetry Pulse<br />Hold <kbd>Shift</kbd> to Sprint / Dash</span>
+                  <span>🕹️ WASD / Touch Joystick to Navigate · <kbd>Space</kbd> for Telemetry Pulse · Hold <kbd>Shift</kbd> to Dash</span>
                 </div>
               </div>
 
@@ -1481,7 +1546,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
                 <b>Autonomous Agentic Architect</b>
                 <p>Self-evolving multi-agent orchestration, LLM tool dispatch, and automated task planning with 70% reduced overhead.</p>
                 <div className="keys">
-                  <span>🕹️ WASD / Touch Joystick to Navigate · <kbd>Space</kbd> for Agent Dispatch<br />Hold <kbd>Shift</kbd> to Sprint / Dash</span>
+                  <span>🕹️ WASD / Touch Joystick to Navigate · <kbd>Space</kbd> for Agent Dispatch · Hold <kbd>Shift</kbd> to Dash</span>
                 </div>
               </div>
             </div>
