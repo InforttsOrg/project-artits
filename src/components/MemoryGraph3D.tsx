@@ -31,8 +31,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     id: 'meeseeks',
     label: 'Meeseeks',
     type: 'project',
-    desc: 'Autonomous AI Agent Swarm',
-    details: 'A self-evolving network of autonomous agents designed for complex task orchestration and deployment automation. Employs token optimization, dynamic model routing (Haiku/Sonnet/Opus), and agentic sandboxing.',
+    desc: 'Autonomous AI Agent Framework',
+    details: 'Multi-agent orchestration framework for automated codebase refactoring. Implements AST-level context pruning (-70% token costs), dynamic tool integration via Model Context Protocol (MCP), and isolated Docker test verification.',
     link: 'https://meeseeks.infortts.site',
     status: 'Active',
     color: '#00f3ff'
@@ -41,8 +41,8 @@ export const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'z'>[] = [
     id: 'mitochondria',
     label: 'Mitochondria',
     type: 'project',
-    desc: 'High-Frequency Forensics',
-    details: 'Nanosecond-latency execution pipeline providing resources (hardware, capital) to the Infortts cell. Incorporates real-time Forex, currency, and commodity backtesting at 3-minute intervals using vector-search analytics.',
+    desc: 'Automated Trading Engine',
+    details: 'Sub-millisecond execution engine containerizing MetaTrader 5 inside headless Linux environments. Features real-time market data streaming via NATS JetStream, private container isolation, and vector search pattern matching.',
     link: 'https://forensics.infortts.site',
     status: 'Active',
     color: '#10b981'

@@ -21,11 +21,11 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
 
   const triggerStamp = (type: string) => {
     if (type === 'sahil') {
-      setStampFeedback('⚡ "Sahil Rathee: Distributed systems architect specializing in Go, C++, Python, and low-latency IPC."');
+      setStampFeedback('⚡ "Sahil Rathee: Full stack & backend engineer specializing in Go, Python, TypeScript, and cloud infrastructure."');
     } else if (type === 'born') {
       setStampFeedback('📅 "Born in 2002 in New Delhi: B.Sc. in Computer Science, DDUC, University of Delhi (2018–2021)."');
     } else {
-      setStampFeedback('🛠️ "Architecture: Zero-allocation memory IPC, Kubernetes IaC, and compiler-verified agentic DAGs."');
+      setStampFeedback('🛠️ "Architecture: High-availability cloud systems, resilient microservices, and automated CI/CD pipelines."');
     }
     setTimeout(() => setStampFeedback(null), 3500);
   };
@@ -41,7 +41,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
         <div className="avatar-speech-center">
           <div className="speech-bubble-box">
             <span className="speech-bubble-text">
-              "HOW DO WE INGEST 50,000 TICKS/SEC WITH ZERO DROPPED PACKETS?"
+              "BUILDING RELIABLE, HIGH-SCALE SYSTEMS THAT SOLVE REAL BUSINESS PROBLEMS."
             </span>
             <div className="speech-bubble-tail" />
           </div>
@@ -53,10 +53,10 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
 
           <div className="bio-under-portrait">
             <span className="bio-name">SAHIL RATHEE</span>
-            <span className="bio-role">SENIOR SOFTWARE ENGINEER & DISTRIBUTED SYSTEMS ARCHITECT</span>
+            <span className="bio-role">SENIOR SOFTWARE ENGINEER | FULL STACK & DISTRIBUTED SYSTEMS</span>
             <p className="bio-copy">
-              Born in 2002 in New Delhi, India. Engineering high-throughput distributed backends,
-              lock-free in-memory ring buffers, and autonomous multi-agent AI frameworks since age 19.
+              Born in 2002 in New Delhi, India. Software engineer specializing in scalable backend architectures,
+              cloud infrastructure, and practical AI systems. Experienced in taking projects from zero to production at scale.
             </p>
           </div>
         </div>
@@ -88,8 +88,8 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
               </div>
               <span className="company-role-meta">Founding Architect & Principal Engineer • Jun 2021 – Present</span>
               <p className="company-impact-text">
-                Commercial ecosystem & autonomous systems foundry. Meta Business Verified Portfolio (ID: <b>1160500881122893</b>).
-                Architected high-throughput algorithmic pipelines (Mitochondria), autonomous swarms (Meeseeks), and cross-cloud infrastructure.
+                Technology company & software incubator. Meta Business Verified Portfolio (ID: <b>1160500881122893</b>).
+                Architected automated trading software (Mitochondria), developer productivity frameworks (Meeseeks), and scalable cloud infrastructure.
               </p>
               
               {/* Direct Real Links */}
@@ -117,10 +117,10 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
 
               <div className="company-pill-row">
                 <span className="company-tech-tag">Distributed Systems</span>
-                <span className="company-tech-tag">NATS JetStream</span>
-                <span className="company-tech-tag">C++ / MT5</span>
+                <span className="company-tech-tag">NATS Messaging</span>
+                <span className="company-tech-tag">Python / C++</span>
                 <span className="company-tech-tag">Autonomous AI</span>
-                <span className="company-tech-tag">Qdrant Vector</span>
+                <span className="company-tech-tag">Vector Search</span>
               </div>
             </div>
           </div>
@@ -325,16 +325,16 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
           <div className="editorial-col">
             <h3 className="col-heading">Capabilities</h3>
             <ul className="editorial-list">
-              <li>Distributed Systems Architecture</li>
-              <li>High-Frequency Quantitative Trading Systems</li>
-              <li>Lock-Free In-Memory Data Structures (RingBuffers)</li>
-              <li>Autonomous Multi-Agent AI Swarms & MCP</li>
-              <li>High-Availability Kubernetes & Terraform IaC</li>
-              <li>ACID Double-Entry Financial Ledgers & Escrow</li>
-              <li>Real-Time Event Streaming (NATS JetStream, Redis)</li>
-              <li>Vector Search Clustering (Qdrant, OpenSearch)</li>
-              <li>Cross-Platform Workstations (Flutter, React Native)</li>
-              <li>Graph Databases (Amazon Neptune, Gremlin)</li>
+              <li>Distributed Backend Architecture</li>
+              <li>Cloud Infrastructure & Kubernetes (AWS EKS)</li>
+              <li>Infrastructure as Code (Terraform)</li>
+              <li>Financial Systems & Transaction Ledgers</li>
+              <li>Multi-Agent AI Workflows & Tool Integration</li>
+              <li>Database Engineering (PostgreSQL, Redis, Graph DBs)</li>
+              <li>Cross-Platform App Development (Flutter, React Native)</li>
+              <li>API Design (REST, gRPC, WebSockets)</li>
+              <li>Performance Optimization & System Reliability</li>
+              <li>CI/CD Automation & DevOps</li>
             </ul>
           </div>
 
@@ -343,36 +343,36 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
             <h3 className="col-heading">Milestones & Benchmarks</h3>
             <ul className="editorial-list">
               <li><b>99.99% Uptime:</b> Across 300+ gyms in Delhi NCR, Australia & Singapore</li>
-              <li><b>&lt;0.7ms Execution:</b> Lock-Free RingBuffer tick ingestion (Mitochondria)</li>
-              <li><b>-70% Token Spend:</b> Context AST pruning for autonomous agent swarms</li>
-              <li><b>-80% Bundle Size Cut:</b> React Native Hermes overhaul for BigHit Sportz</li>
-              <li><b>+60% Cloud Cost Cut:</b> Kubernetes KEDA autoscaling migration</li>
+              <li><b>&lt;1ms Execution:</b> Sub-millisecond trade execution in financial engine</li>
+              <li><b>-70% Token Costs:</b> AST context optimization for autonomous code agents</li>
+              <li><b>-80% Bundle Size Cut:</b> Mobile build overhaul for BigHit Sportz</li>
+              <li><b>+60% Cloud Cost Savings:</b> Kubernetes KEDA autoscaling migration</li>
               <li><b>Zero Double-Charge Errors:</b> PostgreSQL advisory locks on Rent1st escrow</li>
               <li><b>B.Sc. in Computer Science:</b> DDUC, University of Delhi (2018–2021)</li>
             </ul>
           </div>
 
-          {/* Col 3: Open-Source & Architecture Initiatives */}
+          {/* Col 3: Open-Source & Architecture Projects */}
           <div className="editorial-col">
-            <h3 className="col-heading">Initiatives & Swarms</h3>
+            <h3 className="col-heading">Open-Source & Projects</h3>
             <ul className="editorial-list">
               <li>
                 <a href="https://github.com/InforttsOrg" target="_blank" rel="noopener noreferrer">
-                  <b>Infortts Autonomous Swarm ↗</b>
+                  <b>Infortts Open Source ↗</b>
                 </a>
-                <small>Distributed multi-agent orchestration & real-time telemetry</small>
+                <small>Distributed systems, backend services & developer tooling</small>
               </li>
               <li>
-                <b>Mitochondria HFT Engine</b>
-                <small>Sub-microsecond memory ring buffer & MT5 terminal IPC</small>
+                <b>Mitochondria Trading Engine</b>
+                <small>Headless containerized MT5 execution & risk management system</small>
               </li>
               <li>
                 <b>Meeseeks Agent Framework</b>
-                <small>Compiler-verified code refactoring with Model Context Protocol</small>
+                <small>Automated codebase refactoring with Model Context Protocol (MCP)</small>
               </li>
               <li>
-                <b>Orealfit Sports & Wellness Ecosystem</b>
-                <small>Monorepo architecture with sub-50ms billing pipelines</small>
+                <b>Orealfit Wellness Platform</b>
+                <small>High-availability backend with sub-50ms billing pipelines</small>
               </li>
             </ul>
           </div>

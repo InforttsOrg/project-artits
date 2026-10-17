@@ -21,7 +21,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
         <Link to="/" className="nav-brand">
           <span className="brand-dot" />
           <span className="brand-name">SAHIL RATHEE</span>
-          <span className="brand-role">// ARCHITECT // 2002</span>
+          <span className="brand-role">// SOFTWARE ENGINEER // 2002</span>
         </Link>
 
         {/* Center: Navigation Links */}

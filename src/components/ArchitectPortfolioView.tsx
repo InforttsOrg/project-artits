@@ -31,10 +31,10 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
             <div className="deck-badge-row">
               <span className="live-status-dot" />
               <span className="deck-status-text">AVAILABLE FOR SENIOR / STAFF ROLES • BORN 2002 • NEW DELHI</span>
-              <span className="deck-feeds-badge">{inforttsFeedsCount}+ Telemetry Feeds Active</span>
+              <span className="deck-feeds-badge">4 Production Case Studies • Verified Impact</span>
             </div>
             <h1 className="deck-name">SAHIL RATHEE</h1>
-            <p className="deck-headline">Senior Software Engineer & Distributed AI Systems Architect</p>
+            <p className="deck-headline">Senior Software Engineer | Backend, Cloud Infrastructure & Distributed Systems</p>
           </div>
         </div>
 
@@ -70,35 +70,35 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
           className={`deck-tab-btn ${activeTab === 'all' ? 'active' : ''}`}
           onClick={() => setActiveTab('all')}
         >
-          🌐 All Production Systems (4)
+          🌐 All Projects (4)
         </button>
         <button
           type="button"
           className={`deck-tab-btn ${activeTab === 'mitochondria' ? 'active' : ''}`}
           onClick={() => { setActiveTab('mitochondria'); setExpandedSystem('mitochondria'); }}
         >
-          ⚡ Mitochondria (Forex HFT Workstation)
+          ⚡ Mitochondria (Trading Systems)
         </button>
         <button
           type="button"
           className={`deck-tab-btn ${activeTab === 'meeseeks' ? 'active' : ''}`}
           onClick={() => { setActiveTab('meeseeks'); setExpandedSystem('meeseeks'); }}
         >
-          🤖 Meeseeks (Autonomous AI Swarms)
+          🤖 Meeseeks (Autonomous AI)
         </button>
         <button
           type="button"
           className={`deck-tab-btn ${activeTab === 'roost' ? 'active' : ''}`}
           onClick={() => { setActiveTab('roost'); setExpandedSystem('roost'); }}
         >
-          🏢 Roost & Rent1st (Escrow Ledger SaaS)
+          🏢 Roost & Rent1st (Fintech SaaS)
         </button>
         <button
           type="button"
           className={`deck-tab-btn ${activeTab === 'bighit' ? 'active' : ''}`}
           onClick={() => { setActiveTab('bighit'); setExpandedSystem('bighit'); }}
         >
-          ☁️ BigHit Sportz (K8s Modernization)
+          ☁️ BigHit Sportz (Cloud & DevOps)
         </button>
       </nav>
 
@@ -107,8 +107,8 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
         {/* Left Column: Deep Production Systems Cards */}
         <section className="systems-stream-section">
           <div className="section-header-row">
-            <h2 className="deck-section-title">Flagship Production Systems</h2>
-            <span className="deck-section-hint">Click any system to inspect technical architecture</span>
+            <h2 className="deck-section-title">Featured Projects & Case Studies</h2>
+            <span className="deck-section-hint">Click any project to inspect technical architecture and metrics</span>
           </div>
 
           <div className="systems-cards-stack">
@@ -119,49 +119,49 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
             >
               <div className="spec-card-header">
                 <div className="spec-title-group">
-                  <span className="spec-category-tag">DISTRIBUTED FOREX TRADING & LOW-LATENCY IPC</span>
+                  <span className="spec-category-tag">FINANCIAL SYSTEMS & HIGH-THROUGHPUT EXECUTION</span>
                   <h3 className="spec-title">⚡ MITOCHONDRIA</h3>
-                  <span className="spec-subtitle">Autonomous Forensic Trading Workstation & Live Telemetry RingBuffer Pipeline</span>
+                  <span className="spec-subtitle">Automated Trading Workstation & Containerized Execution Engine</span>
                 </div>
                 <div className="spec-metrics-pill highlight-cyan">
-                  <span>&lt;0.7ms Execution</span>
-                  <small>40+ Asset Streams</small>
+                  <span>&lt;1ms Execution</span>
+                  <small>0 Public DB Ports</small>
                 </div>
               </div>
 
               <div className="spec-body">
                 <p className="spec-summary">
-                  Engineered a high-frequency algorithmic trade execution workstation interfacing directly with MetaTrader 5 (MT5). 
-                  Constructed custom lock-free memory ring buffers and low-latency C++/Python pipelines, broadcasting zero-loss 
-                  tick streams via NATS JetStream to real-time vector analysis clusters powered by Qdrant.
+                  Engineered an automated trade execution workstation interfacing directly with MetaTrader 5 (MT5). 
+                  Containerized MT5 inside headless Linux environments to eliminate Windows licensing overhead, implemented 
+                  low-latency message streaming via NATS JetStream, and isolated financial databases inside a private container network.
                 </p>
 
                 <div className="spec-highlights-list">
                   <div className="highlight-item">
-                    <b>⚡ Sub-Millisecond Execution:</b> In-memory ring buffer architecture bypassing OS thread scheduler delays for microsecond latency.
+                    <b>⚡ Sub-Millisecond Execution:</b> Optimized socket communication and memory buffers for rapid order routing.
                   </div>
                   <div className="highlight-item">
-                    <b>📡 NATS JetStream Telemetry:</b> Zero-loss pub/sub messaging maintaining 100k msg/sec throughput under extreme market volatility.
+                    <b>📡 Resilient Messaging:</b> NATS JetStream pub/sub handling peak volatility without data loss.
                   </div>
                   <div className="highlight-item">
-                    <b>🧠 Vectorized Market Analytics:</b> Qdrant vector memory matching live price action patterns with 1536-dimensional historical embeddings.
+                    <b>🧠 Vector Market Analytics:</b> Qdrant vector memory matching live price action patterns with historical embeddings.
                   </div>
                 </div>
 
                 <div className="spec-tech-tags">
                   <span className="tech-badge">Python</span>
-                  <span className="tech-badge">C++</span>
+                  <span className="tech-badge">Linux Containers</span>
                   <span className="tech-badge">MetaTrader 5 API</span>
                   <span className="tech-badge">NATS JetStream</span>
                   <span className="tech-badge">Qdrant Vector DB</span>
-                  <span className="tech-badge">Lock-Free RingBuffers</span>
+                  <span className="tech-badge">PostgreSQL</span>
                   <span className="tech-badge">WebSockets</span>
                   <span className="tech-badge">Flutter Desktop</span>
                 </div>
 
                 <div className="spec-card-actions">
                   <Link to="/work/mitochondria" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Technical Case Study (Shelby Kho Format) →
+                    Explore Case Study (Architecture & Impact) →
                   </Link>
                 </div>
               </div>
@@ -174,38 +174,39 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
             >
               <div className="spec-card-header">
                 <div className="spec-title-group">
-                  <span className="spec-category-tag">AUTONOMOUS MULTI-AGENT SWARMS</span>
+                  <span className="spec-category-tag">AUTONOMOUS AI & DEVELOPER TOOLING</span>
                   <h3 className="spec-title">🤖 MEESEEKS AGENT ENGINE</h3>
-                  <span className="spec-subtitle">Hierarchical Autonomous Multi-Agent AI Orchestration Engine</span>
+                  <span className="spec-subtitle">Multi-Agent AI Framework for Automated Codebase Refactoring</span>
                 </div>
                 <div className="spec-metrics-pill highlight-purple">
-                  <span>-70% RAG Cost</span>
-                  <small>Autonomous CI/CD</small>
+                  <span>-70% Token Cost</span>
+                  <small>Docker Sandboxed</small>
                 </div>
               </div>
 
               <div className="spec-body">
                 <p className="spec-summary">
-                  Architected a self-evolving multi-agent swarm framework where a supervisor LLM orchestrates specialized sub-agents 
-                  equipped with domain-specific toolsets (Playwright headless browsing, AST-level codebase refactoring, and sandbox execution).
+                  Architected a multi-agent AI system where an orchestrator decomposes software engineering goals into 
+                  discrete subtasks, parses Abstract Syntax Trees (ASTs) to prune unnecessary prompt tokens, and validates 
+                  generated code inside isolated Docker sandbox environments.
                 </p>
 
                 <div className="spec-highlights-list">
                   <div className="highlight-item">
-                    <b>🎯 70% Token Cost Reduction:</b> Implemented semantic context deduplication and AST pruning before prompt injection.
+                    <b>🎯 70% Token Cost Reduction:</b> Implemented AST-level context pruning and type-signature extraction.
                   </div>
                   <div className="highlight-item">
-                    <b>🛠️ Automated Tool Calling:</b> Dynamic MCP tool protocol dispatch enabling subagents to inspect databases, run tests, and deploy builds.
+                    <b>🛠️ Standardized Tool Calling:</b> Dynamic Model Context Protocol (MCP) tool integration for database queries, testing, and git operations.
                   </div>
                   <div className="highlight-item">
-                    <b>🛡️ Self-Healing CI/CD:</b> Automated syntax and lint verification loops correcting errors before code is finalized.
+                    <b>🛡️ Container Verification:</b> Isolated Docker evaluation loop catching compiler errors before PR submission.
                   </div>
                 </div>
 
                 <div className="spec-tech-tags">
                   <span className="tech-badge">Python</span>
                   <span className="tech-badge">FastAPI</span>
-                  <span className="tech-badge">LangChain</span>
+                  <span className="tech-badge">LangGraph</span>
                   <span className="tech-badge">Playwright</span>
                   <span className="tech-badge">Model Context Protocol</span>
                   <span className="tech-badge">Docker Sandboxes</span>
@@ -213,7 +214,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 
                 <div className="spec-card-actions">
                   <Link to="/work/meeseeks" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Technical Case Study (Shelby Kho Format) →
+                    Explore Case Study (Architecture & Impact) →
                   </Link>
                 </div>
               </div>
@@ -226,31 +227,32 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
             >
               <div className="spec-card-header">
                 <div className="spec-title-group">
-                  <span className="spec-category-tag">HIGH-CONCURRENCY FINTECH SAAS & ESCROW</span>
-                  <h3 className="spec-title">🏢 ROOST & RENT1ST ESCROW</h3>
-                  <span className="spec-subtitle">Multi-Tenant Property Management SaaS & Financial Escrow Ledger</span>
+                  <span className="spec-category-tag">FINTECH SAAS & TRANSACTION LEDGERS</span>
+                  <h3 className="spec-title">🏢 ROOST & RENT1ST</h3>
+                  <span className="spec-subtitle">Multi-Tenant Property Management SaaS & Financial Escrow System</span>
                 </div>
                 <div className="spec-metrics-pill highlight-emerald">
                   <span>99.99% Uptime</span>
-                  <small>Automated Escrow</small>
+                  <small>Zero Discrepancies</small>
                 </div>
               </div>
 
               <div className="spec-body">
                 <p className="spec-summary">
-                  Designed and built a multi-tenant property management platform handling millions in automated escrow transactions. 
-                  Engineered concurrent Go microservices with strict idempotent double-entry ledger bookkeeping.
+                  Designed and built a multi-tenant rental management and escrow platform handling high-volume payments. 
+                  Engineered concurrent Go microservices with strict idempotent double-entry ledger bookkeeping, PostgreSQL 
+                  advisory locks for race-condition prevention, and automated GST reconciliation.
                 </p>
 
                 <div className="spec-highlights-list">
                   <div className="highlight-item">
-                    <b>💰 ACID Double-Entry Accounting:</b> Guaranteed financial consistency with PostgreSQL advisory locks and serializable transactions.
+                    <b>💰 Double-Entry Ledger:</b> Guaranteed mathematical auditability with PostgreSQL advisory locks and serializable transactions.
                   </div>
                   <div className="highlight-item">
-                    <b>🧾 GST-Compliant Reconciliation:</b> Automated real-time invoice generation and bank gateway reconciliation.
+                    <b>🧾 Automated Invoicing:</b> Asynchronous workers generating GST-compliant tax splits and instant receipts.
                   </div>
                   <div className="highlight-item">
-                    <b>📱 Cross-Platform Architecture:</b> Flutter frontend backed by high-concurrency Go REST & WebSocket microservices.
+                    <b>📱 Cross-Platform Architecture:</b> Flutter mobile and web applications backed by Go REST and WebSocket services.
                   </div>
                 </div>
 
@@ -265,7 +267,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 
                 <div className="spec-card-actions">
                   <Link to="/work/roost" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Technical Case Study (Shelby Kho Format) →
+                    Explore Case Study (Architecture & Impact) →
                   </Link>
                 </div>
               </div>
@@ -278,31 +280,32 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
             >
               <div className="spec-card-header">
                 <div className="spec-title-group">
-                  <span className="spec-category-tag">CLOUD INFRASTRUCTURE & MULTI-SPORT PLATFORM</span>
-                  <h3 className="spec-title">☁️ BIGHIT SPORTZ FOUNDRY</h3>
-                  <span className="spec-subtitle">High-Availability Kubernetes Cluster & Declarative Infrastructure as Code</span>
+                  <span className="spec-category-tag">CLOUD INFRASTRUCTURE & SCALABLE BACKENDS</span>
+                  <h3 className="spec-title">☁️ BIGHIT SPORTZ</h3>
+                  <span className="spec-subtitle">Scalable Cloud Infrastructure & Mobile Optimization for Youth Sports</span>
                 </div>
                 <div className="spec-metrics-pill highlight-blue">
-                  <span>-80% Footprint</span>
-                  <small>Zero Downtime</small>
+                  <span>-80% App Size</span>
+                  <small>+60% Cost Efficiency</small>
                 </div>
               </div>
 
               <div className="spec-body">
                 <p className="spec-summary">
-                  Executed complete cloud infrastructure migration and modernization across AWS and Kubernetes. Designed modular 
-                  Terraform templates, deployed containerized microservices, and instituted automated canary rollouts.
+                  Modernized cloud infrastructure and mobile performance for India’s premier youth sports scouting platform. 
+                  Deployed an auto-scaling Kubernetes (AWS EKS) microservice mesh, integrated Amazon Neptune graph database 
+                  for athlete networking, and shrunk the mobile app bundle by 80%.
                 </p>
 
                 <div className="spec-highlights-list">
                   <div className="highlight-item">
-                    <b>📦 80% Bundle Size Cut:</b> Re-architected multi-stage Docker builds and eliminated heavy legacy runtimes.
+                    <b>📦 80% Mobile Bundle Size Cut:</b> Re-engineered React Native build pipelines with Hermes engine and dynamic asset loading.
                   </div>
                   <div className="highlight-item">
-                    <b>🚀 60% Server Cost Efficiency:</b> Replaced over-provisioned VMs with Kubernetes autoscaling nodes (KEDA/HPA).
+                    <b>🚀 60% Cloud Cost Savings:</b> Replaced over-provisioned static EC2 instances with Kubernetes event-driven autoscaling (KEDA).
                   </div>
                   <div className="highlight-item">
-                    <b>🔒 Infrastructure as Code:</b> 100% reproducible AWS environments managed via Terraform and GitOps.
+                    <b>🔒 Infrastructure as Code:</b> Fully reproducible AWS environments managed via Terraform and GitOps CI/CD.
                   </div>
                 </div>
 
@@ -317,7 +320,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 
                 <div className="spec-card-actions">
                   <Link to="/work/bighit" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Technical Case Study (Shelby Kho Format) →
+                    Explore Case Study (Architecture & Impact) →
                   </Link>
                 </div>
               </div>
@@ -329,11 +332,11 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
         <aside className="topology-sidebar-section" id="topology">
           <div className="section-header-row topology-header-row">
             <div>
-              <h2 className="deck-section-title">Live Architecture Topology</h2>
+              <h2 className="deck-section-title">System Architecture Topology</h2>
               <span className="deck-section-hint">
                 {topologyViewMode === 'graph'
                   ? 'Visual Codebase Knowledge Graph & Real-Time Stats (graph.infortts.site)'
-                  : 'Drag to rotate 3D particle sphere • Click node for telemetry'}
+                  : 'Drag to rotate 3D particle sphere • Click node for details'}
               </span>
             </div>
             <div className="topology-view-toggle">
@@ -418,24 +421,24 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
               <div className="node-telemetry-header">
                 <div>
                   <span className="node-sys-id">
-                    {selected3DNode ? (selected3DNode.type === 'project' ? 'PRODUCTION PROJECT NODE' : 'ENGINEERING CAPABILITY NODE') : '3D SPATIAL VECTOR NODE'}
+                    {selected3DNode ? (selected3DNode.type === 'project' ? 'PRODUCTION SYSTEM' : 'TECHNICAL STACK NODE') : 'SYSTEM COMPONENT'}
                   </span>
-                  <h4 className="node-title">{selected3DNode ? selected3DNode.label : 'Mitochondria Forensics'}</h4>
+                  <h4 className="node-title">{selected3DNode ? selected3DNode.label : 'Mitochondria Trading Engine'}</h4>
                 </div>
                 <span className="node-status-pill">{selected3DNode?.status?.toUpperCase() || 'ACTIVE'}</span>
               </div>
               <div className="node-meta-grid">
                 <div className="node-meta-item">
-                  <span className="meta-label">Classification:</span>
-                  <span className="meta-val">{selected3DNode ? (selected3DNode.type === 'project' ? 'Production System' : 'Core Technology') : 'Algorithmic Forex System'}</span>
+                  <span className="meta-label">Project Category:</span>
+                  <span className="meta-val">{selected3DNode ? (selected3DNode.type === 'project' ? 'Production System' : 'Core Technology') : 'Financial Trading Infrastructure'}</span>
                 </div>
                 <div className="node-meta-item">
-                  <span className="meta-label">Operational Role:</span>
-                  <span className="meta-val">{selected3DNode ? selected3DNode.desc : 'Forex Tick Ingestion & Lock-Free RingBuffers'}</span>
+                  <span className="meta-label">Primary Function:</span>
+                  <span className="meta-val">{selected3DNode ? selected3DNode.desc : 'Real-time order execution & container management'}</span>
                 </div>
                 <div className="node-meta-item full-width">
-                  <span className="meta-label">Architecture Invariants:</span>
-                  <span className="meta-val highlight">{selected3DNode ? selected3DNode.details : 'Nanosecond-latency execution pipeline with zero-loss NATS JetStream and Qdrant vector memory analytics.'}</span>
+                  <span className="meta-label">Technical Highlights:</span>
+                  <span className="meta-val highlight">{selected3DNode ? selected3DNode.details : 'Sub-millisecond execution latency, private network isolation, and automated risk enforcement.'}</span>
                 </div>
                 {selected3DNode?.link && (
                   <div className="node-meta-item full-width">
@@ -451,26 +454,26 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 
           {/* Technical Competencies Matrix Summary */}
           <div className="competencies-matrix-card">
-            <h3 className="matrix-title">Core Competency Matrix</h3>
+            <h3 className="matrix-title">Technical Competencies & Stack</h3>
             
             <div className="matrix-group">
               <span className="matrix-group-label">Languages:</span>
-              <p className="matrix-group-content">Python, Go (Golang), TypeScript / JavaScript, Dart (Flutter), SQL, C++</p>
+              <p className="matrix-group-content">Go (Golang), Python, TypeScript / JavaScript, Dart (Flutter), SQL, C++</p>
             </div>
 
             <div className="matrix-group">
-              <span className="matrix-group-label">Distributed Systems & Messaging:</span>
-              <p className="matrix-group-content">NATS JetStream, Lock-Free RingBuffers, WebSockets, gRPC, Event-Driven Architecture</p>
+              <span className="matrix-group-label">Backend & Distributed Messaging:</span>
+              <p className="matrix-group-content">REST APIs, gRPC, WebSockets, NATS JetStream, Redis, Event-Driven Architecture</p>
             </div>
 
             <div className="matrix-group">
-              <span className="matrix-group-label">AI & Autonomous Agents:</span>
-              <p className="matrix-group-content">Multi-Agent Swarms, Model Context Protocol (MCP), Qdrant Vector Search, RAG Optimization, Tool Calling</p>
+              <span className="matrix-group-label">AI & Autonomous Systems:</span>
+              <p className="matrix-group-content">Multi-Agent Orchestration, Model Context Protocol (MCP), Qdrant Vector Search, Prompt Optimization</p>
             </div>
 
             <div className="matrix-group">
-              <span className="matrix-group-label">Cloud & Infrastructure:</span>
-              <p className="matrix-group-content">Kubernetes (EKS), Docker, Terraform (IaC), AWS, Google Cloud Platform, GitOps CI/CD</p>
+              <span className="matrix-group-label">Cloud Infrastructure & DevOps:</span>
+              <p className="matrix-group-content">Kubernetes (AWS EKS), Docker, Terraform (IaC), AWS, Google Cloud Platform, GitOps CI/CD</p>
             </div>
           </div>
         </aside>

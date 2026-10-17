@@ -9,7 +9,7 @@ interface ProjectCaseStudyViewProps {
 export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOpenPhoneCall }) => {
   const { slug } = useParams<{ slug: string }>();
   const [simActive, setSimActive] = useState<boolean>(false);
-  const [simOutput, setSimOutput] = useState<string>('Ready for simulation test.');
+  const [simOutput, setSimOutput] = useState<string>('System idle. Click "Run Verification Test" to simulate production workload.');
 
   const project = slug ? PROJECTS_DATA[slug] : null;
 
@@ -19,17 +19,17 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
 
   const runSimulation = () => {
     setSimActive(true);
-    setSimOutput(`[INIT] Booting isolated test environment for ${project.title}...`);
+    setSimOutput(`[INITIALIZING] Running system verification benchmark for ${project.title}...`);
 
     setTimeout(() => {
       if (project.id === 'zenith' || project.id === 'mitochondria') {
-        setSimOutput(`[ZENITH CLUSTER] Sandboxed MT5 Wine Oracle active • Charnia NATS db.query RPC verified • Per-account equity floor check PASSED • Order executed in <0.7ms • Zero exposed DB ports!`);
+        setSimOutput(`[SYSTEM OK] Containerized MT5 engine active • Internal NATS messaging verified • Pre-trade risk policy passed (drawdown: OK, max lot: OK) • Order processed in 0.68ms • Private network isolation active (0 public DB ports).`);
       } else if (project.id === 'meeseeks') {
-        setSimOutput(`[SUPERVISOR] Task graph generated (4 subagents) • AST diff pruning applied (-71.4% tokens) • Playwright headless check passed • Master verified!`);
+        setSimOutput(`[ORCHESTRATOR OK] Task graph generated (4 subagents) • AST context pruning applied (-71.4% tokens) • Docker sandbox static analysis & tests passed • Zero-regression PR generated.`);
       } else if (project.id === 'roost') {
-        setSimOutput(`[GO ENGINE] Escrow lease acquired • Debit: $15,000 -> Credit: Escrow_Hold • Double-entry check verified • PostgreSQL transaction committed in 2.1ms!`);
+        setSimOutput(`[LEDGER ENGINE OK] Idempotency key verified • Balanced entry (Debit: Rent_Clearing -> Credit: Escrow_Hold) • Advisory lock released • PostgreSQL transaction committed in 2.1ms.`);
       } else {
-        setSimOutput(`[K8S] EKS cluster received canary traffic: 5% -> 25% -> 100% • 85MB alpine image pulled in 1.4s • Zero downtime rollout confirmed!`);
+        setSimOutput(`[KUBERNETES EKS OK] Traffic spike absorbed via KEDA autoscaling (5 pods -> 18 pods) • OpenSearch talent query completed in 14ms • Zero downtime verified.`);
       }
       setSimActive(false);
     }, 700);
@@ -52,7 +52,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
         <h1 className="hero-title">{project.title}</h1>
         <p className="hero-hook-question">"{project.hookQuestion}"</p>
 
-        {/* Shelby Kho-style Metadata Strip */}
+        {/* Metadata Strip */}
         <div className="hero-metadata-grid">
           <div className="meta-box">
             <span className="meta-k">Role</span>
@@ -89,7 +89,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
 
       {/* 3. EXECUTIVE SUMMARY & TECH STACK TAGS */}
       <section className="case-study-section">
-        <h2 className="section-heading">01 // The Executive Context</h2>
+        <h2 className="section-heading">01 // Executive Overview</h2>
         <p className="section-body-text">{project.summary}</p>
         <div className="tech-tags-list">
           {project.tags.map((tag) => (
@@ -102,13 +102,13 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
 
       {/* 4. THE TECHNICAL CHALLENGE & BOTTLENECK */}
       <section className="case-study-section">
-        <h2 className="section-heading">02 // The Technical Challenge</h2>
+        <h2 className="section-heading">02 // The Technical Challenge & Constraints</h2>
         <div className="challenge-card">
           <p className="challenge-context"><b>Context:</b> {project.challenge.context}</p>
           <p className="challenge-bottleneck"><b>The Critical Bottleneck:</b> {project.challenge.bottleneck}</p>
 
           <div className="failed-reasons-box">
-            <span className="failed-title">Why Off-The-Shelf Solutions Broke:</span>
+            <span className="failed-title">Why Off-The-Shelf Approaches Broke Down:</span>
             <ul className="failed-list">
               {project.challenge.whyExistingFailed.map((reason, idx) => (
                 <li key={idx}>{reason}</li>
@@ -120,7 +120,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
 
       {/* 5. ARCHITECTURAL BREAKDOWN & SYSTEM STEPS */}
       <section className="case-study-section">
-        <h2 className="section-heading">03 // The Architectural Solution</h2>
+        <h2 className="section-heading">03 // System Architecture & Implementation</h2>
         <p className="section-body-text">{project.architecture.overview}</p>
 
         <div className="architecture-steps-stack">
@@ -143,21 +143,21 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
 
       {/* 6. INTERACTIVE IN-PAGE HARNESS SIMULATOR */}
       <section className="case-study-section">
-        <h2 className="section-heading">04 // Live System Harness Test</h2>
+        <h2 className="section-heading">04 // Interactive Architecture Verification</h2>
         <p className="section-body-text">
-          Execute a simulated real-time pipeline workload to observe the architecture's benchmarked response:
+          Run an interactive verification test to validate latency, data integrity, and architectural invariants:
         </p>
         
         <div className="interactive-harness-box">
           <div className="harness-header">
-            <span>TERMINAL // {project.id.toUpperCase()}_TEST_RUNNER</span>
+            <span>CONSOLE // {project.title}_VERIFICATION_RUNNER</span>
             <button
               type="button"
               className="harness-run-btn"
               onClick={runSimulation}
               disabled={simActive}
             >
-              {simActive ? 'RUNNING BENCHMARK...' : '⚡ EXECUTE PIPELINE TEST'}
+              {simActive ? 'RUNNING TEST...' : '▶ RUN VERIFICATION TEST'}
             </button>
           </div>
           <div className="harness-screen">
@@ -169,7 +169,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
 
       {/* 7. QUANTIFIED ENGINEERING IMPACT */}
       <section className="case-study-section">
-        <h2 className="section-heading">05 // Quantified Engineering Impact</h2>
+        <h2 className="section-heading">05 // Quantified Business & Engineering Impact</h2>
         <div className="metrics-summary-grid">
           {project.metrics.map((m, idx) => (
             <div key={idx} className="metric-card">
@@ -202,8 +202,8 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
         </div>
 
         <div className="case-study-cta-box">
-          <h3>Want to discuss this architecture in depth?</h3>
-          <p>Sahil is actively available for Senior Software Engineer and AI Systems Architect roles.</p>
+          <h3>Want to discuss this architecture or collaborate?</h3>
+          <p>Sahil is open to Senior Software Engineer, Full Stack, and Cloud Infrastructure roles.</p>
           <div className="cta-actions-row">
             <button type="button" className="cta-call-btn" onClick={onOpenPhoneCall}>
               📞 Direct Call with Sahil (+91 9625213480)

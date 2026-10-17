@@ -14,10 +14,10 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
   const [packetsProcessed, setPacketsProcessed] = useState<number>(10000);
 
   // Module 2: Agent Swarm Sandbox State
-  const [agentGoal, setAgentGoal] = useState<string>('Refactor order matching pipeline to lock-free memory');
+  const [agentGoal, setAgentGoal] = useState<string>('Refactor legacy payment service to idempotent double-entry ledger');
   const [agentLogs, setAgentLogs] = useState<string[]>([
-    '🤖 [SYSTEM] Meeseeks Autonomous Orchestration Engine Ready.',
-    'Enter a technical goal and click "Dispatch Swarm" to observe task decomposition and AST pruning.'
+    '[SYSTEM READY] Meeseeks Automated Refactoring Planner initialized.',
+    'Enter a software engineering task and click "Run Planning Simulation" to observe task decomposition.'
   ]);
   const [isDispatching, setIsDispatching] = useState<boolean>(false);
 
@@ -42,12 +42,12 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
   const dispatchAgentSwarm = () => {
     setIsDispatching(true);
     setAgentLogs([
-      `⚡ [INPUT GOAL] "${agentGoal}"`,
-      '🔍 [SUPERVISOR] Decomposing task into Directed Acyclic Graph (DAG)...',
-      '📦 [SUBAGENT 1 - AST Parser] Inspecting abstract syntax tree; eliminating 1,840 duplicate tokens (-72.4% context pruned)',
-      '🛠️ [SUBAGENT 2 - Tool Dispatch] Acquired lock-free memory layout specification via MCP',
-      '🧪 [SUBAGENT 3 - Sandbox Eval] Running concurrent benchmark verification in Docker sandbox...',
-      '✅ [EVAL PASSED] 100% deterministic test suite green. Generated zero-regression master PR.'
+      `[TASK RECEIVED] "${agentGoal}"`,
+      '[PLANNER] Decomposed objective into 4 sequential subtasks (DAG)',
+      '[AST PARSER] Parsed codebase AST and pruned unreferenced symbols (-72% prompt context)',
+      '[TOOL CLIENT] Retrieved database schema and existing unit tests via MCP',
+      '[TEST SUITE] Executed automated test suite inside isolated Docker container...',
+      '[VERIFICATION] All 48 unit tests passed (0 regressions). Pull request ready for review.'
     ]);
     setTimeout(() => {
       setIsDispatching(false);
@@ -117,10 +117,10 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
   return (
     <div className="playground-page">
       <header className="playground-header">
-        <span className="playground-tag">INTERACTIVE LABORATORY</span>
-        <h1 className="playground-title">Engineering Playground</h1>
+        <span className="playground-tag">INTERACTIVE ENGINEERING DEMOS</span>
+        <h1 className="playground-title">Interactive Engineering Demos</h1>
         <p className="playground-subtitle">
-          Interactive sandboxes demonstrating Sahil Rathee's low-latency memory pipelines, autonomous multi-agent coordination, and system telemetry.
+          Hands-on simulations demonstrating latency optimization, autonomous task planning, and distributed networking.
         </p>
       </header>
 
@@ -131,21 +131,21 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
           className={`playground-tab ${activeTab === 'ringbuf' ? 'active' : ''}`}
           onClick={() => setActiveTab('ringbuf')}
         >
-          ⚡ RingBuffer Latency Race
+          ⚡ Memory vs Network Latency
         </button>
         <button
           type="button"
           className={`playground-tab ${activeTab === 'agent' ? 'active' : ''}`}
           onClick={() => setActiveTab('agent')}
         >
-          🤖 Autonomous Agent Swarm
+          🤖 Automated Task Planning Demo
         </button>
         <button
           type="button"
           className={`playground-tab ${activeTab === 'particles' ? 'active' : ''}`}
           onClick={() => setActiveTab('particles')}
         >
-          🌐 Spacetime Network Canvas
+          🌐 Network Topology Visualizer
         </button>
       </nav>
 
@@ -155,8 +155,8 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
           <div className="playground-experiment-card">
             <div className="experiment-header">
               <div>
-                <span className="exp-label">BENCHMARK SIMULATOR</span>
-                <h3 className="exp-title">Lock-Free In-Memory RingBuffer vs Traditional Broker</h3>
+                <span className="exp-label">BENCHMARK SIMULATION</span>
+                <h3 className="exp-title">In-Memory Lock-Free Buffer vs Network Message Broker</h3>
               </div>
               <button
                 type="button"
@@ -164,18 +164,18 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
                 onClick={runBenchmark}
                 disabled={benchmarkRunning}
               >
-                {benchmarkRunning ? `PROCESSING ${packetsProcessed} PACKETS...` : '⚡ RUN 50,000 PACKET BURST'}
+                {benchmarkRunning ? `PROCESSING ${packetsProcessed} PACKETS...` : '▶ RUN 50,000 PACKET BURST'}
               </button>
             </div>
 
             <p className="exp-desc">
-              Compares tick enqueue/dequeue latency between a cache-aligned lock-free circular ring buffer (Mitochondria) versus an off-the-shelf message broker queue over TCP.
+              Compares packet enqueue/dequeue latency between a cache-aligned in-memory ring buffer versus a standard message broker queue over TCP.
             </p>
 
             <div className="benchmark-race-grid">
               {/* Ring Buffer Box */}
               <div className="race-box highlight">
-                <span className="race-tag">LOCK-FREE RING BUFFER (MITOCHONDRIA)</span>
+                <span className="race-tag">IN-MEMORY RING BUFFER (OPTIMIZED)</span>
                 <span className="race-speed">{ringBufferLatency} µs</span>
                 <span className="race-meta">Sub-microsecond memory IPC • Zero allocations</span>
                 <div className="race-bar-track">
@@ -185,9 +185,9 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
 
               {/* Traditional Broker Box */}
               <div className="race-box">
-                <span className="race-tag">TRADITIONAL MESSAGE BROKER</span>
+                <span className="race-tag">NETWORK MESSAGE BROKER</span>
                 <span className="race-speed">{traditionalLatency} ms</span>
-                <span className="race-meta">Network hops, GC pauses & thread context switches</span>
+                <span className="race-meta">Network hops, TCP handshake & serialization</span>
                 <div className="race-bar-track">
                   <div className="race-bar-fill slow" style={{ width: '18%' }} />
                 </div>
@@ -200,8 +200,8 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
           <div className="playground-experiment-card">
             <div className="experiment-header">
               <div>
-                <span className="exp-label">AGENTIC SWARM SANDBOX</span>
-                <h3 className="exp-title">Meeseeks Autonomous Task Decomposition</h3>
+                <span className="exp-label">TASK PLANNING DEMO</span>
+                <h3 className="exp-title">Meeseeks Automated Code Refactoring Planner</h3>
               </div>
               <button
                 type="button"
@@ -209,19 +209,20 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
                 onClick={dispatchAgentSwarm}
                 disabled={isDispatching}
               >
-                {isDispatching ? 'SWARM EXECUTING...' : '🤖 DISPATCH AGENT SWARM'}
+                {isDispatching ? 'PLANNING IN PROGRESS...' : '▶ RUN PLANNING SIMULATION'}
               </button>
             </div>
 
             <p className="exp-desc">
-              Demonstrates how Meeseeks prunes 70% of AST context before dispatching parallel subagents for verification.
+              Demonstrates how Meeseeks analyzes requirements, optimizes prompt context via AST pruning, and executes isolated container verification.
             </p>
 
             <input
+              type="text"
               className="agent-goal-input"
               value={agentGoal}
               onChange={(e) => setAgentGoal(e.target.value)}
-              placeholder="Enter technical engineering goal..."
+              placeholder="Enter engineering task (e.g. Refactor payment service)..."
             />
 
             <div className="agent-terminal-screen">
@@ -238,8 +239,8 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
           <div className="playground-experiment-card">
             <div className="experiment-header">
               <div>
-                <span className="exp-label">SPACETIME TOPOLOGY</span>
-                <h3 className="exp-title">Dynamic Microservice Mesh Canvas</h3>
+                <span className="exp-label">DISTRIBUTED TOPOLOGY</span>
+                <h3 className="exp-title">Dynamic Service Mesh & Packet Routing Canvas</h3>
               </div>
               <button
                 type="button"
@@ -251,7 +252,7 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
             </div>
 
             <p className="exp-desc">
-              Interactive HTML5 canvas showing dynamic node mesh connectivity and low-latency packet routing.
+              Interactive visualization demonstrating service mesh node connectivity and low-latency packet routing.
             </p>
 
             <div className="particles-canvas-wrap">

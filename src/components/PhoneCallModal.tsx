@@ -68,7 +68,7 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
           <div className="phone-calling-indicator">
             <span className="phone-icon-pulse">📞</span>
             <div>
-              <span className="calling-label">QUANTUM RELAY TERMINAL</span>
+              <span className="calling-label">DIRECT CONTACT</span>
               <h3 id="phone-modal-title" className="calling-title">Direct Connection: Sahil Rathee</h3>
             </div>
           </div>
@@ -76,7 +76,7 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
             type="button" 
             className="modal-close-btn" 
             onClick={onClose}
-            aria-label="Close terminal"
+            aria-label="Close dialog"
           >
             ✕
           </button>
@@ -84,8 +84,7 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
 
         <div className="phone-modal-body">
           <p className="phone-intro-text">
-            You successfully navigated across the gravitational fields to the quantum phone booth! 
-            Connect with Sahil directly for Senior & Staff engineering discussions, AI architecture, or full-time roles:
+            Connect directly with Sahil Rathee regarding Senior Software Engineer roles, distributed backend architecture, or technical collaboration:
           </p>
 
           <div className="call-actions-grid">
@@ -103,16 +102,16 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
               <span className="action-hint">Dial ↗</span>
             </a>
 
-            {/* Google Calendar / Meet Scheduling */}
+            {/* Email / Meet Scheduling */}
             <a 
-              href="mailto:contact@infortts.site?subject=Scheduling%20an%20Engineering%20Discussion%20with%20Sahil%20Rathee&body=Hi%20Sahil%2C%0A%0AI%20explored%20your%20interactive%20systems%20portfolio%20and%20would%20like%20to%20schedule%20a%20call%20regarding%20a%20Senior%2FStaff%20Software%20Engineering%20role.%0A%0ABest%20regards%2C"
+              href="mailto:sahil.artits.rathee@gmail.com?subject=Scheduling%20an%20Engineering%20Discussion%20with%20Sahil%20Rathee&body=Hi%20Sahil%2C%0A%0AI%20explored%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding%20a%20Senior%20Software%20Engineering%20opportunity.%0A%0ABest%20regards%2C"
               className="call-action-card"
-              aria-label="Email or Schedule Meeting"
+              aria-label="Email Sahil Rathee"
             >
-              <div className="call-icon-box">📅</div>
+              <div className="call-icon-box">✉️</div>
               <div className="call-details">
-                <span className="call-sub">Instant Dispatch</span>
-                <span className="call-main">Schedule Calendar Meeting</span>
+                <span className="call-sub">Direct Email</span>
+                <span className="call-main">sahil.artits.rathee@gmail.com</span>
               </div>
               <span className="action-hint">Email ↗</span>
             </a>
@@ -153,10 +152,10 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
 
         <div className="phone-modal-footer">
           <span className="terminal-status">
-            <span className="dot-green" /> Terminal Active • Encrypted via Infortts Core
+            <span className="dot-green" /> Open for Senior Software Engineer Roles • New Delhi, India
           </span>
           <button type="button" className="action-btn" onClick={onClose}>
-            Back to Map [Esc]
+            Close [Esc]
           </button>
         </div>
       </div>

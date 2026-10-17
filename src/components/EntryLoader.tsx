@@ -38,16 +38,16 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
       setProgress(current);
 
       if (current < 25) {
-        setStatusText('[01/04] INITIALIZING INFORTTS DISTRIBUTED RUNTIME');
+        setStatusText('[01/04] LOADING PRODUCTION CASE STUDIES & ARCHITECTURE');
       } else if (current < 50) {
-        setStatusText('[02/04] MOUNTING MITOCHONDRIA HFT CLUSTERS (MT5 WINE ORACLE)');
+        setStatusText('[02/04] INITIALIZING LIVE TOPOLOGY & SYSTEM BENCHMARKS');
       } else if (current < 75) {
-        setStatusText('[03/04] CHARNIA NATS DB.QUERY PROXY VERIFIED');
+        setStatusText('[03/04] PREPARING INTERACTIVE DEMOS & CODEBASE GRAPH');
       } else if (current < 100) {
-        setStatusText('[04/04] SYNCHRONIZING AGENT SWARMS • NEW DELHI // 2002');
+        setStatusText('[04/04] VERIFYING PRODUCTION SYSTEMS • NEW DELHI // 2002');
       } else {
         clearInterval(interval);
-        setStatusText('SYSTEMS ONLINE // COMMAND DECK ENGAGED');
+        setStatusText('SYSTEMS READY // PORTFOLIO LOADED');
         setTimeout(() => {
           handleFinish();
         }, 350);
@@ -135,7 +135,7 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
             <span className="loader-last-name">RATHEE</span>
           </div>
           <div className="loader-architect-subtitle">
-            <span className="cyan-prefix">&gt;</span> SYSTEMS ARCHITECT // BORN 2002 // INFORTTS INC.
+            <span className="cyan-prefix">&gt;</span> SOFTWARE ENGINEER // BORN 2002 // INFORTTS INC.
           </div>
         </div>
 

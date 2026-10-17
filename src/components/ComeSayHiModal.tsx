@@ -99,7 +99,7 @@ export const ComeSayHiModal: React.FC<ComeSayHiModalProps> = ({
 
           {/* Socials & Professional */}
           <div className="say-hi-group">
-            <span className="say-hi-label">Design & systems updates lately</span>
+            <span className="say-hi-label">Professional Profiles & Resume</span>
             <div className="say-hi-links-list">
               <a href="https://linkedin.com/in/rttss-sahil" target="_blank" rel="noopener noreferrer">
                 💼 Sahil Rathee LinkedIn Profile
@@ -113,7 +113,7 @@ export const ComeSayHiModal: React.FC<ComeSayHiModalProps> = ({
 
         {/* Footer stamp */}
         <div className="say-hi-footer">
-          <span>NEW DELHI • BORN 2002 • ACTIVE FOR SENIOR / STAFF ROLES</span>
+          <span>NEW DELHI, INDIA • BORN 2002 • OPEN TO SENIOR SOFTWARE ENGINEER ROLES</span>
         </div>
       </div>
     </div>
