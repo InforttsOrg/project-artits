@@ -23,7 +23,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
 
     setTimeout(() => {
       if (project.id === 'zenith' || project.id === 'mitochondria') {
-        setSimOutput(`[MT5 IPC] Ingested 50,000 tick burst • RingBuffer enqueue: 0.12ms • NATS JetStream ack: 0.38ms • Execution complete: <0.7ms • Zero dropped ticks!`);
+        setSimOutput(`[ZENITH CLUSTER] Sandboxed MT5 Wine Oracle active • Charnia NATS db.query RPC verified • Per-account equity floor check PASSED • Order executed in <0.7ms • Zero exposed DB ports!`);
       } else if (project.id === 'meeseeks') {
         setSimOutput(`[SUPERVISOR] Task graph generated (4 subagents) • AST diff pruning applied (-71.4% tokens) • Playwright headless check passed • Master verified!`);
       } else if (project.id === 'roost') {

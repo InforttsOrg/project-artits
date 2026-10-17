@@ -1775,8 +1775,8 @@ kbd {
 
 .topology-canvas-container {
   width: 100%;
-  height: 480px;
-  min-height: 480px;
+  height: 520px;
+  min-height: 520px;
   background: #070b14;
   border: 1px solid var(--border-cyan);
   border-radius: 10px;
@@ -1785,11 +1785,103 @@ kbd {
   position: relative;
 }
 
-.topology-canvas {
+/* ========================================================
+   CODEBASE MEMORY GRAPH EMBED (graph.infortts.site)
+   ======================================================== */
+.graph-embed-wrapper {
   width: 100%;
   height: 100%;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a10;
+}
+
+.graph-embed-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.graph-status-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.graph-url-text {
+  font-family: 'Agave Nerd Font', monospace;
+  font-size: 10px;
+  color: var(--cyan-primary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.graph-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.graph-tab-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  font-family: 'Agave Nerd Font', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.graph-tab-btn:hover,
+.graph-tab-btn.active {
+  background: rgba(0, 210, 255, 0.15);
+  border-color: var(--cyan-primary);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.2);
+}
+
+.graph-open-external-btn {
+  background: rgba(0, 210, 255, 0.1);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  color: var(--cyan-primary);
+  font-family: 'Agave Nerd Font', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.graph-open-external-btn:hover {
+  background: var(--cyan-primary);
+  color: #020617;
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.graph-iframe-viewport {
+  flex: 1;
+  width: 100%;
+  height: calc(100% - 38px);
+  position: relative;
+  background: #0a0a10;
+}
+
+.graph-live-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
 }
 
 .node-telemetry-box {

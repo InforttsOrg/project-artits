@@ -11,7 +11,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
 }) => {
   const [copied, setCopied] = useState<boolean>(false);
   const [stampFeedback, setStampFeedback] = useState<string | null>(null);
-  const email = 'rttss.sahil@gmail.com';
+  const email = 'sahil.artits.rathee@gmail.com';
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);

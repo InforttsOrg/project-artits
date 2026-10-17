@@ -49,56 +49,56 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     slug: 'mitochondria',
     number: '01',
     title: 'MITOCHONDRIA',
-    tagline: 'Autonomous Forensic Algorithmic Forex Trading Workstation & In-Memory IPC',
+    tagline: 'Autonomous XAUUSD & Nifty Algorithmic Trading Workstation & MT5 Container Engine',
     category: 'DISTRIBUTED SYSTEMS & QUANTITATIVE FINTECH',
-    hookQuestion: 'How do you stream and execute 50,000 tick/sec market fluctuations without triggering thread starvation, garbage collection pauses, or OS-level latency jitter?',
-    role: 'Principal Systems Architect',
+    hookQuestion: 'How do you run autonomous trading algorithms inside sandboxed Linux/Wine MetaTrader 5 without exposing database ports to the host network, while strictly enforcing per-account hard risk limits before order dispatch?',
+    role: 'Principal Systems Architect & Founding Engineer',
     timeline: '2023 - Present',
-    organization: 'Infortts Open-Source Swarms',
-    companyUrl: 'https://artits.infortts.site',
+    organization: 'Infortts Inc.',
+    companyUrl: 'https://infortts.site',
     keyMetric: '<0.7ms Order Execution',
-    secondaryMetric: '100k msg/sec Throughput',
-    summary: 'High-frequency algorithmic trade execution workstation interfacing directly with MetaTrader 5 (MT5). Constructed custom lock-free memory ring buffers and low-latency C++/Python pipelines, broadcasting zero-loss tick streams via NATS JetStream to real-time vector analysis clusters powered by Qdrant.',
-    tags: ['Python', 'C++', 'MetaTrader 5 API', 'NATS JetStream', 'Qdrant Vector DB', 'Lock-Free RingBuffers', 'WebSockets', 'Flutter Desktop'],
+    secondaryMetric: '0 Exposed DB Ports (NATS RPC)',
+    summary: 'High-scale autonomous trading cluster interfacing directly with sandboxed MetaTrader 5 (MT5 Oracle) inside Linux/Wine containers. Built an isolated private container network (zenith-net) where PostgreSQL, NATS JetStream, and Qdrant have zero exposed host ports, communicating strictly via typed RPC on NATS subject db.query (Charnia Database Proxy) with raw SQL disabled. Integrates the Zenith multi-agent collective (hive orchestrator, execution pool, FastAPI relay) and Nimble Terminal (Flutter mobile/web workstation) automated to Google Play.',
+    tags: ['MetaTrader 5', 'Linux/Wine Container', 'Charnia NATS Proxy', 'PostgreSQL Locked RPC', 'Python FastAPI', 'Flutter Desktop/Web', 'Fastlane Google Play', 'Qdrant Vector DB'],
     challenge: {
-      context: 'Retail and proprietary forex trading desks suffer from high execution slippage when trading market shock events (e.g. Non-Farm Payrolls, CPI releases). Standard polling architectures introduce 50ms - 200ms latency delays.',
-      bottleneck: 'Traditional message brokers (Kafka/RabbitMQ) and relational DB writes introduce garbage collection pauses, network hop overhead, and lock contention that breach latency SLAs.',
+      context: 'Running autonomous execution strategies on high-leverage commodities (XAUUSD) and index futures (Nifty) requires sub-millisecond latency and ironclad account security. Standard retail setups expose database ports (PostgreSQL 5432, NATS 4222) to host networks or rely on synthetic paper mocks that fail to replicate real-world bridge execution and broker slippage.',
+      bottleneck: 'Direct SQL execution from trading bots risks catastrophic balance drain or account compromise. Simultaneously, traditional Windows-dependent MT5 installations lack containerized headless isolation, multi-instance orchestration, and automated CI/CD deployment.',
       whyExistingFailed: [
-        'Standard Python multithreading suffers from GIL contention under high-frequency tick feeds.',
-        'REST-based broker APIs hit connection pool exhaustion during flash market spikes.',
-        'Conventional relational time-series tables bottleneck on write locks under 40+ parallel instrument feeds.'
+        'Standard MT5 deployments require interactive Windows desktops with manual GUI management, preventing automated cloud cluster orchestration.',
+        'Exposing Postgres or Redis ports on trading VPS instances creates severe attack vectors for proprietary account credentials and active orders.',
+        'Uncontrolled bot scripts without database-level risk gates (equity floors, max daily loss, max lot sizing) cause account liquidation during sudden flash crashes.'
       ]
     },
     architecture: {
-      overview: 'Engineered a multi-tier pipeline separating tick ingestion, in-memory queueing, distributed messaging, and vector recognition into isolated zero-contention stages.',
+      overview: 'Architected a dual-plane topology: an isolated private container network (zenith-net) with zero exposed database ports, fronted by a typed NATS RPC proxy (Charnia) and a sandboxed Linux/Wine MetaTrader 5 oracle paired with a Flutter workstation.',
       steps: [
         {
-          title: 'Direct IPC Memory Ingestion',
-          description: 'A native C++ DLL bridge attached directly to the MetaTrader 5 terminal process writes raw ticks into shared memory with zero serialization overhead.',
-          tech: 'C++ / Native Win32 Shared Memory'
+          title: 'Sandboxed MT5 Wine Container (zenith-mt5)',
+          description: 'Headless MetaTrader 5 oracle running inside a Linux/Wine container with browser-based VNC (port 6080) and native VNC (5901) for live bridge connectivity without Windows licensing overhead.',
+          tech: 'Linux / Wine Container / MT5 Bridge'
         },
         {
-          title: 'Lock-Free Ring Buffer Queue',
-          description: 'Single-producer single-consumer (SPSC) circular ring buffer capable of storing 500,000 tick objects with sub-microsecond enqueue/dequeue latency.',
-          tech: 'In-Memory RingBuffer'
+          title: 'Charnia NATS Database Proxy (db.query)',
+          description: 'Host-side services communicate strictly via typed JSON-RPC on NATS subject db.query (named_query, trades_by_symbol, upsert_account). Raw SQL is disabled (CHARNIA_ALLOW_RAW_SQL=false), keeping Postgres (5432) and Qdrant (6333) completely isolated within zenith-net.',
+          tech: 'NATS JetStream RPC / PostgreSQL / Qdrant'
         },
         {
-          title: 'NATS JetStream Pub/Sub Clustering',
-          description: 'Broadcasts partitioned streams across distributed analysis workers with at-least-once delivery guarantees and persistent replay capabilities.',
-          tech: 'NATS JetStream 2.10'
+          title: 'Multi-Agent Zenith Collective (Hive & Execution Pool)',
+          description: 'Specialized agents for Technical Analysis and News Sentiment stream orders through pre-trade risk validators checking Postgres mt5_accounts invariants (max_lot, equity_floor, max_daily_loss, max_dd_pct).',
+          tech: 'Python FastAPI / Hive Orchestrator / Multi-Agent Swarms'
         },
         {
-          title: 'Qdrant Vector Pattern Matching',
-          description: 'Transforms rolling 100-bar candlestick formations into 1536-dimensional embeddings to identify historical liquidity sweep patterns in real time.',
-          tech: 'Qdrant Vector Search'
+          title: 'Nimble Terminal & Google Play Automation',
+          description: 'Flutter-based trading terminal with live tick feeds, strategy heatmaps, and SL/TP visualization, signed with Infortts keystore and deployed directly to Google Play Internal Testing (com.infortts.mitochondria) via Fastlane.',
+          tech: 'Flutter Desktop/Web / Fastlane / Google Play Track'
         }
       ]
     },
     metrics: [
-      { label: 'Order Execution Latency', value: '<0.7ms', detail: 'Reduced from 85ms legacy baseline' },
-      { label: 'Tick Ingestion Throughput', value: '100k msg/s', detail: 'Zero dropped packets across 40+ asset pairs' },
-      { label: 'Memory Footprint', value: '18MB', detail: 'Optimized memory layout with zero runtime allocations' },
-      { label: 'System Uptime', value: '99.99%', detail: 'Zero downtime during volatile London/NY market overlaps' }
+      { label: 'Order Execution Latency', value: '<0.7ms', detail: 'Sub-millisecond order fulfillment via Wine MT5 socket bridge' },
+      { label: 'Exposed Database Ports', value: '0 Ports', detail: 'Postgres & Qdrant locked inside zenith-net private mesh' },
+      { label: 'Risk Gate Enforcement', value: '100% Guaranteed', detail: 'Per-account equity floor & daily loss checked before order dispatch' },
+      { label: 'Operational Invariant', value: 'Zero Simulation', detail: 'Every trade runs against live verified FTMO / broker bridge connections' }
     ],
     nextProject: { slug: 'meeseeks', title: 'MEESEEKS' },
     prevProject: { slug: 'bighit', title: 'BIGHIT CLOUD' }
@@ -110,59 +110,58 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     slug: 'mitochondria',
     number: '01',
     title: 'MITOCHONDRIA',
-    tagline: 'Autonomous Forensic Algorithmic Forex Trading Workstation & In-Memory IPC',
+    tagline: 'Autonomous XAUUSD & Nifty Algorithmic Trading Workstation & MT5 Container Engine',
     category: 'DISTRIBUTED SYSTEMS & QUANTITATIVE FINTECH',
-    hookQuestion: 'How do you stream and execute 50,000 tick/sec market fluctuations without triggering thread starvation, garbage collection pauses, or OS-level latency jitter?',
-    role: 'Principal Systems Architect',
+    hookQuestion: 'How do you run autonomous trading algorithms inside sandboxed Linux/Wine MetaTrader 5 without exposing database ports to the host network, while strictly enforcing per-account hard risk limits before order dispatch?',
+    role: 'Principal Systems Architect & Founding Engineer',
     timeline: '2023 - Present',
-    organization: 'Infortts Open-Source Swarms',
-    companyUrl: 'https://artits.infortts.site',
+    organization: 'Infortts Inc.',
+    companyUrl: 'https://infortts.site',
     keyMetric: '<0.7ms Order Execution',
-    secondaryMetric: '100k msg/sec Throughput',
-    summary: 'High-frequency algorithmic trade execution workstation interfacing directly with MetaTrader 5 (MT5). Constructed custom lock-free memory ring buffers and low-latency C++/Python pipelines, broadcasting zero-loss tick streams via NATS JetStream to real-time vector analysis clusters powered by Qdrant.',
-    tags: ['Python', 'C++', 'MetaTrader 5 API', 'NATS JetStream', 'Qdrant Vector DB', 'Lock-Free RingBuffers', 'WebSockets', 'Flutter Desktop'],
+    secondaryMetric: '0 Exposed DB Ports (NATS RPC)',
+    summary: 'High-scale autonomous trading cluster interfacing directly with sandboxed MetaTrader 5 (MT5 Oracle) inside Linux/Wine containers. Built an isolated private container network (zenith-net) where PostgreSQL, NATS JetStream, and Qdrant have zero exposed host ports, communicating strictly via typed RPC on NATS subject db.query (Charnia Database Proxy) with raw SQL disabled. Integrates the Zenith multi-agent collective (hive orchestrator, execution pool, FastAPI relay) and Nimble Terminal (Flutter mobile/web workstation) automated to Google Play.',
+    tags: ['MetaTrader 5', 'Linux/Wine Container', 'Charnia NATS Proxy', 'PostgreSQL Locked RPC', 'Python FastAPI', 'Flutter Desktop/Web', 'Fastlane Google Play', 'Qdrant Vector DB'],
     challenge: {
-      context: 'Retail and proprietary forex trading desks suffer from high execution slippage when trading market shock events. Standard polling architectures introduce 50ms - 200ms latency delays.',
-      bottleneck: 'Traditional message brokers and relational DB writes introduce garbage collection pauses and lock contention that breach latency SLAs.',
+      context: 'Running autonomous execution strategies on high-leverage commodities (XAUUSD) and index futures (Nifty) requires sub-millisecond latency and ironclad account security. Standard retail setups expose database ports (PostgreSQL 5432, NATS 4222) to host networks or rely on synthetic paper mocks that fail to replicate real-world bridge execution and broker slippage.',
+      bottleneck: 'Direct SQL execution from trading bots risks catastrophic balance drain or account compromise. Simultaneously, traditional Windows-dependent MT5 installations lack containerized headless isolation, multi-instance orchestration, and automated CI/CD deployment.',
       whyExistingFailed: [
-        'Standard Python multithreading suffers from GIL contention under high-frequency tick feeds.',
-        'REST-based broker APIs hit connection pool exhaustion during flash market spikes.',
-        'Conventional relational time-series tables bottleneck on write locks under 40+ parallel instrument feeds.'
+        'Standard MT5 deployments require interactive Windows desktops with manual GUI management, preventing automated cloud cluster orchestration.',
+        'Exposing Postgres or Redis ports on trading VPS instances creates severe attack vectors for proprietary account credentials and active orders.',
+        'Uncontrolled bot scripts without database-level risk gates (equity floors, max daily loss, max lot sizing) cause account liquidation during sudden flash crashes.'
       ]
     },
     architecture: {
-      overview: 'Engineered a multi-tier pipeline separating tick ingestion, in-memory queueing, distributed messaging, and vector recognition into isolated zero-contention stages.',
+      overview: 'Architected a dual-plane topology: an isolated private container network (zenith-net) with zero exposed database ports, fronted by a typed NATS RPC proxy (Charnia) and a sandboxed Linux/Wine MetaTrader 5 oracle paired with a Flutter workstation.',
       steps: [
         {
-          title: 'Direct IPC Memory Ingestion',
-          description: 'A native C++ DLL bridge attached directly to the MetaTrader 5 terminal process writes raw ticks into shared memory with zero serialization overhead.',
-          tech: 'C++ / Native Win32 Shared Memory'
+          title: 'Sandboxed MT5 Wine Container (zenith-mt5)',
+          description: 'Headless MetaTrader 5 oracle running inside a Linux/Wine container with browser-based VNC (port 6080) and native VNC (5901) for live bridge connectivity without Windows licensing overhead.',
+          tech: 'Linux / Wine Container / MT5 Bridge'
         },
         {
-          title: 'Lock-Free Ring Buffer Queue',
-          description: 'Single-producer single-consumer circular ring buffer with sub-microsecond enqueue/dequeue latency.',
-          tech: 'In-Memory RingBuffer'
+          title: 'Charnia NATS Database Proxy (db.query)',
+          description: 'Host-side services communicate strictly via typed JSON-RPC on NATS subject db.query (named_query, trades_by_symbol, upsert_account). Raw SQL is disabled (CHARNIA_ALLOW_RAW_SQL=false), keeping Postgres (5432) and Qdrant (6333) completely isolated within zenith-net.',
+          tech: 'NATS JetStream RPC / PostgreSQL / Qdrant'
         },
         {
-          title: 'NATS JetStream Pub/Sub Clustering',
-          description: 'Broadcasts partitioned streams across distributed analysis workers with at-least-once delivery guarantees.',
-          tech: 'NATS JetStream'
+          title: 'Multi-Agent Zenith Collective (Hive & Execution Pool)',
+          description: 'Specialized agents for Technical Analysis and News Sentiment stream orders through pre-trade risk validators checking Postgres mt5_accounts invariants (max_lot, equity_floor, max_daily_loss, max_dd_pct).',
+          tech: 'Python FastAPI / Hive Orchestrator / Multi-Agent Swarms'
         },
         {
-          title: 'Qdrant Vector Pattern Matching',
-          description: 'Transforms candlestick formations into 1536-dimensional embeddings to identify liquidity sweep patterns in real time.',
-          tech: 'Qdrant Vector Search'
+          title: 'Nimble Terminal & Google Play Automation',
+          description: 'Flutter-based trading terminal with live tick feeds, strategy heatmaps, and SL/TP visualization, signed with Infortts keystore and deployed directly to Google Play Internal Testing (com.infortts.mitochondria) via Fastlane.',
+          tech: 'Flutter Desktop/Web / Fastlane / Google Play Track'
         }
       ]
     },
     metrics: [
-      { label: 'Order Execution Latency', value: '<0.7ms', detail: 'Reduced from 85ms legacy baseline' },
-      { label: 'Tick Ingestion Throughput', value: '100k msg/s', detail: 'Zero dropped packets across 40+ asset pairs' },
-      { label: 'Memory Footprint', value: '18MB', detail: 'Optimized memory layout with zero runtime allocations' },
-      { label: 'System Uptime', value: '99.99%', detail: 'Zero downtime during volatile London/NY market overlaps' }
+      { label: 'Order Execution Latency', value: '<0.7ms', detail: 'Sub-millisecond order fulfillment via Wine MT5 socket bridge' },
+      { label: 'Exposed Database Ports', value: '0 Ports', detail: 'Postgres & Qdrant locked inside zenith-net private mesh' },
+      { label: 'Risk Gate Enforcement', value: '100% Guaranteed', detail: 'Per-account equity floor & daily loss checked before order dispatch' },
+      { label: 'Operational Invariant', value: 'Zero Simulation', detail: 'Every trade runs against live verified FTMO / broker bridge connections' }
     ],
     nextProject: { slug: 'meeseeks', title: 'MEESEEKS' },
-    prevProject: { slug: 'bighit', title: 'BIGHIT CLOUD' }
   },
 
   meeseeks: {

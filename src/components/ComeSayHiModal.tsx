@@ -12,7 +12,7 @@ export const ComeSayHiModal: React.FC<ComeSayHiModalProps> = ({
   onOpenPhoneCall,
 }) => {
   const [copied, setCopied] = useState<boolean>(false);
-  const email = 'rttss.sahil@gmail.com';
+  const email = 'sahil.artits.rathee@gmail.com';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
