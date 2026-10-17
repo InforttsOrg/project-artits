@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { JantarMantarGame } from './components/JantarMantarGame';
+import { ArchitectRunnerGame } from './components/ArchitectRunnerGame';
 import { PhoneCallModal } from './components/PhoneCallModal';
 import { PortfolioDrawer } from './components/PortfolioDrawer';
 
@@ -22,8 +22,8 @@ const App: React.FC = () => {
 
   return (
     <div className="jantar-mantar-app">
-      {/* Top-Down Delhi Arena Canvas Game & Saffron Card Menu */}
-      <JantarMantarGame
+      {/* Top-Down Architect Arena Canvas Game & Sahil Rathee Portfolio Menu */}
+      <ArchitectRunnerGame
         onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
         onOpenPortfolio={() => setIsPortfolioOpen(true)}
         inforttsFeedsCount={inforttsFeedsCount}
