@@ -229,7 +229,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     id: 'roost',
     slug: 'roost',
     number: '03',
-    title: 'ROOST & RENT1ST',
+    title: 'ROOST / RENT1ST',
     tagline: 'Multi-Tenant Property Management SaaS & Financial Escrow System',
     category: 'FINTECH SAAS & DISTRIBUTED LEDGERS',
     hookQuestion: 'How do you guarantee absolute financial consistency and zero duplicate payments across high-concurrency rental transactions using Go microservices?',

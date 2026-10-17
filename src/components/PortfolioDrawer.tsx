@@ -25,7 +25,7 @@ const FEATURED_PROJECTS = [
   },
   {
     id: 'roost',
-    title: 'ROOST & RENT1ST',
+    title: 'ROOST / RENT1ST',
     subtitle: 'Multi-Tenant Property Management SaaS & Escrow',
     desc: 'Multi-tenant rental management and escrow platform with double-entry accounting ledgers, PostgreSQL advisory locking, and automated GST reconciliation.',
     tags: ['Flutter', 'Go', 'PostgreSQL', 'GCP', 'Redis', 'Docker'],
