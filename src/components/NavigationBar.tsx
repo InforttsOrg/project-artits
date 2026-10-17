@@ -75,16 +75,6 @@ export const NavigationBar: React.FC = () => {
           >
             Technical Stack
           </button>
-          <Link
-            to="/playground"
-            className={`px-3 py-1.5 rounded-md transition-colors ${
-              location.pathname === '/playground'
-                ? 'text-zinc-100 bg-zinc-800'
-                : 'hover:text-zinc-100 hover:bg-zinc-900/60'
-            }`}
-          >
-            Playground
-          </Link>
         </nav>
 
         {/* Action CTAs */}
@@ -167,13 +157,6 @@ export const NavigationBar: React.FC = () => {
           >
             Technical Stack
           </button>
-          <Link
-            to="/playground"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-left py-2 text-zinc-300 hover:text-white font-medium"
-          >
-            Playground ⚡
-          </Link>
           <div className="pt-3 border-t border-zinc-800/60 flex items-center gap-3">
             <a
               href="/Sahil-Rathee-Resume.pdf"

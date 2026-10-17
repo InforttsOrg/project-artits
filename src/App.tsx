@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
 import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
-import { PlaygroundView } from './components/PlaygroundView';
 import { NavigationBar } from './components/NavigationBar';
 
 // Automatic scroll-to-top on route changes
@@ -27,7 +26,6 @@ export const AppContent: React.FC = () => {
         <Routes>
           <Route path="/" element={<ArchitectPortfolioView />} />
           <Route path="/work/:slug" element={<ProjectCaseStudyView />} />
-          <Route path="/playground" element={<PlaygroundView />} />
           <Route path="*" element={<ArchitectPortfolioView />} />
         </Routes>
       </main>
