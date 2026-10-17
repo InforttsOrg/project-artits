@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { InteractiveCanvasGraphic } from './InteractiveCanvasGraphic';
+import { AboutCapabilitiesSection } from './AboutCapabilitiesSection';
+import { ComeSayHiModal } from './ComeSayHiModal';
 
 interface ArchitectPortfolioViewProps {
   onOpenPhoneCall: () => void;
@@ -15,7 +18,7 @@ interface SystemNode {
   y: number;
   tech: string;
   metric: string;
-  status: 'active' | 'syncing' | 'healthy';
+  status: 'active' | 'standby' | 'healthy';
 }
 
 interface SystemConnection {
@@ -26,11 +29,11 @@ interface SystemConnection {
 }
 
 const TOPOLOGY_NODES: SystemNode[] = [
-  // Zenith System (Distributed Trading)
-  { id: 'mt5', systemId: 'zenith', label: 'MT5 Feed Gateway', role: 'Tick ingestion', x: 120, y: 80, tech: 'C++ / MT5 API', metric: '40+ Asset Streams', status: 'active' },
-  { id: 'ringbuf', systemId: 'zenith', label: 'RingBuffer Core', role: 'In-memory queue', x: 280, y: 80, tech: 'Lock-Free Memory', metric: '<0.4ms Latency', status: 'healthy' },
-  { id: 'nats', systemId: 'zenith', label: 'NATS JetStream', role: 'Zero-loss streaming', x: 440, y: 80, tech: 'NATS / Go', metric: '100k msg/sec', status: 'active' },
-  { id: 'qdrant', systemId: 'zenith', label: 'Qdrant Vector DB', role: 'Market pattern search', x: 600, y: 80, tech: 'Rust / Vector Index', metric: '1536-dim Cosine', status: 'healthy' },
+  // Mitochondria System (Distributed Algorithmic Trading)
+  { id: 'mt5', systemId: 'mitochondria', label: 'MT5 Feed Gateway', role: 'Tick ingestion', x: 120, y: 80, tech: 'C++ / MT5 API', metric: '40+ Asset Streams', status: 'active' },
+  { id: 'ringbuf', systemId: 'mitochondria', label: 'RingBuffer Core', role: 'In-memory queue', x: 280, y: 80, tech: 'Lock-Free Memory', metric: '<0.4ms Latency', status: 'healthy' },
+  { id: 'nats', systemId: 'mitochondria', label: 'NATS JetStream', role: 'Zero-loss streaming', x: 440, y: 80, tech: 'NATS / Go', metric: '100k msg/sec', status: 'active' },
+  { id: 'qdrant', systemId: 'mitochondria', label: 'Qdrant Vector DB', role: 'Market pattern search', x: 600, y: 80, tech: 'Rust / Vector Index', metric: '1536-dim Cosine', status: 'healthy' },
 
   // Meeseeks System (Autonomous AI)
   { id: 'supervisor', systemId: 'meeseeks', label: 'Supervisor LLM', role: 'Task decomposition', x: 120, y: 190, tech: 'LangChain / Python', metric: 'AST Verification', status: 'active' },
@@ -58,24 +61,25 @@ const TOPOLOGY_CONNECTIONS: SystemConnection[] = [
 
   { from: 'supervisor', to: 'router', protocol: 'JSON-RPC', bandwidth: 'Task Graph' },
   { from: 'router', to: 'agents', protocol: 'Async Workers', bandwidth: 'Tool Calls' },
-  { from: 'agents', to: 'verifier', protocol: 'IPC / Git', bandwidth: 'Diff Audit' },
+  { from: 'agents', to: 'verifier', protocol: 'Docker IPC', bandwidth: 'Diff Feedback' },
 
-  { from: 'client', to: 'go_api', protocol: 'HTTPS / REST', bandwidth: 'TLS 1.3' },
-  { from: 'go_api', to: 'postgres', protocol: 'pgx / Pool', bandwidth: 'ACID Commit' },
-  { from: 'go_api', to: 'redis', protocol: 'RESP protocol', bandwidth: '<1ms Sync' },
+  { from: 'client', to: 'go_api', protocol: 'HTTPS / WSS', bandwidth: 'Sub-25ms' },
+  { from: 'go_api', to: 'postgres', protocol: 'ACID Advisory Lock', bandwidth: 'Zero Collision' },
+  { from: 'go_api', to: 'redis', protocol: 'RESP Protocol', bandwidth: '<1ms Cache' },
 
-  { from: 'edge', to: 'eks', protocol: 'ALB Ingress', bandwidth: 'Load Balanced' },
-  { from: 'eks', to: 'terraform', protocol: 'GitOps / Argo', bandwidth: 'State Locked' },
-  { from: 'eks', to: 'mon', protocol: 'OpenTelemetry', bandwidth: 'Real-time' },
+  { from: 'edge', to: 'eks', protocol: 'Ingress Mesh', bandwidth: 'K8s Service' },
+  { from: 'terraform', to: 'eks', protocol: 'GitOps Controller', bandwidth: 'Automated IaC' },
+  { from: 'eks', to: 'mon', protocol: 'PromQL Stream', bandwidth: 'Metrics' },
 ];
 
 export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
   onOpenPhoneCall,
   inforttsFeedsCount = 40,
 }) => {
-  const [activeTab, setActiveTab] = useState<'all' | 'zenith' | 'meeseeks' | 'roost' | 'bighit'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'mitochondria' | 'meeseeks' | 'roost' | 'bighit'>('all');
   const [selectedNode, setSelectedNode] = useState<SystemNode | null>(TOPOLOGY_NODES[0]);
-  const [expandedSystem, setExpandedSystem] = useState<string | null>('zenith');
+  const [expandedSystem, setExpandedSystem] = useState<string>('mitochondria');
+  const [isSayHiOpen, setIsSayHiOpen] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Animated packet flow on the architecture canvas
@@ -165,16 +169,22 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
         ctx.fill();
         ctx.stroke();
 
-        // Node label
-        ctx.font = 'bold 9px "Agave Nerd Font", "agave", monospace';
-        ctx.fillStyle = '#ffffff';
+        // Node Title
+        ctx.font = 'bold 9.5px "Agave Nerd Font", monospace';
+        ctx.fillStyle = isSelected ? '#00d2ff' : '#f8fafc';
         ctx.textAlign = 'center';
         ctx.fillText(node.label, node.x, node.y - 4);
 
-        // Node metric
-        ctx.font = '8px "Agave Nerd Font", "agave", monospace';
-        ctx.fillStyle = '#10b981';
-        ctx.fillText(node.metric, node.x, node.y + 10);
+        // Node Tech Subtitle
+        ctx.font = '8px "Agave Nerd Font", monospace';
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText(node.tech, node.x, node.y + 11);
+
+        // Status indicator dot
+        ctx.fillStyle = node.status === 'healthy' ? '#10b981' : '#00d2ff';
+        ctx.beginPath();
+        ctx.arc(nx + 10, ny + 10, 3, 0, Math.PI * 2);
+        ctx.fill();
 
         ctx.globalAlpha = 1.0;
       });
@@ -183,6 +193,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
     };
 
     render();
+
     return () => cancelAnimationFrame(animId);
   }, [activeTab, selectedNode]);
 
@@ -214,7 +225,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
           <div className="deck-bio">
             <div className="deck-badge-row">
               <span className="live-status-dot" />
-              <span className="deck-status-text">AVAILABLE FOR SENIOR / STAFF ROLES • NEW DELHI</span>
+              <span className="deck-status-text">AVAILABLE FOR SENIOR / STAFF ROLES • BORN 2002 • NEW DELHI</span>
               <span className="deck-feeds-badge">{inforttsFeedsCount}+ Telemetry Feeds Active</span>
             </div>
             <h1 className="deck-name">SAHIL RATHEE</h1>
@@ -224,7 +235,10 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 
         {/* Action CTAs */}
         <div className="deck-actions">
-          <button type="button" className="deck-cta-btn primary" onClick={onOpenPhoneCall}>
+          <button type="button" className="deck-cta-btn primary" onClick={() => setIsSayHiOpen(true)}>
+            👋 Come Say Hi ↗
+          </button>
+          <button type="button" className="deck-cta-btn secondary" onClick={onOpenPhoneCall}>
             📞 Call Sahil (+91 9625213480)
           </button>
           <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer" className="deck-cta-btn secondary">
@@ -239,6 +253,11 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
         </div>
       </header>
 
+      {/* Hero Interactive Canvas Graphic (Shelby Kho inspiration) */}
+      <section className="hero-interactive-graphic-row">
+        <InteractiveCanvasGraphic />
+      </section>
+
       {/* 2. SPECIALIZATION FILTER TABS */}
       <nav className="deck-tabs-nav" aria-label="System specialization filter">
         <button
@@ -250,10 +269,10 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
         </button>
         <button
           type="button"
-          className={`deck-tab-btn ${activeTab === 'zenith' ? 'active' : ''}`}
-          onClick={() => { setActiveTab('zenith'); setExpandedSystem('zenith'); }}
+          className={`deck-tab-btn ${activeTab === 'mitochondria' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('mitochondria'); setExpandedSystem('mitochondria'); }}
         >
-          ⚡ Zenith (Forex Algorithmic Workstation)
+          ⚡ Mitochondria (Forex HFT Workstation)
         </button>
         <button
           type="button"
@@ -267,14 +286,14 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
           className={`deck-tab-btn ${activeTab === 'roost' ? 'active' : ''}`}
           onClick={() => { setActiveTab('roost'); setExpandedSystem('roost'); }}
         >
-          🏢 Roost (Escrow Ledger SaaS)
+          🏢 Roost & Rent1st (Escrow Ledger SaaS)
         </button>
         <button
           type="button"
           className={`deck-tab-btn ${activeTab === 'bighit' ? 'active' : ''}`}
           onClick={() => { setActiveTab('bighit'); setExpandedSystem('bighit'); }}
         >
-          ☁️ BigHit Cloud (K8s Modernization)
+          ☁️ BigHit Sportz (K8s Modernization)
         </button>
       </nav>
 
@@ -288,19 +307,19 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
           </div>
 
           <div className="systems-cards-stack">
-            {/* SYSTEM 1: ZENITH */}
+            {/* SYSTEM 1: MITOCHONDRIA */}
             <article 
-              className={`system-spec-card ${expandedSystem === 'zenith' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'zenith' ? 'dimmed' : ''}`}
-              onClick={() => setExpandedSystem('zenith')}
+              className={`system-spec-card ${expandedSystem === 'mitochondria' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'mitochondria' ? 'dimmed' : ''}`}
+              onClick={() => setExpandedSystem('mitochondria')}
             >
               <div className="spec-card-header">
                 <div className="spec-title-group">
-                  <span className="spec-category-tag">DISTRIBUTED FOREX TRADING</span>
-                  <h3 className="spec-title">⚡ ZENITH & MITOCHONDRIA</h3>
-                  <span className="spec-subtitle">Autonomous Forensic Trading Workstation & Live Telemetry Pipeline</span>
+                  <span className="spec-category-tag">DISTRIBUTED FOREX TRADING & LOW-LATENCY IPC</span>
+                  <h3 className="spec-title">⚡ MITOCHONDRIA</h3>
+                  <span className="spec-subtitle">Autonomous Forensic Trading Workstation & Live Telemetry RingBuffer Pipeline</span>
                 </div>
                 <div className="spec-metrics-pill highlight-cyan">
-                  <span>&lt;1ms Execution</span>
+                  <span>&lt;0.7ms Execution</span>
                   <small>40+ Asset Streams</small>
                 </div>
               </div>
@@ -326,6 +345,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
 
                 <div className="spec-tech-tags">
                   <span className="tech-badge">Python</span>
+                  <span className="tech-badge">C++</span>
                   <span className="tech-badge">MetaTrader 5 API</span>
                   <span className="tech-badge">NATS JetStream</span>
                   <span className="tech-badge">Qdrant Vector DB</span>
@@ -335,7 +355,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
                 </div>
 
                 <div className="spec-card-actions">
-                  <Link to="/work/zenith" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
+                  <Link to="/work/mitochondria" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
                     Explore Technical Case Study (Shelby Kho Format) →
                   </Link>
                 </div>
@@ -350,7 +370,7 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
               <div className="spec-card-header">
                 <div className="spec-title-group">
                   <span className="spec-category-tag">AUTONOMOUS MULTI-AGENT SWARMS</span>
-                  <h3 className="spec-title">🤖 MEESEEKS</h3>
+                  <h3 className="spec-title">🤖 MEESEEKS AGENT ENGINE</h3>
                   <span className="spec-subtitle">Hierarchical Autonomous Multi-Agent AI Orchestration Engine</span>
                 </div>
                 <div className="spec-metrics-pill highlight-purple">
@@ -394,15 +414,15 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
               </div>
             </article>
 
-            {/* SYSTEM 3: ROOST */}
+            {/* SYSTEM 3: ROOST / RENT1ST */}
             <article 
               className={`system-spec-card ${expandedSystem === 'roost' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'roost' ? 'dimmed' : ''}`}
               onClick={() => setExpandedSystem('roost')}
             >
               <div className="spec-card-header">
                 <div className="spec-title-group">
-                  <span className="spec-category-tag">HIGH-CONCURRENCY FINTECH SAAS</span>
-                  <h3 className="spec-title">🏢 ROOST ESCROW PLATFORM</h3>
+                  <span className="spec-category-tag">HIGH-CONCURRENCY FINTECH SAAS & ESCROW</span>
+                  <h3 className="spec-title">🏢 ROOST & RENT1ST ESCROW</h3>
                   <span className="spec-subtitle">Multi-Tenant Property Management SaaS & Financial Escrow Ledger</span>
                 </div>
                 <div className="spec-metrics-pill highlight-emerald">
@@ -446,15 +466,15 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
               </div>
             </article>
 
-            {/* SYSTEM 4: BIGHIT CLOUD */}
+            {/* SYSTEM 4: BIGHIT SPORTZ */}
             <article 
               className={`system-spec-card ${expandedSystem === 'bighit' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'bighit' ? 'dimmed' : ''}`}
               onClick={() => setExpandedSystem('bighit')}
             >
               <div className="spec-card-header">
                 <div className="spec-title-group">
-                  <span className="spec-category-tag">CLOUD INFRASTRUCTURE MODERNIZATION</span>
-                  <h3 className="spec-title">☁️ BIGHIT CLOUD FOUNDRY</h3>
+                  <span className="spec-category-tag">CLOUD INFRASTRUCTURE & MULTI-SPORT PLATFORM</span>
+                  <h3 className="spec-title">☁️ BIGHIT SPORTZ FOUNDRY</h3>
                   <span className="spec-subtitle">High-Availability Kubernetes Cluster & Declarative Infrastructure as Code</span>
                 </div>
                 <div className="spec-metrics-pill highlight-blue">
@@ -575,21 +595,18 @@ export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
         </aside>
       </main>
 
-      {/* 4. FOOTER STATUS BAR */}
-      <footer className="deck-footer-bar">
-        <div className="footer-status-left">
-          <span>⚡ Infortts Production Cluster Online</span>
-          <span>•</span>
-          <span>Architect: Sahil Rathee (+91 9625213480)</span>
-          <span>•</span>
-          <span>Typography: Agave Nerd Font</span>
-        </div>
-        <div className="footer-links-right">
-          <button type="button" className="footer-call-trigger" onClick={onOpenPhoneCall}>
-            📞 Direct Call with Sahil
-          </button>
-        </div>
-      </footer>
+      {/* 4. ABOUT, BIRTH YEAR 2002, REAL COMPANIES & CAPABILITIES SECTION */}
+      <AboutCapabilitiesSection
+        onOpenPhoneCall={onOpenPhoneCall}
+        onOpenSayHi={() => setIsSayHiOpen(true)}
+      />
+
+      {/* 5. SLIDE-UP COME SAY HI BANNER MODAL */}
+      <ComeSayHiModal
+        isOpen={isSayHiOpen}
+        onClose={() => setIsSayHiOpen(false)}
+        onOpenPhoneCall={onOpenPhoneCall}
+      />
     </div>
   );
 };

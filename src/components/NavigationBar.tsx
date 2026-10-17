@@ -3,9 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 
 interface NavigationBarProps {
   onOpenPhoneCall: () => void;
+  onOpenSayHi?: () => void;
 }
 
-export const NavigationBar: React.FC<NavigationBarProps> = ({ onOpenPhoneCall }) => {
+export const NavigationBar: React.FC<NavigationBarProps> = ({ onOpenPhoneCall, onOpenSayHi }) => {
   const location = useLocation();
 
   return (
@@ -15,7 +16,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ onOpenPhoneCall })
         <Link to="/" className="nav-brand">
           <span className="brand-dot" />
           <span className="brand-name">SAHIL RATHEE</span>
-          <span className="brand-role">// ARCHITECT</span>
+          <span className="brand-role">// ARCHITECT // 2002</span>
         </Link>
 
         {/* Center: Navigation Links */}
@@ -29,10 +30,24 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ onOpenPhoneCall })
           <a href="/#topology" className="nav-link">
             Topology
           </a>
+          {onOpenSayHi && (
+            <button type="button" className="nav-link-btn" onClick={onOpenSayHi}>
+              Come Say Hi 👋
+            </button>
+          )}
         </nav>
 
         {/* Right: Direct Actions */}
         <div className="nav-actions">
+          {onOpenSayHi && (
+            <button
+              type="button"
+              className="nav-action-btn secondary mobile-visible"
+              onClick={onOpenSayHi}
+            >
+              👋 Say Hi
+            </button>
+          )}
           <a
             href="/Sahil-Rathee-Resume.pdf"
             target="_blank"

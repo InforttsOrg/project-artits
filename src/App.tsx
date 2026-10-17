@@ -7,6 +7,7 @@ import { NavigationBar } from './components/NavigationBar';
 import { EntryLoader } from './components/EntryLoader';
 import { PhoneCallModal } from './components/PhoneCallModal';
 import { PortfolioDrawer } from './components/PortfolioDrawer';
+import { ComeSayHiModal } from './components/ComeSayHiModal';
 
 // Automatic scroll-to-top on route changes
 const ScrollToTop: React.FC = () => {
@@ -20,6 +21,7 @@ const ScrollToTop: React.FC = () => {
 export const AppContent: React.FC = () => {
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState<boolean>(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
+  const [isSayHiOpen, setIsSayHiOpen] = useState<boolean>(false);
   const [inforttsFeedsCount, setInforttsFeedsCount] = useState<number>(40);
   const [showLoader, setShowLoader] = useState<boolean>(() => {
     return sessionStorage.getItem('has_loaded_artits_deck') !== 'true';
@@ -46,11 +48,14 @@ export const AppContent: React.FC = () => {
     <div className="architect-deck-app">
       <ScrollToTop />
 
-      {/* Huyml-inspired kinetic entry loader (00% -> 100%) */}
+      {/* Huyml-inspired 5-second entry loader (00% -> 100%) */}
       {showLoader && <EntryLoader onComplete={handleLoaderComplete} />}
 
       {/* Global Navigation Bar */}
-      <NavigationBar onOpenPhoneCall={() => setIsPhoneModalOpen(true)} />
+      <NavigationBar
+        onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
+        onOpenSayHi={() => setIsSayHiOpen(true)}
+      />
 
       {/* Routed Content View */}
       <main className="deck-main-content">
@@ -91,6 +96,13 @@ export const AppContent: React.FC = () => {
           />
         </Routes>
       </main>
+
+      {/* Slide-Up Come Say Hi Banner Modal */}
+      <ComeSayHiModal
+        isOpen={isSayHiOpen}
+        onClose={() => setIsSayHiOpen(false)}
+        onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
+      />
 
       {/* Direct Phone Connection Modal */}
       <PhoneCallModal

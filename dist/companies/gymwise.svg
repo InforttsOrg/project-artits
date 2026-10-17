@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <defs>
+    <linearGradient id="gw-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  <!-- GymWise Dumbbell / Gear Icon -->
+  <rect x="8" y="10" width="40" height="40" rx="10" fill="url(#gw-grad)" />
+  <circle cx="28" cy="30" r="12" fill="none" stroke="#ffffff" stroke-width="3" />
+  <rect x="25" y="20" width="6" height="20" rx="3" fill="#ffffff" />
+  <circle cx="28" cy="30" r="4" fill="#10b981" />
+  <!-- Text -->
+  <text x="58" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="20" fill="#ffffff" letter-spacing="-0.02em">
+    Gym<tspan fill="#10b981">Wise</tspan>
+  </text>
+  <text x="58" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="8.5" fill="#94a3b8" letter-spacing="0.08em">
+    INDIA PRIVATE LIMITED
+  </text>
+</svg>

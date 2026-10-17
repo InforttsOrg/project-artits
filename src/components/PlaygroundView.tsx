@@ -169,13 +169,13 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
             </div>
 
             <p className="exp-desc">
-              Compares tick enqueue/dequeue latency between a cache-aligned lock-free circular ring buffer (Zenith) versus an off-the-shelf message broker queue over TCP.
+              Compares tick enqueue/dequeue latency between a cache-aligned lock-free circular ring buffer (Mitochondria) versus an off-the-shelf message broker queue over TCP.
             </p>
 
             <div className="benchmark-race-grid">
               {/* Ring Buffer Box */}
               <div className="race-box highlight">
-                <span className="race-tag">LOCK-FREE RING BUFFER (ZENITH)</span>
+                <span className="race-tag">LOCK-FREE RING BUFFER (MITOCHONDRIA)</span>
                 <span className="race-speed">{ringBufferLatency} µs</span>
                 <span className="race-meta">Sub-microsecond memory IPC • Zero allocations</span>
                 <div className="race-bar-track">

@@ -22,7 +22,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
     setSimOutput(`[INIT] Booting isolated test environment for ${project.title}...`);
 
     setTimeout(() => {
-      if (project.id === 'zenith') {
+      if (project.id === 'zenith' || project.id === 'mitochondria') {
         setSimOutput(`[MT5 IPC] Ingested 50,000 tick burst • RingBuffer enqueue: 0.12ms • NATS JetStream ack: 0.38ms • Execution complete: <0.7ms • Zero dropped ticks!`);
       } else if (project.id === 'meeseeks') {
         setSimOutput(`[SUPERVISOR] Task graph generated (4 subagents) • AST diff pruning applied (-71.4% tokens) • Playwright headless check passed • Master verified!`);
@@ -64,7 +64,21 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
           </div>
           <div className="meta-box">
             <span className="meta-k">Organization</span>
-            <span className="meta-v">{project.organization}</span>
+            {project.companyUrl ? (
+              <a
+                href={project.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="meta-v-company-link"
+              >
+                {project.companyLogo && (
+                  <img src={project.companyLogo} alt={project.organization} className="meta-v-company-logo" />
+                )}
+                <span>{project.organization} ↗</span>
+              </a>
+            ) : (
+              <span className="meta-v">{project.organization}</span>
+            )}
           </div>
           <div className="meta-box">
             <span className="meta-k">Core Benchmark</span>
