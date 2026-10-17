@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { PROJECTS_DATA } from '../data/projectsData';
+import { ArrowLeft, ArrowRight, Terminal, CheckCircle2, ShieldAlert, Cpu, ExternalLink, Download, Mail } from 'lucide-react';
 
 interface ProjectCaseStudyViewProps {
-  onOpenPhoneCall: () => void;
+  onOpenPhoneCall?: () => void;
 }
 
-export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOpenPhoneCall }) => {
+export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = () => {
   const { slug } = useParams<{ slug: string }>();
   const [simActive, setSimActive] = useState<boolean>(false);
-  const [simOutput, setSimOutput] = useState<string>('System idle. Click "Run Verification Test" to simulate production workload.');
+  const [simOutput, setSimOutput] = useState<string>('System idle. Click "Run Verification Benchmark" to simulate production workload.');
 
   const project = slug ? PROJECTS_DATA[slug] : null;
 
@@ -32,184 +33,248 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = ({ onOp
         setSimOutput(`[KUBERNETES EKS OK] Traffic spike absorbed via KEDA autoscaling (5 pods -> 18 pods) • OpenSearch talent query completed in 14ms • Zero downtime verified.`);
       }
       setSimActive(false);
-    }, 700);
+    }, 600);
   };
 
   return (
-    <article className="case-study-page">
-      {/* 1. TOP BREADCRUMB & BACK NAVIGATION */}
-      <nav className="case-study-breadcrumb" aria-label="Breadcrumb">
-        <Link to="/" className="breadcrumb-back-link">
-          ← All Work
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16 flex flex-col gap-16">
+      {/* 1. TOP BREADCRUMB */}
+      <nav className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>All Case Studies</span>
         </Link>
-        <span className="breadcrumb-separator">•</span>
-        <span className="breadcrumb-current-index">PROJECT {project.number} / 04</span>
+        <span className="text-zinc-600">•</span>
+        <span className="text-zinc-500 uppercase">PROJECT {project.number} OF 04</span>
       </nav>
 
-      {/* 2. HERO SECTION */}
-      <header className="case-study-hero">
-        <div className="hero-category-badge">{project.category}</div>
-        <h1 className="hero-title">{project.title}</h1>
-        <p className="hero-hook-question">"{project.hookQuestion}"</p>
+      {/* 2. HERO HEADER */}
+      <header className="flex flex-col gap-6 border-b border-zinc-800 pb-10">
+        <div className="flex items-center gap-2">
+          <span className="px-2.5 py-1 rounded-md text-xs font-mono font-medium tracking-wide bg-zinc-900 border border-zinc-800 text-emerald-400">
+            {project.category}
+          </span>
+        </div>
 
-        {/* Metadata Strip */}
-        <div className="hero-metadata-grid">
-          <div className="meta-box">
-            <span className="meta-k">Role</span>
-            <span className="meta-v">{project.role}</span>
+        <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+          {project.title}
+        </h1>
+
+        <p className="text-lg sm:text-xl text-zinc-300 font-medium leading-relaxed">
+          "{project.hookQuestion}"
+        </p>
+
+        {/* Metadata Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
+          <div className="p-3.5 rounded-xl bg-zinc-900/40 border border-zinc-800/60 flex flex-col gap-1">
+            <span className="text-[11px] font-mono text-zinc-500 uppercase">Role</span>
+            <span className="text-xs sm:text-sm font-medium text-zinc-200">{project.role}</span>
           </div>
-          <div className="meta-box">
-            <span className="meta-k">Timeline</span>
-            <span className="meta-v">{project.timeline}</span>
+
+          <div className="p-3.5 rounded-xl bg-zinc-900/40 border border-zinc-800/60 flex flex-col gap-1">
+            <span className="text-[11px] font-mono text-zinc-500 uppercase">Timeline</span>
+            <span className="text-xs sm:text-sm font-medium text-zinc-200">{project.timeline}</span>
           </div>
-          <div className="meta-box">
-            <span className="meta-k">Organization</span>
-            {project.companyUrl ? (
-              <a
-                href={project.companyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="meta-v-company-link"
-              >
-                {project.companyLogo && (
-                  <img src={project.companyLogo} alt={project.organization} className="meta-v-company-logo" />
-                )}
-                <span>{project.organization} ↗</span>
-              </a>
-            ) : (
-              <span className="meta-v">{project.organization}</span>
-            )}
+
+          <div className="p-3.5 rounded-xl bg-zinc-900/40 border border-zinc-800/60 flex flex-col gap-1">
+            <span className="text-[11px] font-mono text-zinc-500 uppercase">Organization</span>
+            <span className="text-xs sm:text-sm font-medium text-zinc-200">{project.organization}</span>
           </div>
-          <div className="meta-box">
-            <span className="meta-k">Core Benchmark</span>
-            <span className="meta-v highlight">{project.keyMetric}</span>
+
+          <div className="p-3.5 rounded-xl bg-zinc-900/40 border border-zinc-800/60 flex flex-col gap-1">
+            <span className="text-[11px] font-mono text-zinc-500 uppercase">Core Benchmark</span>
+            <span className="text-xs sm:text-sm font-mono font-bold text-emerald-400">{project.keyMetric}</span>
           </div>
         </div>
       </header>
 
-      {/* 3. EXECUTIVE SUMMARY & TECH STACK TAGS */}
-      <section className="case-study-section">
-        <h2 className="section-heading">01 // Executive Overview</h2>
-        <p className="section-body-text">{project.summary}</p>
-        <div className="tech-tags-list">
+      {/* 3. EXECUTIVE SUMMARY & TECH STACK */}
+      <section className="flex flex-col gap-5">
+        <h2 className="font-display font-bold text-xl text-white tracking-tight flex items-center gap-2">
+          <span>01. Executive Overview</span>
+        </h2>
+        <p className="text-base text-zinc-300 leading-relaxed">
+          {project.summary}
+        </p>
+        <div className="flex flex-wrap gap-2 pt-2">
           {project.tags.map((tag) => (
-            <span key={tag} className="tech-tag-pill">
+            <span
+              key={tag}
+              className="px-3 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-900 border border-zinc-800"
+            >
               {tag}
             </span>
           ))}
         </div>
       </section>
 
-      {/* 4. THE TECHNICAL CHALLENGE & BOTTLENECK */}
-      <section className="case-study-section">
-        <h2 className="section-heading">02 // The Technical Challenge & Constraints</h2>
-        <div className="challenge-card">
-          <p className="challenge-context"><b>Context:</b> {project.challenge.context}</p>
-          <p className="challenge-bottleneck"><b>The Critical Bottleneck:</b> {project.challenge.bottleneck}</p>
+      {/* 4. THE TECHNICAL CHALLENGE & CONSTRAINTS */}
+      <section className="flex flex-col gap-5">
+        <h2 className="font-display font-bold text-xl text-white tracking-tight">
+          02. The Engineering Challenge & Bottlenecks
+        </h2>
+        <div className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800/80 flex flex-col gap-4">
+          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            <strong className="text-white">Context: </strong> {project.challenge.context}
+          </p>
+          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            <strong className="text-white">Critical Bottleneck: </strong> {project.challenge.bottleneck}
+          </p>
 
-          <div className="failed-reasons-box">
-            <span className="failed-title">Why Off-The-Shelf Approaches Broke Down:</span>
-            <ul className="failed-list">
+          <div className="mt-2 p-4 rounded-xl bg-zinc-950/60 border border-zinc-800/80 flex flex-col gap-2.5">
+            <span className="text-xs font-mono text-amber-400 font-semibold flex items-center gap-1.5">
+              <ShieldAlert className="w-3.5 h-3.5" />
+              Why Standard Commercial Setups Failed:
+            </span>
+            <ul className="text-xs sm:text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
               {project.challenge.whyExistingFailed.map((reason, idx) => (
-                <li key={idx}>{reason}</li>
+                <li key={idx} className="leading-relaxed">{reason}</li>
               ))}
             </ul>
           </div>
         </div>
       </section>
 
-      {/* 5. ARCHITECTURAL BREAKDOWN & SYSTEM STEPS */}
-      <section className="case-study-section">
-        <h2 className="section-heading">03 // System Architecture & Implementation</h2>
-        <p className="section-body-text">{project.architecture.overview}</p>
+      {/* 5. ARCHITECTURAL BREAKDOWN */}
+      <section className="flex flex-col gap-6">
+        <h2 className="font-display font-bold text-xl text-white tracking-tight">
+          03. System Architecture & Decisions
+        </h2>
+        <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+          {project.architecture.overview}
+        </p>
 
-        <div className="architecture-steps-stack">
+        <div className="grid grid-cols-1 gap-4 pt-2">
           {project.architecture.steps.map((step, idx) => (
-            <div key={idx} className="architecture-step-card">
-              <div className="step-num-col">
-                <span className="step-num">0{idx + 1}</span>
+            <div
+              key={step.title}
+              className="p-5 rounded-xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row gap-4 items-start"
+            >
+              <div className="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 flex items-center justify-center font-mono text-xs font-bold text-emerald-400 shrink-0">
+                0{idx + 1}
               </div>
-              <div className="step-content-col">
-                <div className="step-header">
-                  <h3 className="step-title">{step.title}</h3>
-                  <span className="step-tech-badge">{step.tech}</span>
+              <div className="flex-1 flex flex-col gap-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h3 className="font-display font-bold text-base text-white">
+                    {step.title}
+                  </h3>
+                  <span className="text-[11px] font-mono text-zinc-500 bg-zinc-950 px-2 py-0.5 rounded border border-zinc-800">
+                    {step.tech}
+                  </span>
                 </div>
-                <p className="step-desc">{step.description}</p>
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  {step.description}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 6. INTERACTIVE IN-PAGE HARNESS SIMULATOR */}
-      <section className="case-study-section">
-        <h2 className="section-heading">04 // Interactive Architecture Verification</h2>
-        <p className="section-body-text">
-          Run an interactive verification test to validate latency, data integrity, and architectural invariants:
+      {/* 6. INTERACTIVE HARNESS BENCHMARK */}
+      <section className="flex flex-col gap-4">
+        <h2 className="font-display font-bold text-xl text-white tracking-tight">
+          04. Interactive Invariant Verification
+        </h2>
+        <p className="text-sm text-zinc-400">
+          Simulate production telemetry and verify that latency, invariants, and network isolations hold under load:
         </p>
-        
-        <div className="interactive-harness-box">
-          <div className="harness-header">
-            <span>CONSOLE // {project.title}_VERIFICATION_RUNNER</span>
+
+        <div className="rounded-xl border border-zinc-800 bg-zinc-950 overflow-hidden font-mono text-xs shadow-xl">
+          <div className="px-4 py-3 bg-zinc-900/80 border-b border-zinc-800 flex items-center justify-between">
+            <span className="text-zinc-400 text-[11px] flex items-center gap-2">
+              <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+              BENCHMARK_RUNNER // {project.title.toUpperCase()}
+            </span>
             <button
-              type="button"
-              className="harness-run-btn"
               onClick={runSimulation}
               disabled={simActive}
+              className="px-3 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-mono transition-colors disabled:opacity-50 cursor-pointer"
             >
-              {simActive ? 'RUNNING TEST...' : '▶ RUN VERIFICATION TEST'}
+              {simActive ? 'RUNNING TEST...' : '▶ RUN BENCHMARK'}
             </button>
           </div>
-          <div className="harness-screen">
-            <span className="harness-prompt">&gt;</span>
-            <span className="harness-output">{simOutput}</span>
+          <div className="p-4 text-emerald-400/90 leading-relaxed min-h-[70px] flex items-start gap-2">
+            <span className="text-zinc-500 select-none">&gt;</span>
+            <span className="font-mono text-xs">{simOutput}</span>
           </div>
         </div>
       </section>
 
-      {/* 7. QUANTIFIED ENGINEERING IMPACT */}
-      <section className="case-study-section">
-        <h2 className="section-heading">05 // Quantified Business & Engineering Impact</h2>
-        <div className="metrics-summary-grid">
-          {project.metrics.map((m, idx) => (
-            <div key={idx} className="metric-card">
-              <span className="metric-val">{m.value}</span>
-              <span className="metric-label">{m.label}</span>
-              <span className="metric-detail">{m.detail}</span>
+      {/* 7. QUANTIFIED IMPACT METRICS */}
+      <section className="flex flex-col gap-5">
+        <h2 className="font-display font-bold text-xl text-white tracking-tight">
+          05. Quantified Engineering & Business Impact
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {project.metrics.map((m) => (
+            <div
+              key={m.label}
+              className="p-5 rounded-xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col gap-1.5"
+            >
+              <span className="font-mono text-2xl font-bold text-white tracking-tight">
+                {m.value}
+              </span>
+              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wide">
+                {m.label}
+              </span>
+              <span className="text-xs text-zinc-500 leading-relaxed pt-1">
+                {m.detail}
+              </span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 8. NEXT PROJECT NAVIGATOR & CALL TO ACTION */}
-      <footer className="case-study-footer">
-        <div className="project-nav-row">
-          <Link to={`/work/${project.prevProject.slug}`} className="nav-proj-btn prev">
-            <span className="nav-arrow">←</span>
-            <div>
-              <small>PREVIOUS CASE STUDY</small>
-              <b>{project.prevProject.title}</b>
-            </div>
+      {/* 8. NEXT / PREV NAVIGATION */}
+      <footer className="pt-8 border-t border-zinc-800 flex flex-col gap-8">
+        <div className="flex items-center justify-between gap-4">
+          <Link
+            to={`/work/${project.prevProject.slug}`}
+            className="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Prev: {project.prevProject.title}</span>
           </Link>
 
-          <Link to={`/work/${project.nextProject.slug}`} className="nav-proj-btn next">
-            <div>
-              <small>NEXT CASE STUDY</small>
-              <b>{project.nextProject.title}</b>
-            </div>
-            <span className="nav-arrow">→</span>
+          <Link
+            to={`/work/${project.nextProject.slug}`}
+            className="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+          >
+            <span>Next: {project.nextProject.title}</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="case-study-cta-box">
-          <h3>Want to discuss this architecture or collaborate?</h3>
-          <p>Sahil is open to Senior Software Engineer, Full Stack, and Cloud Infrastructure roles.</p>
-          <div className="cta-actions-row">
-            <button type="button" className="cta-call-btn" onClick={onOpenPhoneCall}>
-              📞 Direct Call with Sahil (+91 9625213480)
-            </button>
-            <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer" className="cta-resume-btn">
-              ⬇ Download Complete Resume PDF
+        {/* Contact CTA */}
+        <div className="p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="flex flex-col gap-1">
+            <h3 className="font-display font-bold text-lg text-white">
+              Interested in this architecture?
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-400">
+              Sahil is available for Senior / Staff Backend & Infrastructure roles.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href="mailto:sahil.artits.rathee@gmail.com"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-medium text-xs transition-colors cursor-pointer"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              Email Sahil
+            </a>
+            <a
+              href="/Sahil-Rathee-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-medium text-xs transition-colors cursor-pointer"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Resume PDF
             </a>
           </div>
         </div>

@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
 import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
 import { PlaygroundView } from './components/PlaygroundView';
 import { NavigationBar } from './components/NavigationBar';
-import { EntryLoader } from './components/EntryLoader';
-import { PhoneCallModal } from './components/PhoneCallModal';
-import { PortfolioDrawer } from './components/PortfolioDrawer';
-import { ComeSayHiModal } from './components/ComeSayHiModal';
 
 // Automatic scroll-to-top on route changes
 const ScrollToTop: React.FC = () => {
@@ -19,101 +15,67 @@ const ScrollToTop: React.FC = () => {
 };
 
 export const AppContent: React.FC = () => {
-  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState<boolean>(false);
-  const [isPortfolioOpen, setIsPortfolioOpen] = useState<boolean>(false);
-  const [isSayHiOpen, setIsSayHiOpen] = useState<boolean>(false);
-  const [inforttsFeedsCount, setInforttsFeedsCount] = useState<number>(40);
-  const [showLoader, setShowLoader] = useState<boolean>(true);
-
-  // Sync live Infortts Shared Backend telemetry
-  useEffect(() => {
-    fetch('/api/infortts?action=health')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data && data.telemetry && Array.isArray(data.telemetry.m5_loaded)) {
-          setInforttsFeedsCount(data.telemetry.m5_loaded.length);
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  const handleLoaderComplete = () => {
-    setShowLoader(false);
-  };
-
   return (
-    <div className="architect-deck-app">
+    <div className="min-h-screen bg-[#09090b] text-zinc-100 font-sans selection:bg-zinc-800 selection:text-white flex flex-col">
       <ScrollToTop />
 
-      {/* Huyml-inspired 5-second entry loader (00% -> 100%) */}
-      {showLoader && <EntryLoader onComplete={handleLoaderComplete} />}
-
       {/* Global Navigation Bar */}
-      <NavigationBar
-        onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-        onOpenSayHi={() => setIsSayHiOpen(true)}
-        onReplayIntro={() => setShowLoader(true)}
-      />
+      <NavigationBar />
 
       {/* Routed Content View */}
-      <main className="deck-main-content">
+      <main className="flex-1">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <ArchitectPortfolioView
-                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-                inforttsFeedsCount={inforttsFeedsCount}
-              />
-            }
-          />
-          <Route
-            path="/work/:slug"
-            element={
-              <ProjectCaseStudyView
-                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-              />
-            }
-          />
-          <Route
-            path="/playground"
-            element={
-              <PlaygroundView
-                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-              />
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <ArchitectPortfolioView
-                onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-                inforttsFeedsCount={inforttsFeedsCount}
-              />
-            }
-          />
+          <Route path="/" element={<ArchitectPortfolioView />} />
+          <Route path="/work/:slug" element={<ProjectCaseStudyView />} />
+          <Route path="/playground" element={<PlaygroundView />} />
+          <Route path="*" element={<ArchitectPortfolioView />} />
         </Routes>
       </main>
 
-      {/* Slide-Up Come Say Hi Banner Modal */}
-      <ComeSayHiModal
-        isOpen={isSayHiOpen}
-        onClose={() => setIsSayHiOpen(false)}
-        onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-      />
-
-      {/* Direct Phone Connection Modal */}
-      <PhoneCallModal
-        isOpen={isPhoneModalOpen}
-        onClose={() => setIsPhoneModalOpen(false)}
-      />
-
-      {/* Accessible Architectural Portfolio Sheet */}
-      <PortfolioDrawer
-        isOpen={isPortfolioOpen}
-        onClose={() => setIsPortfolioOpen(false)}
-        onOpenPhoneCall={() => setIsPhoneModalOpen(true)}
-      />
+      {/* Global Clean Colophon Footer */}
+      <footer className="border-t border-zinc-800/60 bg-zinc-950/80 py-12 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-zinc-500">
+          <div className="flex items-center gap-3">
+            <span className="font-display font-semibold text-zinc-300">Sahil Rathee</span>
+            <span>•</span>
+            <span>New Delhi, India</span>
+            <span>•</span>
+            <span className="font-mono text-xs">rttss-sahil</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <a
+              href="mailto:sahil.artits.rathee@gmail.com"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              Email
+            </a>
+            <a
+              href="https://github.com/rttss-sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://linkedin.com/in/rttss-sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="/Sahil-Rathee-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+            >
+              Resume PDF
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

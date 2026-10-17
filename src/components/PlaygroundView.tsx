@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Play, Terminal, Cpu, Network, Zap, Mail } from 'lucide-react';
 
 interface PlaygroundViewProps {
-  onOpenPhoneCall: () => void;
+  onOpenPhoneCall?: () => void;
 }
 
-export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall }) => {
-  const [activeTab, setActiveTab] = useState<'ringbuf' | 'agent' | 'particles'>('ringbuf');
+export const PlaygroundView: React.FC<PlaygroundViewProps> = () => {
+  const [activeTab, setActiveTab] = useState<'ringbuf' | 'agent' | 'mesh'>('ringbuf');
 
   // Module 1: Ring Buffer Benchmark State
   const [benchmarkRunning, setBenchmarkRunning] = useState<boolean>(false);
@@ -21,7 +23,7 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
   ]);
   const [isDispatching, setIsDispatching] = useState<boolean>(false);
 
-  // Module 3: Particle Ripple Canvas
+  // Module 3: Mesh Canvas
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const runBenchmark = () => {
@@ -36,7 +38,7 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
         clearInterval(interval);
         setBenchmarkRunning(false);
       }
-    }, 60);
+    }, 50);
   };
 
   const dispatchAgentSwarm = () => {
@@ -51,7 +53,7 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
     ]);
     setTimeout(() => {
       setIsDispatching(false);
-    }, 1200);
+    }, 900);
   };
 
   // Particles canvas
@@ -62,48 +64,51 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
     if (!ctx) return;
 
     let animId: number;
-    const particles: { x: number; y: number; vx: number; vy: number; r: number; color: string }[] = [];
+    const nodes: { x: number; y: number; vx: number; vy: number; r: number }[] = [];
 
-    for (let i = 0; i < 60; i++) {
-      particles.push({
+    for (let i = 0; i < 40; i++) {
+      nodes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 1.5,
-        vy: (Math.random() - 0.5) * 1.5,
-        r: Math.random() * 2.5 + 1.5,
-        color: Math.random() > 0.5 ? '#00d2ff' : '#10b981',
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        r: 2 + Math.random() * 2,
       });
     }
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Connect nearby particles
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
+      // Draw connections
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 85) {
-            ctx.strokeStyle = `rgba(0, 210, 255, ${1 - dist / 85})`;
-            ctx.lineWidth = 0.8;
+
+          if (dist < 110) {
             ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
           }
         }
       }
 
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      // Draw nodes
+      nodes.forEach((node) => {
+        node.x += node.vx;
+        node.y += node.vy;
 
-        ctx.fillStyle = p.color;
+        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+        ctx.fillStyle = '#10b981';
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
         ctx.fill();
       });
 
@@ -111,156 +116,188 @@ export const PlaygroundView: React.FC<PlaygroundViewProps> = ({ onOpenPhoneCall 
     };
 
     render();
+
     return () => cancelAnimationFrame(animId);
-  }, []);
+  }, [activeTab]);
 
   return (
-    <div className="playground-page">
-      <header className="playground-header">
-        <span className="playground-tag">INTERACTIVE ENGINEERING DEMOS</span>
-        <h1 className="playground-title">Interactive Engineering Demos</h1>
-        <p className="playground-subtitle">
-          Hands-on simulations demonstrating latency optimization, autonomous task planning, and distributed networking.
-        </p>
-      </header>
-
-      {/* Tabs */}
-      <nav className="playground-tabs-row" aria-label="Playground experiments">
-        <button
-          type="button"
-          className={`playground-tab ${activeTab === 'ringbuf' ? 'active' : ''}`}
-          onClick={() => setActiveTab('ringbuf')}
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16 flex flex-col gap-10">
+      {/* Back Header */}
+      <nav className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"
         >
-          ⚡ Memory vs Network Latency
-        </button>
-        <button
-          type="button"
-          className={`playground-tab ${activeTab === 'agent' ? 'active' : ''}`}
-          onClick={() => setActiveTab('agent')}
-        >
-          🤖 Automated Task Planning Demo
-        </button>
-        <button
-          type="button"
-          className={`playground-tab ${activeTab === 'particles' ? 'active' : ''}`}
-          onClick={() => setActiveTab('particles')}
-        >
-          🌐 Network Topology Visualizer
-        </button>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Back to Portfolio</span>
+        </Link>
+        <span className="text-zinc-600">•</span>
+        <span className="text-zinc-500 uppercase">ENGINEERING PLAYGROUND</span>
       </nav>
 
-      {/* Content Panes */}
-      <main className="playground-pane-container">
-        {activeTab === 'ringbuf' && (
-          <div className="playground-experiment-card">
-            <div className="experiment-header">
-              <div>
-                <span className="exp-label">BENCHMARK SIMULATION</span>
-                <h3 className="exp-title">In-Memory Lock-Free Buffer vs Network Message Broker</h3>
+      {/* Hero */}
+      <div className="flex flex-col gap-2">
+        <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+          Interactive Engineering Labs
+        </h1>
+        <p className="text-sm sm:text-base text-zinc-400">
+          Live simulations demonstrating low-level IPC benchmarks, automated task decomposition, and topology routing.
+        </p>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex items-center gap-2 border-b border-zinc-800 pb-3 flex-wrap">
+        <button
+          onClick={() => setActiveTab('ringbuf')}
+          className={`px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer ${
+            activeTab === 'ringbuf'
+              ? 'bg-zinc-100 text-zinc-950 font-semibold'
+              : 'bg-zinc-900 text-zinc-400 hover:text-white'
+          }`}
+        >
+          ⚡ IPC Ring Buffer vs TCP
+        </button>
+        <button
+          onClick={() => setActiveTab('agent')}
+          className={`px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer ${
+            activeTab === 'agent'
+              ? 'bg-zinc-100 text-zinc-950 font-semibold'
+              : 'bg-zinc-900 text-zinc-400 hover:text-white'
+          }`}
+        >
+          🤖 Automated Planning DAG
+        </button>
+        <button
+          onClick={() => setActiveTab('mesh')}
+          className={`px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer ${
+            activeTab === 'mesh'
+              ? 'bg-zinc-100 text-zinc-950 font-semibold'
+              : 'bg-zinc-900 text-zinc-400 hover:text-white'
+          }`}
+        >
+          🌐 Mesh Routing Visualizer
+        </button>
+      </div>
+
+      {/* Tab 1: Ring Buffer */}
+      {activeTab === 'ringbuf' && (
+        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 flex flex-col gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-mono text-emerald-400 uppercase tracking-wide">
+                Kernel & Memory Benchmark
+              </span>
+              <h2 className="font-display font-bold text-xl text-white">
+                Lock-Free Ring Buffer vs Network Message Broker
+              </h2>
+            </div>
+            <button
+              onClick={runBenchmark}
+              disabled={benchmarkRunning}
+              className="px-4 py-2 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-mono font-medium transition-colors cursor-pointer shrink-0"
+            >
+              {benchmarkRunning ? `RUNNING (${packetsProcessed})...` : '▶ RUN 50,000 PACKET BURST'}
+            </button>
+          </div>
+
+          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            Compares packet enqueue/dequeue latency between a cache-aligned in-memory ring buffer versus standard message brokers over TCP network sockets.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-5 rounded-xl bg-zinc-950 border border-emerald-500/30 flex flex-col gap-2">
+              <span className="text-[11px] font-mono text-emerald-400 uppercase font-semibold">
+                In-Memory Ring Buffer (Optimized)
+              </span>
+              <span className="font-mono text-3xl font-bold text-white">
+                {ringBufferLatency} µs
+              </span>
+              <span className="text-xs text-zinc-400">Sub-microsecond memory IPC • Zero allocations</span>
+              <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden mt-2">
+                <div className="bg-emerald-500 h-full rounded-full" style={{ width: '96%' }} />
               </div>
-              <button
-                type="button"
-                className="exp-cta-btn"
-                onClick={runBenchmark}
-                disabled={benchmarkRunning}
-              >
-                {benchmarkRunning ? `PROCESSING ${packetsProcessed} PACKETS...` : '▶ RUN 50,000 PACKET BURST'}
-              </button>
             </div>
 
-            <p className="exp-desc">
-              Compares packet enqueue/dequeue latency between a cache-aligned in-memory ring buffer versus a standard message broker queue over TCP.
-            </p>
-
-            <div className="benchmark-race-grid">
-              {/* Ring Buffer Box */}
-              <div className="race-box highlight">
-                <span className="race-tag">IN-MEMORY RING BUFFER (OPTIMIZED)</span>
-                <span className="race-speed">{ringBufferLatency} µs</span>
-                <span className="race-meta">Sub-microsecond memory IPC • Zero allocations</span>
-                <div className="race-bar-track">
-                  <div className="race-bar-fill fast" style={{ width: '96%' }} />
-                </div>
-              </div>
-
-              {/* Traditional Broker Box */}
-              <div className="race-box">
-                <span className="race-tag">NETWORK MESSAGE BROKER</span>
-                <span className="race-speed">{traditionalLatency} ms</span>
-                <span className="race-meta">Network hops, TCP handshake & serialization</span>
-                <div className="race-bar-track">
-                  <div className="race-bar-fill slow" style={{ width: '18%' }} />
-                </div>
+            <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800 flex flex-col gap-2">
+              <span className="text-[11px] font-mono text-zinc-400 uppercase">
+                Network Broker (TCP)
+              </span>
+              <span className="font-mono text-3xl font-bold text-zinc-300">
+                {traditionalLatency} ms
+              </span>
+              <span className="text-xs text-zinc-500">Network hops, TCP serialization, syscalls</span>
+              <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden mt-2">
+                <div className="bg-zinc-600 h-full rounded-full" style={{ width: '22%' }} />
               </div>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {activeTab === 'agent' && (
-          <div className="playground-experiment-card">
-            <div className="experiment-header">
-              <div>
-                <span className="exp-label">TASK PLANNING DEMO</span>
-                <h3 className="exp-title">Meeseeks Automated Code Refactoring Planner</h3>
-              </div>
-              <button
-                type="button"
-                className="exp-cta-btn"
-                onClick={dispatchAgentSwarm}
-                disabled={isDispatching}
-              >
-                {isDispatching ? 'PLANNING IN PROGRESS...' : '▶ RUN PLANNING SIMULATION'}
-              </button>
+      {/* Tab 2: Agent DAG */}
+      {activeTab === 'agent' && (
+        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 flex flex-col gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-mono text-emerald-400 uppercase tracking-wide">
+                Agent Swarm Sandbox
+              </span>
+              <h2 className="font-display font-bold text-xl text-white">
+                Meeseeks Automated Refactoring Planner
+              </h2>
             </div>
-
-            <p className="exp-desc">
-              Demonstrates how Meeseeks analyzes requirements, optimizes prompt context via AST pruning, and executes isolated container verification.
-            </p>
-
-            <input
-              type="text"
-              className="agent-goal-input"
-              value={agentGoal}
-              onChange={(e) => setAgentGoal(e.target.value)}
-              placeholder="Enter engineering task (e.g. Refactor payment service)..."
-            />
-
-            <div className="agent-terminal-screen">
-              {agentLogs.map((log, i) => (
-                <div key={i} className="agent-log-line">
-                  {log}
-                </div>
-              ))}
-            </div>
+            <button
+              onClick={dispatchAgentSwarm}
+              disabled={isDispatching}
+              className="px-4 py-2 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-mono font-medium transition-colors cursor-pointer shrink-0"
+            >
+              {isDispatching ? 'PLANNING...' : '▶ RUN PLANNING'}
+            </button>
           </div>
-        )}
 
-        {activeTab === 'particles' && (
-          <div className="playground-experiment-card">
-            <div className="experiment-header">
-              <div>
-                <span className="exp-label">DISTRIBUTED TOPOLOGY</span>
-                <h3 className="exp-title">Dynamic Service Mesh & Packet Routing Canvas</h3>
+          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            Demonstrates how Meeseeks analyzes requirements, optimizes prompt context via AST pruning, and executes isolated container verification.
+          </p>
+
+          <input
+            type="text"
+            className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono focus:outline-none focus:border-zinc-600"
+            value={agentGoal}
+            onChange={(e) => setAgentGoal(e.target.value)}
+            placeholder="Enter engineering goal..."
+          />
+
+          <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/80 font-mono text-xs text-zinc-300 space-y-2 min-h-[160px]">
+            {agentLogs.map((log, i) => (
+              <div key={i} className="leading-relaxed">
+                <span className="text-zinc-600 mr-2">&gt;</span>
+                <span className={i === 0 ? 'text-emerald-400' : 'text-zinc-300'}>{log}</span>
               </div>
-              <button
-                type="button"
-                className="exp-cta-btn"
-                onClick={onOpenPhoneCall}
-              >
-                📞 Direct Call with Sahil
-              </button>
-            </div>
-
-            <p className="exp-desc">
-              Interactive visualization demonstrating service mesh node connectivity and low-latency packet routing.
-            </p>
-
-            <div className="particles-canvas-wrap">
-              <canvas ref={canvasRef} width={800} height={360} className="particles-canvas" />
-            </div>
+            ))}
           </div>
-        )}
-      </main>
+        </div>
+      )}
+
+      {/* Tab 3: Mesh Visualizer */}
+      {activeTab === 'mesh' && (
+        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 flex flex-col gap-6">
+          <div>
+            <span className="text-xs font-mono text-emerald-400 uppercase tracking-wide">
+              Distributed Topology
+            </span>
+            <h2 className="font-display font-bold text-xl text-white">
+              Dynamic Service Mesh & Packet Routing Canvas
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+              Visualizing microservice node health, mesh gossip protocol, and edge packet routing.
+            </p>
+          </div>
+
+          <div className="rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950">
+            <canvas ref={canvasRef} width={800} height={360} className="w-full h-auto block" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

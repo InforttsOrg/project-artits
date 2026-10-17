@@ -1,496 +1,673 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { InteractiveCanvasGraphic } from './InteractiveCanvasGraphic';
-import { MemoryGraph3D, GraphNode } from './MemoryGraph3D';
-import { AboutCapabilitiesSection } from './AboutCapabilitiesSection';
-import { ComeSayHiModal } from './ComeSayHiModal';
+import {
+  ArrowUpRight,
+  Download,
+  Mail,
+  Copy,
+  Check,
+  Server,
+  Cpu,
+  Layers,
+  Database,
+  Shield,
+  Zap,
+  ExternalLink,
+  ChevronRight,
+  Terminal,
+  Activity,
+  Code2,
+} from 'lucide-react';
+import { PROJECTS_DATA } from '../data/projectsData';
 
-interface ArchitectPortfolioViewProps {
-  onOpenPhoneCall: () => void;
-  inforttsFeedsCount?: number;
-}
+export const ArchitectPortfolioView: React.FC = () => {
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState<'all' | 'financial' | 'ai' | 'fintech' | 'cloud'>('all');
+  const [expandedProject, setExpandedProject] = useState<string | null>('mitochondria');
 
-export const ArchitectPortfolioView: React.FC<ArchitectPortfolioViewProps> = ({
-  onOpenPhoneCall,
-  inforttsFeedsCount = 40,
-}) => {
-  const [activeTab, setActiveTab] = useState<'all' | 'mitochondria' | 'meeseeks' | 'roost' | 'bighit'>('all');
-  const [selected3DNode, setSelected3DNode] = useState<GraphNode | null>(null);
-  const [topologyViewMode, setTopologyViewMode] = useState<'graph' | '3d'>('graph');
-  const [graphTab, setGraphTab] = useState<'stats' | 'graph'>('stats');
-  const [expandedSystem, setExpandedSystem] = useState<string>('mitochondria');
-  const [isSayHiOpen, setIsSayHiOpen] = useState<boolean>(false);
+  const email = 'sahil.artits.rathee@gmail.com';
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const projectList = [
+    {
+      data: PROJECTS_DATA.mitochondria,
+      categoryFilter: 'financial',
+      badge: 'FINANCIAL SYSTEMS',
+      metrics: [
+        { label: 'Latency', value: '< 1ms', desc: 'Direct socket bridge' },
+        { label: 'DB Ports', value: '0 Open', desc: 'Private container VPC' },
+        { label: 'Risk Enforcement', value: '100%', desc: 'Pre-trade policy check' },
+      ],
+    },
+    {
+      data: PROJECTS_DATA.bighit,
+      categoryFilter: 'cloud',
+      badge: 'CLOUD & DEVOPS',
+      metrics: [
+        { label: 'API Latency', value: '-80%', desc: 'Optimized queries & caching' },
+        { label: 'Server Efficiency', value: '+60%', desc: 'AWS IaC infrastructure' },
+        { label: 'App Size', value: '-80%', desc: 'Redesigned core bundle' },
+      ],
+    },
+    {
+      data: PROJECTS_DATA.meeseeks,
+      categoryFilter: 'ai',
+      badge: 'AUTONOMOUS AI',
+      metrics: [
+        { label: 'Token Efficiency', value: '-71.4%', desc: 'AST context pruning' },
+        { label: 'Tool Dispatch', value: 'Isolated', desc: 'Docker sandbox runtime' },
+        { label: 'Regression Rate', value: '0.0%', desc: 'Automated test suite' },
+      ],
+    },
+    {
+      data: PROJECTS_DATA.roost,
+      categoryFilter: 'fintech',
+      badge: 'FINTECH SAAS',
+      metrics: [
+        { label: 'Ledger Audit', value: '100%', desc: 'Double-entry immutability' },
+        { label: 'Data Isolation', value: 'Row-Level', desc: 'PostgreSQL tenant security' },
+        { label: 'Reconciliation', value: 'Real-time', desc: 'Event-driven streaming' },
+      ],
+    },
+  ];
+
+  const filteredProjects = selectedFilter === 'all'
+    ? projectList
+    : projectList.filter((p) => p.categoryFilter === selectedFilter);
 
   return (
-    <div className="portfolio-command-deck">
-      {/* 1. TOP HEADER & IDENTITY STRIP */}
-      <header className="deck-header">
-        <div className="deck-identity">
-          <img src="/sahil.png" alt="Sahil Rathee" className="deck-avatar" />
-          <div className="deck-bio">
-            <div className="deck-badge-row">
-              <span className="live-status-dot" />
-              <span className="deck-status-text">AVAILABLE FOR SENIOR / STAFF ROLES • BORN 2002 • NEW DELHI</span>
-              <span className="deck-feeds-badge">4 Production Case Studies • Verified Impact</span>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20 flex flex-col gap-24">
+      {/* 1. HERO SECTION */}
+      <section className="flex flex-col gap-8">
+        {/* Availability Badge */}
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-zinc-900 border border-zinc-800 text-zinc-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            AVAILABLE FOR SENIOR & STAFF ROLES • NEW DELHI
+          </span>
+        </div>
+
+        {/* Profile & Main Headline */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div className="flex-1 flex flex-col gap-4">
+            <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-none">
+              Sahil Rathee
+            </h1>
+            <p className="font-display text-xl sm:text-2xl text-zinc-300 font-medium">
+              Senior Systems & Infrastructure Engineer
+            </p>
+            <p className="text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+              Specializing in resilient distributed architectures, sub-millisecond execution engines, Go, Python, and Kubernetes.
+              Built scalable backends, automated cloud infrastructure, and low-latency systems at{' '}
+              <span className="text-zinc-200 font-medium">GymWise</span>,{' '}
+              <span className="text-zinc-200 font-medium">BigHit</span>, and{' '}
+              <span className="text-zinc-200 font-medium">Gamix Labs</span>.
+            </p>
+          </div>
+
+          {/* Photo */}
+          <div className="relative group shrink-0">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border-2 border-zinc-800 bg-zinc-900 shadow-2xl transition-all duration-300 group-hover:border-zinc-700">
+              <img
+                src="/sahil.png"
+                alt="Sahil Rathee"
+                className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
-            <h1 className="deck-name">SAHIL RATHEE</h1>
-            <p className="deck-headline">Senior Software Engineer | Backend, Cloud Infrastructure & Distributed Systems</p>
+            <div className="absolute -bottom-2 -right-2 px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-zinc-400 shadow-lg">
+              rttss-sahil
+            </div>
           </div>
         </div>
 
-        {/* Action CTAs */}
-        <div className="deck-actions">
-          <button type="button" className="deck-cta-btn primary" onClick={() => setIsSayHiOpen(true)}>
-            👋 Come Say Hi ↗
-          </button>
-          <button type="button" className="deck-cta-btn secondary" onClick={onOpenPhoneCall}>
-            📞 Call Sahil (+91 9625213480)
-          </button>
-          <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer" className="deck-cta-btn secondary">
-            ⬇ Resume PDF
+        {/* CTAs Bar */}
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          <a
+            href="/Sahil-Rathee-Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-medium text-sm transition-all shadow-sm cursor-pointer"
+          >
+            <Download className="w-4 h-4" />
+            Resume PDF
           </a>
-          <a href="https://linkedin.com/in/rttss-sahil" target="_blank" rel="noopener noreferrer" className="deck-icon-link" title="LinkedIn">
-            💼 LinkedIn
+
+          <a
+            href="mailto:sahil.artits.rathee@gmail.com"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-200 font-medium text-sm transition-all cursor-pointer"
+          >
+            <Mail className="w-4 h-4 text-zinc-400" />
+            Email Me
           </a>
-          <a href="https://github.com/InforttsOrg" target="_blank" rel="noopener noreferrer" className="deck-icon-link" title="GitHub">
-            🐙 GitHub
+
+          <button
+            onClick={handleCopyEmail}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-sm font-mono transition-all cursor-pointer"
+            title="Copy email to clipboard"
+          >
+            {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+            <span>{copiedEmail ? 'Copied' : email}</span>
+          </button>
+
+          <a
+            href="https://github.com/rttss-sahil"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-sm transition-all"
+          >
+            GitHub ↗
+          </a>
+
+          <a
+            href="https://linkedin.com/in/rttss-sahil"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-sm transition-all"
+          >
+            LinkedIn ↗
           </a>
         </div>
-      </header>
 
-      {/* Hero Interactive Canvas Graphic (Shelby Kho inspiration) */}
-      <section className="hero-interactive-graphic-row">
-        <InteractiveCanvasGraphic />
+        {/* Quantified Impact Numbers Banner */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-zinc-800/60">
+          <div className="flex flex-col gap-1 p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/60">
+            <span className="font-mono text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              &lt; 1ms
+            </span>
+            <span className="text-xs text-zinc-400 font-medium">Order Execution Latency</span>
+            <span className="text-[11px] text-zinc-500 font-mono">Headless Linux MT5 Bridge</span>
+          </div>
+
+          <div className="flex flex-col gap-1 p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/60">
+            <span className="font-mono text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              -80%
+            </span>
+            <span className="text-xs text-zinc-400 font-medium">API Latency & Bundle Size</span>
+            <span className="text-[11px] text-zinc-500 font-mono">BigHit Sportz Architecture</span>
+          </div>
+
+          <div className="flex flex-col gap-1 p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/60">
+            <span className="font-mono text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              +60%
+            </span>
+            <span className="text-xs text-zinc-400 font-medium">Server Infrastructure Efficiency</span>
+            <span className="text-[11px] text-zinc-500 font-mono">AWS Neptune & OpenSearch</span>
+          </div>
+
+          <div className="flex flex-col gap-1 p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/60">
+            <span className="font-mono text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              0 Ports
+            </span>
+            <span className="text-xs text-zinc-400 font-medium">Public DB Exposure</span>
+            <span className="text-[11px] text-zinc-500 font-mono">Isolated Container Network</span>
+          </div>
+        </div>
       </section>
 
-      {/* 2. SPECIALIZATION FILTER TABS */}
-      <nav className="deck-tabs-nav" aria-label="System specialization filter">
-        <button
-          type="button"
-          className={`deck-tab-btn ${activeTab === 'all' ? 'active' : ''}`}
-          onClick={() => setActiveTab('all')}
-        >
-          🌐 All Projects (4)
-        </button>
-        <button
-          type="button"
-          className={`deck-tab-btn ${activeTab === 'mitochondria' ? 'active' : ''}`}
-          onClick={() => { setActiveTab('mitochondria'); setExpandedSystem('mitochondria'); }}
-        >
-          ⚡ Mitochondria (Trading Systems)
-        </button>
-        <button
-          type="button"
-          className={`deck-tab-btn ${activeTab === 'meeseeks' ? 'active' : ''}`}
-          onClick={() => { setActiveTab('meeseeks'); setExpandedSystem('meeseeks'); }}
-        >
-          🤖 Meeseeks (Autonomous AI)
-        </button>
-        <button
-          type="button"
-          className={`deck-tab-btn ${activeTab === 'roost' ? 'active' : ''}`}
-          onClick={() => { setActiveTab('roost'); setExpandedSystem('roost'); }}
-        >
-          🏢 Roost & Rent1st (Fintech SaaS)
-        </button>
-        <button
-          type="button"
-          className={`deck-tab-btn ${activeTab === 'bighit' ? 'active' : ''}`}
-          onClick={() => { setActiveTab('bighit'); setExpandedSystem('bighit'); }}
-        >
-          ☁️ BigHit Sportz (Cloud & DevOps)
-        </button>
-      </nav>
-
-      {/* 3. MAIN COMMAND GRID: 4 SYSTEMS CARDS & INTERACTIVE TOPOLOGY */}
-      <main className="deck-main-layout">
-        {/* Left Column: Deep Production Systems Cards */}
-        <section className="systems-stream-section">
-          <div className="section-header-row">
-            <h2 className="deck-section-title">Featured Projects & Case Studies</h2>
-            <span className="deck-section-hint">Click any project to inspect technical architecture and metrics</span>
+      {/* 2. FEATURED PRODUCTION SYSTEMS */}
+      <section id="systems" className="flex flex-col gap-8 scroll-mt-24">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-800 pb-5">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
+              Production Case Studies
+            </span>
+            <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
+              Featured Systems & Architecture
+            </h2>
+            <p className="text-sm text-zinc-400 max-w-xl">
+              Battle-tested production systems engineered for low latency, isolated data security, and automated cloud reliability.
+            </p>
           </div>
 
-          <div className="systems-cards-stack">
-            {/* SYSTEM 1: MITOCHONDRIA */}
-            <article 
-              className={`system-spec-card ${expandedSystem === 'mitochondria' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'mitochondria' ? 'dimmed' : ''}`}
-              onClick={() => setExpandedSystem('mitochondria')}
-            >
-              <div className="spec-card-header">
-                <div className="spec-title-group">
-                  <span className="spec-category-tag">FINANCIAL SYSTEMS & HIGH-THROUGHPUT EXECUTION</span>
-                  <h3 className="spec-title">⚡ MITOCHONDRIA</h3>
-                  <span className="spec-subtitle">Automated Trading Workstation & Containerized Execution Engine</span>
-                </div>
-                <div className="spec-metrics-pill highlight-cyan">
-                  <span>&lt;1ms Execution</span>
-                  <small>0 Public DB Ports</small>
-                </div>
-              </div>
-
-              <div className="spec-body">
-                <p className="spec-summary">
-                  Engineered an automated trade execution workstation interfacing directly with MetaTrader 5 (MT5). 
-                  Containerized MT5 inside headless Linux environments to eliminate Windows licensing overhead, implemented 
-                  low-latency message streaming via NATS JetStream, and isolated financial databases inside a private container network.
-                </p>
-
-                <div className="spec-highlights-list">
-                  <div className="highlight-item">
-                    <b>⚡ Sub-Millisecond Execution:</b> Optimized socket communication and memory buffers for rapid order routing.
-                  </div>
-                  <div className="highlight-item">
-                    <b>📡 Resilient Messaging:</b> NATS JetStream pub/sub handling peak volatility without data loss.
-                  </div>
-                  <div className="highlight-item">
-                    <b>🧠 Vector Market Analytics:</b> Qdrant vector memory matching live price action patterns with historical embeddings.
-                  </div>
-                </div>
-
-                <div className="spec-tech-tags">
-                  <span className="tech-badge">Python</span>
-                  <span className="tech-badge">Linux Containers</span>
-                  <span className="tech-badge">MetaTrader 5 API</span>
-                  <span className="tech-badge">NATS JetStream</span>
-                  <span className="tech-badge">Qdrant Vector DB</span>
-                  <span className="tech-badge">PostgreSQL</span>
-                  <span className="tech-badge">WebSockets</span>
-                  <span className="tech-badge">Flutter Desktop</span>
-                </div>
-
-                <div className="spec-card-actions">
-                  <Link to="/work/mitochondria" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Case Study (Architecture & Impact) →
-                  </Link>
-                </div>
-              </div>
-            </article>
-
-            {/* SYSTEM 2: MEESEEKS */}
-            <article 
-              className={`system-spec-card ${expandedSystem === 'meeseeks' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'meeseeks' ? 'dimmed' : ''}`}
-              onClick={() => setExpandedSystem('meeseeks')}
-            >
-              <div className="spec-card-header">
-                <div className="spec-title-group">
-                  <span className="spec-category-tag">AUTONOMOUS AI & DEVELOPER TOOLING</span>
-                  <h3 className="spec-title">🤖 MEESEEKS AGENT ENGINE</h3>
-                  <span className="spec-subtitle">Multi-Agent AI Framework for Automated Codebase Refactoring</span>
-                </div>
-                <div className="spec-metrics-pill highlight-purple">
-                  <span>-70% Token Cost</span>
-                  <small>Docker Sandboxed</small>
-                </div>
-              </div>
-
-              <div className="spec-body">
-                <p className="spec-summary">
-                  Architected a multi-agent AI system where an orchestrator decomposes software engineering goals into 
-                  discrete subtasks, parses Abstract Syntax Trees (ASTs) to prune unnecessary prompt tokens, and validates 
-                  generated code inside isolated Docker sandbox environments.
-                </p>
-
-                <div className="spec-highlights-list">
-                  <div className="highlight-item">
-                    <b>🎯 70% Token Cost Reduction:</b> Implemented AST-level context pruning and type-signature extraction.
-                  </div>
-                  <div className="highlight-item">
-                    <b>🛠️ Standardized Tool Calling:</b> Dynamic Model Context Protocol (MCP) tool integration for database queries, testing, and git operations.
-                  </div>
-                  <div className="highlight-item">
-                    <b>🛡️ Container Verification:</b> Isolated Docker evaluation loop catching compiler errors before PR submission.
-                  </div>
-                </div>
-
-                <div className="spec-tech-tags">
-                  <span className="tech-badge">Python</span>
-                  <span className="tech-badge">FastAPI</span>
-                  <span className="tech-badge">LangGraph</span>
-                  <span className="tech-badge">Playwright</span>
-                  <span className="tech-badge">Model Context Protocol</span>
-                  <span className="tech-badge">Docker Sandboxes</span>
-                </div>
-
-                <div className="spec-card-actions">
-                  <Link to="/work/meeseeks" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Case Study (Architecture & Impact) →
-                  </Link>
-                </div>
-              </div>
-            </article>
-
-            {/* SYSTEM 3: ROOST / RENT1ST */}
-            <article 
-              className={`system-spec-card ${expandedSystem === 'roost' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'roost' ? 'dimmed' : ''}`}
-              onClick={() => setExpandedSystem('roost')}
-            >
-              <div className="spec-card-header">
-                <div className="spec-title-group">
-                  <span className="spec-category-tag">FINTECH SAAS & TRANSACTION LEDGERS</span>
-                  <h3 className="spec-title">🏢 ROOST & RENT1ST</h3>
-                  <span className="spec-subtitle">Multi-Tenant Property Management SaaS & Financial Escrow System</span>
-                </div>
-                <div className="spec-metrics-pill highlight-emerald">
-                  <span>99.99% Uptime</span>
-                  <small>Zero Discrepancies</small>
-                </div>
-              </div>
-
-              <div className="spec-body">
-                <p className="spec-summary">
-                  Designed and built a multi-tenant rental management and escrow platform handling high-volume payments. 
-                  Engineered concurrent Go microservices with strict idempotent double-entry ledger bookkeeping, PostgreSQL 
-                  advisory locks for race-condition prevention, and automated GST reconciliation.
-                </p>
-
-                <div className="spec-highlights-list">
-                  <div className="highlight-item">
-                    <b>💰 Double-Entry Ledger:</b> Guaranteed mathematical auditability with PostgreSQL advisory locks and serializable transactions.
-                  </div>
-                  <div className="highlight-item">
-                    <b>🧾 Automated Invoicing:</b> Asynchronous workers generating GST-compliant tax splits and instant receipts.
-                  </div>
-                  <div className="highlight-item">
-                    <b>📱 Cross-Platform Architecture:</b> Flutter mobile and web applications backed by Go REST and WebSocket services.
-                  </div>
-                </div>
-
-                <div className="spec-tech-tags">
-                  <span className="tech-badge">Go (Golang)</span>
-                  <span className="tech-badge">PostgreSQL</span>
-                  <span className="tech-badge">Flutter</span>
-                  <span className="tech-badge">Redis</span>
-                  <span className="tech-badge">Google Cloud Platform</span>
-                  <span className="tech-badge">Docker</span>
-                </div>
-
-                <div className="spec-card-actions">
-                  <Link to="/work/roost" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Case Study (Architecture & Impact) →
-                  </Link>
-                </div>
-              </div>
-            </article>
-
-            {/* SYSTEM 4: BIGHIT SPORTZ */}
-            <article 
-              className={`system-spec-card ${expandedSystem === 'bighit' ? 'expanded' : ''} ${activeTab !== 'all' && activeTab !== 'bighit' ? 'dimmed' : ''}`}
-              onClick={() => setExpandedSystem('bighit')}
-            >
-              <div className="spec-card-header">
-                <div className="spec-title-group">
-                  <span className="spec-category-tag">CLOUD INFRASTRUCTURE & SCALABLE BACKENDS</span>
-                  <h3 className="spec-title">☁️ BIGHIT SPORTZ</h3>
-                  <span className="spec-subtitle">Scalable Cloud Infrastructure & Mobile Optimization for Youth Sports</span>
-                </div>
-                <div className="spec-metrics-pill highlight-blue">
-                  <span>-80% App Size</span>
-                  <small>+60% Cost Efficiency</small>
-                </div>
-              </div>
-
-              <div className="spec-body">
-                <p className="spec-summary">
-                  Modernized cloud infrastructure and mobile performance for India’s premier youth sports scouting platform. 
-                  Deployed an auto-scaling Kubernetes (AWS EKS) microservice mesh, integrated Amazon Neptune graph database 
-                  for athlete networking, and shrunk the mobile app bundle by 80%.
-                </p>
-
-                <div className="spec-highlights-list">
-                  <div className="highlight-item">
-                    <b>📦 80% Mobile Bundle Size Cut:</b> Re-engineered React Native build pipelines with Hermes engine and dynamic asset loading.
-                  </div>
-                  <div className="highlight-item">
-                    <b>🚀 60% Cloud Cost Savings:</b> Replaced over-provisioned static EC2 instances with Kubernetes event-driven autoscaling (KEDA).
-                  </div>
-                  <div className="highlight-item">
-                    <b>🔒 Infrastructure as Code:</b> Fully reproducible AWS environments managed via Terraform and GitOps CI/CD.
-                  </div>
-                </div>
-
-                <div className="spec-tech-tags">
-                  <span className="tech-badge">Kubernetes (EKS)</span>
-                  <span className="tech-badge">AWS (EC2, S3, RDS, Neptune)</span>
-                  <span className="tech-badge">Terraform</span>
-                  <span className="tech-badge">OpenSearch</span>
-                  <span className="tech-badge">Docker</span>
-                  <span className="tech-badge">CI/CD GitOps</span>
-                </div>
-
-                <div className="spec-card-actions">
-                  <Link to="/work/bighit" className="spec-case-study-btn" onClick={(e) => e.stopPropagation()}>
-                    Explore Case Study (Architecture & Impact) →
-                  </Link>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        {/* Right Column: Interactive Architecture Topology & Node Inspector */}
-        <aside className="topology-sidebar-section" id="topology">
-          <div className="section-header-row topology-header-row">
-            <div>
-              <h2 className="deck-section-title">System Architecture Topology</h2>
-              <span className="deck-section-hint">
-                {topologyViewMode === 'graph'
-                  ? 'Visual Codebase Knowledge Graph & Real-Time Stats (graph.infortts.site)'
-                  : 'Drag to rotate 3D particle sphere • Click node for details'}
-              </span>
-            </div>
-            <div className="topology-view-toggle">
+          {/* Filter Pills */}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {[
+              { id: 'all', label: 'All Systems' },
+              { id: 'financial', label: 'Financial' },
+              { id: 'cloud', label: 'Cloud & DevOps' },
+              { id: 'ai', label: 'Autonomous AI' },
+              { id: 'fintech', label: 'Fintech SaaS' },
+            ].map((tab) => (
               <button
-                type="button"
-                className={`topology-toggle-pill ${topologyViewMode === 'graph' ? 'active' : ''}`}
-                onClick={() => setTopologyViewMode('graph')}
+                key={tab.id}
+                onClick={() => setSelectedFilter(tab.id as typeof selectedFilter)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                  selectedFilter === tab.id
+                    ? 'bg-zinc-100 text-zinc-950 shadow-sm'
+                    : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+                }`}
               >
-                🌐 Codebase Graph
+                {tab.label}
               </button>
-              <button
-                type="button"
-                className={`topology-toggle-pill ${topologyViewMode === '3d' ? 'active' : ''}`}
-                onClick={() => setTopologyViewMode('3d')}
-              >
-                ❖ 3D Vector Graph
-              </button>
-            </div>
+            ))}
           </div>
+        </div>
 
-          <div className="topology-canvas-container">
-            {topologyViewMode === 'graph' ? (
-              <div className="graph-embed-wrapper">
-                <div className="graph-embed-toolbar">
-                  <div className="graph-status-info">
-                    <span className="live-indicator-dot" />
-                    <span className="graph-url-text">graph.infortts.site/?tab={graphTab}</span>
-                  </div>
-                  <div className="graph-toolbar-actions">
-                    <button
-                      type="button"
-                      className={`graph-tab-btn ${graphTab === 'stats' ? 'active' : ''}`}
-                      onClick={() => setGraphTab('stats')}
-                    >
-                      📊 Stats Tab
-                    </button>
-                    <button
-                      type="button"
-                      className={`graph-tab-btn ${graphTab === 'graph' ? 'active' : ''}`}
-                      onClick={() => setGraphTab('graph')}
-                    >
-                      🕸️ Node Graph
-                    </button>
-                    <a
-                      href={`https://graph.infortts.site/?tab=${graphTab}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="graph-open-external-btn"
-                    >
-                      Open Full ↗
-                    </a>
-                  </div>
-                </div>
+        {/* Systems Cards Stack */}
+        <div className="grid grid-cols-1 gap-6">
+          {filteredProjects.map(({ data, badge, metrics }) => {
+            const isExpanded = expandedProject === data.id;
 
-                <div className="graph-iframe-viewport">
-                  <iframe
-                    src={`/api/graph-proxy?tab=${graphTab}`}
-                    title="Live Codebase Memory Graph"
-                    className="graph-live-iframe"
-                    loading="lazy"
-                    allow="fullscreen"
-                  />
+            return (
+              <article
+                key={data.id}
+                className="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/60 transition-all duration-200 overflow-hidden"
+              >
+                <div className="p-6 sm:p-8 flex flex-col gap-6">
+                  {/* Card Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-medium tracking-wide bg-zinc-800 text-zinc-300 border border-zinc-700/60">
+                        {badge}
+                      </span>
+                      <span className="text-xs font-mono text-zinc-500">
+                        {data.timeline} • {data.organization}
+                      </span>
+                    </div>
+
+                    <Link
+                      to={`/work/${data.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 hover:text-emerald-300 transition-colors group cursor-pointer"
+                    >
+                      <span>Read Deep-Dive Case Study</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </Link>
+                  </div>
+
+                  {/* Title & Tagline */}
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-display font-bold text-2xl text-white tracking-tight">
+                      {data.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-zinc-300 font-medium">
+                      {data.tagline}
+                    </p>
+                    <p className="text-sm text-zinc-400 leading-relaxed max-w-4xl">
+                      {data.summary}
+                    </p>
+                  </div>
+
+                  {/* Metrics Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                    {metrics.map((m) => (
+                      <div
+                        key={m.label}
+                        className="p-3.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60 flex flex-col gap-1"
+                      >
+                        <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+                          {m.label}
+                        </span>
+                        <span className="text-lg font-mono font-bold text-zinc-100">
+                          {m.value}
+                        </span>
+                        <span className="text-xs text-zinc-400">{m.desc}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap items-center gap-2 pt-2">
+                    {data.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-400 bg-zinc-950/40 border border-zinc-800/60"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Expand / Collapse Architecture Preview */}
+                  <div className="pt-2 border-t border-zinc-800/60 flex items-center justify-between">
+                    <button
+                      onClick={() => setExpandedProject(isExpanded ? null : data.id)}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
+                    >
+                      <ChevronRight
+                        className={`w-3.5 h-3.5 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+                      />
+                      <span>{isExpanded ? 'Hide Architecture Blueprint' : 'Inspect Architecture Blueprint'}</span>
+                    </button>
+
+                    <Link
+                      to={`/work/${data.slug}`}
+                      className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+                    >
+                      View Full Specs →
+                    </Link>
+                  </div>
+
+                  {/* Expanded Blueprint Details */}
+                  {isExpanded && (
+                    <div className="mt-4 p-5 rounded-xl bg-zinc-950/80 border border-zinc-800 flex flex-col gap-4 animate-fadeIn">
+                      <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                        <Terminal className="w-3.5 h-3.5" />
+                        <span>ARCHITECTURE_OVERVIEW // {data.id.toUpperCase()}</span>
+                      </div>
+                      <p className="text-sm text-zinc-300 leading-relaxed">
+                        {data.architecture.overview}
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                        {data.architecture.steps.map((step, idx) => (
+                          <div
+                            key={step.title}
+                            className="p-3.5 rounded-lg bg-zinc-900/60 border border-zinc-800/60 flex flex-col gap-1.5"
+                          >
+                            <div className="flex items-center justify-between text-xs font-mono">
+                              <span className="text-zinc-300 font-semibold">0{idx + 1}. {step.title}</span>
+                              <span className="text-zinc-500 text-[10px]">{step.tech}</span>
+                            </div>
+                            <p className="text-xs text-zinc-400 leading-relaxed">
+                              {step.description}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 3. VERIFIED PRODUCTION EXPERIENCE TIMELINE */}
+      <section id="experience" className="flex flex-col gap-8 scroll-mt-24">
+        <div className="flex flex-col gap-1 border-b border-zinc-800 pb-5">
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
+            Career Timeline
+          </span>
+          <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
+            Production Track Record
+          </h2>
+          <p className="text-sm text-zinc-400 max-w-xl">
+            Commercial software engineering, infrastructure modernization, and systems architecture across high-growth startups and enterprise systems.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          {/* GymWise */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+                <img src="/companies/gymwise.png" alt="GymWise" className="w-8 h-8 object-contain" />
               </div>
-            ) : (
-              <MemoryGraph3D
-                onSelectNode={(node) => {
-                  setSelected3DNode(node);
-                  if (node.id === 'mitochondria') setExpandedSystem('mitochondria');
-                  else if (node.id === 'meeseeks') setExpandedSystem('meeseeks');
-                  else if (node.id === 'roost') setExpandedSystem('roost');
-                  else if (node.id === 'bighit_cloud' || node.id === 'bighit') setExpandedSystem('bighit');
-                }}
-                activeNode={selected3DNode}
-              />
-            )}
-          </div>
-
-          {/* Selected Node Technical Telemetry Box (Only shown in 3D mode) */}
-          {topologyViewMode === '3d' && (
-            <div className="node-telemetry-box">
-              <div className="node-telemetry-header">
-                <div>
-                  <span className="node-sys-id">
-                    {selected3DNode ? (selected3DNode.type === 'project' ? 'PRODUCTION SYSTEM' : 'TECHNICAL STACK NODE') : 'SYSTEM COMPONENT'}
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    GymWise India Private Limited
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
+                    Gurugram, India
                   </span>
-                  <h4 className="node-title">{selected3DNode ? selected3DNode.label : 'Mitochondria Trading Engine'}</h4>
                 </div>
-                <span className="node-status-pill">{selected3DNode?.status?.toUpperCase() || 'ACTIVE'}</span>
+                <span className="text-sm font-medium text-emerald-400">
+                  Software Engineer — Cloud Infrastructure & Systems Architecture
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  Jul 2024 – Nov 2025
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Architected and led the development of scalable cloud infrastructure and software systems, driving technical strategy.</li>
+                  <li>Spearheaded the design and implementation of container orchestration solutions, optimizing system performance and reliability.</li>
+                  <li>Designed and implemented robust software infrastructure, ensuring high availability and scalability of services.</li>
+                  <li>Designed and optimized information systems architecture, improving data flow and cross-service integration.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['Cloud Infrastructure', 'Container Orchestration', 'System Architecture', 'IT Strategy'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="node-meta-grid">
-                <div className="node-meta-item">
-                  <span className="meta-label">Project Category:</span>
-                  <span className="meta-val">{selected3DNode ? (selected3DNode.type === 'project' ? 'Production System' : 'Core Technology') : 'Financial Trading Infrastructure'}</span>
-                </div>
-                <div className="node-meta-item">
-                  <span className="meta-label">Primary Function:</span>
-                  <span className="meta-val">{selected3DNode ? selected3DNode.desc : 'Real-time order execution & container management'}</span>
-                </div>
-                <div className="node-meta-item full-width">
-                  <span className="meta-label">Technical Highlights:</span>
-                  <span className="meta-val highlight">{selected3DNode ? selected3DNode.details : 'Sub-millisecond execution latency, private network isolation, and automated risk enforcement.'}</span>
-                </div>
-                {selected3DNode?.link && (
-                  <div className="node-meta-item full-width">
-                    <span className="meta-label">Direct Endpoint:</span>
-                    <a href={selected3DNode.link} target="_blank" rel="noopener noreferrer" className="node-link-pill">
-                      {selected3DNode.link} ↗
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Technical Competencies Matrix Summary */}
-          <div className="competencies-matrix-card">
-            <h3 className="matrix-title">Technical Competencies & Stack</h3>
-            
-            <div className="matrix-group">
-              <span className="matrix-group-label">Languages:</span>
-              <p className="matrix-group-content">Go (Golang), Python, TypeScript / JavaScript, Dart (Flutter), SQL, C++</p>
-            </div>
-
-            <div className="matrix-group">
-              <span className="matrix-group-label">Backend & Distributed Messaging:</span>
-              <p className="matrix-group-content">REST APIs, gRPC, WebSockets, NATS JetStream, Redis, Event-Driven Architecture</p>
-            </div>
-
-            <div className="matrix-group">
-              <span className="matrix-group-label">AI & Autonomous Systems:</span>
-              <p className="matrix-group-content">Multi-Agent Orchestration, Model Context Protocol (MCP), Qdrant Vector Search, Prompt Optimization</p>
-            </div>
-
-            <div className="matrix-group">
-              <span className="matrix-group-label">Cloud Infrastructure & DevOps:</span>
-              <p className="matrix-group-content">Kubernetes (AWS EKS), Docker, Terraform (IaC), AWS, Google Cloud Platform, GitOps CI/CD</p>
             </div>
           </div>
-        </aside>
-      </main>
 
-      {/* 4. ABOUT, BIRTH YEAR 2002, REAL COMPANIES & CAPABILITIES SECTION */}
-      <AboutCapabilitiesSection
-        onOpenPhoneCall={onOpenPhoneCall}
-        onOpenSayHi={() => setIsSayHiOpen(true)}
-      />
+          {/* BigHit */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+                <img src="/companies/bighit.png" alt="BigHit" className="w-8 h-8 object-contain" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    BigHit
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
+                    Sports Tech
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-emerald-400">
+                  Full Stack Engineer — Cloud Modernization & Backend
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  Nov 2022 – Mar 2024
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Spearheaded the redevelopment of tech infrastructure, resulting in ~80% reduction in app size and ~60% increase in server efficiency and architecture availability.</li>
+                  <li>Optimized servers and database queries, reducing API latency by about 80%.</li>
+                  <li>Integrated AWS services including Amazon Neptune graph database, managed OpenSearch clusters, Cache, and Kafka for event streaming.</li>
+                  <li>Designed and developed interactive real-time features including advanced location tracking and dynamic messaging modules.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['TypeScript', 'AWS Neptune', 'OpenSearch', 'Kafka', 'React Native', 'Kubernetes', 'Docker'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
-      {/* 5. SLIDE-UP COME SAY HI BANNER MODAL */}
-      <ComeSayHiModal
-        isOpen={isSayHiOpen}
-        onClose={() => setIsSayHiOpen(false)}
-        onOpenPhoneCall={onOpenPhoneCall}
-      />
+          {/* Gamix Labs */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+                <img src="/companies/gamixlabs.webp" alt="Gamix Labs" className="w-8 h-8 object-contain" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    Gamix Labs
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
+                    Gaming & Interactive Systems
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-emerald-400">
+                  Full Stack Developer — Real-Time Game Servers & Services
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  Mar 2022 – Oct 2022
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Configured performance-oriented Node.js gaming servers with data-streaming services for real-time event streaming using Redis and MongoDB.</li>
+                  <li>Collaborated closely with clients like OneFC and Bombay Play to craft responsive gaming PWAs and HTML5 multiplayer experiences.</li>
+                  <li>Led development and rollout of facial/voice recognition web+native app for secure user verification.</li>
+                  <li>Adopted Test-Driven Development (TDD) for faster feedback loops and reliable codebases.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['Node.js', 'Redis', 'RabbitMQ', 'MongoDB', 'Flutter / Dart', 'TypeScript', 'TDD'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Infortts */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+                <img src="/companies/infortts.png" alt="Infortts" className="w-8 h-8 object-contain" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    Infortts Inc.
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
+                    Systems & Tooling Incubator
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-emerald-400">
+                  Founding Architect & Principal Engineer
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  Jun 2021 – Present
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Architected Mitochondria: Headless containerized automated trading system with sub-millisecond execution and private network isolation.</li>
+                  <li>Built Meeseeks: Multi-agent autonomous workflow engine with AST context compression and Docker sandbox isolation.</li>
+                  <li>Engineered distributed microservices, NATS JetStream event buses, and zero-trust cloud infrastructure.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['Go', 'Python', 'NATS JetStream', 'PostgreSQL', 'Docker', 'Kubernetes', 'Flutter'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. TECHNICAL RADAR & STACK */}
+      <section id="radar" className="flex flex-col gap-8 scroll-mt-24">
+        <div className="flex flex-col gap-1 border-b border-zinc-800 pb-5">
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
+            Core Competencies
+          </span>
+          <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
+            Technical Stack & Architecture Radar
+          </h2>
+          <p className="text-sm text-zinc-400 max-w-xl">
+            Technologies and protocols chosen for performance, fault tolerance, and developer velocity.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Card 1 */}
+          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
+            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
+              <Server className="w-5 h-5 text-emerald-400" />
+              <span>Backend & Languages</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {['Go', 'Python', 'TypeScript', 'Dart', 'Kotlin', 'SQL', 'GraphQL', 'gRPC'].map((item) => (
+                <span
+                  key={item}
+                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
+            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
+              <Cpu className="w-5 h-5 text-emerald-400" />
+              <span>Cloud & DevOps</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {['Kubernetes', 'Docker', 'Terraform', 'AWS', 'GCP', 'Cloudflare Workers', 'Linux (Debian/Alpine)', 'CI/CD'].map((item) => (
+                <span
+                  key={item}
+                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
+            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
+              <Layers className="w-5 h-5 text-emerald-400" />
+              <span>Messaging & Streaming</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {['NATS JetStream', 'Apache Kafka', 'RabbitMQ', 'Redis Pub/Sub', 'WebSockets', 'SSE', 'Event-Driven'].map((item) => (
+                <span
+                  key={item}
+                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
+            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
+              <Database className="w-5 h-5 text-emerald-400" />
+              <span>Storage & Vector DBs</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {['PostgreSQL', 'Amazon Neptune', 'Redis', 'MongoDB', 'Qdrant', 'OpenSearch', 'SQLite'].map((item) => (
+                <span
+                  key={item}
+                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. CONTACT & COLLABORATION CALLOUT */}
+      <section className="p-8 sm:p-12 rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900/60 to-zinc-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div className="flex flex-col gap-2 max-w-xl">
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
+            Get in touch
+          </span>
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight">
+            Let's build something exceptional.
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            I am currently open to senior engineering opportunities, distributed systems projects, and high-impact infrastructure challenges.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+          <a
+            href="mailto:sahil.artits.rathee@gmail.com"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-medium text-sm transition-all shadow-md cursor-pointer"
+          >
+            <Mail className="w-4 h-4" />
+            Send an Email
+          </a>
+
+          <a
+            href="/Sahil-Rathee-Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-medium text-sm transition-all cursor-pointer"
+          >
+            <Download className="w-4 h-4" />
+            Download Resume
+          </a>
+        </div>
+      </section>
     </div>
   );
 };
