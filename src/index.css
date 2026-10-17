@@ -1775,3 +1775,79 @@ body {
   cursor: pointer;
 }
 
+/* Highscore Card & Combo Multiplier Badges */
+.highscore-badge-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: rgba(18, 27, 45, 0.85);
+  border: 1px solid rgba(88, 196, 221, 0.3);
+  padding: 0.6rem 1.1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+.score-stat-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.score-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #94A3B8;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.score-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.mission-tabs-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.75rem 1.75rem;
+  background: rgba(9, 14, 25, 0.95);
+  border-bottom: 1px solid rgba(88, 196, 221, 0.15);
+}
+
+.combo-floating-badge {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(252, 98, 85, 0.95) 0%, rgba(244, 208, 63, 0.95) 100%);
+  color: #070B14;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.825rem;
+  font-weight: 800;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 20px rgba(244, 208, 63, 0.6);
+  pointer-events: none;
+  animation: comboPulse 0.4s ease infinite alternate;
+  z-index: 15;
+}
+
+@keyframes comboPulse {
+  0% { transform: translateX(-50%) scale(1); }
+  100% { transform: translateX(-50%) scale(1.06); }
+}
+
+.audio-btn {
+  background: rgba(18, 27, 45, 0.9);
+  color: #CBD5E1;
+  border: 1px solid rgba(88, 196, 221, 0.3);
+}
+
+.audio-btn:hover {
+  border-color: #58C4DD;
+  color: #FFFFFF;
+}
+
+
