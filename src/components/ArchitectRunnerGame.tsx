@@ -69,11 +69,11 @@ const ARCHITECT_PULSES = [
 ];
 
 const CORE_STACK_CHIPS = [
-  { id: 'distributed', label: '#Distributed-Systems-NATS', color: '#ff7f11' },
-  { id: 'forensics', label: '#Forensic-Trading-MT5', color: '#1f4e9c' },
-  { id: 'ai', label: '#Autonomous-AI-Swarms', color: '#138808' },
-  { id: 'k8s', label: '#Kubernetes-Zero-Downtime', color: '#c0392b' },
-  { id: 'lowlatency', label: '#Sub-Millisecond-Execution', color: '#8a4b2a' }
+  { id: 'distributed', label: '#Distributed-Systems-NATS', color: '#00d2ff' },
+  { id: 'forensics', label: '#Forensic-Trading-MT5', color: '#f59e0b' },
+  { id: 'ai', label: '#Autonomous-AI-Swarms', color: '#8b5cf6' },
+  { id: 'k8s', label: '#Kubernetes-Zero-Downtime', color: '#0ea5e9' },
+  { id: 'lowlatency', label: '#Sub-Millisecond-Execution', color: '#10b981' }
 ];
 
 export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
@@ -168,7 +168,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         radius: 120,
         pullRadius: 420,
         pullStrength: 1.4,
-        color: '#ff7f11',
+        color: '#f59e0b',
       },
       {
         id: 'meeseeks',
@@ -179,7 +179,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         radius: 110,
         pullRadius: 380,
         pullStrength: 1.25,
-        color: '#1f4e9c',
+        color: '#8b5cf6',
       },
       {
         id: 'roost',
@@ -190,7 +190,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         radius: 105,
         pullRadius: 360,
         pullStrength: 1.2,
-        color: '#138808',
+        color: '#10b981',
       },
       {
         id: 'bighit',
@@ -201,7 +201,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         radius: 115,
         pullRadius: 400,
         pullStrength: 1.35,
-        color: '#c0392b',
+        color: '#0ea5e9',
       },
     ],
   });
@@ -752,19 +752,19 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       }
 
       // ==========================================
-      // 9. RENDER WORLD TO CANVAS
+      // 9. RENDER WORLD TO CANVAS (INFORTTS OBSIDIAN & CYAN THEME)
       // ==========================================
       ctx.clearRect(0, 0, screenWidth, screenHeight);
 
       ctx.save();
       ctx.translate(-camX, -camY);
 
-      // A. Ground Canvas (1km x 1km Top-Down Parchment & Circuit Board Grid)
-      ctx.fillStyle = '#8fae63'; // Signature lawn ground
+      // A. Ground Canvas (1km x 1km Top-Down Deep Space Cyber Grid)
+      ctx.fillStyle = '#050811';
       ctx.fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
-      // Grid Lines (every 50m / 300px)
-      ctx.strokeStyle = 'rgba(216, 199, 168, 0.4)';
+      // Cyber Matrix Grid Lines (every 50m / 300px)
+      ctx.strokeStyle = 'rgba(0, 210, 255, 0.08)';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       for (let x = 0; x <= WORLD_WIDTH; x += 300) {
@@ -778,15 +778,21 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.stroke();
 
       // B. High-Speed Illuminated Fiber Highways (Connecting All 4 Districts)
-      ctx.fillStyle = 'rgba(216, 199, 168, 0.85)';
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
       // North-South Central Highway (180px wide)
       ctx.fillRect(2910, 800, 180, 4400);
       // East-West Central Highway (180px wide)
       ctx.fillRect(800, 2910, 4400, 180);
 
+      // Outer Highway Edge Conduits
+      ctx.strokeStyle = 'rgba(0, 210, 255, 0.3)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(2910, 800, 180, 4400);
+      ctx.strokeRect(800, 2910, 4400, 180);
+
       // Fiber-optic glowing centerlines
-      ctx.strokeStyle = '#55efc4';
-      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#00d2ff';
+      ctx.lineWidth = 3;
       ctx.setLineDash([30, 20]);
       ctx.beginPath();
       ctx.moveTo(3000, 800);
@@ -796,16 +802,16 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Outer Connaught Place Circular Ring at Central Hub
-      ctx.strokeStyle = '#e2d3b6';
-      ctx.lineWidth = 60;
+      // Outer Plaza Circular Ring at Central Hub
+      ctx.strokeStyle = 'rgba(14, 165, 233, 0.2)';
+      ctx.lineWidth = 50;
       ctx.beginPath();
       ctx.arc(3000, 3000, 600, 0, Math.PI * 2);
       ctx.stroke();
 
       // Inner Plaza Ring
-      ctx.strokeStyle = 'rgba(255, 153, 51, 0.5)';
-      ctx.lineWidth = 12;
+      ctx.strokeStyle = 'rgba(0, 210, 255, 0.4)';
+      ctx.lineWidth = 8;
       ctx.beginPath();
       ctx.arc(3000, 3000, 350, 0, Math.PI * 2);
       ctx.stroke();
@@ -814,8 +820,8 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       worldLandmarksRef.current.districts.forEach((st) => {
         // Outer Gravitational Accretion Disk
         const grad = ctx.createRadialGradient(st.x, st.y, st.radius * 0.3, st.x, st.y, st.pullRadius);
-        grad.addColorStop(0, '#1d1a16');
-        grad.addColorStop(0.3, st.color);
+        grad.addColorStop(0, '#050811');
+        grad.addColorStop(0.35, st.color);
         grad.addColorStop(1, 'transparent');
 
         ctx.fillStyle = grad;
@@ -828,53 +834,56 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.translate(st.x, st.y);
         ctx.rotate(now * 0.0015);
         ctx.strokeStyle = st.color;
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 3.5;
         ctx.beginPath();
         ctx.ellipse(0, 0, st.radius * 1.4, st.radius * 0.7, 0, 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
 
         // Singularity Horizon Core
-        ctx.fillStyle = '#0a0a0a';
+        ctx.fillStyle = '#020617';
         ctx.beginPath();
         ctx.arc(st.x, st.y, st.radius * 0.6, 0, Math.PI * 2);
         ctx.fill();
         ctx.strokeStyle = st.color;
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
 
         // District Landmark Pillar & Hologram Label
-        ctx.fillStyle = '#1d1a16';
-        ctx.font = 'bold 20px "Segoe UI", sans-serif';
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 18px "Outfit", "Segoe UI", sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(st.name, st.x, st.y + st.radius + 36);
-        ctx.font = '14px "Segoe UI", sans-serif';
-        ctx.fillStyle = '#5b4a3a';
-        ctx.fillText(`${st.subtitle} 🌀`, st.x, st.y + st.radius + 58);
+        ctx.font = '13px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillText(`${st.subtitle} 🌀`, st.x, st.y + st.radius + 56);
       });
 
       // D. RENDER CENTRAL INFORTTS COMMAND HQ & TELECOM TOWER
       const hq = worldLandmarksRef.current.commandHQ;
-      ctx.fillStyle = '#c0392b';
+      ctx.fillStyle = '#0b1120';
       ctx.beginPath();
       ctx.arc(hq.x, hq.y, 80, 0, Math.PI * 2);
       ctx.fill();
+      ctx.strokeStyle = '#00d2ff';
+      ctx.lineWidth = 4;
+      ctx.stroke();
 
       // Satellite dish spinning
       ctx.save();
       ctx.translate(hq.x, hq.y);
       ctx.rotate(now * 0.001);
-      ctx.strokeStyle = '#fff';
-      ctx.lineWidth = 5;
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 4;
       ctx.beginPath();
-      ctx.arc(0, 0, 50, 0, Math.PI);
+      ctx.arc(0, 0, 48, 0, Math.PI);
       ctx.stroke();
       ctx.restore();
 
-      ctx.fillStyle = '#1d1a16';
-      ctx.font = 'bold 22px "Segoe UI", sans-serif';
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = 'bold 20px "Outfit", "Segoe UI", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('🏛️ INFORTTS CORE HQ', hq.x, hq.y - 100);
+      ctx.fillText('🏛️ INFORTTS CORE HQ', hq.x, hq.y - 95);
 
       // E. RENDER PHONE TERMINAL (PHONE BOOTH)
       const distPhone = distToPhone;
@@ -883,28 +892,28 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
 
       // Pulsing beacon ring around phone
       const ringPulse = (now % 1000) / 1000;
-      ctx.strokeStyle = `rgba(19, 136, 8, ${1 - ringPulse})`;
+      ctx.strokeStyle = `rgba(16, 185, 129, ${1 - ringPulse})`;
       ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.arc(0, 0, 36 + ringPulse * 50, 0, Math.PI * 2);
       ctx.stroke();
 
       // Phone Booth Box
-      ctx.fillStyle = '#138808';
+      ctx.fillStyle = 'rgba(11, 17, 32, 0.95)';
       ctx.fillRect(-22, -30, 44, 60);
-      ctx.strokeStyle = '#fff';
+      ctx.strokeStyle = '#10b981';
       ctx.lineWidth = 3;
       ctx.strokeRect(-22, -30, 44, 60);
 
       // Dial Icon
-      ctx.fillStyle = '#fff';
+      ctx.fillStyle = '#55efc4';
       ctx.font = '24px sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('📞', 0, 0);
 
-      ctx.font = 'bold 13px "Segoe UI", sans-serif';
-      ctx.fillStyle = '#1d1a16';
+      ctx.font = 'bold 12px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#55efc4';
       ctx.fillText('DIRECT CALL TERMINAL', 0, 48);
       ctx.restore();
 
@@ -912,15 +921,15 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       dataPacketsRef.current.forEach((p) => {
         if (!p.isCollected) {
           // Packet floating motion
-          ctx.fillStyle = '#fffaf0';
-          ctx.strokeStyle = '#ff7f11';
-          ctx.lineWidth = 2;
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+          ctx.strokeStyle = '#00d2ff';
+          ctx.lineWidth = 1.5;
           ctx.beginPath();
-          ctx.roundRect(p.x - 22, p.y - 12, 44, 24, [6]);
+          ctx.roundRect(p.x - 24, p.y - 12, 48, 24, [6]);
           ctx.fill();
           ctx.stroke();
 
-          ctx.fillStyle = '#1d1a16';
+          ctx.fillStyle = '#f8fafc';
           ctx.font = 'bold 9.5px "JetBrains Mono", monospace';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -936,8 +945,8 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
           ctx.rotate(now * 0.004);
 
           // Glitch Polygonal Anomaly
-          ctx.fillStyle = 'rgba(231, 76, 60, 0.85)';
-          ctx.strokeStyle = '#c0392b';
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.85)';
+          ctx.strokeStyle = '#f87171';
           ctx.lineWidth = 2.5;
           ctx.beginPath();
           ctx.moveTo(-g.size, -g.size);
@@ -984,14 +993,14 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         if (pulse.alpha <= 0 || pulse.radius >= pulse.maxRadius) {
           telemetryPulsesRef.current.splice(i, 1);
         } else {
-          ctx.strokeStyle = `rgba(255, 153, 51, ${pulse.alpha})`;
+          ctx.strokeStyle = `rgba(0, 210, 255, ${pulse.alpha})`;
           ctx.lineWidth = 3;
           ctx.beginPath();
           ctx.arc(pulse.x, pulse.y, pulse.radius, 0, Math.PI * 2);
           ctx.stroke();
 
-          ctx.fillStyle = `rgba(29, 26, 22, ${pulse.alpha})`;
-          ctx.font = 'bold 12px "Segoe UI", sans-serif';
+          ctx.fillStyle = `rgba(56, 189, 248, ${pulse.alpha})`;
+          ctx.font = 'bold 12px "Outfit", sans-serif';
           ctx.textAlign = 'center';
           ctx.fillText(pulse.text, pulse.x, pulse.y - pulse.radius - 8);
         }
@@ -1003,18 +1012,18 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.beginPath();
         ctx.arc(p.x, p.y, 10, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = '#fff';
+        ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        ctx.fillStyle = '#1d1a16';
+        ctx.fillStyle = '#38bdf8';
         ctx.font = 'bold 8.5px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
         ctx.fillText(p.label, p.x, p.y - 12);
 
         // Draw spring connection to leading node
         const lead = idx === 0 ? char : pipeline[idx - 1];
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.strokeStyle = 'rgba(0, 210, 255, 0.4)';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
@@ -1028,13 +1037,13 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.rotate(char.heading);
 
       // Character Shadow
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
       ctx.beginPath();
       ctx.ellipse(0, 0, 18, 12, 0, 0, Math.PI * 2);
       ctx.fill();
 
       // Architect Body
-      ctx.fillStyle = selectedRole === 'systems' ? '#ff7f11' : '#138808';
+      ctx.fillStyle = selectedRole === 'systems' ? '#00d2ff' : '#8b5cf6';
       ctx.beginPath();
       ctx.arc(0, 0, 16, 0, Math.PI * 2);
       ctx.fill();
@@ -1043,17 +1052,17 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.stroke();
 
       // Cyber Visor / Headlamp
-      ctx.fillStyle = '#55efc4';
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(4, -6, 12, 12);
 
       // Architect Jetpack Nodes
-      ctx.fillStyle = '#1d1a16';
+      ctx.fillStyle = '#0b1120';
       ctx.fillRect(-14, -8, 6, 16);
 
       ctx.restore();
 
       // Player Label
-      ctx.fillStyle = '#1d1a16';
+      ctx.fillStyle = '#f8fafc';
       ctx.font = 'bold 12px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
       ctx.fillText(guestName || 'Sahil Rathee', char.x, char.y - 24);
