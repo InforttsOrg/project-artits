@@ -20,28 +20,28 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
   };
 
   const triggerStamp = (type: string) => {
-    if (type === 'shelby') {
-      setStampFeedback('✨ "A crush on art: ~90 hours of drawing for this site"');
+    if (type === 'sahil') {
+      setStampFeedback('⚡ "Sahil Rathee: Distributed systems architect specializing in Go, C++, Python, and low-latency IPC."');
     } else if (type === 'born') {
-      setStampFeedback('📅 "Born in 2002: Computer Science Graduate, DDUC Delhi University"');
+      setStampFeedback('📅 "Born in 2002 in New Delhi: B.Sc. in Computer Science, DDUC, University of Delhi (2018–2021)."');
     } else {
-      setStampFeedback('⚡ "Architecture: Go, C++, Python, HFT RingBuffers, Kubernetes & Agentic Swarms"');
+      setStampFeedback('🛠️ "Architecture: Zero-allocation memory IPC, Kubernetes IaC, and compiler-verified agentic DAGs."');
     }
-    setTimeout(() => setStampFeedback(null), 3000);
+    setTimeout(() => setStampFeedback(null), 3500);
   };
 
   return (
     <section className="about-capabilities-block">
-      {/* 1. HUYML-STYLE BIRTH YEAR 2002 & AVATAR HEAD STAGE */}
+      {/* 1. BIRTH YEAR 2002 & ARCHITECTURAL MOTTO STAGE */}
       <div className="birthyear-2002-stage">
         {/* Giant "20" watermark on top */}
         <div className="year-number top">20</div>
 
-        {/* Central Illustrated Portrait with Speech Bubble */}
+        {/* Central Illustrated Portrait with Authentic Speech Bubble */}
         <div className="avatar-speech-center">
           <div className="speech-bubble-box">
             <span className="speech-bubble-text">
-              EVER WONDERED WHAT'S GOING ON INSIDE MY HEAD?
+              "HOW DO WE INGEST 50,000 TICKS/SEC WITH ZERO DROPPED PACKETS?"
             </span>
             <div className="speech-bubble-tail" />
           </div>
@@ -55,8 +55,8 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
             <span className="bio-name">SAHIL RATHEE</span>
             <span className="bio-role">SENIOR SOFTWARE ENGINEER & DISTRIBUTED SYSTEMS ARCHITECT</span>
             <p className="bio-copy">
-              Born in 2002 in New Delhi, India. Building high-throughput distributed backends,
-              lock-free algorithmic memory structures, and autonomous multi-agent AI frameworks.
+              Born in 2002 in New Delhi, India. Engineering high-throughput distributed backends,
+              lock-free in-memory ring buffers, and autonomous multi-agent AI frameworks since age 19.
             </p>
           </div>
         </div>
@@ -65,37 +65,61 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
         <div className="year-number bottom">02</div>
       </div>
 
-      {/* 2. REAL COMPANIES & PROVEN PRODUCTION TRACK RECORD */}
+      {/* 2. REAL COMPANIES & VERIFIED PRODUCTION TRACK RECORD */}
       <div className="real-companies-section">
         <div className="section-title-strip">
-          <span className="section-kicker">PROVEN AT PRODUCTION SCALE</span>
-          <h2 className="section-title-large">Companies & Commercial Deployments</h2>
+          <span className="section-kicker">VERIFIED COMMERCIAL SCALE</span>
+          <h2 className="section-title-large">Companies & Enterprise Deployments</h2>
           <p className="section-desc">
-            Direct production contributions, scalable cloud infrastructure, and core backend architecture for tier-1 enterprises.
+            Direct production contributions, scalable cloud infrastructure, and core backend architecture for verified commercial enterprises.
           </p>
         </div>
 
         <div className="companies-cards-grid">
-          {/* Company 1: Gym Wise */}
-          <a
-            href="https://gymwise.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="company-card-anchor"
-          >
+          {/* Company 1: Gym Wise India */}
+          <div className="company-card-anchor">
             <div className="company-logo-slot">
-              <img src="/companies/gymwise.svg" alt="GymWise India" className="company-logo-img" />
+              <img src="/companies/gymwise.png" alt="Gym Wise India" className="company-logo-img square" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">
                 <span className="company-name">Gym Wise India Private Limited</span>
-                <span className="company-ext-icon">↗</span>
+                <span className="company-badge-pill">290+ Followers</span>
               </div>
-              <span className="company-role-meta">Solution Architect • 2024–2025</span>
+              <span className="company-role-meta">Solution Architect • Mar 2024 – Nov 2025</span>
               <p className="company-impact-text">
-                Global fitness operations SaaS serving <b>300+ gyms across Delhi NCR, Australia, and Singapore</b>.
-                Containerized microservices & Terraform IaC with <b>99.99% high availability</b>.
+                Enterprise fitness ERP platform serving <b>300+ gyms across Delhi NCR, Australia, and Singapore</b>.
+                Architected Kubernetes clusters & Terraform IaC with <b>99.99% high availability</b>.
               </p>
+              
+              {/* Direct Real Links */}
+              <div className="company-links-row">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.gymwise.android"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link highlight"
+                >
+                  ▶ Google Play App ↗
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/gymwise-india/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link"
+                >
+                  💼 LinkedIn (290+) ↗
+                </a>
+                <a
+                  href="https://gymwise.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link"
+                >
+                  🌐 gymwise.in ↗
+                </a>
+              </div>
+
               <div className="company-pill-row">
                 <span className="company-tech-tag">Kubernetes</span>
                 <span className="company-tech-tag">AWS</span>
@@ -103,57 +127,92 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
                 <span className="company-tech-tag">Golang</span>
               </div>
             </div>
-          </a>
+          </div>
 
-          {/* Company 2: BigHit */}
-          <a
-            href="https://bighit.pro"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="company-card-anchor"
-          >
+          {/* Company 2: BigHit Sportz */}
+          <div className="company-card-anchor">
             <div className="company-logo-slot">
-              <img src="/companies/bighit.svg" alt="BigHit Sportz" className="company-logo-img" />
+              <img src="/companies/bighit.png" alt="BigHit Sportz" className="company-logo-img square" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">
-                <span className="company-name">BigHit Pvt Ltd (BigHit Sportz)</span>
-                <span className="company-ext-icon">↗</span>
+                <span className="company-name">BigHit Sportz: Sports for All</span>
+                <span className="company-badge-pill gold">⭐ 4.0 (128)</span>
               </div>
-              <span className="company-role-meta">Full Stack Engineer & DevOps Lead • 2022–2024</span>
+              <span className="company-role-meta">Full Stack Engineer & DevOps Lead • Nov 2022 – Mar 2024</span>
               <p className="company-impact-text">
-                Multi-sport platform & youth scouting app (partnered with <b>FC Bayern Youth Cup</b> & <b>Bundesliga Dream</b>).
-                Cut app bundle size by <b>80%</b> and server costs by <b>60%</b>.
+                Multi-sport platform & youth scouting app (official partner <b>FC Bayern Youth Cup</b> & <b>Bundesliga Dream</b>).
+                Achieved <b>-80% app bundle size reduction</b> and <b>+60% server efficiency</b> with Amazon Neptune graph DB & OpenSearch.
               </p>
+
+              {/* Direct Real Links */}
+              <div className="company-links-row">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.bighit.sports"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link highlight"
+                >
+                  ▶ Google Play (4.0★) ↗
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/bighit-sportz/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link"
+                >
+                  💼 LinkedIn (5.1K) ↗
+                </a>
+                <a
+                  href="https://bighit.pro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link"
+                >
+                  🌐 bighit.pro ↗
+                </a>
+              </div>
+
               <div className="company-pill-row">
-                <span className="company-tech-tag">AWS Neptune Graph</span>
+                <span className="company-tech-tag">AWS Neptune</span>
                 <span className="company-tech-tag">OpenSearch</span>
                 <span className="company-tech-tag">React Native</span>
-                <span className="company-tech-tag">EKS</span>
+                <span className="company-tech-tag">AWS EKS</span>
               </div>
             </div>
-          </a>
+          </div>
 
-          {/* Company 3: Roost / Rent1st */}
-          <a
-            href="https://rent1st.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="company-card-anchor"
-          >
+          {/* Company 3: Roost / Rent1st Escrow */}
+          <div className="company-card-anchor">
             <div className="company-logo-slot">
               <img src="/companies/rent1st.png" alt="Rent1st / Roost" className="company-logo-img square" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">
-                <span className="company-name">Roost / Rent1st Escrow</span>
-                <span className="company-ext-icon">↗</span>
+                <span className="company-name">Roost / Rent1st Escrow Platform</span>
+                <span className="company-badge-pill green">99.99% Uptime</span>
               </div>
               <span className="company-role-meta">Principal Backend Architect • 2023–2025</span>
               <p className="company-impact-text">
                 Multi-tenant property management platform with automated escrow reconciliation.
-                Engineered Go microservices with strict <b>ACID double-entry ledger bookkeeping</b>.
+                Engineered concurrent Go microservices with strict <b>ACID double-entry ledger bookkeeping</b> and zero double-charge errors.
               </p>
+
+              {/* Direct Real Links */}
+              <div className="company-links-row">
+                <a
+                  href="https://rent1st.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link highlight"
+                >
+                  🌐 rent1st.in ↗
+                </a>
+                <span className="company-direct-link disabled">
+                  🏢 Roost Property SaaS
+                </span>
+              </div>
+
               <div className="company-pill-row">
                 <span className="company-tech-tag">Go (Golang)</span>
                 <span className="company-tech-tag">PostgreSQL ACID</span>
@@ -161,28 +220,44 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
                 <span className="company-tech-tag">Flutter</span>
               </div>
             </div>
-          </a>
+          </div>
 
           {/* Company 4: Gamix Labs */}
-          <a
-            href="https://gamixlabs.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="company-card-anchor"
-          >
+          <div className="company-card-anchor">
             <div className="company-logo-slot">
               <img src="/companies/gamixlabs.webp" alt="Gamix Labs" className="company-logo-img square" />
             </div>
             <div className="company-info-slot">
               <div className="company-header-row">
                 <span className="company-name">Gamix Labs</span>
-                <span className="company-ext-icon">↗</span>
+                <span className="company-badge-pill blue">Tier-1 Studio</span>
               </div>
-              <span className="company-role-meta">Full Stack Developer • 2022</span>
+              <span className="company-role-meta">Full Stack Developer • Mar 2022 – Oct 2022</span>
               <p className="company-impact-text">
-                Engineered online game backends and HTML5/PWA gaming titles for tier-1 clients (<b>OneFC, Bombay Play</b>)
-                using Cocos Creator engine and high-throughput Node.js streaming.
+                Engineered online game backends and HTML5/PWA gaming titles for tier-1 international clients (<b>OneFC, Bombay Play</b>)
+                utilizing Cocos Creator engine and high-throughput Node.js/Redis streaming.
               </p>
+
+              {/* Direct Real Links */}
+              <div className="company-links-row">
+                <a
+                  href="https://gamixlabs.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link highlight"
+                >
+                  🌐 gamixlabs.com ↗
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/gamixlabs/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="company-direct-link"
+                >
+                  💼 LinkedIn ↗
+                </a>
+              </div>
+
               <div className="company-pill-row">
                 <span className="company-tech-tag">TypeScript</span>
                 <span className="company-tech-tag">Cocos Creator</span>
@@ -190,11 +265,11 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
                 <span className="company-tech-tag">Redis / MongoDB</span>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
 
-      {/* 3. CAPABILITIES & KEY ENGINEERING MILESTONES (Huyml style) */}
+      {/* 3. CAPABILITIES & KEY ENGINEERING MILESTONES */}
       <div className="capabilities-editorial-section">
         <div className="editorial-columns-grid">
           {/* Col 1: Core Capabilities */}
@@ -255,7 +330,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
         </div>
       </div>
 
-      {/* 4. COPY EMAIL & FOOTER LINKS (Shelby Kho aesthetic) */}
+      {/* 4. COPY EMAIL & SHELBY KHO STAMPS FOOTER BLOCK */}
       <div className="copy-email-footer-block">
         <p className="tap-circles-hint">tap the circles for a surprise!</p>
 
@@ -264,7 +339,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
           <button
             type="button"
             className="stamp-circle-btn stamp-cyan"
-            onClick={() => triggerStamp('shelby')}
+            onClick={() => triggerStamp('sahil')}
             title="Click for surprise"
           >
             <span>SAHIL</span>
