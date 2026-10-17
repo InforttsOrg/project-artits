@@ -1,12 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { GameOfLifeBackground } from './components/GameOfLifeBackground';
 import { MemoryGraph3D, GraphNode, INITIAL_NODES } from './components/MemoryGraph3D';
 
 const App: React.FC = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
+  const [graphViewMode, setGraphViewMode] = useState<'3d' | 'list'>('3d');
+  const [activeFilter, setActiveFilter] = useState<'all' | 'project' | 'skill'>('all');
 
-  const handleSelectNodeById = (id: string) => {
+  const handleSelectNodeById = useCallback((id: string) => {
     const node = INITIAL_NODES.find(n => n.id === id);
     if (node) {
       setSelectedNode({
@@ -15,14 +17,19 @@ const App: React.FC = () => {
       } as GraphNode);
       document.getElementById('knowledge-graph-section')?.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
   const [messages, setMessages] = useState<{ sender: 'user' | 'system', text: string, time: string }[]>([
-    { sender: 'system', text: 'Hi, I am Sahil\'s AI assistant. Ask me about his architecture work, financial engineering, or agentic AI workflows.', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+    { 
+      sender: 'system', 
+      text: "Hi, I am Sahil's AI assistant. Ask me about his architecture work, financial engineering, distributed cloud infrastructure, or agentic AI workflows.", 
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+    }
   ]);
   const [inputVal, setInputVal] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatInputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -32,11 +39,24 @@ const App: React.FC = () => {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputVal.trim()) return;
+  // Focus input when chat modal opens & support Escape key
+  useEffect(() => {
+    if (chatOpen) {
+      setTimeout(() => chatInputRef.current?.focus(), 150);
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setChatOpen(false);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [chatOpen]);
 
-    const userMsg = inputVal.trim();
+  const sendQuery = async (queryText: string) => {
+    if (!queryText.trim()) return;
+
+    const userMsg = queryText.trim();
     setInputVal('');
     
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -44,7 +64,6 @@ const App: React.FC = () => {
     setIsTyping(true);
 
     const clientNow = new Date();
-    const timeFormatted = clientNow.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const fullTimeStr = clientNow.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -82,6 +101,10 @@ const App: React.FC = () => {
           fallbackReply = "You can reach Sahil directly via email at sahil.artits.rathee@gmail.com or by phone at +91 9625213480.";
         } else if (lower.includes("resume") || lower.includes("cv")) {
           fallbackReply = "You can download Sahil's ATS-optimized resume directly using the 'Download Resume PDF' button in the header.";
+        } else if (lower.includes("zenith") || lower.includes("mitochondria") || lower.includes("trading")) {
+          fallbackReply = "Zenith & Mitochondria is Sahil's algorithmic trading pipeline featuring MetaTrader 5 integration, sub-millisecond in-memory ring buffers, vector market analytics, and NATS JetStream telemetry.";
+        } else if (lower.includes("agent") || lower.includes("meeseeks") || lower.includes("swarm")) {
+          fallbackReply = "Meeseeks is an autonomous AI agent swarm handling task planning, automated code refactoring, tool dispatch, and live deployments with 70% reduced RAG token overhead.";
         }
 
         setMessages(prev => [...prev, { 
@@ -94,11 +117,16 @@ const App: React.FC = () => {
     }
   };
 
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendQuery(inputVal);
+  };
+
   const socials = [
-    { name: 'GitHub', url: 'https://github.com/rttss-sahil' },
-    { name: 'X / Twitter', url: 'https://x.com/rttss_sahil' },
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/rttss-sahil' },
-    { name: 'Organization', url: 'https://github.com/InforttsOrg' },
+    { name: 'GitHub', url: 'https://github.com/rttss-sahil', label: 'GitHub Profile (opens in new tab)' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/rttss-sahil', label: 'LinkedIn Profile (opens in new tab)' },
+    { name: 'X / Twitter', url: 'https://x.com/rttss_sahil', label: 'X / Twitter Profile (opens in new tab)' },
+    { name: 'Organization', url: 'https://github.com/InforttsOrg', label: 'Infortts Organization on GitHub (opens in new tab)' },
   ];
 
   const featuredProjects = [
@@ -110,18 +138,18 @@ const App: React.FC = () => {
       tags: ['Python', 'MetaTrader 5', 'NATS', 'Qdrant', 'WebSockets', 'Flutter']
     },
     {
-      id: 'roost',
-      title: 'ROOST',
-      subtitle: 'Multi-Tenant Property Management SaaS',
-      desc: 'High-scale property & tenant management platform with automated payment escrow, GST-compliant financial ledger, and real-time transaction reconciliation.',
-      tags: ['Flutter', 'Go', 'PostgreSQL', 'GCP', 'Redis', 'Docker']
-    },
-    {
       id: 'meeseeks',
       title: 'MEESEEKS',
       subtitle: 'Autonomous AI Agent Swarm',
       desc: 'Self-evolving multi-agent orchestration engine handling autonomous task planning, codebase refactoring, tool dispatch, and live deployments with 70% reduced RAG token overhead.',
       tags: ['Python', 'FastAPI', 'Playwright', 'LLMs', 'LangChain', 'Docker']
+    },
+    {
+      id: 'roost',
+      title: 'ROOST',
+      subtitle: 'Multi-Tenant Property Management SaaS',
+      desc: 'High-scale property & tenant management platform with automated payment escrow, GST-compliant financial ledger, and real-time transaction reconciliation.',
+      tags: ['Flutter', 'Go', 'PostgreSQL', 'GCP', 'Redis', 'Docker']
     },
     {
       id: 'bighit_cloud',
@@ -133,220 +161,526 @@ const App: React.FC = () => {
   ];
 
   const skillsList = [
-    'Go', 'Python', 'TypeScript', 'Dart / Flutter', 'Cocos', 'Node.js', 'Next.js', 'Angular', 'React Native', 'Kotlin', 'Kubernetes', 'Terraform', 'Ansible', 'Jenkins', 'Podman / Docker', 'AWS Lambda / Serverless', 'OpenSearch / Elastic', 'GIS', 'PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Qdrant', 'NATS'
+    'Go', 'Python', 'TypeScript', 'Dart / Flutter', 'Node.js', 'Next.js', 'Kubernetes', 
+    'Terraform', 'Ansible', 'Jenkins', 'Podman / Docker', 'AWS / Serverless', 'PostgreSQL', 
+    'MongoDB', 'Redis', 'Qdrant', 'NATS JetStream', 'Cocos Creator', 'GIS Systems'
+  ];
+
+  const quickPrompts = [
+    "Architecture overview",
+    "Zenith & Mitochondria",
+    "Meeseeks Agent Swarm",
+    "Contact & Availability"
   ];
 
   const resumeDocUrl = "https://docs.google.com/document/d/1cH4O32ABivQJ9m8zq35eX5fmPF60pcQVI9gA2JWdcEk/edit?usp=sharing";
 
+  const filteredNodes = INITIAL_NODES.filter(n => {
+    if (activeFilter === 'all') return true;
+    return n.type === activeFilter;
+  });
+
   return (
     <div className="portfolio-wrapper">
-      {/* Dynamic Ambient Fullscreen Game of Life Background */}
+      {/* Accessible Skip Link for Keyboard / Screen Reader Users */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
+      {/* Dynamic Ambient Fullscreen Background (Decorative, Hidden from Screen Readers) */}
       <GameOfLifeBackground />
 
       <div className="content-container">
         {/* Top Header Navigation */}
-        <header className="top-nav">
+        <header role="banner" className="top-nav">
           <div className="status-indicator">
-            <span className="live-dot"></span>
-            <span className="status-text">Sahil Rathee <span className="text-slate-500">•</span> <span className="status-sub">Available for Senior & Staff Roles</span></span>
-          </div>
-          <nav className="nav-links">
-            {socials.map(s => (
-              <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" className="nav-link">
-                {s.name}
-              </a>
-            ))}
-            <a href={resumeDocUrl} target="_blank" rel="noopener noreferrer" className="nav-link">
-              Google Doc ↗
-            </a>
-            <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer" className="resume-btn">
-              Download Resume PDF ↗
-            </a>
-          </nav>
-        </header>
-
-        {/* Hero Section */}
-        <section className="hero-section">
-          <div className="hero-heading-group">
-            <h1 className="hero-name">
-              SAHIL RATHEE
-            </h1>
-            <div className="badge-open">
-              <span className="badge-dot"></span>
-              Open to Work
-            </div>
+            <span className="live-dot" aria-hidden="true"></span>
+            <span className="status-text">
+              Sahil Rathee <span className="text-slate-500" aria-hidden="true">•</span>{' '}
+              <span className="status-sub">Available for Senior & Staff Roles</span>
+            </span>
           </div>
 
-          <p className="hero-bio">
-            Senior Software Engineer & AI Architect with <strong>4+ years of experience</strong> at the intersection of 
-            <strong> Financial Systems Engineering</strong>, <strong>Distributed Cloud Infrastructure</strong>, and <strong>Agentic AI Workflows</strong>.
-          </p>
-
-          <div className="skills-pill-row">
-            {skillsList.map(skill => (
-              <span key={skill} className="skill-pill">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        {/* Featured Production Systems */}
-        <section className="section-block">
-          <div className="section-header">
-            <span className="section-label">Selected Work</span>
-            <h2 className="section-title">Production Systems & Architecture</h2>
-            <p className="section-desc">Key engineering initiatives architected and scaled across financial engineering, real-time distributed streaming, and autonomous multi-agent swarms.</p>
-          </div>
-
-          <div className="cards-grid">
-            {featuredProjects.map(proj => (
-              <div 
-                key={proj.id} 
-                className="project-card"
-                onClick={() => handleSelectNodeById(proj.id)}
-              >
-                <div className="card-top">
-                  <div>
-                    <h3 className="card-title">{proj.title}</h3>
-                    <p className="card-subtitle">{proj.subtitle}</p>
-                  </div>
-                  <span className="card-explore-hint">Explore ↗</span>
-                </div>
-                <p className="card-desc">{proj.desc}</p>
-                <div className="tags-row">
-                  {proj.tags.map(t => (
-                    <span key={t} className="tag-chip">{t}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* 3D Knowledge Graph */}
-        <section className="section-block" id="knowledge-graph-section">
-          <div className="section-header">
-            <span className="section-label">System Architecture</span>
-            <h2 className="section-title">Interactive Knowledge & Skill Graph</h2>
-            <p className="section-desc">Rotate, zoom, and click any node in the 3D topology to inspect real-time architecture, codebase paths, and module metrics.</p>
-          </div>
-
-          <div className="graph-container">
-            <div className="graph-3d-panel">
-              <MemoryGraph3D onSelectNode={setSelectedNode} activeNode={selectedNode} />
-            </div>
-
-            <div className="graph-details-panel">
-              {selectedNode ? (
-                <div className="details-content">
-                  <div className="details-header">
-                    <span className="details-type-pill">
-                      {selectedNode.type === 'project' ? 'System Module' : 'Skill Metric'}
-                    </span>
-                    <h3 className="details-title">{selectedNode.label}</h3>
-                    {selectedNode.status && (
-                      <span className="details-status-badge">● {selectedNode.status}</span>
-                    )}
-                  </div>
-                  
-                  <p className="details-headline">{selectedNode.desc}</p>
-                  <p className="details-body-text">{selectedNode.details}</p>
-
-                  {selectedNode.link && (
-                    <a 
-                      href={selectedNode.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="details-link-btn"
-                    >
-                      Visit Platform ↗
-                    </a>
-                  )}
-
-                  {selectedNode.localPath && (
-                    <div className="details-code-path">
-                      Target: <code>{selectedNode.localPath}</code>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="details-empty-state">
-                  <div className="empty-state-icon">❖</div>
-                  <p className="empty-state-title">Select a node in the 3D graph</p>
-                  <p className="empty-state-subtitle">Click any project or skill node on the canvas to inspect documentation and live telemetry.</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Connect & Socials */}
-        <section className="section-block">
-          <div className="section-header">
-            <span className="section-label">Contact</span>
-            <h2 className="section-title">Get In Touch</h2>
-          </div>
-
-          <div className="connect-grid">
+          <nav aria-label="Social and Resume Navigation" className="nav-links">
             {socials.map(s => (
               <a 
                 key={s.name} 
                 href={s.url} 
                 target="_blank" 
-                rel="noopener noreferrer"
-                className="connect-card"
+                rel="noopener noreferrer" 
+                className="nav-link"
+                aria-label={s.label}
               >
-                <span className="connect-name">{s.name}</span>
-                <span className="connect-arrow">↗</span>
+                {s.name}
               </a>
             ))}
             <a 
-              href="mailto:sahil.artits.rathee@gmail.com" 
-              className="connect-card"
+              href={resumeDocUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="nav-link"
+              aria-label="Google Doc Resume (opens in new tab)"
             >
-              <span className="connect-name">Email (sahil.artits.rathee@gmail.com)</span>
-              <span className="connect-arrow">↗</span>
+              Google Doc ↗
             </a>
-          </div>
-        </section>
+            <a 
+              href="/Sahil-Rathee-Resume.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="resume-btn"
+              aria-label="Download Sahil Rathee Resume PDF (opens in new tab)"
+            >
+              Download Resume PDF ↗
+            </a>
+          </nav>
+        </header>
 
-        {/* Footer */}
-        <footer className="footer-bar">
-          <div>© {new Date().getFullYear()} Sahil Rathee • Senior Software Engineer & AI Architect</div>
-          <div>New Delhi, India</div>
+        {/* Main Content Landmark */}
+        <main id="main-content">
+          {/* Hero Section with Prominent Portrait Showcase */}
+          <section className="hero-section" aria-labelledby="hero-name-heading">
+            <div className="hero-grid">
+              {/* Left Column: Bio, Titles, Key Metrics */}
+              <div className="hero-content-col">
+                <div className="hero-heading-group">
+                  <h1 id="hero-name-heading" className="hero-name">
+                    SAHIL RATHEE
+                  </h1>
+                  <div className="badge-open" role="status" aria-label="Status: Open to Work">
+                    <span className="badge-dot" aria-hidden="true"></span>
+                    Open to Work
+                  </div>
+                </div>
+
+                <p className="hero-role-title">
+                  Senior Software Engineer & AI Architect
+                </p>
+
+                <p className="hero-bio">
+                  Architecting resilient <strong>Financial Systems</strong>, high-throughput{' '}
+                  <strong>Distributed Infrastructure</strong>, and autonomous <strong>Agentic AI Workflows</strong>. 
+                  Specializing in low-latency event telemetry, in-memory execution engines, and multi-tenant cloud ecosystems.
+                </p>
+
+                {/* Quantitative Impact Highlights */}
+                <div className="hero-stats-row" role="region" aria-label="Career Highlights">
+                  <div className="stat-card">
+                    <span className="stat-value">4+</span>
+                    <span className="stat-label">Years Engineering</span>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-value">10+</span>
+                    <span className="stat-label">Production Systems</span>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-value">80%</span>
+                    <span className="stat-label">Bundle Footprint Cut</span>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-value">&lt; 1ms</span>
+                    <span className="stat-label">In-Memory Buffers</span>
+                  </div>
+                </div>
+
+                {/* Primary CTA Row */}
+                <div className="hero-cta-row">
+                  <a 
+                    href="/Sahil-Rathee-Resume.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hero-primary-btn"
+                    aria-label="Download ATS Resume PDF (opens in new tab)"
+                  >
+                    <span>Download Resume PDF</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+
+                  <a 
+                    href="#knowledge-graph-section" 
+                    className="hero-secondary-btn"
+                    aria-label="Explore 3D Architecture and Skill Graph"
+                  >
+                    <span>Explore Architecture</span>
+                    <span aria-hidden="true">❖</span>
+                  </a>
+
+                  <a 
+                    href="mailto:sahil.artits.rathee@gmail.com" 
+                    className="hero-tertiary-btn"
+                    aria-label="Send Email directly to Sahil Rathee"
+                  >
+                    <span>Email Me</span>
+                    <span aria-hidden="true">✉</span>
+                  </a>
+                </div>
+
+                {/* Skills Pill Row */}
+                <div className="skills-container" aria-label="Key Technologies">
+                  <span className="skills-heading">Core Stack:</span>
+                  <div className="skills-pill-row">
+                    {skillsList.map(skill => (
+                      <span key={skill} className="skill-pill">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Architectural Profile Card featuring Sahil's Picture */}
+              <div className="hero-portrait-col">
+                <div className="portrait-showcase-card">
+                  {/* Glowing Ambient Halo */}
+                  <div className="portrait-halo" aria-hidden="true"></div>
+                  
+                  {/* Image Frame with gradient stroke */}
+                  <div className="portrait-frame">
+                    <img 
+                      src="/sahil.png" 
+                      alt="Portrait of Sahil Rathee, Senior Software Engineer and AI Systems Architect" 
+                      className="portrait-image"
+                      loading="eager"
+                      width="380"
+                      height="380"
+                    />
+                    <div className="portrait-bottom-fade" aria-hidden="true"></div>
+                  </div>
+
+                  {/* Verified Meta Badge Card */}
+                  <div className="portrait-badge-panel">
+                    <div className="portrait-identity-row">
+                      <div className="portrait-name-info">
+                        <span className="portrait-name">Sahil Rathee</span>
+                        <span className="portrait-tagline">Architect • Infortts Core Systems</span>
+                      </div>
+                      <span className="portrait-verified-check" title="Verified Architect" aria-label="Verified Profile">
+                        ✓
+                      </span>
+                    </div>
+
+                    <div className="portrait-meta-chips">
+                      <span className="meta-chip">
+                        <span className="meta-dot"></span> New Delhi, India
+                      </span>
+                      <span className="meta-chip">
+                        <span className="meta-dot"></span> Staff / Senior Role
+                      </span>
+                      <span className="meta-chip">
+                        <span className="meta-dot"></span> Full-Stack & AI
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Featured Production Systems */}
+          <section className="section-block" aria-labelledby="featured-work-heading">
+            <div className="section-header">
+              <span className="section-label">Selected Work</span>
+              <h2 id="featured-work-heading" className="section-title">Production Systems & Architecture</h2>
+              <p className="section-desc">
+                High-scale engineering initiatives architected across algorithmic financial engineering, 
+                real-time telemetry streaming, and autonomous multi-agent swarms.
+              </p>
+            </div>
+
+            <div className="cards-grid">
+              {featuredProjects.map(proj => (
+                <div 
+                  key={proj.id} 
+                  className="project-card"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleSelectNodeById(proj.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleSelectNodeById(proj.id);
+                    }
+                  }}
+                  aria-label={`Explore ${proj.title} architecture details in the 3D topology`}
+                >
+                  <div className="card-top">
+                    <div>
+                      <h3 className="card-title">{proj.title}</h3>
+                      <p className="card-subtitle">{proj.subtitle}</p>
+                    </div>
+                    <span className="card-explore-hint" aria-hidden="true">Explore ↗</span>
+                  </div>
+                  <p className="card-desc">{proj.desc}</p>
+                  <div className="tags-row" aria-label="Technologies used">
+                    {proj.tags.map(t => (
+                      <span key={t} className="tag-chip">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Interactive Knowledge & Skill Graph */}
+          <section className="section-block" id="knowledge-graph-section" aria-labelledby="graph-section-heading">
+            <div className="section-header flex-header">
+              <div>
+                <span className="section-label">System Architecture</span>
+                <h2 id="graph-section-heading" className="section-title">Interactive Knowledge & Skill Graph</h2>
+                <p className="section-desc">
+                  Explore architecture modules, codebase paths, and live metrics in 3D or through the accessible directory view.
+                </p>
+              </div>
+
+              {/* View Toggle Bar (3D Canvas vs Accessible Directory) */}
+              <div className="view-toggle-bar" role="group" aria-label="Graph Display Modes">
+                <button 
+                  type="button"
+                  className={`toggle-view-btn ${graphViewMode === '3d' ? 'active' : ''}`}
+                  onClick={() => setGraphViewMode('3d')}
+                  aria-pressed={graphViewMode === '3d'}
+                >
+                  <span aria-hidden="true">❖</span> 3D Spatial Topology
+                </button>
+                <button 
+                  type="button"
+                  className={`toggle-view-btn ${graphViewMode === 'list' ? 'active' : ''}`}
+                  onClick={() => setGraphViewMode('list')}
+                  aria-pressed={graphViewMode === 'list'}
+                >
+                  <span aria-hidden="true">☰</span> Accessible Directory
+                </button>
+              </div>
+            </div>
+
+            {/* Filter pills for directory and graph */}
+            <div className="filter-pill-bar" role="tablist" aria-label="Filter Nodes by Category">
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeFilter === 'all'}
+                className={`filter-pill ${activeFilter === 'all' ? 'active' : ''}`}
+                onClick={() => setActiveFilter('all')}
+              >
+                All Entities ({INITIAL_NODES.length})
+              </button>
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeFilter === 'project'}
+                className={`filter-pill ${activeFilter === 'project' ? 'active' : ''}`}
+                onClick={() => setActiveFilter('project')}
+              >
+                Systems & Platforms ({INITIAL_NODES.filter(n => n.type === 'project').length})
+              </button>
+              <button 
+                type="button"
+                role="tab"
+                aria-selected={activeFilter === 'skill'}
+                className={`filter-pill ${activeFilter === 'skill' ? 'active' : ''}`}
+                onClick={() => setActiveFilter('skill')}
+              >
+                Skill Vectors ({INITIAL_NODES.filter(n => n.type === 'skill').length})
+              </button>
+            </div>
+
+            {graphViewMode === '3d' ? (
+              <div className="graph-container">
+                <div className="graph-3d-panel">
+                  <MemoryGraph3D onSelectNode={setSelectedNode} activeNode={selectedNode} />
+                </div>
+
+                <div className="graph-details-panel" tabIndex={0} aria-label="Selected Architecture Module Details">
+                  {selectedNode ? (
+                    <article className="details-content">
+                      <div className="details-header">
+                        <span className="details-type-pill">
+                          {selectedNode.type === 'project' ? 'System Module' : 'Skill Metric'}
+                        </span>
+                        <h3 className="details-title">{selectedNode.label}</h3>
+                        {selectedNode.status && (
+                          <span className="details-status-badge">● {selectedNode.status}</span>
+                        )}
+                      </div>
+                      
+                      <p className="details-headline">{selectedNode.desc}</p>
+                      <p className="details-body-text">{selectedNode.details}</p>
+
+                      {selectedNode.link && (
+                        <a 
+                          href={selectedNode.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="details-link-btn"
+                          aria-label={`Visit live platform for ${selectedNode.label} (opens in new tab)`}
+                        >
+                          Visit Platform ↗
+                        </a>
+                      )}
+
+                      {selectedNode.localPath && (
+                        <div className="details-code-path">
+                          Target Path: <code>{selectedNode.localPath}</code>
+                        </div>
+                      )}
+                    </article>
+                  ) : (
+                    <div className="details-empty-state">
+                      <div className="empty-state-icon" aria-hidden="true">❖</div>
+                      <p className="empty-state-title">Select a node in the 3D topology</p>
+                      <p className="empty-state-subtitle">
+                        Rotate and click any system or skill node to inspect live architecture specifications and telemetry.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              /* Accessible Directory List View */
+              <div className="accessible-directory-grid" role="region" aria-label="Accessible Systems and Skills Directory">
+                {filteredNodes.map(node => (
+                  <article 
+                    key={node.id} 
+                    className={`directory-node-card ${selectedNode?.id === node.id ? 'active-selection' : ''}`}
+                  >
+                    <div className="node-card-top">
+                      <span className={`node-type-badge ${node.type}`}>
+                        {node.type === 'project' ? 'System' : 'Skill'}
+                      </span>
+                      {node.status && (
+                        <span className="node-status-tag">● {node.status}</span>
+                      )}
+                    </div>
+
+                    <h3 className="node-card-title">{node.label}</h3>
+                    <p className="node-card-headline">{node.desc}</p>
+                    <p className="node-card-details">{node.details}</p>
+
+                    <div className="node-card-footer">
+                      {node.link && (
+                        <a 
+                          href={node.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="node-action-btn"
+                          aria-label={`Visit live platform for ${node.label} (opens in new tab)`}
+                        >
+                          Live Platform ↗
+                        </a>
+                      )}
+                      {node.localPath && (
+                        <span className="node-code-tag">
+                          <code>{node.localPath}</code>
+                        </span>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* Connect & Socials */}
+          <section className="section-block" aria-labelledby="contact-heading">
+            <div className="section-header">
+              <span className="section-label">Connect</span>
+              <h2 id="contact-heading" className="section-title">Get In Touch</h2>
+              <p className="section-desc">Open for Staff, Lead, and Senior Software Engineering positions worldwide.</p>
+            </div>
+
+            <div className="connect-grid">
+              {socials.map(s => (
+                <a 
+                  key={s.name} 
+                  href={s.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="connect-card"
+                  aria-label={s.label}
+                >
+                  <span className="connect-name">{s.name}</span>
+                  <span className="connect-arrow" aria-hidden="true">↗</span>
+                </a>
+              ))}
+              <a 
+                href="mailto:sahil.artits.rathee@gmail.com" 
+                className="connect-card"
+                aria-label="Send direct email to sahil.artits.rathee@gmail.com"
+              >
+                <span className="connect-name">Email (Direct)</span>
+                <span className="connect-arrow" aria-hidden="true">✉</span>
+              </a>
+            </div>
+          </section>
+        </main>
+
+        {/* Semantic Accessible Footer */}
+        <footer role="contentinfo" className="footer-bar">
+          <div>
+            © {new Date().getFullYear()} Sahil Rathee • Senior Software Engineer & AI Systems Architect
+          </div>
+          <div>New Delhi, India • Open for Senior Roles</div>
         </footer>
       </div>
 
-      {/* Floating AI Assistant */}
+      {/* Floating AI Assistant (Accessible Dialog) */}
       <div className="ai-chat-wrapper">
         {!chatOpen ? (
           <button 
+            type="button"
             onClick={() => setChatOpen(true)}
             className="ai-chat-trigger"
+            aria-haspopup="dialog"
+            aria-expanded={chatOpen}
+            aria-label="Open Sahil's AI Assistant to ask questions about projects and stack"
           >
-            <span className="live-dot"></span>
+            <span className="live-dot" aria-hidden="true"></span>
             Ask AI Assistant
           </button>
         ) : (
-          <div className="ai-chat-modal">
+          <div 
+            className="ai-chat-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="ai-chat-title"
+          >
             {/* Header */}
             <div className="chat-header">
-              <div className="chat-title">
-                <span className="live-dot"></span>
+              <div className="chat-title" id="ai-chat-title">
+                <span className="live-dot" aria-hidden="true"></span>
                 <span>Sahil AI Assistant</span>
               </div>
               <button 
+                type="button"
                 onClick={() => setChatOpen(false)}
                 className="chat-close-btn"
-                aria-label="Close Chat"
+                aria-label="Close AI Assistant dialog (or press Escape)"
               >
                 ✕
               </button>
             </div>
 
-            {/* Messages */}
-            <div className="chat-messages-area">
+            {/* Quick Prompts */}
+            <div className="chat-prompts-row" role="group" aria-label="Suggested Questions">
+              {quickPrompts.map(prompt => (
+                <button
+                  key={prompt}
+                  type="button"
+                  className="chat-prompt-chip"
+                  onClick={() => sendQuery(prompt)}
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+
+            {/* Messages Feed with Polite Screen Reader Announcement */}
+            <div 
+              className="chat-messages-area" 
+              role="log" 
+              aria-live="polite" 
+              aria-atomic="false"
+              aria-label="Chat Message History"
+            >
               {messages.map((msg, idx) => (
                 <div 
                   key={idx} 
@@ -357,25 +691,31 @@ const App: React.FC = () => {
                 </div>
               ))}
               {isTyping && (
-                <div className="chat-typing">
-                  AI is thinking...
+                <div className="chat-typing" role="status">
+                  AI is analyzing systems...
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Form */}
+            {/* Input Form with Accessible Label */}
             <form onSubmit={handleSendMessage} className="chat-input-form">
+              <label htmlFor="ai-chat-input" className="sr-only">
+                Ask a question about Sahil's systems, architecture, or skills
+              </label>
               <input 
+                id="ai-chat-input"
+                ref={chatInputRef}
                 type="text"
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
-                placeholder="Ask about systems, skills, or stack..."
+                placeholder="Ask about systems, stack, or experience..."
                 className="chat-input"
               />
               <button 
                 type="submit"
                 className="chat-send-btn"
+                aria-label="Send message to AI assistant"
               >
                 Send
               </button>

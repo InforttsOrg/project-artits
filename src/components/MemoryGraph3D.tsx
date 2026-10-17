@@ -806,6 +806,8 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
     >
       <canvas 
         ref={canvasRef}
+        role="img"
+        aria-label="Interactive 3D Knowledge Graph displaying architecture nodes, systems, and technical metrics. Drag to rotate in 3D space, or select nodes from the accessible list."
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}

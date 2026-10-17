@@ -178,6 +178,8 @@ export const GameOfLifeBackground: React.FC = () => {
       animationFrameId = requestAnimationFrame(render);
     };
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     animationFrameId = requestAnimationFrame(render);
 
     return () => {
@@ -191,6 +193,8 @@ export const GameOfLifeBackground: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       className="fixed inset-0 pointer-events-none"
       style={{
         position: 'fixed',
