@@ -1,4 +1,20 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import {
+  WORLD,
+  CP,
+  JM,
+  ZONE,
+  ROADS,
+  RINGS,
+  PARKS,
+  BUILD,
+  riverL,
+  inRiver,
+  collideBuildings,
+  hypot,
+  dist,
+  clamp,
+} from '../game/delhiEngine';
 
 interface ArchitectRunnerGameProps {
   onOpenPhoneCall: () => void;
@@ -9,6 +25,8 @@ interface ArchitectRunnerGameProps {
 interface PipelineAgent {
   x: number;
   y: number;
+  vx: number;
+  vy: number;
   color: string;
   label: string;
 }
@@ -54,11 +72,6 @@ interface SparkParticle {
   size: number;
 }
 
-// 1KM × 1KM OPEN WORLD CONSTANTS (1000m × 1000m scaled at 6px / meter)
-const WORLD_WIDTH = 6000;
-const WORLD_HEIGHT = 6000;
-const METER_SCALE = 6; // 6 pixels = 1 meter
-
 const ARCHITECT_PULSES = [
   "⚡ Sub-millisecond ring buffers synchronized",
   "🚀 NATS JetStream zero-loss streaming active",
@@ -83,6 +96,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const radarCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const miniCanvasCacheRef = useRef<HTMLCanvasElement | null>(null);
 
   // Menu & Modal State
   const [inMenu, setInMenu] = useState<boolean>(true);
@@ -97,7 +111,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
   const [gpsCoords, setGpsCoords] = useState<{ x: number; y: number; district: string }>({
     x: 0,
     y: 0,
-    district: 'Central Infortts Spire',
+    district: 'Central Infortts Spire (CP)',
   });
   const [pipelineCount, setPipelineCount] = useState<number>(1);
   const [currentScore, setCurrentScore] = useState<number>(0);
@@ -113,7 +127,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
   // Active Objective / Quest Tracker
   const [activeQuest, setActiveQuest] = useState<{ id: string; title: string; progress: string }>({
     id: 'phone',
-    title: '📞 Reach the Phone Terminal at Infortts HQ to connect with Sahil',
+    title: '📞 Reach the Phone Terminal at Connaught Place to connect with Sahil',
     progress: 'Navigating...',
   });
   const [isNearPhoneTerminal, setIsNearPhoneTerminal] = useState<boolean>(false);
@@ -121,7 +135,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     'Infortts Core Edge Gateway Online • 40+ Market Feeds Live • High-Throughput Cluster Stable'
   );
 
-  // Virtual Joystick State for Mobile Touch
+  // Touch Joystick State
   const [joystickActive, setJoystickActive] = useState<boolean>(false);
   const [joystickBasePos, setJoystickBasePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [joystickThumbPos, setJoystickThumbPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -129,10 +143,11 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
 
   // Game Engine World Refs
   const characterRef = useRef({
-    x: 3000,
-    y: 3100,
+    x: CP.x,
+    y: CP.y + 120,
     vx: 0,
     vy: 0,
+    r: 14,
     heading: -Math.PI / 2,
     baseSpeed: 5.5,
     isDashing: false,
@@ -141,8 +156,8 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
   });
 
   const cameraRef = useRef({
-    x: 3000 - window.innerWidth / 2,
-    y: 3100 - window.innerHeight / 2,
+    x: CP.x - window.innerWidth / 2,
+    y: CP.y + 120 - window.innerHeight / 2,
   });
 
   const keysRef = useRef<{ [key: string]: boolean }>({});
@@ -154,59 +169,59 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
   const telemetryPulsesRef = useRef<TelemetryPulse[]>([]);
   const sparksRef = useRef<SparkParticle[]>([]);
 
-  // 1km × 1km Landmark Cores across 4 Quadrants
+  // Infortts Production Systems mapped to Delhi Hubs
   const worldLandmarksRef = useRef({
-    commandHQ: { x: 3000, y: 2600, radius: 140, name: 'INFORTTS CENTRAL HQ' },
-    phoneTerminal: { x: 3000, y: 2780, radius: 36, name: 'DIRECT CALL TERMINAL' },
+    commandHQ: { x: CP.x, y: CP.y - 120, radius: 140, name: 'INFORTTS CENTRAL SPIRE' },
+    phoneTerminal: { x: CP.x, y: CP.y + 40, radius: 36, name: 'DIRECT CALL TERMINAL' },
     districts: [
       {
         id: 'mitochondria',
         name: 'ZENITH & MITOCHONDRIA',
-        subtitle: 'High-Frequency Forensics Hub',
-        x: 1500,
-        y: 1500,
+        subtitle: 'Forensics Workstation @ Jantar Mantar',
+        x: JM.x,
+        y: JM.y,
         radius: 120,
-        pullRadius: 420,
+        pullRadius: 360,
         pullStrength: 1.4,
         color: '#f59e0b',
       },
       {
         id: 'meeseeks',
-        name: 'MEESEEKS',
-        subtitle: 'Autonomous AI Swarm Lab',
-        x: 4500,
-        y: 1500,
+        name: 'MEESEEKS AI SWARMS',
+        subtitle: 'Autonomous AI Swarm @ Mandi House',
+        x: 3700,
+        y: 2500,
         radius: 110,
-        pullRadius: 380,
+        pullRadius: 340,
         pullStrength: 1.25,
         color: '#8b5cf6',
       },
       {
         id: 'roost',
-        name: 'ROOST SAAS',
-        subtitle: 'Multi-Tenant Escrow Citadel',
-        x: 1500,
-        y: 4500,
-        radius: 105,
-        pullRadius: 360,
+        name: 'ROOST SAAS CITADEL',
+        subtitle: 'Multi-Tenant Escrow @ Lodhi Garden',
+        x: 3400,
+        y: 4620,
+        radius: 115,
+        pullRadius: 350,
         pullStrength: 1.2,
         color: '#10b981',
       },
       {
         id: 'bighit',
-        name: 'BIGHIT CLOUD',
-        subtitle: 'Zero-Downtime K8s Foundry',
-        x: 4500,
-        y: 4500,
+        name: 'BIGHIT CLOUD FOUNDRY',
+        subtitle: 'Kubernetes Foundry @ Ramlila Maidan',
+        x: 3380,
+        y: 1180,
         radius: 115,
-        pullRadius: 400,
+        pullRadius: 350,
         pullStrength: 1.35,
         color: '#0ea5e9',
       },
     ],
   });
 
-  // Procedural Web Audio Synthesizer
+  // Sound Engine
   const playSynthSound = useCallback((type: 'pulse' | 'collect' | 'zap' | 'ring' | 'thrust') => {
     if (isSoundMuted) return;
     try {
@@ -270,7 +285,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     } catch {}
   }, [isSoundMuted]);
 
-  // Sync highscore to Infortts API
+  // High score sync
   const syncScore = useCallback((scoreInc: number) => {
     setCurrentScore((prevScore) => {
       const nextScore = prevScore + scoreInc;
@@ -286,8 +301,8 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
               name: guestName || 'Architect Explorer',
               score: nextScore,
               multiplier: pipelineRef.current.length + 1,
-              missionId: 'architect_1km_canvas',
-              game: 'architect_1km_canvas',
+              missionId: 'architect_delhi_engine',
+              game: 'architect_delhi_engine',
             }),
           }).catch(() => {});
           return nextScore;
@@ -298,7 +313,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     });
   }, [guestName]);
 
-  // Telemetry Sonic Pulse (<kbd>Space</kbd> or on-screen button)
+  // Telemetry Sonic Pulse
   const triggerTelemetryPulse = useCallback(() => {
     const char = characterRef.current;
     const pulseText = ARCHITECT_PULSES[Math.floor(Math.random() * ARCHITECT_PULSES.length)];
@@ -308,7 +323,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       x: char.x,
       y: char.y,
       radius: 16,
-      maxRadius: 240,
+      maxRadius: 260,
       text: pulseText,
       alpha: 1.0,
     });
@@ -317,14 +332,16 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     let collectedCount = 0;
     dataPacketsRef.current.forEach((p) => {
       if (!p.isCollected) {
-        const d = Math.hypot(p.x - char.x, p.y - char.y);
-        if (d < 230) {
+        const d = hypot(p.x - char.x, p.y - char.y);
+        if (d < 250) {
           p.isCollected = true;
           collectedCount++;
           pipelineRef.current.push({
             x: p.x,
             y: p.y,
-            color: selectedRole === 'systems' ? '#ff7f11' : '#138808',
+            vx: 0,
+            vy: 0,
+            color: selectedRole === 'systems' ? '#00d2ff' : '#8b5cf6',
             label: p.type,
           });
 
@@ -336,7 +353,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
               vx: (Math.random() - 0.5) * 6,
               vy: (Math.random() - 0.5) * 6,
               alpha: 1.0,
-              color: '#2ecc71',
+              color: '#00d2ff',
               size: 3 + Math.random() * 3,
             });
           }
@@ -349,19 +366,18 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       const nextCount = pipelineRef.current.length + 1;
       setPipelineCount(nextCount);
       syncScore(collectedCount * 120 * nextCount);
-      setStatusMsg(`⚡ Collected ${collectedCount} microservices! Swarm capacity: ${nextCount}`);
+      setStatusMsg(`⚡ Recruited ${collectedCount} microservices! Swarm capacity: ${nextCount}`);
     }
 
     // 2. Purge system glitch anomalies within range
     let purgedCount = 0;
     glitchesRef.current.forEach((g) => {
       if (!g.isPurged) {
-        const d = Math.hypot(g.x - char.x, g.y - char.y);
-        if (d < 230) {
+        const d = hypot(g.x - char.x, g.y - char.y);
+        if (d < 250) {
           g.isPurged = true;
           purgedCount++;
 
-          // Explosion sparks
           for (let s = 0; s < 12; s++) {
             sparksRef.current.push({
               x: g.x,
@@ -369,7 +385,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
               vx: (Math.random() - 0.5) * 8,
               vy: (Math.random() - 0.5) * 8,
               alpha: 1.0,
-              color: '#ff9933',
+              color: '#00d2ff',
               size: 4 + Math.random() * 4,
             });
           }
@@ -385,21 +401,102 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     }
   }, [playSynthSound, selectedRole, syncScore]);
 
-  // Initialize 1km × 1km Open World Map Data
+  // Pre-render Vector Minimap Cache
+  const buildMiniCache = useCallback(() => {
+    const mini = document.createElement('canvas');
+    mini.width = 300;
+    mini.height = 300;
+    const g = mini.getContext('2d');
+    if (!g) return;
+
+    const scale = 300 / WORLD;
+    g.scale(scale, scale);
+
+    // Deep space ground
+    g.fillStyle = '#050811';
+    g.fillRect(0, 0, WORLD, WORLD);
+
+    // Parks in cyber emerald
+    for (const p of PARKS) {
+      g.fillStyle = 'rgba(16, 185, 129, 0.18)';
+      if (p.t === 'c' && p.r) {
+        g.beginPath();
+        g.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        g.fill();
+      } else if (p.w && p.h) {
+        g.fillRect(p.x, p.y, p.w, p.h);
+      }
+    }
+
+    // River Yamuna
+    g.fillStyle = 'rgba(3, 105, 161, 0.4)';
+    g.beginPath();
+    for (let y = 0; y <= WORLD; y += 60) g.lineTo(riverL(y), y);
+    for (let y = WORLD; y >= 0; y -= 60) g.lineTo(riverL(y) + 300, y);
+    g.fill();
+
+    // Roads in dark slate with cyan borders
+    g.strokeStyle = 'rgba(15, 23, 42, 0.9)';
+    g.lineCap = 'round';
+    g.lineJoin = 'round';
+    for (const r of ROADS) {
+      g.lineWidth = Math.max(r.w, 30);
+      g.beginPath();
+      r.p.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+      g.stroke();
+    }
+
+    // Concentric Rings
+    for (const c of RINGS) {
+      g.lineWidth = Math.max(c.w, 35);
+      g.beginPath();
+      g.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      g.stroke();
+    }
+
+    // Centerlines in neon cyan
+    g.strokeStyle = '#00d2ff';
+    g.lineWidth = 12;
+    for (const r of ROADS) {
+      if (r.spoke) continue;
+      g.beginPath();
+      r.p.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+      g.stroke();
+    }
+
+    // Zone Perimeter
+    g.strokeStyle = '#10b981';
+    g.lineWidth = 20;
+    g.beginPath();
+    g.arc(ZONE.x, ZONE.y, ZONE.R, 0, Math.PI * 2);
+    g.stroke();
+
+    miniCanvasCacheRef.current = mini;
+  }, []);
+
+  // Initialize Game World
   const initializeWorld = useCallback(() => {
-    // 1. Spawn 260 Microservice Data Packets across all 1km territory
+    buildMiniCache();
+
+    // 1. Spawn 260 Microservice Data Packets along Delhi Roads & Hubs
     const newPackets: DataPacket[] = [];
     const packetTypes = [
       'NATS', 'RingBuffer', 'MT5', 'Qdrant', 'FastAPI', 'Agent', 
       'Escrow', 'Go-Worker', 'K8s', 'Docker', 'Terraform', 'WebSockets'
     ];
     for (let i = 0; i < 260; i++) {
-      const rx = 400 + Math.random() * (WORLD_WIDTH - 800);
-      const ry = 400 + Math.random() * (WORLD_HEIGHT - 800);
+      const road = ROADS[Math.floor(Math.random() * ROADS.length)];
+      const ptIdx = Math.floor(Math.random() * (road.p.length - 1));
+      const [ax, ay] = road.p[ptIdx];
+      const [bx, by] = road.p[ptIdx + 1];
+      const t = Math.random();
+      const rx = ax + (bx - ax) * t + (Math.random() - 0.5) * road.w;
+      const ry = ay + (by - ay) * t + (Math.random() - 0.5) * road.w;
+
       newPackets.push({
         id: i,
-        x: rx,
-        y: ry,
+        x: clamp(rx, 100, WORLD - 100),
+        y: clamp(ry, 100, WORLD - 100),
         vx: (Math.random() - 0.5) * 0.8,
         vy: (Math.random() - 0.5) * 0.8,
         isCollected: false,
@@ -409,14 +506,14 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     }
     dataPacketsRef.current = newPackets;
 
-    // 2. Spawn 45 Roaming Glitch Anomalies (Bugs / Memory Leaks)
+    // 2. Spawn 45 Roaming Glitch Anomalies
     const newGlitches: GlitchAnomaly[] = [];
     const bugTypes = ['MemoryLeak', 'NullPointer', 'Deadlock', '504GatewayTimeout', 'DDoSAnomaly'];
     for (let i = 0; i < 45; i++) {
       newGlitches.push({
         id: i,
-        x: 600 + Math.random() * (WORLD_WIDTH - 1200),
-        y: 600 + Math.random() * (WORLD_HEIGHT - 1200),
+        x: 600 + Math.random() * (WORLD - 1200),
+        y: 600 + Math.random() * (WORLD - 1200),
         vx: (Math.random() - 0.5) * 2.2,
         vy: (Math.random() - 0.5) * 2.2,
         type: bugTypes[Math.floor(Math.random() * bugTypes.length)],
@@ -433,12 +530,12 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     setSignalIntegrity(100);
     setStamina(100);
     setCurrentScore(0);
-    characterRef.current.x = 3000;
-    characterRef.current.y = 3100;
+    characterRef.current.x = CP.x;
+    characterRef.current.y = CP.y + 120;
     characterRef.current.vx = 0;
     characterRef.current.vy = 0;
     setInMenu(false);
-  }, []);
+  }, [buildMiniCache]);
 
   // Keyboard Listeners
   useEffect(() => {
@@ -493,10 +590,10 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     const touch = e.touches[0];
     const dx = touch.clientX - joystickBasePos.x;
     const dy = touch.clientY - joystickBasePos.y;
-    const dist = Math.hypot(dx, dy);
+    const d = hypot(dx, dy);
     const maxRadius = 45;
 
-    if (dist > maxRadius) {
+    if (d > maxRadius) {
       const angle = Math.atan2(dy, dx);
       setJoystickThumbPos({
         x: joystickBasePos.x + Math.cos(angle) * maxRadius,
@@ -509,8 +606,8 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     } else {
       setJoystickThumbPos({ x: touch.clientX, y: touch.clientY });
       joystickVectorRef.current = {
-        x: dist === 0 ? 0 : dx / maxRadius,
-        y: dist === 0 ? 0 : dy / maxRadius,
+        x: d === 0 ? 0 : dx / maxRadius,
+        y: d === 0 ? 0 : dy / maxRadius,
       };
     }
   };
@@ -520,7 +617,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
     joystickVectorRef.current = { x: 0, y: 0 };
   };
 
-  // Main 60 FPS Game Loop
+  // Main 60 FPS Render Loop
   useEffect(() => {
     const canvas = canvasRef.current;
     const radarCanvas = radarCanvasRef.current;
@@ -553,26 +650,24 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       if (keys['a'] || keys['arrowleft']) mx -= 1;
       if (keys['d'] || keys['arrowright']) mx += 1;
 
-      // Virtual Joystick on mobile
       if (jv.x !== 0 || jv.y !== 0) {
         mx = jv.x;
         my = jv.y;
       }
 
-      // Mouse Drag Movement on Desktop
       if (mousePosRef.current.isDown && !joystickActive) {
         const worldMouseX = cameraRef.current.x + mousePosRef.current.x;
         const worldMouseY = cameraRef.current.y + mousePosRef.current.y;
         const dx = worldMouseX - char.x;
         const dy = worldMouseY - char.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist > 20) {
-          mx = dx / dist;
-          my = dy / dist;
+        const d = hypot(dx, dy);
+        if (d > 20) {
+          mx = dx / d;
+          my = dy / d;
         }
       }
 
-      // Dashing & Stamina mechanics
+      // Dashing & Stamina
       const isSprinting = (keys['shift'] || char.isDashing || mousePosRef.current.isRightDown) && stamina > 5;
       if (isSprinting && (mx !== 0 || my !== 0)) {
         setStamina((prev) => Math.max(0, prev - 24 * dt));
@@ -580,24 +675,14 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         setStamina((prev) => Math.min(100, prev + 18 * dt));
       }
 
-      // Check if player is on illuminated high-speed data boulevard
-      const distFromCenter = Math.hypot(char.x - 3000, char.y - 3000);
-      const onNorthSouthHighway = Math.abs(char.x - 3000) < 90;
-      const onEastWestHighway = Math.abs(char.y - 3000) < 90;
-      char.onHighway = (onNorthSouthHighway || onEastWestHighway) && distFromCenter < 2400;
-
-      let currentSpeed = char.baseSpeed * (isSprinting ? char.dashMultiplier : 1.0);
-      if (char.onHighway) {
-        currentSpeed *= 1.35; // +35% Data Highway speed boost
-      }
+      const currentSpeed = char.baseSpeed * (isSprinting ? char.dashMultiplier : 1.0);
 
       if (mx !== 0 || my !== 0) {
-        const len = Math.hypot(mx, my);
+        const len = hypot(mx, my);
         char.vx += (mx / len) * currentSpeed * 0.28;
         char.vy += (my / len) * currentSpeed * 0.28;
         char.heading = Math.atan2(my, mx);
 
-        // Footstep / engine spark trail
         if (Math.random() < 0.4) {
           sparksRef.current.push({
             x: char.x - Math.cos(char.heading) * 14,
@@ -605,21 +690,24 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
             vx: -Math.cos(char.heading) * (2 + Math.random() * 2),
             vy: -Math.sin(char.heading) * (2 + Math.random() * 2),
             alpha: 0.8,
-            color: char.onHighway ? '#55efc4' : '#ff9933',
+            color: '#00d2ff',
             size: 2.5 + Math.random() * 2.5,
           });
         }
       }
 
-      // Velocity damping & application
+      // Apply Velocity
       char.vx *= 0.86;
       char.vy *= 0.86;
       char.x += char.vx;
       char.y += char.vy;
 
-      // Clamp character strictly to 1km × 1km world boundaries
-      char.x = Math.max(40, Math.min(WORLD_WIDTH - 40, char.x));
-      char.y = Math.max(40, Math.min(WORLD_HEIGHT - 40, char.y));
+      // REAL BUILDING COLLISION DETECTION (From reverse-engineered world.js)
+      collideBuildings(char);
+
+      // Clamp character to world edges
+      char.x = clamp(char.x, 40, WORLD - 40);
+      char.y = clamp(char.y, 40, WORLD - 40);
 
       // 2. CAMERA TRACKING & SMOOTH LERP
       const camTargetX = char.x - screenWidth / 2;
@@ -627,16 +715,15 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       cameraRef.current.x += (camTargetX - cameraRef.current.x) * 0.12;
       cameraRef.current.y += (camTargetY - cameraRef.current.y) * 0.12;
 
-      // Clamp camera to world edges
-      const camX = Math.max(0, Math.min(WORLD_WIDTH - screenWidth, cameraRef.current.x));
-      const camY = Math.max(0, Math.min(WORLD_HEIGHT - screenHeight, cameraRef.current.y));
+      const camX = clamp(cameraRef.current.x, 0, WORLD - screenWidth);
+      const camY = clamp(cameraRef.current.y, 0, WORLD - screenHeight);
       cameraRef.current.x = camX;
       cameraRef.current.y = camY;
 
       // 3. GPS & DISTRICT TELEMETRY
-      const meterX = Math.round((char.x - 3000) / METER_SCALE);
-      const meterY = Math.round((char.y - 3000) / METER_SCALE);
-      let districtName = 'Infortts Central Plaza';
+      const meterX = Math.round((char.x - CP.x) / 6);
+      const meterY = Math.round((char.y - CP.y) / 6);
+      let districtName = 'Connaught Place Central Hub';
       if (char.x < 3000 && char.y < 3000) districtName = 'Zenith Forensics Hub';
       else if (char.x >= 3000 && char.y < 3000) districtName = 'Meeseeks AI Swarms';
       else if (char.x < 3000 && char.y >= 3000) districtName = 'Roost Escrow Citadel';
@@ -646,7 +733,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
 
       // 4. PHONE TERMINAL PROXIMITY & CADENCE RING
       const phone = worldLandmarksRef.current.phoneTerminal;
-      const distToPhone = Math.hypot(phone.x - char.x, phone.y - char.y);
+      const distToPhone = hypot(phone.x - char.x, phone.y - char.y);
       const isNear = distToPhone < 85;
       setIsNearPhoneTerminal(isNear);
 
@@ -658,23 +745,21 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         }
       }
 
-      // 5. PROJECT STATIONS (BLACK HOLES / ACCRETION DISKS) PHYSICS
+      // 5. PROJECT ACCRETION DISK GRAVITATIONAL FORCES
       worldLandmarksRef.current.districts.forEach((st) => {
         const dx = st.x - char.x;
         const dy = st.y - char.y;
-        const dist = Math.hypot(dx, dy);
+        const d = hypot(dx, dy);
 
-        // Gravitational pull within pull radius
-        if (dist < st.pullRadius && dist > st.radius * 0.5) {
-          const force = (st.pullStrength * 160) / Math.max(40, dist);
-          char.vx += (dx / dist) * force * dt;
-          char.vy += (dy / dist) * force * dt;
+        if (d < st.pullRadius && d > st.radius * 0.5) {
+          const force = (st.pullStrength * 160) / Math.max(40, d);
+          char.vx += (dx / d) * force * dt;
+          char.vy += (dy / d) * force * dt;
         }
 
-        // Singularity Event Horizon Breach: Warp back to Central HQ with emergency reboot
-        if (dist <= st.radius * 0.5) {
-          char.x = 3000;
-          char.y = 3100;
+        if (d <= st.radius * 0.5) {
+          char.x = CP.x;
+          char.y = CP.y + 120;
           char.vx = 0;
           char.vy = 0;
           setSignalIntegrity((prev) => Math.max(20, prev - 20));
@@ -682,32 +767,27 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         }
       });
 
-      // 6. ROAMING GLITCH ANOMALIES (ENEMIES)
+      // 6. ROAMING GLITCH ANOMALIES
       glitchesRef.current.forEach((g) => {
         if (!g.isPurged) {
           g.x += g.vx;
           g.y += g.vy;
 
-          // Bounce off bounds
-          if (g.x < 300 || g.x > WORLD_WIDTH - 300) g.vx *= -1;
-          if (g.y < 300 || g.y > WORLD_HEIGHT - 300) g.vy *= -1;
+          if (g.x < 300 || g.x > WORLD - 300) g.vx *= -1;
+          if (g.y < 300 || g.y > WORLD - 300) g.vy *= -1;
 
-          // Check collision with player
-          const distToPlayer = Math.hypot(g.x - char.x, g.y - char.y);
+          const distToPlayer = hypot(g.x - char.x, g.y - char.y);
           if (distToPlayer < g.size + 16) {
-            // Player takes damage
             setSignalIntegrity((prev) => {
               const next = Math.max(0, prev - 12);
               if (next <= 0) {
-                // Emergency auto-backup
-                char.x = 3000;
-                char.y = 3100;
-                setStatusMsg('⚠️ Signal Integrity Critical! Emergency reboot at Central HQ.');
+                char.x = CP.x;
+                char.y = CP.y + 120;
+                setStatusMsg('⚠️ Signal Integrity Critical! Emergency reboot at Infortts Spire.');
                 return 100;
               }
               return next;
             });
-            // Knockback player
             char.vx = -Math.cos(char.heading) * 8;
             char.vy = -Math.sin(char.heading) * 8;
             g.vx *= -1;
@@ -716,21 +796,37 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         }
       });
 
-      // 7. PIPELINE SWARM VERLET TRAILING PHYSICS
+      // 7. MULTI-AGENT SWARM FLOCKING WITH SEPARATION PHYSICS
       const pipeline = pipelineRef.current;
-      pipeline.forEach((p, idx) => {
-        const target = idx === 0 ? char : pipeline[idx - 1];
+      for (let i = 0; i < pipeline.length; i++) {
+        const p = pipeline[i];
+        const target = i === 0 ? char : pipeline[i - 1];
         const dx = target.x - p.x;
         const dy = target.y - p.y;
-        const dist = Math.hypot(dx, dy);
+        const d = hypot(dx, dy);
 
-        if (dist > 26) {
-          p.x += (dx / dist) * currentSpeed * 0.88;
-          p.y += (dy / dist) * currentSpeed * 0.88;
+        if (d > 26) {
+          p.x += (dx / d) * currentSpeed * 0.88;
+          p.y += (dy / d) * currentSpeed * 0.88;
         }
-      });
 
-      // 8. UPDATE ACTIVE QUEST OBJECTIVE
+        // Separation from other swarm members
+        for (let j = i + 1; j < pipeline.length; j++) {
+          const o = pipeline[j];
+          const ox = o.x - p.x;
+          const oy = o.y - p.y;
+          const od = hypot(ox, oy);
+          if (od < 20 && od > 0.01) {
+            const push = (20 - od) * 0.3;
+            p.x -= (ox / od) * push;
+            p.y -= (oy / od) * push;
+            o.x += (ox / od) * push;
+            o.y += (oy / od) * push;
+          }
+        }
+      }
+
+      // 8. UPDATE ACTIVE QUEST
       if (pipeline.length >= 15) {
         setActiveQuest({
           id: 'master',
@@ -752,73 +848,128 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       }
 
       // ==========================================
-      // 9. RENDER WORLD TO CANVAS (INFORTTS OBSIDIAN & CYAN THEME)
+      // 9. RENDER WORLD TO CANVAS (INFORTTS THEME)
       // ==========================================
       ctx.clearRect(0, 0, screenWidth, screenHeight);
 
       ctx.save();
       ctx.translate(-camX, -camY);
 
-      // A. Ground Canvas (1km x 1km Top-Down Deep Space Cyber Grid)
+      // A. Ground Canvas
       ctx.fillStyle = '#050811';
-      ctx.fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+      ctx.fillRect(0, 0, WORLD, WORLD);
 
       // Cyber Matrix Grid Lines (every 50m / 300px)
       ctx.strokeStyle = 'rgba(0, 210, 255, 0.08)';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      for (let x = 0; x <= WORLD_WIDTH; x += 300) {
+      for (let x = 0; x <= WORLD; x += 300) {
         ctx.moveTo(x, 0);
-        ctx.lineTo(x, WORLD_HEIGHT);
+        ctx.lineTo(x, WORLD);
       }
-      for (let y = 0; y <= WORLD_HEIGHT; y += 300) {
+      for (let y = 0; y <= WORLD; y += 300) {
         ctx.moveTo(0, y);
-        ctx.lineTo(WORLD_WIDTH, y);
+        ctx.lineTo(WORLD, y);
       }
       ctx.stroke();
 
-      // B. High-Speed Illuminated Fiber Highways (Connecting All 4 Districts)
+      // B. Parks in Cyber Emerald
+      for (const p of PARKS) {
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.12)';
+        ctx.strokeStyle = 'rgba(16, 185, 129, 0.3)';
+        ctx.lineWidth = 2;
+        if (p.t === 'c' && p.r) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        } else if (p.w && p.h) {
+          ctx.fillRect(p.x, p.y, p.w, p.h);
+          ctx.strokeRect(p.x, p.y, p.w, p.h);
+        }
+      }
+
+      // C. River Yamuna (Glowing Telemetry Conduit)
+      ctx.fillStyle = 'rgba(3, 105, 161, 0.35)';
+      ctx.beginPath();
+      for (let y = 0; y <= WORLD; y += 60) ctx.lineTo(riverL(y), y);
+      for (let y = WORLD; y >= 0; y -= 60) ctx.lineTo(riverL(y) + 300, y);
+      ctx.fill();
+
+      // D. Real Delhi Road Network (Obsidian Asphalt with Electric Cyan Fiber Lines)
       ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
-      // North-South Central Highway (180px wide)
-      ctx.fillRect(2910, 800, 180, 4400);
-      // East-West Central Highway (180px wide)
-      ctx.fillRect(800, 2910, 4400, 180);
-
-      // Outer Highway Edge Conduits
-      ctx.strokeStyle = 'rgba(0, 210, 255, 0.3)';
+      ctx.strokeStyle = 'rgba(0, 210, 255, 0.25)';
       ctx.lineWidth = 2;
-      ctx.strokeRect(2910, 800, 180, 4400);
-      ctx.strokeRect(800, 2910, 4400, 180);
 
-      // Fiber-optic glowing centerlines
-      ctx.strokeStyle = '#00d2ff';
-      ctx.lineWidth = 3;
-      ctx.setLineDash([30, 20]);
-      ctx.beginPath();
-      ctx.moveTo(3000, 800);
-      ctx.lineTo(3000, 5200);
-      ctx.moveTo(800, 3000);
-      ctx.lineTo(5200, 3000);
-      ctx.stroke();
-      ctx.setLineDash([]);
+      for (const r of ROADS) {
+        // Draw asphalt body
+        ctx.save();
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.95)';
+        ctx.lineWidth = r.w;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        r.p.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+        ctx.stroke();
 
-      // Outer Plaza Circular Ring at Central Hub
-      ctx.strokeStyle = 'rgba(14, 165, 233, 0.2)';
-      ctx.lineWidth = 50;
-      ctx.beginPath();
-      ctx.arc(3000, 3000, 600, 0, Math.PI * 2);
-      ctx.stroke();
+        // Draw cyan fiber centerlines
+        ctx.strokeStyle = '#00d2ff';
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([25, 20]);
+        ctx.beginPath();
+        r.p.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+        ctx.stroke();
+        ctx.restore();
+      }
 
-      // Inner Plaza Ring
-      ctx.strokeStyle = 'rgba(0, 210, 255, 0.4)';
-      ctx.lineWidth = 8;
-      ctx.beginPath();
-      ctx.arc(3000, 3000, 350, 0, Math.PI * 2);
-      ctx.stroke();
+      // E. Concentric Rings (Connaught Place & India Gate)
+      for (const c of RINGS) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.95)';
+        ctx.lineWidth = c.w;
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.stroke();
 
-      // C. RENDER 4 PROJECT DISTRICT CORES (BLACK HOLES & ACCRETION DISKS)
+        ctx.strokeStyle = 'rgba(0, 210, 255, 0.4)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // F. Real Delhi Buildings with Viewport Frustum Culling
+      for (const b of BUILD) {
+        if (
+          b.x + b.w < camX - 100 ||
+          b.x > camX + screenWidth + 100 ||
+          b.y + b.h < camY - 100 ||
+          b.y > camY + screenHeight + 100
+        ) {
+          continue;
+        }
+
+        // Building Drop Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(b.x + 4, b.y + 4, b.w, b.h);
+
+        // Building Obsidian Walls & Roof
+        ctx.fillStyle = b.roof;
+        ctx.fillRect(b.x, b.y, b.w, b.h);
+        ctx.strokeStyle = 'rgba(0, 210, 255, 0.2)';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(b.x, b.y, b.w, b.h);
+
+        // Server Matrix / Neon Window Grid
+        ctx.fillStyle = 'rgba(0, 210, 255, 0.25)';
+        for (let wx = b.x + 8; wx < b.x + b.w - 8; wx += 16) {
+          for (let wy = b.y + 8; wy < b.y + b.h - 8; wy += 14) {
+            ctx.fillRect(wx, wy, 6, 4);
+          }
+        }
+      }
+
+      // G. 4 Project District Accretion Cores
       worldLandmarksRef.current.districts.forEach((st) => {
-        // Outer Gravitational Accretion Disk
         const grad = ctx.createRadialGradient(st.x, st.y, st.radius * 0.3, st.x, st.y, st.pullRadius);
         grad.addColorStop(0, '#050811');
         grad.addColorStop(0.35, st.color);
@@ -829,7 +980,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.arc(st.x, st.y, st.pullRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Swirling photon rings
+        // Swirling photon ring
         ctx.save();
         ctx.translate(st.x, st.y);
         ctx.rotate(now * 0.0015);
@@ -840,7 +991,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.stroke();
         ctx.restore();
 
-        // Singularity Horizon Core
+        // Singularity core
         ctx.fillStyle = '#020617';
         ctx.beginPath();
         ctx.arc(st.x, st.y, st.radius * 0.6, 0, Math.PI * 2);
@@ -849,7 +1000,6 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        // District Landmark Pillar & Hologram Label
         ctx.fillStyle = '#f8fafc';
         ctx.font = 'bold 18px "Outfit", "Segoe UI", sans-serif';
         ctx.textAlign = 'center';
@@ -859,7 +1009,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.fillText(`${st.subtitle} 🌀`, st.x, st.y + st.radius + 56);
       });
 
-      // D. RENDER CENTRAL INFORTTS COMMAND HQ & TELECOM TOWER
+      // H. Infortts Central Spire (CP)
       const hq = worldLandmarksRef.current.commandHQ;
       ctx.fillStyle = '#0b1120';
       ctx.beginPath();
@@ -869,7 +1019,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.lineWidth = 4;
       ctx.stroke();
 
-      // Satellite dish spinning
+      // Spinning satellite dish
       ctx.save();
       ctx.translate(hq.x, hq.y);
       ctx.rotate(now * 0.001);
@@ -885,12 +1035,9 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.textAlign = 'center';
       ctx.fillText('🏛️ INFORTTS CORE HQ', hq.x, hq.y - 95);
 
-      // E. RENDER PHONE TERMINAL (PHONE BOOTH)
-      const distPhone = distToPhone;
+      // I. Telecom Phone Booth Terminal
       ctx.save();
       ctx.translate(phone.x, phone.y);
-
-      // Pulsing beacon ring around phone
       const ringPulse = (now % 1000) / 1000;
       ctx.strokeStyle = `rgba(16, 185, 129, ${1 - ringPulse})`;
       ctx.lineWidth = 4;
@@ -898,14 +1045,12 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.arc(0, 0, 36 + ringPulse * 50, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Phone Booth Box
       ctx.fillStyle = 'rgba(11, 17, 32, 0.95)';
       ctx.fillRect(-22, -30, 44, 60);
       ctx.strokeStyle = '#10b981';
       ctx.lineWidth = 3;
       ctx.strokeRect(-22, -30, 44, 60);
 
-      // Dial Icon
       ctx.fillStyle = '#55efc4';
       ctx.font = '24px sans-serif';
       ctx.textAlign = 'center';
@@ -917,10 +1062,9 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.fillText('DIRECT CALL TERMINAL', 0, 48);
       ctx.restore();
 
-      // F. RENDER MICROSERVICE DATA PACKETS
+      // J. Microservice Data Packets
       dataPacketsRef.current.forEach((p) => {
         if (!p.isCollected) {
-          // Packet floating motion
           ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
           ctx.strokeStyle = '#00d2ff';
           ctx.lineWidth = 1.5;
@@ -937,14 +1081,13 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         }
       });
 
-      // G. RENDER ROAMING GLITCH ANOMALIES (ENEMIES)
+      // K. Roaming Glitch Anomalies (Bugs)
       glitchesRef.current.forEach((g) => {
         if (!g.isPurged) {
           ctx.save();
           ctx.translate(g.x, g.y);
           ctx.rotate(now * 0.004);
 
-          // Glitch Polygonal Anomaly
           ctx.fillStyle = 'rgba(239, 68, 68, 0.85)';
           ctx.strokeStyle = '#f87171';
           ctx.lineWidth = 2.5;
@@ -966,7 +1109,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         }
       });
 
-      // H. RENDER SPARKS & PARTICLES
+      // L. Sparks & Particle Systems
       for (let i = sparksRef.current.length - 1; i >= 0; i--) {
         const s = sparksRef.current[i];
         s.x += s.vx;
@@ -984,7 +1127,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         }
       }
 
-      // I. RENDER TELEMETRY PULSES
+      // M. Telemetry Pulses
       for (let i = telemetryPulsesRef.current.length - 1; i >= 0; i--) {
         const pulse = telemetryPulsesRef.current[i];
         pulse.radius += 10;
@@ -1006,7 +1149,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         }
       }
 
-      // J. RENDER TRAILING PIPELINE SWARM
+      // N. Trailing Multi-Agent Pipeline Swarm
       pipeline.forEach((p, idx) => {
         ctx.fillStyle = p.color;
         ctx.beginPath();
@@ -1021,7 +1164,6 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.textAlign = 'center';
         ctx.fillText(p.label, p.x, p.y - 12);
 
-        // Draw spring connection to leading node
         const lead = idx === 0 ? char : pipeline[idx - 1];
         ctx.strokeStyle = 'rgba(0, 210, 255, 0.4)';
         ctx.lineWidth = 2;
@@ -1031,18 +1173,16 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         ctx.stroke();
       });
 
-      // K. RENDER ARCHITECT CHARACTER (PLAYER)
+      // O. Architect Character (Player)
       ctx.save();
       ctx.translate(char.x, char.y);
       ctx.rotate(char.heading);
 
-      // Character Shadow
       ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
       ctx.beginPath();
       ctx.ellipse(0, 0, 18, 12, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      // Architect Body
       ctx.fillStyle = selectedRole === 'systems' ? '#00d2ff' : '#8b5cf6';
       ctx.beginPath();
       ctx.arc(0, 0, 16, 0, Math.PI * 2);
@@ -1051,17 +1191,13 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      // Cyber Visor / Headlamp
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(4, -6, 12, 12);
 
-      // Architect Jetpack Nodes
       ctx.fillStyle = '#0b1120';
       ctx.fillRect(-14, -8, 6, 16);
-
       ctx.restore();
 
-      // Player Label
       ctx.fillStyle = '#f8fafc';
       ctx.font = 'bold 12px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
@@ -1070,28 +1206,23 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
       ctx.restore(); // Restore camera translation
 
       // ==========================================
-      // 10. RENDER TACTICAL RADAR MINIMAP (1:40 SCALE)
+      // 10. RENDER TACTICAL RADAR (MINIMAP)
       // ==========================================
       if (radarCtx && radarCanvas) {
         const rW = (radarCanvas.width = 150);
         const rH = (radarCanvas.height = 150);
-        const scaleX = rW / WORLD_WIDTH;
-        const scaleY = rH / WORLD_HEIGHT;
+        const scaleX = rW / WORLD;
+        const scaleY = rH / WORLD;
 
-        radarCtx.fillStyle = '#0f1710';
-        radarCtx.fillRect(0, 0, rW, rH);
+        // Draw pre-cached vector minimap
+        if (miniCanvasCacheRef.current) {
+          radarCtx.drawImage(miniCanvasCacheRef.current, 0, 0, rW, rH);
+        } else {
+          radarCtx.fillStyle = '#020617';
+          radarCtx.fillRect(0, 0, rW, rH);
+        }
 
-        // Center crosshairs
-        radarCtx.strokeStyle = 'rgba(19, 136, 8, 0.3)';
-        radarCtx.lineWidth = 1;
-        radarCtx.beginPath();
-        radarCtx.moveTo(rW / 2, 0);
-        radarCtx.lineTo(rW / 2, rH);
-        radarCtx.moveTo(0, rH / 2);
-        radarCtx.lineTo(rW, rH / 2);
-        radarCtx.stroke();
-
-        // 4 Project Districts
+        // Project District Cores
         worldLandmarksRef.current.districts.forEach((st) => {
           radarCtx.fillStyle = st.color;
           radarCtx.beginPath();
@@ -1100,21 +1231,22 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         });
 
         // Phone Terminal & HQ
-        radarCtx.fillStyle = '#2ecc71';
+        radarCtx.fillStyle = '#10b981';
         radarCtx.beginPath();
         radarCtx.arc(phone.x * scaleX, phone.y * scaleY, 5, 0, Math.PI * 2);
         radarCtx.fill();
 
-        // Roaming Glitches (red dots)
-        radarCtx.fillStyle = '#e74c3c';
+        // Roaming Glitches
+        radarCtx.fillStyle = '#ef4444';
         glitchesRef.current.forEach((g) => {
           if (!g.isPurged) {
             radarCtx.fillRect(g.x * scaleX - 1, g.y * scaleY - 1, 2, 2);
           }
         });
 
-        // Camera Frustum Box
-        radarCtx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+        // Camera Frustum
+        radarCtx.strokeStyle = 'rgba(0, 210, 255, 0.6)';
+        radarCtx.lineWidth = 1;
         radarCtx.strokeRect(camX * scaleX, camY * scaleY, screenWidth * scaleX, screenHeight * scaleY);
 
         // Player Blip
@@ -1123,9 +1255,9 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
         radarCtx.arc(char.x * scaleX, char.y * scaleY, 3.5, 0, Math.PI * 2);
         radarCtx.fill();
 
-        // Radar sweep arm
+        // Radar Sweep Arm
         const sweepAngle = (now * 0.003) % (Math.PI * 2);
-        radarCtx.strokeStyle = 'rgba(46, 204, 113, 0.5)';
+        radarCtx.strokeStyle = 'rgba(0, 210, 255, 0.4)';
         radarCtx.beginPath();
         radarCtx.moveTo(char.x * scaleX, char.y * scaleY);
         radarCtx.lineTo(
@@ -1151,7 +1283,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
 
   return (
     <div className="jantar-mantar-container">
-      {/* 1KM × 1KM OPEN WORLD CANVAS */}
+      {/* 6000 × 6000 REVERSE-ENGINEERED OPEN WORLD CANVAS */}
       <canvas
         ref={canvasRef}
         onMouseDown={(e) => {
@@ -1197,7 +1329,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
             </div>
 
             <div className="game-gps-telemetry">
-              <span>GPS 1KM GRID</span>
+              <span>GPS DELHI ENGINE</span>
               <span className="game-gps-coord">
                 X:{gpsCoords.x >= 0 ? `+${gpsCoords.x}` : gpsCoords.x}m · Y:{gpsCoords.y >= 0 ? `+${gpsCoords.y}` : gpsCoords.y}m
               </span>
@@ -1223,7 +1355,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
           </div>
           <canvas ref={radarCanvasRef} className="game-radar-canvas" />
           <div className="game-radar-legend">
-            <span className="legend-item"><span className="legend-dot hq" /> HQ</span>
+            <span className="legend-item"><span className="legend-dot hq" /> Spire</span>
             <span className="legend-item"><span className="legend-dot project" /> Core</span>
             <span className="legend-item"><span className="legend-dot anomaly" /> Bug</span>
           </div>
@@ -1309,9 +1441,9 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
             </h1>
             <div className="hi">High-Throughput Distributed Infrastructure & Autonomous AI Swarms</div>
             <p className="tag">
-              Explore the full 1km × 1km open-world engineering map. Navigate across 4 massive district cores, 
-              gather microservices into your trailing pipeline swarm, purge system anomalies with Telemetry Pulse, 
-              and reach the Infortts Telecom Terminal to directly call Sahil!
+              Explore the full reverse-engineered 6000×6000 Delhi simulation map. Navigate across 4 massive district cores, 
+              gather microservices into your trailing pipeline swarm with real flocking collision physics, 
+              purge system anomalies with Telemetry Pulse, and reach the Infortts Telecom Spire at Connaught Place to directly call Sahil!
             </p>
 
             {/* Recruiter / Guest Input */}
