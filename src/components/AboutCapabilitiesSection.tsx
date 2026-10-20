@@ -135,7 +135,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
                 <span className="company-name">Gym Wise India Private Limited</span>
                 <span className="company-badge-pill">290+ Followers</span>
               </div>
-              <span className="company-role-meta">Solution Architect • Mar 2024 – Nov 2025</span>
+              <span className="company-role-meta">Solution Architect • Jul 2024 – Nov 2025 • Gurugram, India</span>
               <p className="company-impact-text">
                 Enterprise fitness ERP platform serving <b>300+ gyms across Delhi NCR, Australia, and Singapore</b>.
                 Architected Kubernetes clusters & Terraform IaC with <b>99.99% high availability</b>.
@@ -188,7 +188,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
                 <span className="company-name">BigHit Sportz: Sports for All</span>
                 <span className="company-badge-pill gold">⭐ 4.0 (128)</span>
               </div>
-              <span className="company-role-meta">Full Stack Engineer & DevOps Lead • Nov 2022 – Mar 2024</span>
+              <span className="company-role-meta">Full Stack Engineer & DevOps Lead • Nov 2022 – Mar 2024 • Mumbai, India</span>
               <p className="company-impact-text">
                 Multi-sport platform & youth scouting app (official partner <b>FC Bayern Youth Cup</b> & <b>Bundesliga Dream</b>).
                 Achieved <b>-80% app bundle size reduction</b> and <b>+60% server efficiency</b> with Amazon Neptune graph DB & OpenSearch.

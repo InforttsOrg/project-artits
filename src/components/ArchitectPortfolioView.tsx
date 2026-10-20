@@ -430,6 +430,125 @@ export const ArchitectPortfolioView: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-6">
+          {/* NaiBooking */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-emerald-500/30 bg-emerald-950/10 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-emerald-800/50 flex items-center justify-center overflow-hidden shrink-0 text-emerald-400 font-display font-bold text-lg">
+                NB
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    NaiBooking
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-900/40 text-emerald-300 border border-emerald-800/40">
+                    Bangalore, India (Remote)
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 font-semibold">
+                    Current Role
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-emerald-400">
+                  Software Engineer — High-Concurrency Booking Systems & Microservices
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  Aug 2026 – Present
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Architecting high-scale booking infrastructure and distributed scheduling microservices with low-latency event synchronization.</li>
+                  <li>Engineering fault-tolerant transaction ledgers, PostgreSQL advisory locking, and multi-tier Redis caching to handle high-frequency appointment spikes.</li>
+                  <li>Automated CI/CD deployment pipelines and cloud infrastructure observability across distributed remote service nodes.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['TypeScript', 'Node.js', 'PostgreSQL', 'Redis', 'Docker', 'Microservices', 'REST APIs', 'CI/CD'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Orealfit */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center overflow-hidden shrink-0 text-cyan-400 font-display font-bold text-lg">
+                OF
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    Orealfit
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
+                    Gurugram, India
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950/50 text-cyan-300 border border-cyan-800/40">
+                    Contractual
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-emerald-400">
+                  Lead Software Engineer — Wellness Architecture & Autonomous Pipelines
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  May 2026 – Jul 2026
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Contractually architected and scaled an enterprise sports and wellness ecosystem featuring real-time scorecard streaming.</li>
+                  <li>Deployed autonomous agentic dev and test pipelines, speeding up release cadence and feature turnaround time.</li>
+                  <li>Optimized AI infrastructure and RAG telemetry, achieving a 70% reduction in monthly AI token expenditure.</li>
+                  <li>Engineered edge-computed billing and GST-compliance solution for SMBs with sub-50ms latency.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['Flutter', 'Next.js', 'Go', 'PostgreSQL', 'Redis', 'Qdrant Vector DB', 'Docker', 'Cloudflare Workers'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Career Break: Quant Research */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-emerald-500/40 bg-emerald-950/20 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-emerald-800/50 flex items-center justify-center overflow-hidden shrink-0 text-emerald-400 font-display font-bold text-base">
+                ⚡
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    Career Break — Quantitative Research & Algorithmic Trading
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-900/50 text-emerald-300 border border-emerald-800/40">
+                    Self-Directed Deep-Dive
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-emerald-400">
+                  Advanced Trading, Quantitative Research, Algorithmic Execution & HFT
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  Dec 2025 – Apr 2026
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Dedicated career break focused on mastering Quantitative Research, Advanced Trading, Algorithmic Trading strategies, and High-Frequency Trading (HFT) architectures.</li>
+                  <li>Formulated mathematical trading models, statistical arbitrage algorithms, and tick-level backtesting engines against real-time market data.</li>
+                  <li>Engineered sub-millisecond in-memory ring buffers and MetaTrader 5 execution bridges streaming real-time order-book telemetry via NATS JetStream (Zenith & Mitochondria).</li>
+                  <li>Developed invariant-based risk management safeguards including dynamic position sizing, trailing circuit breakers, and automated drawdown enforcement.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['Quantitative Research', 'Algorithmic Trading', 'HFT Systems', 'Advanced Trading', 'MetaTrader 5', 'Python', 'C++', 'Go', 'NATS JetStream'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-800/60">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* GymWise */}
           <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col sm:flex-row items-start justify-between gap-6">
             <div className="flex items-start gap-4">
@@ -453,13 +572,50 @@ export const ArchitectPortfolioView: React.FC = () => {
                 </p>
                 <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
                   <li>Architected and led the development of scalable cloud infrastructure and software systems, driving technical strategy.</li>
-                  <li>Spearheaded the design and implementation of container orchestration solutions, optimizing system performance and reliability.</li>
+                  <li>Spearheaded the design and implementation of container orchestration solutions, optimizing system performance and reliability across 300+ gyms in Delhi NCR, Australia, and Singapore.</li>
                   <li>Designed and implemented robust software infrastructure, ensuring high availability and scalability of services.</li>
                   <li>Designed and optimized information systems architecture, improving data flow and cross-service integration.</li>
                 </ul>
                 <div className="flex flex-wrap gap-1.5 mt-3">
-                  {['Cloud Infrastructure', 'Container Orchestration', 'System Architecture', 'IT Strategy'].map((t) => (
+                  {['Cloud Infrastructure', 'Container Orchestration', 'System Architecture', 'IT Strategy', 'AWS', 'Kubernetes', 'Terraform'].map((t) => (
                     <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Career Break: AI Research */}
+          <div className="p-6 sm:p-8 rounded-2xl border border-indigo-500/40 bg-indigo-950/20 flex flex-col sm:flex-row items-start justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-indigo-800/50 flex items-center justify-center overflow-hidden shrink-0 text-indigo-400 font-display font-bold text-base">
+                🤖
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-display font-bold text-lg text-white">
+                    Career Break — AI Research & Agentic Systems
+                  </h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-900/50 text-indigo-300 border border-indigo-800/40">
+                    Self-Directed Deep-Dive
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-emerald-400">
+                  Autonomous AI Agents, Multi-Agent Swarms & AST Context Compression
+                </span>
+                <p className="text-xs font-mono text-zinc-500">
+                  Apr 2024 – Jun 2024
+                </p>
+                <ul className="mt-3 text-sm text-zinc-400 space-y-1.5 list-disc list-inside">
+                  <li>Dedicated career break between BigHit and GymWise to conduct comprehensive research into Autonomous AI Agents and Multi-Agent Workflows.</li>
+                  <li>Researched and built AST context compression algorithms, dynamic prompt caching, and isolated Docker execution environments for autonomous coding agents (Meeseeks framework).</li>
+                  <li>Designed hybrid agentic RAG retrieval architectures, hierarchical vector indexing strategies, and automated decision verification loops.</li>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {['Autonomous AI Agents', 'Multi-Agent Swarms', 'AST Code Parsing', 'Vector Embeddings', 'LLM Orchestration', 'Python', 'Docker'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded text-[11px] font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-800/60">
                       {t}
                     </span>
                   ))}
@@ -480,7 +636,7 @@ export const ArchitectPortfolioView: React.FC = () => {
                     BigHit
                   </h3>
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
-                    Sports Tech
+                    Mumbai, India
                   </span>
                 </div>
                 <span className="text-sm font-medium text-emerald-400">
@@ -518,7 +674,7 @@ export const ArchitectPortfolioView: React.FC = () => {
                     Gamix Labs
                   </h3>
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300">
-                    Gaming & Interactive Systems
+                    Noida, India
                   </span>
                 </div>
                 <span className="text-sm font-medium text-emerald-400">
