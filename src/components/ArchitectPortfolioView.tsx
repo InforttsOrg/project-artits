@@ -18,6 +18,12 @@ import {
   Instagram,
 } from 'lucide-react';
 import {
+  GitHubLogo,
+  LinkedInLogo,
+  XLogo,
+  LeetCodeLogo,
+  StackOverflowLogo,
+  InstagramLogo,
   NaiBookingLogo,
   OrealfitLogo,
   QuantTradingLogo,
@@ -348,55 +354,66 @@ export const ArchitectPortfolioView: React.FC = () => {
             href="https://github.com/rttss-sahil"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm transition-all"
+            className="w-10 h-10 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
+            title="GitHub Profile"
+            aria-label="GitHub Profile"
           >
-            GitHub ↗
+            <GitHubLogo className="w-4.5 h-4.5" />
           </a>
 
           <a
             href="https://linkedin.com/in/rttss-sahil"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm transition-all"
+            className="w-10 h-10 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#0A66C2] transition-all hover:scale-105 shadow-sm"
+            title="LinkedIn Profile"
+            aria-label="LinkedIn Profile"
           >
-            LinkedIn ↗
+            <LinkedInLogo className="w-4.5 h-4.5" />
           </a>
 
           <a
             href="https://x.com/rttss_sahil"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm transition-all"
+            className="w-10 h-10 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
+            title="X Profile"
+            aria-label="X Profile"
           >
-            X ↗
+            <XLogo className="w-4 h-4" />
           </a>
 
           <a
             href="https://leetcode.com/u/rttss-sahil/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm transition-all"
+            className="w-10 h-10 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#FFA116] transition-all hover:scale-105 shadow-sm"
+            title="LeetCode Profile"
+            aria-label="LeetCode Profile"
           >
-            LeetCode ↗
+            <LeetCodeLogo className="w-4.5 h-4.5" />
           </a>
 
           <a
             href="https://stackoverflow.com/users/14934835/rttss-sahil"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm transition-all"
+            className="w-10 h-10 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#F48024] transition-all hover:scale-105 shadow-sm"
+            title="Stack Overflow Profile"
+            aria-label="Stack Overflow Profile"
           >
-            Stack Overflow ↗
+            <StackOverflowLogo className="w-4.5 h-4.5" />
           </a>
 
           <a
             href="https://www.instagram.com/rttss_sahil/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm transition-all"
+            className="w-10 h-10 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#E4405F] transition-all hover:scale-105 shadow-sm"
+            title="Instagram Profile"
+            aria-label="Instagram Profile"
           >
-            <Instagram className="w-3.5 h-3.5 text-zinc-400" />
-            Instagram ↗
+            <InstagramLogo className="w-4.5 h-4.5" />
           </a>
         </div>
 

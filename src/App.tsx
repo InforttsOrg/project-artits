@@ -49,84 +49,84 @@ export const AppContent: React.FC = () => {
             <span>•</span>
             <span className="font-mono text-xs">rttss-sahil</span>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <a
               href="mailto:sahil.artits.rathee@gmail.com"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="Email"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
+              title="Email (sahil.artits.rathee@gmail.com)"
+              aria-label="Email"
             >
-              <Mail className="w-3.5 h-3.5" />
-              <span>Email</span>
+              <Mail className="w-4 h-4" />
             </a>
             <a
               href="https://github.com/rttss-sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="GitHub"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
+              title="GitHub Profile"
+              aria-label="GitHub"
             >
-              <GitHubLogo className="w-3.5 h-3.5" />
-              <span>GitHub</span>
+              <GitHubLogo className="w-4 h-4" />
             </a>
             <a
               href="https://linkedin.com/in/rttss-sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="LinkedIn"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#0A66C2] transition-all hover:scale-105 shadow-sm"
+              title="LinkedIn Profile"
+              aria-label="LinkedIn"
             >
-              <LinkedInLogo className="w-3.5 h-3.5" />
-              <span>LinkedIn</span>
+              <LinkedInLogo className="w-4 h-4" />
             </a>
             <a
               href="https://x.com/rttss_sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="X"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
+              title="X Profile"
+              aria-label="X"
             >
-              <XLogo className="w-3 h-3" />
-              <span>X</span>
+              <XLogo className="w-3.5 h-3.5" />
             </a>
             <a
               href="https://leetcode.com/u/rttss-sahil/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="LeetCode"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#FFA116] transition-all hover:scale-105 shadow-sm"
+              title="LeetCode Profile"
+              aria-label="LeetCode"
             >
-              <LeetCodeLogo className="w-3.5 h-3.5" />
-              <span>LeetCode</span>
+              <LeetCodeLogo className="w-4 h-4" />
             </a>
             <a
               href="https://stackoverflow.com/users/14934835/rttss-sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="Stack Overflow"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#F48024] transition-all hover:scale-105 shadow-sm"
+              title="Stack Overflow Profile"
+              aria-label="Stack Overflow"
             >
-              <StackOverflowLogo className="w-3.5 h-3.5" />
-              <span>Stack Overflow</span>
+              <StackOverflowLogo className="w-4 h-4" />
             </a>
             <a
               href="https://www.instagram.com/rttss_sahil/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="Instagram"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#E4405F] transition-all hover:scale-105 shadow-sm"
+              title="Instagram Profile"
+              aria-label="Instagram"
             >
-              <InstagramLogo className="w-3.5 h-3.5" />
-              <span>Instagram</span>
+              <InstagramLogo className="w-4 h-4" />
             </a>
             <a
               href="/Sahil-Rathee-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="Resume PDF"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-emerald-400 transition-all hover:scale-105 shadow-sm"
+              title="Download Resume PDF"
+              aria-label="Resume PDF"
             >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Resume PDF</span>
+              <FileText className="w-4 h-4" />
             </a>
           </div>
         </div>
