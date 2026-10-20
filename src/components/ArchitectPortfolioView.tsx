@@ -19,6 +19,14 @@ import {
   Code2,
   Instagram,
 } from 'lucide-react';
+import {
+  GitHubLogo,
+  LinkedInLogo,
+  XLogo,
+  LeetCodeLogo,
+  StackOverflowLogo,
+  InstagramLogo,
+} from './BrandLogos';
 import { PROJECTS_DATA } from '../data/projectsData';
 
 export const ArchitectPortfolioView: React.FC = () => {
@@ -864,58 +872,73 @@ export const ArchitectPortfolioView: React.FC = () => {
           </div>
         </div>
 
-        {/* Social Profile Grid */}
-        <div className="pt-6 border-t border-zinc-800/80 flex flex-wrap items-center gap-3 text-xs font-mono text-zinc-400">
-          <span className="text-zinc-500 mr-2">Profiles & Repos:</span>
-          <a
-            href="https://github.com/rttss-sahil"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/rttss-sahil"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://x.com/rttss_sahil"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
-          >
-            X (@rttss_sahil)
-          </a>
-          <a
-            href="https://leetcode.com/u/rttss-sahil/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
-          >
-            LeetCode
-          </a>
-          <a
-            href="https://stackoverflow.com/users/14934835/rttss-sahil"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
-          >
-            Stack Overflow
-          </a>
-          <a
-            href="https://www.instagram.com/rttss_sahil/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
-          >
-            <Instagram className="w-3 h-3 text-zinc-400" />
-            Instagram
-          </a>
+        {/* Social Profile Grid - Logos replacing text */}
+        <div className="pt-6 border-t border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-medium">
+            Profiles & Repos:
+          </span>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <a
+              href="https://github.com/rttss-sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition-all hover:scale-105 shadow-sm group"
+              title="GitHub Profile (rttss-sahil)"
+              aria-label="GitHub Profile"
+            >
+              <GitHubLogo className="w-5 h-5 text-zinc-300 group-hover:text-white transition-colors" />
+            </a>
+            <a
+              href="https://linkedin.com/in/rttss-sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-[#0A66C2] transition-all hover:scale-105 shadow-sm group"
+              title="LinkedIn Profile (Sahil Rathee)"
+              aria-label="LinkedIn Profile"
+            >
+              <LinkedInLogo className="w-5 h-5 text-zinc-300 group-hover:text-[#0A66C2] transition-colors" />
+            </a>
+            <a
+              href="https://x.com/rttss_sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition-all hover:scale-105 shadow-sm group"
+              title="X / Twitter (@rttss_sahil)"
+              aria-label="X Profile"
+            >
+              <XLogo className="w-4 h-4 text-zinc-300 group-hover:text-white transition-colors" />
+            </a>
+            <a
+              href="https://leetcode.com/u/rttss-sahil/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 transition-all hover:scale-105 shadow-sm group"
+              title="LeetCode (rttss-sahil)"
+              aria-label="LeetCode Profile"
+            >
+              <LeetCodeLogo className="w-5 h-5 group-hover:brightness-110 transition-all" />
+            </a>
+            <a
+              href="https://stackoverflow.com/users/14934835/rttss-sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 transition-all hover:scale-105 shadow-sm group"
+              title="Stack Overflow (rttss-sahil)"
+              aria-label="Stack Overflow Profile"
+            >
+              <StackOverflowLogo className="w-5 h-5 group-hover:brightness-110 transition-all" />
+            </a>
+            <a
+              href="https://www.instagram.com/rttss_sahil/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-[#E4405F] transition-all hover:scale-105 shadow-sm group"
+              title="Instagram (@rttss_sahil)"
+              aria-label="Instagram Profile"
+            >
+              <InstagramLogo className="w-5 h-5 text-zinc-300 group-hover:text-[#E4405F] transition-colors" />
+            </a>
+          </div>
         </div>
       </section>
     </div>

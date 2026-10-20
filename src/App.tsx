@@ -1,8 +1,17 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Mail, FileText } from 'lucide-react';
 import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
 import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
 import { NavigationBar } from './components/NavigationBar';
+import {
+  GitHubLogo,
+  LinkedInLogo,
+  XLogo,
+  LeetCodeLogo,
+  StackOverflowLogo,
+  InstagramLogo,
+} from './components/BrandLogos';
 
 // Automatic scroll-to-top on route changes
 const ScrollToTop: React.FC = () => {
@@ -40,68 +49,84 @@ export const AppContent: React.FC = () => {
             <span>•</span>
             <span className="font-mono text-xs">rttss-sahil</span>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
             <a
               href="mailto:sahil.artits.rathee@gmail.com"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="Email"
             >
-              Email
+              <Mail className="w-3.5 h-3.5" />
+              <span>Email</span>
             </a>
             <a
               href="https://github.com/rttss-sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="GitHub"
             >
-              GitHub
+              <GitHubLogo className="w-3.5 h-3.5" />
+              <span>GitHub</span>
             </a>
             <a
               href="https://linkedin.com/in/rttss-sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="LinkedIn"
             >
-              LinkedIn
+              <LinkedInLogo className="w-3.5 h-3.5" />
+              <span>LinkedIn</span>
             </a>
             <a
               href="https://x.com/rttss_sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="X"
             >
-              X
+              <XLogo className="w-3 h-3" />
+              <span>X</span>
             </a>
             <a
               href="https://leetcode.com/u/rttss-sahil/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="LeetCode"
             >
-              LeetCode
+              <LeetCodeLogo className="w-3.5 h-3.5" />
+              <span>LeetCode</span>
             </a>
             <a
               href="https://stackoverflow.com/users/14934835/rttss-sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="Stack Overflow"
             >
-              Stack Overflow
+              <StackOverflowLogo className="w-3.5 h-3.5" />
+              <span>Stack Overflow</span>
             </a>
             <a
               href="https://www.instagram.com/rttss_sahil/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="Instagram"
             >
-              Instagram
+              <InstagramLogo className="w-3.5 h-3.5" />
+              <span>Instagram</span>
             </a>
             <a
               href="/Sahil-Rathee-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
+              title="Resume PDF"
             >
-              Resume PDF
+              <FileText className="w-3.5 h-3.5" />
+              <span>Resume PDF</span>
             </a>
           </div>
         </div>
