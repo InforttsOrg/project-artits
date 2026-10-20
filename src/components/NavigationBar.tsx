@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowUpRight, Github, Linkedin, FileText, Menu, X, Mail } from 'lucide-react';
+import { Github, Linkedin, FileText, Menu, X, Mail } from 'lucide-react';
 
 export const NavigationBar: React.FC = () => {
   const location = useLocation();

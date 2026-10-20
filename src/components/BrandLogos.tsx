@@ -97,3 +97,100 @@ export const InstagramLogo: React.FC<LogoProps> = ({ className = 'w-5 h-5' }) =>
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
   </svg>
 );
+
+export const NaiBookingLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    viewBox="0 0 200 160"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M16 110V68C16 44.8 34.8 26 58 26C81.2 26 100 44.8 100 68V110"
+      stroke="currentColor"
+      strokeWidth="18"
+      strokeLinecap="round"
+      fill="none"
+    />
+    <circle cx="130" cy="82" r="28" stroke="currentColor" strokeWidth="16" fill="none" />
+    <path d="M158 82V110" stroke="currentColor" strokeWidth="16" strokeLinecap="round" />
+    <path d="M176 26L190 26L190 40L183 36L176 40Z" fill="currentColor" />
+    <rect x="177" y="50" width="12" height="60" rx="6" fill="currentColor" />
+    <text
+      x="100"
+      y="150"
+      textAnchor="middle"
+      fontFamily="system-ui, sans-serif"
+      fontSize="18"
+      fontWeight="700"
+      letterSpacing="6"
+      fill="currentColor"
+    >
+      BOOKING
+    </text>
+  </svg>
+);
+
+export const OrealfitLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M24 6L38 14V34L24 42L10 34V14L24 6Z"
+      stroke="currentColor"
+      strokeWidth="3.5"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M18 20L24 16L30 20V28L24 32L18 28V20Z"
+      fill="currentColor"
+      fillOpacity="0.25"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinejoin="round"
+    />
+    <path d="M24 16V32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+  </svg>
+);
+
+export const QuantTradingLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <line x1="14" y1="8" x2="14" y2="40" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.4" />
+    <rect x="10" y="16" width="8" height="16" rx="2" fill="currentColor" />
+    <line x1="24" y1="6" x2="24" y2="42" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.4" />
+    <rect x="20" y="12" width="8" height="22" rx="2" fill="currentColor" />
+    <line x1="34" y1="10" x2="34" y2="38" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.4" />
+    <rect x="30" y="18" width="8" height="12" rx="2" fill="currentColor" />
+  </svg>
+);
+
+export const AIAgentLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <circle cx="24" cy="24" r="8" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="3" />
+    <circle cx="10" cy="14" r="4" fill="currentColor" />
+    <circle cx="38" cy="14" r="4" fill="currentColor" />
+    <circle cx="10" cy="34" r="4" fill="currentColor" />
+    <circle cx="38" cy="34" r="4" fill="currentColor" />
+    <line x1="13.5" y1="16.5" x2="18.5" y2="20.5" stroke="currentColor" strokeWidth="2" strokeDasharray="2 2" />
+    <line x1="34.5" y1="16.5" x2="29.5" y2="20.5" stroke="currentColor" strokeWidth="2" strokeDasharray="2 2" />
+    <line x1="13.5" y1="31.5" x2="18.5" y2="27.5" stroke="currentColor" strokeWidth="2" strokeDasharray="2 2" />
+    <line x1="34.5" y1="31.5" x2="29.5" y2="27.5" stroke="currentColor" strokeWidth="2" strokeDasharray="2 2" />
+  </svg>
+);

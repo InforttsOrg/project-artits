@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { PROJECTS_DATA } from '../data/projectsData';
-import { ArrowLeft, ArrowRight, Terminal, CheckCircle2, ShieldAlert, Cpu, ExternalLink, Download, Mail } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Terminal, ShieldAlert, Download, Mail } from 'lucide-react';
 
 interface ProjectCaseStudyViewProps {
   onOpenPhoneCall?: () => void;
@@ -230,7 +230,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = () => {
       </section>
 
       {/* 8. NEXT / PREV NAVIGATION */}
-      <footer className="pt-8 border-t border-zinc-800 flex flex-col gap-8">
+      <nav aria-label="Project Case Study Navigation" className="pt-8 border-t border-zinc-800 flex flex-col gap-8">
         <div className="flex items-center justify-between gap-4">
           <Link
             to={`/work/${project.prevProject.slug}`}
@@ -278,7 +278,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = () => {
             </a>
           </div>
         </div>
-      </footer>
+      </nav>
     </article>
   );
 };
