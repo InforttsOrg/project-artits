@@ -36,6 +36,7 @@ export const ArchitectPortfolioView: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'financial' | 'ai' | 'fintech' | 'cloud'>('all');
   const [expandedProject, setExpandedProject] = useState<string | null>('mitochondria');
   const [activeJobIndex, setActiveJobIndex] = useState(0);
+  const [timelineViewMode, setTimelineViewMode] = useState<'stage' | 'list'>('stage');
 
   const email = 'sahil.artits.rathee@gmail.com';
 
@@ -92,11 +93,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'naibooking',
       company: 'NaiBooking',
+      shortName: 'NaiBooking',
+      year: '2026',
       role: 'Software Engineer — High-Concurrency Booking Systems & Microservices',
       period: 'Aug 2026 – Present',
       location: 'Bangalore, India (Remote)',
       badge: 'Current Role',
       badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+      icon: <NaiBookingLogo className="w-4 h-4 text-emerald-400" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-emerald-500/40 flex items-center justify-center p-2 shrink-0 text-emerald-400 shadow-inner">
           <NaiBookingLogo className="w-7 h-7" />
@@ -114,11 +118,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'orealfit',
       company: 'Orealfit',
+      shortName: 'Orealfit',
+      year: '2026',
       role: 'Lead Software Engineer — Wellness Architecture & Autonomous Pipelines',
       period: 'May 2026 – Jul 2026',
       location: 'Gurugram, India',
       badge: 'Contractual',
       badgeColor: 'bg-cyan-950/50 text-cyan-300 border-cyan-800/40',
+      icon: <OrealfitLogo className="w-4 h-4 text-cyan-400" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-cyan-500/40 flex items-center justify-center p-2.5 shrink-0 text-cyan-400 shadow-inner">
           <OrealfitLogo className="w-7 h-7" />
@@ -137,11 +144,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'quant-break',
       company: 'Career Break — Quantitative Research',
+      shortName: 'Quant Break',
+      year: '2025–26',
       role: 'Advanced Trading, Quantitative Research, Algorithmic Execution & HFT',
       period: 'Dec 2025 – Apr 2026',
       location: 'Self-Directed Deep-Dive',
       badge: 'Research Break',
       badgeColor: 'bg-emerald-900/50 text-emerald-300 border-emerald-800/40',
+      icon: <QuantTradingLogo className="w-4 h-4 text-emerald-400" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-emerald-500/50 flex items-center justify-center p-2.5 shrink-0 text-emerald-400 shadow-inner">
           <QuantTradingLogo className="w-7 h-7" />
@@ -160,11 +170,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'gymwise',
       company: 'GymWise India Private Limited',
+      shortName: 'GymWise',
+      year: '2024–25',
       role: 'Software Engineer — Cloud Infrastructure & Systems Architecture',
       period: 'Jul 2024 – Nov 2025',
       location: 'Gurugram, India',
       badge: 'Commercial Enterprise',
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700',
+      icon: <img src="/companies/gymwise.png" alt="GymWise" className="w-4 h-4 object-contain" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center p-2 shrink-0 shadow-inner">
           <img src="/companies/gymwise.png" alt="GymWise" className="w-8 h-8 object-contain" />
@@ -183,11 +196,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'ai-break',
       company: 'Career Break — AI Research',
+      shortName: 'AI Research',
+      year: '2024',
       role: 'Autonomous AI Agents, Multi-Agent Swarms & AST Context Compression',
       period: 'Apr 2024 – Jun 2024',
       location: 'Self-Directed Deep-Dive',
       badge: 'Research Break',
       badgeColor: 'bg-indigo-900/50 text-indigo-300 border-indigo-800/40',
+      icon: <AIAgentLogo className="w-4 h-4 text-indigo-400" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-indigo-500/50 flex items-center justify-center p-2.5 shrink-0 text-indigo-400 shadow-inner">
           <AIAgentLogo className="w-7 h-7" />
@@ -205,11 +221,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'bighit',
       company: 'BigHit',
+      shortName: 'BigHit',
+      year: '2022–24',
       role: 'Full Stack Engineer — Cloud Modernization & Backend',
       period: 'Nov 2022 – Mar 2024',
       location: 'Mumbai, India',
       badge: 'Scale Infrastructure',
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700',
+      icon: <img src="/companies/bighit.png" alt="BigHit" className="w-4 h-4 object-contain" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center p-2 shrink-0 shadow-inner">
           <img src="/companies/bighit.png" alt="BigHit" className="w-8 h-8 object-contain" />
@@ -228,11 +247,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'gamixlabs',
       company: 'Gamix Labs',
+      shortName: 'Gamix Labs',
+      year: '2022',
       role: 'Full Stack Developer — Real-Time Game Servers & Services',
       period: 'Mar 2022 – Oct 2022',
       location: 'Noida, India',
       badge: 'Gaming Infrastructure',
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700',
+      icon: <img src="/companies/gamixlabs.webp" alt="Gamix Labs" className="w-4 h-4 object-contain" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center p-2 shrink-0 shadow-inner">
           <img src="/companies/gamixlabs.webp" alt="Gamix Labs" className="w-8 h-8 object-contain" />
@@ -251,11 +273,14 @@ export const ArchitectPortfolioView: React.FC = () => {
     {
       id: 'infortts',
       company: 'Infortts Inc.',
+      shortName: 'Infortts',
+      year: '2021–Present',
       role: 'Founding Architect & Principal Engineer',
       period: 'Jun 2021 – Present',
       location: 'Systems & Tooling Incubator',
       badge: 'Incubator & Systems',
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700',
+      icon: <img src="/companies/infortts.png" alt="Infortts" className="w-4 h-4 object-contain" />,
       logo: (
         <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center p-2 shrink-0 shadow-inner">
           <img src="/companies/infortts.png" alt="Infortts" className="w-8 h-8 object-contain" />
@@ -621,94 +646,108 @@ export const ArchitectPortfolioView: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. VERIFIED PRODUCTION EXPERIENCE TIMELINE WITH ON-SCROLL PINNED STAGE */}
-      <section id="experience" className="flex flex-col gap-8 scroll-mt-24">
-        <div className="flex flex-col gap-1 border-b border-zinc-800 pb-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
-              Career Timeline
-            </span>
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
-              <span>{activeJobIndex + 1} of {experienceList.length}</span>
-              <div className="flex items-center gap-1">
+      {/* 3. VERIFIED PRODUCTION EXPERIENCE TIMELINE */}
+      <section id="experience" className="flex flex-col gap-6 scroll-mt-24">
+        {/* Section Header with Step Navigation */}
+        <div className="flex flex-col gap-4 border-b border-zinc-800 pb-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
+                Career Timeline
+              </span>
+              <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
+                Production Track Record
+              </h2>
+            </div>
+
+            {/* View Mode & Step Controls */}
+            <div className="flex items-center gap-2.5">
+              {/* Stage vs Full List Switcher */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-mono">
                 <button
                   type="button"
-                  onClick={() => setActiveJobIndex((prev) => (prev > 0 ? prev - 1 : experienceList.length - 1))}
-                  className="p-1 rounded-md bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
-                  title="Previous role"
+                  onClick={() => setTimelineViewMode('stage')}
+                  className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                    timelineViewMode === 'stage'
+                      ? 'bg-zinc-800 text-white font-medium shadow-sm'
+                      : 'text-zinc-400 hover:text-zinc-200'
+                  }`}
                 >
-                  <ChevronLeft className="w-3.5 h-3.5" />
+                  Interactive Stage
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveJobIndex((prev) => (prev < experienceList.length - 1 ? prev + 1 : 0))}
-                  className="p-1 rounded-md bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
-                  title="Next role"
+                  onClick={() => setTimelineViewMode('list')}
+                  className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                    timelineViewMode === 'list'
+                      ? 'bg-zinc-800 text-white font-medium shadow-sm'
+                      : 'text-zinc-400 hover:text-zinc-200'
+                  }`}
                 >
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  View All ({experienceList.length})
                 </button>
               </div>
+
+              {/* Prev / Next controls in stage mode */}
+              {timelineViewMode === 'stage' && (
+                <div className="flex items-center gap-1 text-xs font-mono text-zinc-400">
+                  <button
+                    type="button"
+                    onClick={() => setActiveJobIndex((prev) => (prev > 0 ? prev - 1 : experienceList.length - 1))}
+                    className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
+                    title="Previous role"
+                    aria-label="Previous role"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveJobIndex((prev) => (prev < experienceList.length - 1 ? prev + 1 : 0))}
+                    className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
+                    title="Next role"
+                    aria-label="Next role"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-          <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
-            Production Track Record
-          </h2>
+
           <p className="text-sm text-zinc-400 max-w-xl">
             Commercial software engineering, infrastructure modernization, and systems architecture across high-growth startups and enterprise systems.
           </p>
         </div>
 
-        {/* Interactive Scroll & Pinned Stage Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Timeline Scrubber / Nav Rail */}
-          <div className="lg:col-span-5 flex flex-col gap-2.5">
-            <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 pb-1 flex items-center justify-between">
-              <span>Career Milestones</span>
-              <span className="text-emerald-400/80">2021 — 2026</span>
-            </div>
-            {experienceList.map((job, idx) => {
-              const isActive = activeJobIndex === idx;
-              return (
-                <button
-                  key={job.id}
-                  type="button"
-                  onClick={() => setActiveJobIndex(idx)}
-                  className={`group relative text-left p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
-                    isActive
-                      ? 'border-emerald-500/50 bg-emerald-950/20 shadow-md ring-1 ring-emerald-500/20'
-                      : 'border-zinc-800/80 bg-zinc-900/30 hover:bg-zinc-900/70 hover:border-zinc-700/80'
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="shrink-0">{job.logo}</div>
-                    <div className="flex flex-col min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className={`font-display font-semibold text-sm truncate ${isActive ? 'text-white' : 'text-zinc-300 group-hover:text-white'}`}>
-                          {job.company}
-                        </span>
-                        {job.badge && (
-                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-mono border shrink-0 ${job.badgeColor}`}>
-                            {job.badge}
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-xs text-zinc-400 truncate font-mono">
-                        {job.period}
-                      </span>
-                    </div>
-                  </div>
-                  <ChevronRight
-                    className={`w-4 h-4 shrink-0 transition-transform ${
-                      isActive ? 'text-emerald-400 translate-x-0.5' : 'text-zinc-600 group-hover:text-zinc-400'
+        {/* MODE 1: INTERACTIVE STAGE (Mobile-first, no empty stacked boxes) */}
+        {timelineViewMode === 'stage' ? (
+          <div className="flex flex-col gap-5">
+            {/* Horizontal Milestone Pill Scrubber */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
+              {experienceList.map((job, idx) => {
+                const isActive = activeJobIndex === idx;
+                return (
+                  <button
+                    key={job.id}
+                    type="button"
+                    onClick={() => setActiveJobIndex(idx)}
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl border text-xs font-mono transition-all shrink-0 cursor-pointer ${
+                      isActive
+                        ? 'border-emerald-500 bg-emerald-950/40 text-white font-semibold shadow-md ring-1 ring-emerald-500/30'
+                        : 'border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
                     }`}
-                  />
-                </button>
-              );
-            })}
-          </div>
+                  >
+                    <div className="w-4 h-4 flex items-center justify-center shrink-0">
+                      {job.icon}
+                    </div>
+                    <span className="font-display font-medium text-xs whitespace-nowrap">{job.shortName}</span>
+                    <span className="text-[10px] text-zinc-500 font-mono">{job.year}</span>
+                  </button>
+                );
+              })}
+            </div>
 
-          {/* Right Column: Sticky Active Card Space (Transitions in the same viewport spot) */}
-          <div className="lg:col-span-7 lg:sticky lg:top-28">
+            {/* Active Job Stage Card (Immediate, right in front of the user) */}
             {(() => {
               const activeJob = experienceList[activeJobIndex];
               return (
@@ -722,7 +761,7 @@ export const ArchitectPortfolioView: React.FC = () => {
                       <div className="shrink-0">{activeJob.logo}</div>
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-display font-bold text-xl text-white">
+                          <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
                             {activeJob.company}
                           </h3>
                           {activeJob.badge && (
@@ -749,7 +788,7 @@ export const ArchitectPortfolioView: React.FC = () => {
                   </div>
 
                   {/* Highlights Bullet List */}
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2.5">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 font-medium">
                       Key Engineering Outcomes:
                     </span>
@@ -777,10 +816,14 @@ export const ArchitectPortfolioView: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Scrub / Progress Bar within the Same Space */}
+                  {/* Bottom Navigation Scrubber */}
                   <div className="pt-2 flex items-center justify-between gap-4 text-xs font-mono text-zinc-500 border-t border-zinc-800/60">
-                    <span>Milestone {activeJobIndex + 1} of {experienceList.length}</span>
-                    <div className="flex-1 max-w-[140px] bg-zinc-900 h-1.5 rounded-full overflow-hidden border border-zinc-800">
+                    <div className="flex items-center gap-2">
+                      <span className="text-zinc-300 font-semibold">{activeJob.shortName}</span>
+                      <span>•</span>
+                      <span>Milestone {activeJobIndex + 1} of {experienceList.length}</span>
+                    </div>
+                    <div className="flex-1 max-w-[120px] sm:max-w-[180px] bg-zinc-900 h-1.5 rounded-full overflow-hidden border border-zinc-800">
                       <div
                         className="bg-emerald-400 h-full transition-all duration-300 rounded-full"
                         style={{ width: `${((activeJobIndex + 1) / experienceList.length) * 100}%` }}
@@ -790,17 +833,16 @@ export const ArchitectPortfolioView: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setActiveJobIndex((prev) => (prev > 0 ? prev - 1 : experienceList.length - 1))}
-                        className="hover:text-zinc-200 transition-colors cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
                       >
-                        Prev
+                        ← Prev
                       </button>
-                      <span>•</span>
                       <button
                         type="button"
                         onClick={() => setActiveJobIndex((prev) => (prev < experienceList.length - 1 ? prev + 1 : 0))}
-                        className="hover:text-zinc-200 transition-colors cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
                       >
-                        Next
+                        Next →
                       </button>
                     </div>
                   </div>
@@ -808,7 +850,65 @@ export const ArchitectPortfolioView: React.FC = () => {
               );
             })()}
           </div>
-        </div>
+        ) : (
+          /* MODE 2: FULL CONTINUOUS TIMELINE LIST (All 8 expanded) */
+          <div className="flex flex-col gap-6">
+            {experienceList.map((job) => (
+              <div
+                key={job.id}
+                className={`p-6 sm:p-8 rounded-2xl border ${job.accentBorder} ${job.accentBg} flex flex-col gap-5`}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-zinc-800/80 pb-4">
+                  <div className="flex items-start gap-3.5">
+                    <div className="shrink-0">{job.logo}</div>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-display font-bold text-lg sm:text-xl text-white">
+                          {job.company}
+                        </h3>
+                        {job.badge && (
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-mono border ${job.badgeColor}`}>
+                            {job.badge}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-sm font-medium text-emerald-400">
+                        {job.role}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex sm:flex-col sm:items-end gap-1.5 text-xs font-mono text-zinc-400 shrink-0">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-zinc-500" />
+                      <span>{job.period}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-zinc-500">
+                      <MapPin className="w-3.5 h-3.5" />
+                      <span>{job.location}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <ul className="text-sm text-zinc-300 space-y-1.5 list-disc list-inside leading-relaxed">
+                  {job.highlights.map((h, i) => (
+                    <li key={i}>{h}</li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-zinc-800/60">
+                  {job.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* 4. TECHNICAL RADAR & STACK */}
