@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { Mail, FileText } from 'lucide-react';
+import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom';
+import { Mail, FileText, ShieldCheck } from 'lucide-react';
 import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
 import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
+import { HrVerificationView } from './components/HrVerificationView';
 import { NavigationBar } from './components/NavigationBar';
 import {
   GitHubLogo,
@@ -34,6 +35,7 @@ export const AppContent: React.FC = () => {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<ArchitectPortfolioView />} />
+          <Route path="/verify" element={<HrVerificationView />} />
           <Route path="/work/:slug" element={<ProjectCaseStudyView />} />
           <Route path="*" element={<ArchitectPortfolioView />} />
         </Routes>
@@ -128,6 +130,14 @@ export const AppContent: React.FC = () => {
             >
               <FileText className="w-4 h-4" />
             </a>
+            <Link
+              to="/verify?token=verified"
+              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-emerald-400 transition-all hover:scale-105 shadow-sm"
+              title="HR & Employment Verification"
+              aria-label="HR Verification"
+            >
+              <ShieldCheck className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </footer>
