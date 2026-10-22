@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { SpacetimePlaygroundView } from './components/SpacetimePlaygroundView';
 import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
 import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
+import { HrVerificationView } from './components/HrVerificationView';
 
 // Automatic scroll-to-top on route changes
 const ScrollToTop: React.FC = () => {
@@ -20,6 +21,7 @@ export const AppContent: React.FC = () => {
       <Routes>
         <Route path="/" element={<SpacetimePlaygroundView />} />
         <Route path="/classic" element={<ArchitectPortfolioView />} />
+        <Route path="/verify" element={<HrVerificationView />} />
         <Route path="/work/:slug" element={<ProjectCaseStudyView />} />
         <Route path="*" element={<SpacetimePlaygroundView />} />
       </Routes>
