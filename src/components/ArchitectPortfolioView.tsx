@@ -15,7 +15,6 @@ import {
   Calendar,
   MapPin,
   Terminal,
-  Instagram,
 } from 'lucide-react';
 import {
   GitHubLogo,

@@ -11,8 +11,6 @@ import {
   AlertCircle,
   Building,
   Calendar,
-  CreditCard,
-  ExternalLink,
   HelpCircle,
   ArrowLeft,
   CheckCircle2,
@@ -86,7 +84,7 @@ export const HrVerificationView: React.FC = () => {
   ];
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-[#050508] text-zinc-100 font-mono">
+    <div className="w-full min-h-full bg-[#050508] text-zinc-100 font-mono">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-16 flex flex-col gap-10">
         
         {/* Navigation Breadcrumb */}

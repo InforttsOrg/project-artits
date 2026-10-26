@@ -506,12 +506,12 @@ export const MemoryGraph3D: React.FC<MemoryGraph3DProps> = ({ onSelectNode, acti
       // 3D Matrix Projection
       const projectedNodes = nodes.map(node => {
         // Rotate around Y axis
-        let x1 = node.x * cosY - node.z * sinY;
-        let z1 = node.z * cosY + node.x * sinY;
+        const x1 = node.x * cosY - node.z * sinY;
+        const z1 = node.z * cosY + node.x * sinY;
 
         // Rotate around X axis
-        let y2 = node.y * cosX - z1 * sinX;
-        let z2 = z1 * cosX + node.y * sinX;
+        const y2 = node.y * cosX - z1 * sinX;
+        const z2 = z1 * cosX + node.y * sinX;
 
         // Perspective scale
         const scale = fov / (fov + z2);

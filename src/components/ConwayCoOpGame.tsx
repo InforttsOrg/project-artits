@@ -510,7 +510,6 @@ export const ConwayCoOpGame: React.FC = () => {
 
         // Conway Immigrant Life + Entropy Annihilation Rules
         let liveFriendlyCount = 0;
-        let entropyCount = 0;
 
         for (let r = 0; r < rows; r++) {
           const rAbove = (r - 1 + rows) % rows;
@@ -567,7 +566,6 @@ export const ConwayCoOpGame: React.FC = () => {
                 state.score += 80 * state.multiplier;
               } else if (totalNeighbors === 2 || totalNeighbors === 3) {
                 nextCell = 4;
-                entropyCount++;
               } else {
                 nextCell = 0;
               }
@@ -586,7 +584,6 @@ export const ConwayCoOpGame: React.FC = () => {
               // Dead cell: Birth rule
               if (entropyNeighbors === 3) {
                 nextCell = 4; // Entropy expands
-                entropyCount++;
               } else if (friendlyNeighbors === 3) {
                 // Majority faction inheritance
                 nextCell = p1Neighbors >= p2Neighbors ? 1 : 2;
