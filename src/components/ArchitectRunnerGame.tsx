@@ -9,10 +9,8 @@ import {
   PARKS,
   BUILD,
   riverL,
-  inRiver,
   collideBuildings,
   hypot,
-  dist,
   clamp,
 } from '../game/delhiEngine';
 
@@ -1326,6 +1324,11 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
             </div>
             <div className="game-bar-track">
               <div className="game-bar-fill stamina" style={{ width: `${stamina}%` }} />
+            </div>
+
+            <div className="game-stat-row">
+              <span className="game-stat-label">SCORE / PIPELINE</span>
+              <span className="game-stat-val">{currentScore} PTS ({pipelineCount}x) · HI: {highScore}</span>
             </div>
 
             <div className="game-gps-telemetry">

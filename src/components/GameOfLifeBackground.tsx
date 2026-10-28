@@ -43,9 +43,9 @@ export const GameOfLifeBackground: React.FC = () => {
     let rows = Math.floor(height / cellSize);
 
     // Create and seed grid
-    let grid = createGrid(rows, cols, 0.12);
-    let nextGrid = new Uint8Array(rows * cols);
-    let ageGrid = new Uint8Array(rows * cols);
+    let grid: Uint8Array = createGrid(rows, cols, 0.12);
+    let nextGrid: Uint8Array = new Uint8Array(rows * cols);
+    let ageGrid: Uint8Array = new Uint8Array(rows * cols);
 
     function createGrid(r: number, c: number, density: number): Uint8Array {
       const g = new Uint8Array(r * c);

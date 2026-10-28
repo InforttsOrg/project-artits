@@ -677,6 +677,10 @@ export const QuantumSpacetimeMap: React.FC<QuantumSpacetimeMapProps> = ({ onOpen
             <span className="score-val">{survivalTime}s</span>
           </div>
           <div className="score-box">
+            <span className="score-label">SCORE</span>
+            <span className="score-val">{score} PTS</span>
+          </div>
+          <div className="score-box">
             <span className="score-label">PHONE DISTANCE</span>
             <span className="score-val">{phoneDistance}px</span>
           </div>
