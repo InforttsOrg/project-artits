@@ -1,0 +1,19 @@
+/Sahil-Rathee-Resume.pdf
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+/Sahil-Rathee-Resume-Full.pdf
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+/resume
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+
+/resume-full
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+
+/resume.html
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+
+/resume-full.html
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
