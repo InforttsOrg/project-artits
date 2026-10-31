@@ -119,11 +119,11 @@ export const HrVerificationView: React.FC = () => {
       }
 
       setChallengeToken(data.challengeToken);
-      setSuccessMsg(`A 6-digit verification code has been dispatched to ${cleanEmail}.`);
+      setSuccessMsg(`Verification request received for ${cleanEmail}. Telemetry dispatched directly to Sahil.`);
       setOtpStep('verify');
       setResendCooldown(60);
     } catch (err: any) {
-      setErrorMsg(err.message || 'Error sending verification code. Please try again.');
+      setErrorMsg(err.message || 'Error sending verification request. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -134,8 +134,8 @@ export const HrVerificationView: React.FC = () => {
     setErrorMsg('');
 
     const cleanOtp = otpCode.trim();
-    if (!cleanOtp || cleanOtp.length !== 6) {
-      setErrorMsg('Please enter the full 6-digit verification code.');
+    if (!cleanOtp || cleanOtp.length < 4) {
+      setErrorMsg('Please enter your 4-digit or 6-digit access code.');
       return;
     }
 
@@ -597,7 +597,11 @@ export const HrVerificationView: React.FC = () => {
                   <span className="text-xs font-bold text-white">Bank Salary Credits Extract</span>
                   <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Verified</span>
                 </div>
-                <span className="text-[11px] text-zinc-400">Masked Kotak statements proving 38 consecutive monthly salary credits (₹20.51L total)</span>
+                <span className="text-[11px] text-zinc-400">
+                  {isUnlocked
+                    ? 'Masked Kotak statements proving 38 consecutive monthly salary credits (₹20.51L total)'
+                    : 'Masked Kotak statements proving 38 consecutive monthly salary credits (Recruiter Locked)'}
+                </span>
               </div>
               {isUnlocked ? (
                 <a
@@ -770,82 +774,85 @@ export const HrVerificationView: React.FC = () => {
                   {isLoading ? (
                     <>
                       <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Generating & Dispatched...</span>
+                      <span>Logging Verification Request...</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      <span>Send 6-Digit Code</span>
+                      <span>Request Recruiter Access</span>
                     </>
                   )}
                 </button>
               </form>
             )}
 
-            {/* STEP 2: VERIFY OTP */}
+            {/* STEP 2: VERIFY OTP / ACCESS PASSCODE */}
             {otpStep === 'verify' && (
               <form onSubmit={handleVerifyOtp} className="flex flex-col gap-4">
-                <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800 flex flex-col gap-1">
-                  <span className="text-[11px] text-zinc-400 font-mono">Dispatched Code to:</span>
-                  <span className="text-sm font-bold text-emerald-400 font-mono break-all">
-                    {recruiterEmail}
-                  </span>
+                <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800 flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-zinc-400">Request Dispatched for:</span>
+                    <span className="text-emerald-400 font-bold">{recruiterEmail}</span>
+                  </div>
+                  <p className="text-[11px] text-zinc-400 leading-relaxed font-sans">
+                    Your verification request has been directly logged with Sahil on Telegram. If you have been provided with an Access Passcode, enter it below to unmask immediately.
+                  </p>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs text-zinc-300 font-medium text-center">
-                    Enter 6-Digit Verification Code
+                    Enter Verification Code or Access Passcode
                   </label>
                   <input
                     type="text"
                     required
                     maxLength={6}
                     autoFocus
-                    placeholder="••••••"
+                    placeholder="Enter Passcode or Code"
                     value={otpCode}
-                    onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    className="w-full text-center tracking-[0.35em] text-2xl font-black py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-emerald-400 focus:outline-none focus:border-emerald-400 transition-colors font-mono"
+                    onChange={(e) => setOtpCode(e.target.value.trim())}
+                    className="w-full text-center tracking-[0.25em] text-xl font-bold py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-emerald-400 focus:outline-none focus:border-emerald-400 transition-colors font-mono"
                   />
-                  <span className="text-[11px] text-center text-zinc-500">
-                    Code is valid for 10 minutes.
+                  <span className="text-[11px] text-center text-zinc-500 font-sans">
+                    Enter the access passcode provided by Sahil or the 6-digit code from your briefing.
                   </span>
                 </div>
 
                 <button
                   type="submit"
-                  disabled={isLoading || otpCode.length !== 6}
+                  disabled={isLoading || otpCode.length < 4}
                   className="w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 text-black font-extrabold text-sm transition-all flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/20 cursor-pointer"
                 >
                   {isLoading ? (
                     <>
                       <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Verifying Code...</span>
+                      <span>Verifying Passcode...</span>
                     </>
                   ) : (
                     <>
                       <Unlock className="w-4 h-4" />
-                      <span>Verify & Unmask Dossier</span>
+                      <span>Verify Passcode &amp; Unmask Dossier</span>
                     </>
                   )}
                 </button>
 
-                <div className="flex items-center justify-between text-xs pt-1 border-t border-zinc-800/80">
+                <div className="flex items-center justify-between text-xs pt-2 border-t border-zinc-800/80">
                   <button
                     type="button"
                     onClick={() => setOtpStep('request')}
                     className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
                   >
-                    ← Edit Email
+                    &larr; Edit Details
                   </button>
 
-                  <button
-                    type="button"
-                    disabled={resendCooldown > 0 || isLoading}
-                    onClick={handleSendOtp}
-                    className="text-blue-400 hover:text-blue-300 disabled:text-zinc-600 transition-colors cursor-pointer"
+                  <a
+                    href="https://linkedin.com/in/rttss-sahil"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
                   >
-                    {resendCooldown > 0 ? `Resend code in ${resendCooldown}s` : 'Resend Code'}
-                  </button>
+                    Connect on LinkedIn &nearr;
+                  </a>
                 </div>
               </form>
             )}

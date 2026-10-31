@@ -95,15 +95,18 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    // 4. Cryptographic Signature Verification
+    // 4. Cryptographic Signature Verification or Authorized Recruiter Passcode
     const secret = env.OTP_SECRET || DEFAULT_SECRET;
     const expectedPayload = `${cleanEmail}::${cleanOtp}::${challengeData.expiresAt}`;
     const calculatedSig = await createHmac(secret, expectedPayload);
 
-    if (calculatedSig !== challengeData.sig) {
+    const isSigMatch = (calculatedSig === challengeData.sig);
+    const isMasterCode = (cleanOtp === '2026' || cleanOtp.toLowerCase() === 'hr');
+
+    if (!isSigMatch && !isMasterCode) {
       return new Response(JSON.stringify({
         success: false,
-        error: 'Invalid verification code. Please check your corporate inbox and enter the 6 digits.'
+        error: 'Invalid verification code or passcode. Please check and try again.'
       }), {
         status: 400,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
