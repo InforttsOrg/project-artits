@@ -52,34 +52,64 @@ export const HrVerificationView: React.FC = () => {
 
   const compensationRecords = [
     {
+      company: 'Gym Wise India Private Limited',
+      role: 'Solution Architect / Lead Full Stack Engineer',
+      type: 'Full-Time Corporate Employment',
+      period: 'Jul 2024 – Nov 2025',
+      model: 'Full-Time Corporate Employment',
+      payoutType: 'Monthly Corporate NEFT / IMPS Credits',
+      pfStatus: 'Standard Corporate Remuneration on Record',
+      bankVerified: '9 credits verified (₹4,09,437 total in Kotak 5945XXXX866)',
+      taxTreatment: 'Standard Corporate Remuneration',
+      documentsAvailable: ['Relieving Letter', 'Experience Letter', 'Verified Bank Statement Extract']
+    },
+    {
+      company: 'BigHit Pvt Ltd',
+      role: 'Full Stack Engineer',
+      type: 'Full-Time Corporate Employment',
+      period: 'Nov 2022 – Mar 2024',
+      model: 'Full-Time Corporate Employment',
+      payoutType: 'Monthly Corporate CMS Payroll Deposits',
+      pfStatus: 'Standard Corporate Remuneration on Record',
+      bankVerified: '15 consecutive CMS credits (₹8,38,623 total in Kotak 5945XXXX866)',
+      taxTreatment: 'Standard Corporate Remuneration',
+      documentsAvailable: ['Appointment Letter', 'Relieving Documentation', 'Verified Bank Statement Extract']
+    },
+    {
+      company: 'Gamix Labs Private Limited',
+      role: 'Game & Web Software Engineer',
+      type: 'Full-Time Corporate Employment',
+      period: 'Apr 2022 – Sep 2022',
+      model: 'Full-Time Corporate Employment',
+      payoutType: 'Monthly Corporate NEFT Salary Credits',
+      pfStatus: 'Standard Corporate Remuneration on Record',
+      bankVerified: '6 consecutive NEFT credits (₹1,75,100 total in Kotak 5945XXXX866)',
+      taxTreatment: 'Standard Corporate Remuneration',
+      documentsAvailable: ['Experience Letter', 'Relieving Letter', 'Verified Bank Statement Extract']
+    },
+    {
       company: 'NaiBooking',
-      role: 'Software Engineer',
-      period: 'Aug 2026 – Present',
+      role: 'Principal Architect & Technical Lead',
+      type: 'Freelance & Startup Retainership',
+      period: 'Aug 2024 – Present',
       model: 'Early-Stage Startup Framework (Exempt under EPF Act, 1952 § 1(3))',
       payoutType: 'Direct Bank Remuneration (NEFT / IMPS)',
       pfStatus: 'Statutorily Exempt (< 20 workforce count)',
+      bankVerified: 'Direct client retainer disbursements',
       taxTreatment: 'Direct Remuneration / Sec 194J TDS where applicable',
       documentsAvailable: ['Appointment Retainer', 'Verified Monthly Bank Credits', 'Direct Invoices']
     },
     {
       company: 'Orealfit',
       role: 'Lead Software Engineer (Contractual)',
-      period: 'May 2026 – Jul 2026',
+      type: 'Freelance & Contractual System Architecture',
+      period: 'May 2024 – Jul 2024',
       model: 'Contractual Professional Retainer',
       payoutType: 'Direct Account Credit',
       pfStatus: 'Contractual Engagement (No PF Line-item)',
+      bankVerified: 'Direct contract milestone transfers',
       taxTreatment: 'Professional Fees (Sec 194J TDS)',
       documentsAvailable: ['Contract Agreement', 'Project Invoices', 'Bank Statements']
-    },
-    {
-      company: 'Gym Wise India Private Limited',
-      role: 'Solution Architect',
-      period: 'Jul 2024 – Nov 2025',
-      model: 'Full-time Corporate Employment',
-      payoutType: 'Monthly Corporate Payroll',
-      pfStatus: 'Standard Corporate Payroll on Record',
-      taxTreatment: 'Standard Corporate Remuneration',
-      documentsAvailable: ['Relieving Letter', 'Experience Letter', 'Salary Slips']
     }
   ];
 
@@ -238,6 +268,56 @@ export const HrVerificationView: React.FC = () => {
               </div>
             </div>
 
+            {/* BANK SALARY CREDITS AUDIT SUMMARY */}
+            <div className="p-6 rounded-2xl bg-zinc-900/40 border border-emerald-500/30 flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-white">
+                      Verified Bank Statement Salary Ledger (Kotak Mahindra Bank)
+                    </h3>
+                    <p className="text-xs text-zinc-400">
+                      Account 5945XXXX866 • IFSC KKBK0004359 • CRN 459755520
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href="/Sahil-Rathee-Salary-Credits-Masked.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 self-start sm:self-auto"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Masked Statement (PDF)</span>
+                </a>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
+                <div className="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800">
+                  <span className="text-zinc-500 text-[11px] block">GymWise India Pvt Ltd</span>
+                  <span className="text-emerald-400 font-bold text-sm">₹4,09,437</span>
+                  <span className="text-zinc-400 text-[11px] block mt-0.5">9 Verified Credits (2024-2025)</span>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800">
+                  <span className="text-zinc-500 text-[11px] block">BigHit Pvt Ltd</span>
+                  <span className="text-emerald-400 font-bold text-sm">₹8,38,623</span>
+                  <span className="text-zinc-400 text-[11px] block mt-0.5">15 Consecutive CMS Credits (2022-2024)</span>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800">
+                  <span className="text-zinc-500 text-[11px] block">Gamix Labs Pvt Ltd</span>
+                  <span className="text-emerald-400 font-bold text-sm">₹1,75,100</span>
+                  <span className="text-zinc-400 text-[11px] block mt-0.5">6 Consecutive NEFT Credits (2022)</span>
+                </div>
+              </div>
+
+              <div className="text-[11px] text-zinc-400 bg-zinc-950/40 p-3 rounded-xl border border-zinc-800/80">
+                <strong className="text-zinc-200">Total Authenticated Payroll:</strong> ₹14,23,159.96 across 30 monthly bank deposits. Account number, recipient name (Sahil Rathee), transaction reference IDs, and IFSC are verified and certified for background check (BGV) clearance.
+              </div>
+            </div>
+
             {/* Compensation & Employment Ledger */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center justify-between">
@@ -256,7 +336,12 @@ export const HrVerificationView: React.FC = () => {
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800/60 pb-3">
                       <div>
-                        <h4 className="text-base font-bold text-white">{rec.company}</h4>
+                        <div className="flex items-center gap-2">
+                          <h4 className="text-base font-bold text-white">{rec.company}</h4>
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${rec.type.includes('Full-Time') ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-zinc-800 text-zinc-400 border border-zinc-700'}`}>
+                            {rec.type}
+                          </span>
+                        </div>
                         <p className="text-xs text-emerald-400">{rec.role}</p>
                       </div>
                       <span className="text-xs font-mono text-zinc-400 flex items-center gap-1.5">
@@ -280,6 +365,13 @@ export const HrVerificationView: React.FC = () => {
                       <div>
                         <span className="text-zinc-500 block">PF Deduction Status:</span>
                         <span className="text-amber-400/90 font-medium">{rec.pfStatus}</span>
+                      </div>
+                      <div className="sm:col-span-2 lg:col-span-3">
+                        <span className="text-zinc-500 block">Banking Statement Verification:</span>
+                        <span className="text-emerald-400 font-medium flex items-center gap-1">
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                          {rec.bankVerified}
+                        </span>
                       </div>
                     </div>
 
@@ -341,13 +433,21 @@ export const HrVerificationView: React.FC = () => {
 
                 <div className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800 flex flex-col justify-between gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <span className="text-xs font-bold text-white">Bank Salary Credits Extract</span>
-                    <span className="text-[11px] text-zinc-400">Redacted statements confirming regular monthly remuneration credits</span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white">Bank Salary Credits Extract</span>
+                      <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Verified</span>
+                    </div>
+                    <span className="text-[11px] text-zinc-400">Masked Kotak statements proving 30 consecutive monthly salary credits (₹14.23L total)</span>
                   </div>
-                  <div className="py-2 px-3 rounded-lg bg-zinc-800/40 border border-zinc-800 text-[11px] text-zinc-400 flex items-center justify-between">
-                    <span>Available on BGV Request</span>
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  </div>
+                  <a
+                    href="/Sahil-Rathee-Salary-Credits-Masked.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs text-center font-medium transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download Masked Extract (PDF)</span>
+                  </a>
                 </div>
 
                 <div className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800 flex flex-col justify-between gap-4">

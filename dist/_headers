@@ -6,6 +6,13 @@
   Cache-Control: no-cache, no-store, must-revalidate, max-age=0
   Access-Control-Allow-Origin: *
 
+/Sahil-Rathee-Salary-Credits-Masked.pdf
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *
+
+/salary-credits.html
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+
 /resume
   Cache-Control: no-cache, no-store, must-revalidate, max-age=0
 
