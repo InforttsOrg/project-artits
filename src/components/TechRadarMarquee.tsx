@@ -9,10 +9,10 @@ interface TechItem {
   icon: React.ReactNode;
 }
 
-// Track 1: Backend & Languages (Scrolling Left to Right)
+// Track 1: Core Runtimes & Languages (Left to Right)
 const track1Languages: TechItem[] = [
   {
-    name: 'Go (Golang)',
+    name: 'Go',
     category: 'High-Concurrency Systems',
     color: '#00ADD8',
     bg: 'rgba(0, 173, 216, 0.08)',
@@ -62,7 +62,7 @@ const track1Languages: TechItem[] = [
   },
   {
     name: 'C++',
-    category: 'Sub-Millisecond Execution',
+    category: 'Sub-Millisecond Engine',
     color: '#00599C',
     bg: 'rgba(0, 89, 156, 0.08)',
     border: 'rgba(0, 89, 156, 0.25)',
@@ -73,7 +73,7 @@ const track1Languages: TechItem[] = [
     )
   },
   {
-    name: 'Dart & Flutter',
+    name: 'Flutter / Dart',
     category: 'Cross-Platform Native Apps',
     color: '#02569B',
     bg: 'rgba(2, 86, 155, 0.08)',
@@ -86,7 +86,7 @@ const track1Languages: TechItem[] = [
   },
   {
     name: 'GraphQL & gRPC',
-    category: 'Contract-First APIs & RPC',
+    category: 'Contract-First APIs',
     color: '#E10098',
     bg: 'rgba(225, 0, 152, 0.08)',
     border: 'rgba(225, 0, 152, 0.25)',
@@ -98,7 +98,7 @@ const track1Languages: TechItem[] = [
   }
 ];
 
-// Track 2: Cloud, DevOps & Infrastructure (Scrolling Right to Left)
+// Track 2: Cloud, DevOps & Infrastructure (Right to Left)
 const track2DevOps: TechItem[] = [
   {
     name: 'Kubernetes',
@@ -114,7 +114,7 @@ const track2DevOps: TechItem[] = [
   },
   {
     name: 'Docker',
-    category: 'Isolated Multi-Stage Containers',
+    category: 'Multi-Stage Containers',
     color: '#2496ED',
     bg: 'rgba(36, 150, 237, 0.08)',
     border: 'rgba(36, 150, 237, 0.25)',
@@ -126,7 +126,7 @@ const track2DevOps: TechItem[] = [
   },
   {
     name: 'Terraform IaC',
-    category: 'Immutable Infrastructure',
+    category: 'Immutable Cloud Infra',
     color: '#844FBA',
     bg: 'rgba(132, 79, 186, 0.08)',
     border: 'rgba(132, 79, 186, 0.25)',
@@ -138,7 +138,7 @@ const track2DevOps: TechItem[] = [
   },
   {
     name: 'AWS Cloud',
-    category: 'VPC, ECS, S3, IAM, CloudWatch',
+    category: 'ECS, VPC, S3, IAM',
     color: '#FF9900',
     bg: 'rgba(255, 153, 0, 0.08)',
     border: 'rgba(255, 153, 0, 0.25)',
@@ -150,7 +150,7 @@ const track2DevOps: TechItem[] = [
   },
   {
     name: 'Cloudflare Edge',
-    category: 'Workers, Pages, KV, D1, CDN',
+    category: 'Workers, Pages, KV, D1',
     color: '#F38020',
     bg: 'rgba(243, 128, 32, 0.08)',
     border: 'rgba(243, 128, 32, 0.25)',
@@ -162,7 +162,7 @@ const track2DevOps: TechItem[] = [
   },
   {
     name: 'Google Cloud (GCP)',
-    category: 'GKE, Compute Engine, BigQuery',
+    category: 'GKE & Cloud Functions',
     color: '#4285F4',
     bg: 'rgba(66, 133, 244, 0.08)',
     border: 'rgba(66, 133, 244, 0.25)',
@@ -173,7 +173,7 @@ const track2DevOps: TechItem[] = [
     )
   },
   {
-    name: 'Linux / Alpine / Debian',
+    name: 'Linux / Alpine',
     category: 'Kernel Tuning & Systemd',
     color: '#FCC624',
     bg: 'rgba(252, 198, 36, 0.08)',
@@ -186,7 +186,7 @@ const track2DevOps: TechItem[] = [
   }
 ];
 
-// Track 3: Messaging, Streaming & High-Concurrency (Scrolling Left to Right)
+// Track 3: Streaming, Messaging & High-Concurrency (Left to Right)
 const track3Streaming: TechItem[] = [
   {
     name: 'NATS JetStream',
@@ -244,7 +244,7 @@ const track3Streaming: TechItem[] = [
   },
   {
     name: 'WebSockets & SSE',
-    category: 'Bi-Directional Real-Time Wire',
+    category: 'Real-Time Bi-Directional',
     color: '#00E676',
     bg: 'rgba(0, 230, 118, 0.08)',
     border: 'rgba(0, 230, 118, 0.25)',
@@ -257,7 +257,7 @@ const track3Streaming: TechItem[] = [
   {
     name: 'Socket.IO',
     category: 'Low-Latency Room Clustering',
-    color: '#010101',
+    color: '#ffffff',
     bg: 'rgba(255, 255, 255, 0.05)',
     border: 'rgba(255, 255, 255, 0.2)',
     icon: (
@@ -269,11 +269,11 @@ const track3Streaming: TechItem[] = [
   }
 ];
 
-// Track 4: Storage, Vector Databases & Autonomous AI (Scrolling Right to Left)
+// Track 4: Storage, Vector Databases & Autonomous AI (Right to Left)
 const track4Databases: TechItem[] = [
   {
     name: 'PostgreSQL',
-    category: 'ACID Ledgers & Row Locking',
+    category: 'ACID Ledgers & Row Locks',
     color: '#336791',
     bg: 'rgba(51, 103, 145, 0.08)',
     border: 'rgba(51, 103, 145, 0.25)',
@@ -285,7 +285,7 @@ const track4Databases: TechItem[] = [
   },
   {
     name: 'MongoDB',
-    category: 'Document Store & Aggregations',
+    category: 'High-Volume Aggregations',
     color: '#47A248',
     bg: 'rgba(71, 162, 72, 0.08)',
     border: 'rgba(71, 162, 72, 0.25)',
@@ -297,7 +297,7 @@ const track4Databases: TechItem[] = [
   },
   {
     name: 'Qdrant Vector DB',
-    category: 'HNSW Semantic Vector Retrieval',
+    category: 'HNSW Semantic Retrieval',
     color: '#D82C20',
     bg: 'rgba(216, 44, 32, 0.08)',
     border: 'rgba(216, 44, 32, 0.25)',
@@ -313,7 +313,7 @@ const track4Databases: TechItem[] = [
   },
   {
     name: 'LangGraph & AI Agents',
-    category: 'Cyclic Agentic Supervisors',
+    category: 'Supervised Multi-Agent Loops',
     color: '#A855F7',
     bg: 'rgba(168, 85, 247, 0.08)',
     border: 'rgba(168, 85, 247, 0.25)',
@@ -329,7 +329,7 @@ const track4Databases: TechItem[] = [
   },
   {
     name: 'FastAPI',
-    category: 'High-Throughput ASGI Services',
+    category: 'High-Throughput ASGI',
     color: '#009688',
     bg: 'rgba(0, 150, 136, 0.08)',
     border: 'rgba(0, 150, 136, 0.25)',
@@ -359,7 +359,7 @@ const TechBadge: React.FC<{ item: TechItem }> = ({ item }) => (
       backgroundColor: item.bg,
       borderColor: item.border
     }}
-    className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl border backdrop-blur-md shrink-0 transition-all hover:scale-105 hover:border-white/40 cursor-default select-none shadow-sm"
+    className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl border backdrop-blur-md shrink-0 transition-all hover:scale-105 hover:border-white/50 cursor-default select-none shadow-sm"
   >
     <div style={{ color: item.color }} className="shrink-0 flex items-center justify-center">
       {item.icon}
@@ -376,76 +376,51 @@ const TechBadge: React.FC<{ item: TechItem }> = ({ item }) => (
 );
 
 export const TechRadarMarquee: React.FC = () => {
-  // Duplicate arrays 3 times for seamless infinite loop
   const row1 = [...track1Languages, ...track1Languages, ...track1Languages];
   const row2 = [...track2DevOps, ...track2DevOps, ...track2DevOps];
   const row3 = [...track3Streaming, ...track3Streaming, ...track3Streaming];
   const row4 = [...track4Databases, ...track4Databases, ...track4Databases];
 
   return (
-    <div className="relative flex flex-col gap-5 py-4 overflow-hidden rounded-3xl border border-zinc-800/80 bg-zinc-950/60 shadow-2xl">
+    <div className="relative w-full flex flex-col gap-3 py-6 overflow-hidden rounded-3xl border border-zinc-800/80 bg-zinc-950/70 shadow-2xl">
       
       {/* Edge Blur & Vignette Mask (Left & Right Fades) */}
-      <div className="absolute inset-y-0 left-0 w-20 sm:w-32 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-20 sm:w-32 bg-gradient-to-l from-zinc-950 via-zinc-950/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-zinc-950 via-zinc-950/90 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-zinc-950 via-zinc-950/90 to-transparent z-10 pointer-events-none" />
 
       {/* Row 1: Left to Right */}
-      <div className="flex flex-col gap-1.5">
-        <div className="px-6 flex items-center justify-between text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-          <span>Track 01 &bull; Core Runtimes &amp; Typed Languages</span>
-          <span className="text-emerald-400 font-semibold">&larr; Left to Right</span>
-        </div>
-        <div className="overflow-hidden py-1">
-          <div className="animate-marquee-ltr gap-4">
-            {row1.map((item, idx) => (
-              <TechBadge key={`r1-${idx}`} item={item} />
-            ))}
-          </div>
+      <div className="w-full overflow-hidden py-0.5">
+        <div className="animate-marquee-ltr gap-3.5">
+          {row1.map((item, idx) => (
+            <TechBadge key={`r1-${idx}`} item={item} />
+          ))}
         </div>
       </div>
 
       {/* Row 2: Right to Left */}
-      <div className="flex flex-col gap-1.5">
-        <div className="px-6 flex items-center justify-between text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-          <span>Track 02 &bull; Cloud Infrastructure, Kubernetes &amp; DevOps</span>
-          <span className="text-sky-400 font-semibold">Right to Left &rarr;</span>
-        </div>
-        <div className="overflow-hidden py-1">
-          <div className="animate-marquee-rtl gap-4">
-            {row2.map((item, idx) => (
-              <TechBadge key={`r2-${idx}`} item={item} />
-            ))}
-          </div>
+      <div className="w-full overflow-hidden py-0.5">
+        <div className="animate-marquee-rtl gap-3.5">
+          {row2.map((item, idx) => (
+            <TechBadge key={`r2-${idx}`} item={item} />
+          ))}
         </div>
       </div>
 
       {/* Row 3: Left to Right */}
-      <div className="flex flex-col gap-1.5">
-        <div className="px-6 flex items-center justify-between text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-          <span>Track 03 &bull; Distributed Streaming, NATS &amp; Low-Latency Messaging</span>
-          <span className="text-amber-400 font-semibold">&larr; Left to Right</span>
-        </div>
-        <div className="overflow-hidden py-1">
-          <div className="animate-marquee-ltr gap-4">
-            {row3.map((item, idx) => (
-              <TechBadge key={`r3-${idx}`} item={item} />
-            ))}
-          </div>
+      <div className="w-full overflow-hidden py-0.5">
+        <div className="animate-marquee-ltr gap-3.5">
+          {row3.map((item, idx) => (
+            <TechBadge key={`r3-${idx}`} item={item} />
+          ))}
         </div>
       </div>
 
       {/* Row 4: Right to Left */}
-      <div className="flex flex-col gap-1.5">
-        <div className="px-6 flex items-center justify-between text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-          <span>Track 04 &bull; ACID Ledgers, Vector Stores &amp; Autonomous AI Frameworks</span>
-          <span className="text-purple-400 font-semibold">Right to Left &rarr;</span>
-        </div>
-        <div className="overflow-hidden py-1">
-          <div className="animate-marquee-rtl gap-4">
-            {row4.map((item, idx) => (
-              <TechBadge key={`r4-${idx}`} item={item} />
-            ))}
-          </div>
+      <div className="w-full overflow-hidden py-0.5">
+        <div className="animate-marquee-rtl gap-3.5">
+          {row4.map((item, idx) => (
+            <TechBadge key={`r4-${idx}`} item={item} />
+          ))}
         </div>
       </div>
 

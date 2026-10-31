@@ -1082,11 +1082,17 @@ export const ArchitectPortfolioView: React.FC = () => {
             <span className="text-[11px] text-zinc-400">High-concurrency systems</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 flex flex-col gap-1">
-            <span className="text-[11px] font-mono uppercase text-zinc-500">Verified BGV Remuneration</span>
-            <span className="text-xl font-bold font-mono text-emerald-400">₹20.51 Lakhs</span>
-            <span className="text-[11px] text-zinc-400">38 Bank verified salary credits</span>
-          </div>
+          <Link
+            to="/verify"
+            className="p-4 rounded-2xl bg-zinc-900/50 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 transition-all flex flex-col gap-1 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono uppercase text-zinc-500">BGV Remuneration</span>
+              <span className="text-[10px] font-mono text-emerald-400/80 group-hover:text-emerald-400">VERIFY &rarr;</span>
+            </div>
+            <span className="text-xl font-bold font-mono text-emerald-400 tracking-tight">&#8377;&bull;&bull;,&bull;&bull;,&bull;&bull;&bull;</span>
+            <span className="text-[11px] text-zinc-400">38 Credits &bull; Recruiter Locked</span>
+          </Link>
 
           <div className="p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 flex flex-col gap-1">
             <span className="text-[11px] font-mono uppercase text-zinc-500">GymWise Lead Architect</span>
