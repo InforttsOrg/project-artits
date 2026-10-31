@@ -5,6 +5,7 @@ import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
 import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
 import { HrVerificationView } from './components/HrVerificationView';
 import { NavigationBar } from './components/NavigationBar';
+import { CookieConsentBanner } from './components/CookieConsentBanner';
 import {
   GitHubLogo,
   LinkedInLogo,
@@ -158,6 +159,9 @@ export const AppContent: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Cookie Consent Banner */}
+      <CookieConsentBanner />
     </div>
   );
 };
