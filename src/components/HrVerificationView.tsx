@@ -309,7 +309,7 @@ export const HrVerificationView: React.FC = () => {
               <span className="text-zinc-700">•</span>
               <span className="flex items-center gap-1">
                 <Phone className="w-3.5 h-3.5 text-zinc-500" />
-                +91 97171 44437
+                +91 96252 13480
               </span>
             </div>
           </div>

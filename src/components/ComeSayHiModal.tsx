@@ -62,8 +62,8 @@ export const ComeSayHiModal: React.FC<ComeSayHiModalProps> = ({
               >
                 📞 Call Primary (+91 9625213480)
               </button>
-              <a href="tel:+919992396866" className="say-hi-phone-trigger secondary">
-                📱 Meta Direct (+91 9992396866)
+              <a href="tel:+919625213480" className="say-hi-phone-trigger secondary">
+                📱 Direct Line (+91 96252 13480)
               </a>
             </div>
           </div>

@@ -63,7 +63,7 @@ export const NavigationBar: React.FC = () => {
             onClick={() => scrollToSection('experience')}
             className="px-3 py-1.5 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors cursor-pointer"
           >
-            Track Record & Experience
+            Work Experience
           </button>
           <button
             onClick={() => scrollToSection('radar')}
@@ -147,7 +147,7 @@ export const NavigationBar: React.FC = () => {
             onClick={() => scrollToSection('experience')}
             className="text-left py-2 text-zinc-300 hover:text-white font-medium"
           >
-            Track Record & Experience
+            Work Experience
           </button>
           <button
             onClick={() => scrollToSection('radar')}

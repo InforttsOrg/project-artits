@@ -382,11 +382,11 @@ export const TechRadarMarquee: React.FC = () => {
   const row4 = [...track4Databases, ...track4Databases, ...track4Databases];
 
   return (
-    <div className="relative w-full flex flex-col gap-3 py-6 overflow-hidden rounded-3xl border border-zinc-800/80 bg-zinc-950/70 shadow-2xl">
+    <div className="relative w-full flex flex-col gap-3 py-2 overflow-hidden">
       
       {/* Edge Blur & Vignette Mask (Left & Right Fades) */}
-      <div className="absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-zinc-950 via-zinc-950/90 to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-zinc-950 via-zinc-950/90 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-[#09090b] via-[#09090b]/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-[#09090b] via-[#09090b]/80 to-transparent z-10 pointer-events-none" />
 
       {/* Row 1: Left to Right */}
       <div className="w-full overflow-hidden py-0.5">
