@@ -33,15 +33,10 @@ import {
   AIAgentLogo,
 } from './BrandLogos';
 import { TechRadarMarquee } from './TechRadarMarquee';
-import { PROJECTS_DATA } from '../data/projectsData';
 
 export const ArchitectPortfolioView: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'financial' | 'ai' | 'fintech' | 'cloud'>('all');
-  const [expandedProject, setExpandedProject] = useState<string | null>('mitochondria');
-  const [activeJobIndex, setActiveJobIndex] = useState(0);
-  const [timelineViewMode, setTimelineViewMode] = useState<'stage' | 'list'>('stage');
-  const [experienceCategory, setExperienceCategory] = useState<'all' | 'fulltime' | 'freelance' | 'personal'>('all');
+  const [experienceCategory, setExperienceCategory] = useState<'all' | 'personal' | 'fulltime' | 'freelance'>('all');
 
   const email = 'sahil.artits.rathee@gmail.com';
 
@@ -51,48 +46,13 @@ export const ArchitectPortfolioView: React.FC = () => {
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const projectList = [
-    {
-      data: PROJECTS_DATA.mitochondria,
-      categoryFilter: 'financial',
-      badge: 'FINANCIAL SYSTEMS',
-      metrics: [
-        { label: 'Latency', value: '< 1ms', desc: 'Direct socket bridge' },
-        { label: 'DB Ports', value: '0 Open', desc: 'Private container VPC' },
-        { label: 'Risk Enforcement', value: '100%', desc: 'Pre-trade policy check' },
-      ],
-    },
-    {
-      data: PROJECTS_DATA.bighit,
-      categoryFilter: 'cloud',
-      badge: 'CLOUD & DEVOPS',
-      metrics: [
-        { label: 'API Latency', value: '-80%', desc: 'Optimized queries & caching' },
-        { label: 'Server Efficiency', value: '+60%', desc: 'AWS IaC infrastructure' },
-        { label: 'App Size', value: '-80%', desc: 'Redesigned core bundle' },
-      ],
-    },
-    {
-      data: PROJECTS_DATA.meeseeks,
-      categoryFilter: 'ai',
-      badge: 'AUTONOMOUS AI',
-      metrics: [
-        { label: 'Token Efficiency', value: '-71.4%', desc: 'AST context pruning' },
-        { label: 'Tool Dispatch', value: 'Isolated', desc: 'Docker sandbox runtime' },
-        { label: 'Regression Rate', value: '0.0%', desc: 'Automated test suite' },
-      ],
-    },
-    {
-      data: PROJECTS_DATA.roost,
-      categoryFilter: 'fintech',
-      badge: 'FINTECH SAAS',
-      metrics: [
-        { label: 'Ledger Audit', value: '100%', desc: 'Double-entry immutability' },
-        { label: 'Data Isolation', value: 'Row-Level', desc: 'PostgreSQL tenant security' },
-        { label: 'Reconciliation', value: 'Real-time', desc: 'Event-driven streaming' },
-      ],
-    },
-  ];
+  const handleCategoryFilter = (catId: 'all' | 'personal' | 'fulltime' | 'freelance') => {
+    const currentScrollY = window.scrollY;
+    setExperienceCategory(catId);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: currentScrollY, behavior: 'instant' as any });
+    });
+  };
 
   const experienceList = [
     // 1. FULL-TIME POSITIONS (Strictly GymWise, BigHit, Gamix Labs)
@@ -327,12 +287,6 @@ export const ArchitectPortfolioView: React.FC = () => {
     ? experienceList
     : experienceList.filter((item) => item.category === experienceCategory);
 
-  const activeJob = filteredExperience[activeJobIndex] || filteredExperience[0] || experienceList[0];
-
-  const filteredProjects = selectedFilter === 'all'
-    ? projectList
-    : projectList.filter((p) => p.categoryFilter === selectedFilter);
-
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20 flex flex-col gap-24">
       {/* 1. HERO SECTION */}
@@ -524,175 +478,7 @@ export const ArchitectPortfolioView: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. FEATURED PRODUCTION SYSTEMS */}
-      <section id="systems" className="flex flex-col gap-8 scroll-mt-24">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-800 pb-5">
-          <div className="flex flex-col gap-1">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
-              Production Case Studies
-            </span>
-            <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
-              Featured Systems & Architecture
-            </h2>
-            <p className="text-sm text-zinc-400 max-w-xl">
-              Battle-tested production systems engineered for low latency, isolated data security, and automated cloud reliability.
-            </p>
-          </div>
-
-          {/* Filter Pills */}
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {[
-              { id: 'all', label: 'All Systems' },
-              { id: 'financial', label: 'Financial' },
-              { id: 'cloud', label: 'Cloud & DevOps' },
-              { id: 'ai', label: 'Autonomous AI' },
-              { id: 'fintech', label: 'Fintech SaaS' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setSelectedFilter(tab.id as typeof selectedFilter)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
-                  selectedFilter === tab.id
-                    ? 'bg-zinc-100 text-zinc-950 shadow-sm'
-                    : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Systems Cards Stack */}
-        <div className="grid grid-cols-1 gap-6">
-          {filteredProjects.map(({ data, badge, metrics }) => {
-            const isExpanded = expandedProject === data.id;
-
-            return (
-              <article
-                key={data.id}
-                className="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/60 transition-all duration-200 overflow-hidden"
-              >
-                <div className="p-6 sm:p-8 flex flex-col gap-6">
-                  {/* Card Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-medium tracking-wide bg-zinc-800 text-zinc-300 border border-zinc-700/60">
-                        {badge}
-                      </span>
-                      <span className="text-xs font-mono text-zinc-500">
-                        {data.timeline} • {data.organization}
-                      </span>
-                    </div>
-
-                    <Link
-                      to={`/work/${data.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 hover:text-emerald-300 transition-colors group cursor-pointer"
-                    >
-                      <span>Read Deep-Dive Case Study</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </Link>
-                  </div>
-
-                  {/* Title & Tagline */}
-                  <div className="flex flex-col gap-2">
-                    <h3 className="font-display font-bold text-2xl text-white tracking-tight">
-                      {data.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-zinc-300 font-medium">
-                      {data.tagline}
-                    </p>
-                    <p className="text-sm text-zinc-400 leading-relaxed max-w-4xl">
-                      {data.summary}
-                    </p>
-                  </div>
-
-                  {/* Metrics Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                    {metrics.map((m) => (
-                      <div
-                        key={m.label}
-                        className="p-3.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60 flex flex-col gap-1"
-                      >
-                        <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-                          {m.label}
-                        </span>
-                        <span className="text-lg font-mono font-bold text-zinc-100">
-                          {m.value}
-                        </span>
-                        <span className="text-xs text-zinc-400">{m.desc}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap items-center gap-2 pt-2">
-                    {data.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-400 bg-zinc-950/40 border border-zinc-800/60"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Expand / Collapse Architecture Preview */}
-                  <div className="pt-2 border-t border-zinc-800/60 flex items-center justify-between">
-                    <button
-                      onClick={() => setExpandedProject(isExpanded ? null : data.id)}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
-                    >
-                      <ChevronRight
-                        className={`w-3.5 h-3.5 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
-                      />
-                      <span>{isExpanded ? 'Hide Architecture Blueprint' : 'Inspect Architecture Blueprint'}</span>
-                    </button>
-
-                    <Link
-                      to={`/work/${data.slug}`}
-                      className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
-                    >
-                      View Full Specs →
-                    </Link>
-                  </div>
-
-                  {/* Expanded Blueprint Details */}
-                  {isExpanded && (
-                    <div className="mt-4 p-5 rounded-xl bg-zinc-950/80 border border-zinc-800 flex flex-col gap-4 animate-fadeIn">
-                      <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
-                        <Terminal className="w-3.5 h-3.5" />
-                        <span>ARCHITECTURE_OVERVIEW // {data.id.toUpperCase()}</span>
-                      </div>
-                      <p className="text-sm text-zinc-300 leading-relaxed">
-                        {data.architecture.overview}
-                      </p>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-                        {data.architecture.steps.map((step, idx) => (
-                          <div
-                            key={step.title}
-                            className="p-3.5 rounded-lg bg-zinc-900/60 border border-zinc-800/60 flex flex-col gap-1.5"
-                          >
-                            <div className="flex items-center justify-between text-xs font-mono">
-                              <span className="text-zinc-300 font-semibold">0{idx + 1}. {step.title}</span>
-                              <span className="text-zinc-500 text-[10px]">{step.tech}</span>
-                            </div>
-                            <p className="text-xs text-zinc-400 leading-relaxed">
-                              {step.description}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 3. VERIFIED EXPERIENCE & SYSTEMS TRACK RECORD */}
+      {/* 2. VERIFIED EXPERIENCE & SYSTEMS TRACK RECORD */}
       <section id="experience" className="flex flex-col gap-6 scroll-mt-24">
         {/* Section Header with Category Filter and View Mode Switcher */}
         <div className="flex flex-col gap-4 border-b border-zinc-800 pb-5">
@@ -705,51 +491,22 @@ export const ArchitectPortfolioView: React.FC = () => {
                 Work History & Systems Track Record
               </h2>
             </div>
-
-            {/* View Mode Switcher */}
-            <div className="inline-flex items-center p-1 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-mono self-start sm:self-auto">
-              <button
-                type="button"
-                onClick={() => setTimelineViewMode('stage')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
-                  timelineViewMode === 'stage'
-                    ? 'bg-zinc-800 text-white font-medium shadow-sm'
-                    : 'text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                Interactive Stage
-              </button>
-              <button
-                type="button"
-                onClick={() => setTimelineViewMode('list')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
-                  timelineViewMode === 'list'
-                    ? 'bg-zinc-800 text-white font-medium shadow-sm'
-                    : 'text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                View All ({filteredExperience.length})
-              </button>
-            </div>
           </div>
 
-          {/* Category Tabs: Full-Time vs Freelance vs Personal Systems */}
+          {/* Category Tabs: All, Personal, Fulltime, Freelance */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
             {[
-              { id: 'all', label: 'All Track Record', count: experienceList.length },
-              { id: 'fulltime', label: 'Full-Time Positions', count: experienceList.filter(e => e.category === 'fulltime').length },
-              { id: 'freelance', label: 'Freelance & Client Systems', count: experienceList.filter(e => e.category === 'freelance').length },
-              { id: 'personal', label: 'Personal Systems & Research', count: experienceList.filter(e => e.category === 'personal').length },
+              { id: 'all', label: 'All', count: experienceList.length },
+              { id: 'personal', label: 'Personal', count: experienceList.filter(e => e.category === 'personal').length },
+              { id: 'fulltime', label: 'Fulltime', count: experienceList.filter(e => e.category === 'fulltime').length },
+              { id: 'freelance', label: 'Freelance', count: experienceList.filter(e => e.category === 'freelance').length },
             ].map((tab) => {
               const isSelected = experienceCategory === tab.id;
               return (
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => {
-                    setExperienceCategory(tab.id as any);
-                    setActiveJobIndex(0);
-                  }}
+                  onClick={() => handleCategoryFilter(tab.id as any)}
                   className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-mono transition-all cursor-pointer shrink-0 ${
                     isSelected
                       ? 'border-emerald-500/60 bg-emerald-950/40 text-emerald-300 font-semibold shadow-sm'
@@ -774,149 +531,8 @@ export const ArchitectPortfolioView: React.FC = () => {
           </p>
         </div>
 
-        {/* MODE 1: INTERACTIVE STAGE */}
-        {timelineViewMode === 'stage' ? (
-          <div className="flex flex-col gap-5">
-            {/* Horizontal Milestone Pill Scrubber */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
-              {filteredExperience.map((job, idx) => {
-                const isActive = activeJobIndex === idx;
-                return (
-                  <button
-                    key={job.id}
-                    type="button"
-                    onClick={() => setActiveJobIndex(idx)}
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl border text-xs font-mono transition-all shrink-0 cursor-pointer ${
-                      isActive
-                        ? 'border-emerald-500 bg-emerald-950/40 text-white font-semibold shadow-md ring-1 ring-emerald-500/30'
-                        : 'border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
-                    }`}
-                  >
-                    <div className="w-4 h-4 flex items-center justify-center shrink-0">
-                      {job.icon}
-                    </div>
-                    <span className="font-display font-medium text-xs whitespace-nowrap">{job.shortName}</span>
-                    <span className="text-[10px] text-zinc-500 font-mono">{job.year}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Active Job Stage Card */}
-            <div
-              key={activeJob.id}
-              className={`p-6 sm:p-8 rounded-2xl border ${activeJob.accentBorder} ${activeJob.accentBg} flex flex-col gap-6 shadow-xl backdrop-blur-sm transition-all duration-300 ease-out`}
-            >
-              {/* Card Header */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-zinc-800/80 pb-5">
-                <div className="flex items-start gap-3.5">
-                  <div className="shrink-0">{activeJob.logo}</div>
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex items-center gap-2.5 flex-wrap">
-                      <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
-                        {activeJob.company}
-                      </h3>
-                      {activeJob.badge && (
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-mono border ${activeJob.badgeColor}`}>
-                          {activeJob.badge}
-                        </span>
-                      )}
-                      {activeJob.linkedinUrl && (
-                        <a
-                          href={activeJob.linkedinUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border border-[#0A66C2]/30 text-[#70b5f9] hover:text-white text-[11px] font-mono transition-all"
-                          title={`View ${activeJob.company} on LinkedIn`}
-                        >
-                          <LinkedInLogo className="w-3 h-3" />
-                          <span>LinkedIn ↗</span>
-                        </a>
-                      )}
-                    </div>
-                    <span className="text-sm font-medium text-emerald-400">
-                      {activeJob.role}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex sm:flex-col sm:items-end gap-1.5 text-xs font-mono text-zinc-400 shrink-0">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-zinc-500" />
-                    <span>{activeJob.period}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-zinc-500">
-                    <MapPin className="w-3.5 h-3.5" />
-                    <span>{activeJob.location}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Highlights Bullet List */}
-              <div className="flex flex-col gap-2.5">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 font-medium">
-                  Key Engineering Outcomes:
-                </span>
-                <ul className="text-sm text-zinc-300 space-y-2 list-disc list-inside leading-relaxed">
-                  {activeJob.highlights.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Tech Stack Pills */}
-              <div className="flex flex-col gap-2 pt-2 border-t border-zinc-800/60">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 font-medium">
-                  Technologies & Paradigms:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {activeJob.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-1 rounded text-xs font-mono text-zinc-300 bg-zinc-950/80 border border-zinc-800 shadow-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom Navigation Scrubber */}
-              <div className="pt-2 flex items-center justify-between gap-4 text-xs font-mono text-zinc-500 border-t border-zinc-800/60">
-                <div className="flex items-center gap-2">
-                  <span className="text-zinc-300 font-semibold">{activeJob.shortName}</span>
-                  <span>•</span>
-                  <span>
-                    Milestone {activeJobIndex + 1} of {filteredExperience.length}
-                  </span>
-                </div>
-                <div className="flex-1 max-w-[120px] sm:max-w-[180px] bg-zinc-900 h-1.5 rounded-full overflow-hidden border border-zinc-800">
-                  <div
-                    className="bg-emerald-400 h-full transition-all duration-300 rounded-full"
-                    style={{ width: `${((activeJobIndex + 1) / filteredExperience.length) * 100}%` }}
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setActiveJobIndex((prev) => (prev > 0 ? prev - 1 : filteredExperience.length - 1))}
-                    className="px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
-                  >
-                    ← Prev
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveJobIndex((prev) => (prev < filteredExperience.length - 1 ? prev + 1 : 0))}
-                    className="px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors cursor-pointer"
-                  >
-                    Next →
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          /* MODE 2: FULL CONTINUOUS TIMELINE LIST */
-          <div className="flex flex-col gap-6">
+        {/* FULL CONTINUOUS TIMELINE LIST */}
+        <div className="flex flex-col gap-6">
             {filteredExperience.map((job) => (
               <div
                 key={job.id}
@@ -984,7 +600,6 @@ export const ArchitectPortfolioView: React.FC = () => {
               </div>
             ))}
           </div>
-        )}
       </section>
 
       {/* 4. TECHNICAL RADAR & STACK WITH 4-TRACK SCROLLING MARQUEE */}

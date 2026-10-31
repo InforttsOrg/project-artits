@@ -60,16 +60,10 @@ export const NavigationBar: React.FC = () => {
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-zinc-400">
           <button
-            onClick={() => scrollToSection('systems')}
-            className="px-3 py-1.5 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors cursor-pointer"
-          >
-            Systems & Work
-          </button>
-          <button
             onClick={() => scrollToSection('experience')}
             className="px-3 py-1.5 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors cursor-pointer"
           >
-            Experience
+            Track Record & Experience
           </button>
           <button
             onClick={() => scrollToSection('radar')}
@@ -150,16 +144,10 @@ export const NavigationBar: React.FC = () => {
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-zinc-800 bg-zinc-950/95 px-4 pt-3 pb-6 flex flex-col gap-3">
           <button
-            onClick={() => scrollToSection('systems')}
-            className="text-left py-2 text-zinc-300 hover:text-white font-medium"
-          >
-            Systems & Work
-          </button>
-          <button
             onClick={() => scrollToSection('experience')}
             className="text-left py-2 text-zinc-300 hover:text-white font-medium"
           >
-            Experience
+            Track Record & Experience
           </button>
           <button
             onClick={() => scrollToSection('radar')}
