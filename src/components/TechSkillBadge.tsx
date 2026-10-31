@@ -152,7 +152,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
         border: 'rgba(36, 150, 237, 0.25)',
         icon: (
           <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.186.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.186.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.186.186.186m5.893 2.715h2.118a.186.186 0 00.186-.186V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185M23.76 9.89c-.365-2.03-1.62-3.23-2.98-3.23-.27 0-.53.05-.77.14-.64-1.35-1.92-2.1-3.37-2.1H.88C.39 4.7 0 5.1 0 5.58v11.75c0 3.7 3.01 6.67 6.72 6.67h10.56c3.71 0 6.72-2.97 6.72-6.67 0-.53-.06-1.05-.18-1.55.97-.8 1.48-1.84 1.48-2.95 0-.96-.4-2.06-1.54-2.94z" />
+            <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.186.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.186.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.186.186.186m5.893 2.715h2.118a.186.186 0 00.186-.186V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186H8.1a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.185-.186H5.136a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.928 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.186-.186h-2.12a.185.185 0 00-.184.186v1.887c0 .102.083.185.185.185M23.76 9.89c-.365-2.03-1.62-3.23-2.98-3.23-.27 0-.53.05-.77.14-.64-1.35-1.92-2.1-3.37-2.1H.88C.39 4.7 0 5.1 0 5.58v11.75c0 3.7 3.01 6.67 6.72 6.67h10.56c3.71 0 6.72-2.97 6.72-6.67 0-.53-.06-1.05-.18-1.55.97-.8 1.48-1.84 1.48-2.95 0-.96-.4-2.06-1.54-2.94z" />
           </svg>
         )
       };
@@ -172,7 +172,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 12. Go / Golang
+    // 12. Go / Golang / Go Functions / Golang Microservices / Go Serverless
     if (norm.includes('go') || norm.includes('golang')) {
       return {
         color: '#00ADD8',
@@ -186,7 +186,112 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 13. PHP / Laravel
+    // 13. Grafana
+    if (norm.includes('grafana')) {
+      return {
+        color: '#F46800',
+        bg: 'rgba(244, 104, 0, 0.08)',
+        border: 'rgba(244, 104, 0, 0.25)',
+        icon: (
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z" />
+          </svg>
+        )
+      };
+    }
+
+    // 14. Prometheus
+    if (norm.includes('prometheus')) {
+      return {
+        color: '#E6522C',
+        bg: 'rgba(230, 82, 44, 0.08)',
+        border: 'rgba(230, 82, 44, 0.25)',
+        icon: (
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="2" />
+            <path d="M12 7c-2 2-3 4-2 6a3 3 0 0 0 4 0c1-2 0-4-2-6z" fill="currentColor" />
+          </svg>
+        )
+      };
+    }
+
+    // 15. Loki
+    if (norm.includes('loki')) {
+      return {
+        color: '#F47B20',
+        bg: 'rgba(244, 123, 32, 0.08)',
+        border: 'rgba(244, 123, 32, 0.25)',
+        icon: (
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <path d="M7 8h10M7 12h6M7 16h8" strokeLinecap="round" />
+          </svg>
+        )
+      };
+    }
+
+    // 16. n8n
+    if (norm.includes('n8n')) {
+      return {
+        color: '#EA4B71',
+        bg: 'rgba(234, 75, 113, 0.08)',
+        border: 'rgba(234, 75, 113, 0.25)',
+        icon: (
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="7" r="3" />
+            <circle cx="18" cy="17" r="3" />
+            <path d="M8.5 10.8l7-3.6M8.5 13.2l7 3.6" stroke="currentColor" strokeWidth="1.8" fill="none" />
+          </svg>
+        )
+      };
+    }
+
+    // 17. Kotlin
+    if (norm.includes('kotlin')) {
+      return {
+        color: '#7F52FF',
+        bg: 'rgba(127, 82, 255, 0.08)',
+        border: 'rgba(127, 82, 255, 0.25)',
+        icon: (
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 24H0V0h24L12 12z" />
+          </svg>
+        )
+      };
+    }
+
+    // 18. WebSockets
+    if (norm.includes('websocket')) {
+      return {
+        color: '#00E676',
+        bg: 'rgba(0, 230, 118, 0.08)',
+        border: 'rgba(0, 230, 118, 0.25)',
+        icon: (
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg>
+        )
+      };
+    }
+
+    // 19. GIS & Vector Tiling / OpenStreetMap / Google Maps
+    if (norm.includes('gis') || norm.includes('tiling') || norm.includes('openstreetmap') || norm.includes('maps')) {
+      return {
+        color: '#4285F4',
+        bg: 'rgba(66, 133, 244, 0.08)',
+        border: 'rgba(66, 133, 244, 0.25)',
+        icon: (
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+            <line x1="8" y1="2" x2="8" y2="18" />
+            <line x1="16" y1="6" x2="16" y2="22" />
+          </svg>
+        )
+      };
+    }
+
+    // 20. PHP / Laravel
     if (norm.includes('php') || norm.includes('laravel')) {
       return {
         color: '#FF2D20',
@@ -200,7 +305,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 14. AWS DynamoDB
+    // 21. AWS DynamoDB
     if (norm.includes('dynamodb')) {
       return {
         color: '#4053D6',
@@ -217,7 +322,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 15. GraphDB / Neptune
+    // 22. GraphDB / Neptune
     if (norm.includes('graphdb') || norm.includes('neptune')) {
       return {
         color: '#27711C',
@@ -236,7 +341,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 16. AWS CodePipeline
+    // 23. AWS CodePipeline
     if (norm.includes('codepipeline') || norm.includes('pipeline')) {
       return {
         color: '#8C4FFF',
@@ -252,8 +357,8 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 17. AWS Serverless / Amazon Serverless / AWS
-    if (norm.includes('serverless') || norm.includes('aws')) {
+    // 24. AWS Serverless / Lambda / AWS
+    if (norm.includes('serverless') || norm.includes('lambda') || norm.includes('aws')) {
       return {
         color: '#FF9900',
         bg: 'rgba(255, 153, 0, 0.08)',
@@ -266,7 +371,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 18. Distributed Systems / Microservices
+    // 25. Distributed Systems / Microservices
     if (norm.includes('distributed') || norm.includes('microservice')) {
       return {
         color: '#10B981',
@@ -285,7 +390,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 19. TypeScript
+    // 26. TypeScript
     if (norm.includes('typescript')) {
       return {
         color: '#3178C6',
@@ -299,7 +404,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 20. Python
+    // 27. Python
     if (norm.includes('python')) {
       return {
         color: '#3776AB',
@@ -313,7 +418,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 21. PostgreSQL
+    // 28. PostgreSQL
     if (norm.includes('postgres')) {
       return {
         color: '#336791',
@@ -327,7 +432,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 22. Next.js
+    // 29. Next.js
     if (norm.includes('next')) {
       return {
         color: '#FFFFFF',
@@ -342,7 +447,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 23. Cloudflare Workers
+    // 30. Cloudflare Workers
     if (norm.includes('cloudflare')) {
       return {
         color: '#F38020',
@@ -356,7 +461,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 24. C++
+    // 31. C++
     if (norm.includes('c++')) {
       return {
         color: '#00599C',
@@ -370,7 +475,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 25. NATS JetStream / Kafka
+    // 32. NATS JetStream / Kafka
     if (norm.includes('nats') || norm.includes('kafka')) {
       return {
         color: '#27AAE1',
@@ -384,7 +489,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 26. Quant / Algorithmic Trading / HFT
+    // 33. Quant / Algorithmic Trading / HFT
     if (norm.includes('quant') || norm.includes('trading') || norm.includes('hft') || norm.includes('metatrader')) {
       return {
         color: '#10B981',
@@ -399,7 +504,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
       };
     }
 
-    // 27. AI Agents / Multi-Agent / Swarms / AST / LLM
+    // 34. AI Agents / Multi-Agent / Swarms / AST / LLM
     if (norm.includes('agent') || norm.includes('swarm') || norm.includes('ast') || norm.includes('llm') || norm.includes('vector')) {
       return {
         color: '#A855F7',
