@@ -309,8 +309,8 @@ export const ArchitectPortfolioView: React.FC = () => {
               Senior Systems & Infrastructure Engineer
             </p>
             <p className="text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed">
-              Specializing in resilient distributed architectures, sub-millisecond execution engines, Go, Python, and Kubernetes.
-              Built scalable backends, automated cloud infrastructure, and low-latency systems at{' '}
+              Architecting resilient distributed systems, sub-millisecond event streaming engines, and autonomous agentic AI runtimes with Go, Python, and Kubernetes.
+              Engineered high-throughput cloud backends, zero-trust container networks, and mission-critical execution architectures across{' '}
               <span className="text-zinc-200 font-medium">GymWise</span>,{' '}
               <span className="text-zinc-200 font-medium">BigHit</span>, and{' '}
               <span className="text-zinc-200 font-medium">Gamix Labs</span>.
