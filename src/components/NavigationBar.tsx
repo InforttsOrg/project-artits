@@ -157,18 +157,28 @@ export const NavigationBar: React.FC = () => {
           >
             Technical Stack
           </button>
-          <div className="pt-3 border-t border-zinc-800/60 flex items-center gap-3">
-            <a
-              href="/Sahil-Rathee-Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 text-center py-2 text-xs font-medium text-zinc-200 bg-zinc-900 rounded-lg border border-zinc-800"
-            >
-              Resume PDF
-            </a>
+          <div className="pt-3 border-t border-zinc-800/60 flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <a
+                href="/Sahil-Rathee-Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center py-2 text-xs font-medium text-zinc-200 bg-zinc-900 rounded-lg border border-zinc-800"
+              >
+                1-Page Resume
+              </a>
+              <a
+                href="/Sahil-Rathee-Resume-Full.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center py-2 text-xs font-medium text-zinc-200 bg-zinc-900 rounded-lg border border-zinc-800"
+              >
+                Full Resume
+              </a>
+            </div>
             <a
               href="mailto:sahil.artits.rathee@gmail.com"
-              className="flex-1 text-center py-2 text-xs font-medium text-zinc-950 bg-zinc-100 rounded-lg"
+              className="text-center py-2 text-xs font-medium text-zinc-950 bg-zinc-100 rounded-lg"
             >
               Contact Sahil
             </a>

@@ -175,6 +175,35 @@ export const QuantTradingLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' })
   </svg>
 );
 
+export const GrowthHikesLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
+  <svg
+    className={className}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M8 38L20 24L28 32L40 14"
+      stroke="currentColor"
+      strokeWidth="3.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M28 14H40V26"
+      stroke="currentColor"
+      strokeWidth="3.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="8" cy="38" r="3" fill="currentColor" />
+    <circle cx="20" cy="24" r="3" fill="currentColor" />
+    <circle cx="28" cy="32" r="3" fill="currentColor" />
+    <circle cx="40" cy="14" r="3" fill="currentColor" />
+  </svg>
+);
+
 export const AIAgentLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
   <svg
     className={className}
