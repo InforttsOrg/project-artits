@@ -18,6 +18,24 @@ export const CookieConsentBanner: React.FC = () => {
   const handleChoice = (choice: 'accepted' | 'declined') => {
     try {
       localStorage.setItem('cookie_consent', choice);
+      if (choice === 'accepted') {
+        // Trigger Method C: Official LinkedIn Insight Tag
+        (window as any).initializeLinkedInInsightTag?.();
+      }
+
+      // Dispatch event to Cloudflare Serverless Tracker
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'cookie_consent',
+          consentChoice: choice,
+          path: window.location.pathname,
+          ref: new URLSearchParams(window.location.search).get('ref') || new URLSearchParams(window.location.search).get('utm_source'),
+          screen: `${window.innerWidth}x${window.innerHeight}`,
+          referrer: document.referrer || 'Direct'
+        })
+      }).catch(() => {});
     } catch {
       // Ignore
     }

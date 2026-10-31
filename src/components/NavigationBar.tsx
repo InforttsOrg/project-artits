@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Github, Linkedin, FileText, Menu, X, Mail } from 'lucide-react';
+import { Github, Linkedin, FileText, Menu, X, Mail, Sparkles } from 'lucide-react';
+import { RecruiterConnectModal } from './RecruiterConnectModal';
 
 export const NavigationBar: React.FC = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [recruiterModalOpen, setRecruiterModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -108,6 +110,14 @@ export const NavigationBar: React.FC = () => {
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
           </a>
+          <button
+            onClick={() => setRecruiterModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 rounded-lg transition-colors cursor-pointer"
+            title="Recruiter Introduction & Quick LinkedIn Connect"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+            <span>Recruiter Connect</span>
+          </button>
           <a
             href="/Sahil-Rathee-Resume.pdf"
             target="_blank"
@@ -176,6 +186,16 @@ export const NavigationBar: React.FC = () => {
                 Full Resume
               </a>
             </div>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setRecruiterModalOpen(true);
+              }}
+              className="text-center py-2 text-xs font-semibold text-blue-300 bg-blue-500/10 border border-blue-500/30 rounded-lg flex items-center justify-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Recruiter & Lead Connect</span>
+            </button>
             <a
               href="mailto:sahil.artits.rathee@gmail.com"
               className="text-center py-2 text-xs font-medium text-zinc-950 bg-zinc-100 rounded-lg"
@@ -185,6 +205,12 @@ export const NavigationBar: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Recruiter & Lead LinkedIn Introduction Modal */}
+      <RecruiterConnectModal
+        isOpen={recruiterModalOpen}
+        onClose={() => setRecruiterModalOpen(false)}
+      />
     </header>
   );
 };

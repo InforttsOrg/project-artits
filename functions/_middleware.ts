@@ -1,0 +1,92 @@
+interface Env {
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
+}
+
+const DEFAULT_BOT_TOKEN = '8729591979:AAGeGhTHJ-KIwK5szPu0QL_VkYMoIzSzrYw';
+const DEFAULT_CHAT_ID = '1888142090';
+
+// Skip static assets to prevent notification spam
+const IGNORE_EXTS = [
+  '.js', '.css', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico',
+  '.woff', '.woff2', '.ttf', '.eot', '.map', '.json', '.txt'
+];
+
+export const onRequest: PagesFunction<Env> = async (context) => {
+  const { request, next, env } = context;
+  const url = new URL(request.url);
+  const pathname = url.pathname.toLowerCase();
+
+  // 1. Static asset pass-through
+  if (IGNORE_EXTS.some(ext => pathname.endsWith(ext))) {
+    return next();
+  }
+
+  // 2. Internal API calls pass-through
+  if (pathname.startsWith('/api/')) {
+    return next();
+  }
+
+  // Method A: Query parameters (ref, utm_source, token)
+  const ref = url.searchParams.get('ref') || url.searchParams.get('utm_source') || url.searchParams.get('token');
+  const utmCampaign = url.searchParams.get('utm_campaign');
+  const utmMedium = url.searchParams.get('utm_medium');
+  const referrer = request.headers.get('referer') || '';
+  const userAgent = request.headers.get('user-agent') || '';
+
+  // Method B: Reverse IP & Cloudflare edge ISP / Organization resolution
+  const cf = (request as any).cf || {};
+  const city = cf.city || 'Unknown City';
+  const country = cf.country || 'Unknown Country';
+  const region = cf.region || '';
+  const asOrg = cf.asOrganization || (cf.asn ? `AS${cf.asn}` : 'Corporate/ISP Network');
+
+  // Filter out internal pings or common web crawlers unless targeted parameter is passed
+  const isCrawler = /bot|spider|crawl|uptime|curl|headless|ping/i.test(userAgent);
+
+  if (!isCrawler || ref) {
+    const botToken = env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
+
+    let alertTitle = '🌐 New Portfolio Visit';
+    if (ref) {
+      alertTitle = `🎯 Targeted Visitor Link Opened [${ref}]`;
+    } else if (referrer.includes('linkedin.com')) {
+      alertTitle = '💼 LinkedIn Referral Visitor';
+    } else if (pathname.includes('/verify')) {
+      alertTitle = '🛡️ HR Verification Dossier Accessed';
+    } else if (pathname.includes('/resume')) {
+      alertTitle = '📄 Resume Accessed / Downloaded';
+    }
+
+    const payloadLines = [
+      `<b>${alertTitle}</b>`,
+      '',
+      `<b>Path:</b> <code>${url.pathname}</code>`,
+      ref ? `<b>Campaign Ref:</b> <code>${ref}</code>` : null,
+      utmCampaign ? `<b>Campaign:</b> ${utmCampaign}` : null,
+      utmMedium ? `<b>Medium:</b> ${utmMedium}` : null,
+      `<b>Organization / ISP:</b> 🏢 <b>${asOrg}</b>`,
+      `<b>Location:</b> 📍 ${city}${region ? ', ' + region : ''}, ${country}`,
+      referrer ? `<b>Referrer:</b> 🔗 ${referrer}` : null,
+      `<b>Time:</b> ${new Date().toISOString()}`
+    ].filter(Boolean).join('\n');
+
+    context.waitUntil(
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: payloadLines,
+          parse_mode: 'HTML',
+          disable_web_page_preview: true
+        })
+      }).catch(err => {
+        console.error('Telegram notification error:', err);
+      })
+    );
+  }
+
+  return next();
+};

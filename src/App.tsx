@@ -14,12 +14,14 @@ import {
   StackOverflowLogo,
   InstagramLogo,
 } from './components/BrandLogos';
+import { trackVisitorEvent } from './utils/visitorTracker';
 
-// Automatic scroll-to-top on route changes
+// Automatic scroll-to-top and route telemetry
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+    trackVisitorEvent('page_view', { path: pathname });
   }, [pathname]);
   return null;
 };
