@@ -20,6 +20,30 @@
     <script>
       // Force base href for Cloudflare Pages routing
       window.$FLUTTER_BASE_HREF = "/";
+
+      // Method C: Official LinkedIn Insight Tag Loader
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push("7124982");
+
+      window.initializeLinkedInInsightTag = function() {
+        if (window._linkedin_insight_loaded) return;
+        window._linkedin_insight_loaded = true;
+        var s = document.getElementsByTagName("script")[0];
+        var b = document.createElement("script");
+        b.type = "text/javascript";
+        b.async = true;
+        b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+        s.parentNode.insertBefore(b, s);
+      };
+
+      try {
+        if (localStorage.getItem('cookie_consent') === 'accepted') {
+          window.initializeLinkedInInsightTag();
+        }
+      } catch (e) {}
     </script>
+    <noscript>
+      <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=7124982&fmt=gif" />
+    </noscript>
   </body>
 </html>
