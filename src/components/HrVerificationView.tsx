@@ -6,7 +6,6 @@ import {
   Unlock,
   FileText,
   Download,
-  Copy,
   Check,
   AlertCircle,
   Building,
@@ -22,7 +21,6 @@ export const HrVerificationView: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [pin, setPin] = useState('');
   const [isUnlocked, setIsUnlocked] = useState(false);
-  const [copiedLink, setCopiedLink] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   // Auto-unlock if valid token query param is provided (?token=verified or ?token=hr)
@@ -41,13 +39,6 @@ export const HrVerificationView: React.FC = () => {
     } else {
       setErrorMsg('Invalid Access Code. (Hint: Use 2026)');
     }
-  };
-
-  const copyVerificationLink = () => {
-    const url = `${window.location.origin}/verify?token=verified`;
-    navigator.clipboard.writeText(url);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
   };
 
   const compensationRecords = [
@@ -207,13 +198,6 @@ export const HrVerificationView: React.FC = () => {
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <button
-                  onClick={copyVerificationLink}
-                  className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-medium text-zinc-200 transition-colors flex items-center gap-1.5 border border-zinc-700"
-                >
-                  {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedLink ? 'Link Copied!' : 'Copy HR Direct Link'}</span>
-                </button>
                 <a
                   href="/Sahil-Rathee-Resume.pdf"
                   target="_blank"
