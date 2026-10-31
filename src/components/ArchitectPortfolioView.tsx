@@ -56,7 +56,121 @@ export const ArchitectPortfolioView: React.FC = () => {
   };
 
   const experienceList = [
-    // 1. FULL-TIME POSITIONS (Strictly GymWise, BigHit, Gamix Labs)
+    // 1. FREELANCE & CLIENT SYSTEMS (2026)
+    {
+      id: 'naibooking',
+      company: 'NaiBooking',
+      shortName: 'NaiBooking',
+      category: 'freelance' as const,
+      year: '2026',
+      role: 'Software Engineer — High-Concurrency Booking Systems & Microservices',
+      period: 'Aug 2026 – Present',
+      location: 'Bangalore, India (Remote)',
+      badge: 'Freelance & Client System',
+      badgeColor: 'bg-sky-950/50 text-sky-300 border-sky-800/40',
+      linkedinUrl: null,
+      icon: <NaiBookingLogo className="w-4 h-4 text-sky-400" />,
+      logo: (
+        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-sky-500/40 flex items-center justify-center p-2 shrink-0 text-sky-400 shadow-inner">
+          <NaiBookingLogo className="w-7 h-7" />
+        </div>
+      ),
+      highlights: [
+        'Architecting high-scale booking infrastructure and distributed scheduling microservices with low-latency event synchronization.',
+        'Engineering fault-tolerant transaction ledgers, PostgreSQL advisory locking, and multi-tier Redis caching to handle high-frequency appointment spikes.',
+        'Automated CI/CD deployment pipelines and cloud infrastructure observability across distributed remote service nodes.',
+      ],
+      techStack: ['TypeScript', 'Node.js', 'PostgreSQL', 'Redis', 'Docker', 'Microservices', 'REST APIs', 'CI/CD'],
+      accentBorder: 'border-sky-500/30',
+      accentBg: 'bg-sky-950/10',
+    },
+    {
+      id: 'orealfit',
+      company: 'Orealfit',
+      shortName: 'Orealfit',
+      category: 'freelance' as const,
+      year: '2026',
+      role: 'Lead Software Engineer — Wellness Architecture & Autonomous Pipelines',
+      period: 'May 2026 – Jul 2026',
+      location: 'Gurugram, India',
+      badge: 'Freelance & Client System',
+      badgeColor: 'bg-sky-950/50 text-sky-300 border-sky-800/40',
+      linkedinUrl: null,
+      icon: <OrealfitLogo className="w-4 h-4 text-sky-400" />,
+      logo: (
+        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-sky-500/40 flex items-center justify-center p-2.5 shrink-0 text-sky-400 shadow-inner">
+          <OrealfitLogo className="w-7 h-7" />
+        </div>
+      ),
+      highlights: [
+        'Contractually architected and scaled an enterprise sports and wellness ecosystem featuring real-time scorecard streaming.',
+        'Deployed autonomous agentic dev and test pipelines, speeding up release cadence and feature turnaround time.',
+        'Optimized AI infrastructure and RAG telemetry, achieving a 70% reduction in monthly AI token expenditure.',
+        'Engineered edge-computed billing and GST-compliance solution for SMBs with sub-50ms latency.',
+      ],
+      techStack: ['Flutter', 'Next.js', 'Go', 'PostgreSQL', 'Redis', 'Qdrant Vector DB', 'Docker', 'Cloudflare Workers'],
+      accentBorder: 'border-sky-500/30',
+      accentBg: 'bg-sky-950/10',
+    },
+    {
+      id: 'growthhikes',
+      company: 'GrowthHikes',
+      shortName: 'GrowthHikes',
+      category: 'freelance' as const,
+      year: '2026',
+      role: 'Full Stack Engineer — Web Platform & Autonomous Marketing Pipelines',
+      period: '2026 (Contract)',
+      location: 'Remote',
+      badge: 'Freelance & Client System',
+      badgeColor: 'bg-sky-950/50 text-sky-300 border-sky-800/40',
+      linkedinUrl: null,
+      icon: <GrowthHikesLogo className="w-4 h-4 text-sky-400" />,
+      logo: (
+        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-sky-500/40 flex items-center justify-center p-2.5 shrink-0 text-sky-400 shadow-inner">
+          <GrowthHikesLogo className="w-7 h-7" />
+        </div>
+      ),
+      highlights: [
+        'Engineered modern web platform and interactive client calculators deployed serverless to Cloudflare Workers with edge caching.',
+        'Built automated agentic content workflows and scheduled marketing operations pipelines with real-time analytics aggregation.',
+        'Delivered responsive, high-performance UI components with accessibility, instant client-side routing, and zero-runtime bundle bloat.',
+      ],
+      techStack: ['React', 'Next.js', 'Cloudflare Workers', 'Node.js', 'Python', 'Tailwind CSS'],
+      accentBorder: 'border-sky-500/30',
+      accentBg: 'bg-sky-950/10',
+    },
+
+    // 2. CAREER BREAK & QUANTITATIVE RESEARCH (Dec 2025 – Apr 2026)
+    {
+      id: 'quant-break',
+      company: 'Mitochondria — Autonomous Quantitative Trading System',
+      shortName: 'Mitochondria (Quant)',
+      category: 'personal' as const,
+      year: '2025–26',
+      role: 'Quantitative Research, Algorithmic Execution & Low-Latency HFT',
+      period: 'Dec 2025 – Apr 2026',
+      location: 'Autonomous System & Research',
+      badge: 'Career Break • Research',
+      badgeColor: 'bg-purple-950/50 text-purple-300 border-purple-800/40',
+      linkedinUrl: null,
+      icon: <QuantTradingLogo className="w-4 h-4 text-purple-400" />,
+      logo: (
+        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/50 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
+          <QuantTradingLogo className="w-7 h-7" />
+        </div>
+      ),
+      highlights: [
+        'Dedicated quantitative deep-dive mastering Algorithmic Trading strategies, statistical arbitrage, and High-Frequency Trading (HFT) architectures.',
+        'Formulated mathematical trading models and tick-level backtesting engines streaming real-time order-book telemetry via NATS JetStream.',
+        'Engineered sub-millisecond in-memory ring buffers and MetaTrader 5 execution bridges with zero open database ports on private VPCs.',
+        'Developed invariant-based risk safeguards: dynamic position sizing, trailing circuit breakers, and automated drawdown enforcement.',
+      ],
+      techStack: ['Quantitative Research', 'Algorithmic Trading', 'HFT Systems', 'MetaTrader 5', 'Python', 'C++', 'Go', 'NATS JetStream'],
+      accentBorder: 'border-purple-500/40',
+      accentBg: 'bg-purple-950/20',
+    },
+
+    // 3. FULL-TIME CORPORATE ROLE: GymWise (Jul 2024 – Nov 2025)
     {
       id: 'gymwise',
       company: 'GymWise India Private Limited',
@@ -98,6 +212,37 @@ export const ArchitectPortfolioView: React.FC = () => {
       accentBorder: 'border-emerald-500/30',
       accentBg: 'bg-emerald-950/10',
     },
+
+    // 4. CAREER BREAK & AI AGENTS RESEARCH (Apr 2024 – Jun 2024)
+    {
+      id: 'ai-break',
+      company: 'Meeseeks — Autonomous Multi-Agent AI Framework',
+      shortName: 'Meeseeks (AI Swarms)',
+      category: 'personal' as const,
+      year: '2024',
+      role: 'Autonomous AI Agents, Multi-Agent Swarms & AST Context Compression',
+      period: 'Apr 2024 – Jun 2024',
+      location: 'Autonomous System & Research',
+      badge: 'Career Break • Research',
+      badgeColor: 'bg-purple-950/50 text-purple-300 border-purple-800/40',
+      linkedinUrl: null,
+      icon: <AIAgentLogo className="w-4 h-4 text-purple-400" />,
+      logo: (
+        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/50 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
+          <AIAgentLogo className="w-7 h-7" />
+        </div>
+      ),
+      highlights: [
+        'Researched and built AST context compression algorithms reducing LLM context window consumption by ~71.4% with dynamic prompt caching.',
+        'Implemented secure Docker sandbox execution runtimes for autonomous coding agents with deterministic verification loops.',
+        'Designed hybrid agentic RAG retrieval architectures, hierarchical vector indexing strategies, and automated decision verification loops.',
+      ],
+      techStack: ['Autonomous AI Agents', 'Multi-Agent Swarms', 'AST Code Parsing', 'Vector Embeddings', 'LLM Orchestration', 'Python', 'Docker'],
+      accentBorder: 'border-purple-500/40',
+      accentBg: 'bg-purple-950/20',
+    },
+
+    // 5. FULL-TIME CORPORATE ROLE: BigHit (Nov 2022 – Mar 2024)
     {
       id: 'bighit',
       company: 'BigHit Pvt Ltd',
@@ -139,6 +284,8 @@ export const ArchitectPortfolioView: React.FC = () => {
       accentBorder: 'border-emerald-500/30',
       accentBg: 'bg-emerald-950/10',
     },
+
+    // 6. FULL-TIME CORPORATE ROLE: Gamix Labs (Mar 2022 – Oct 2022)
     {
       id: 'gamixlabs',
       company: 'Gamix Labs Private Limited',
@@ -166,147 +313,6 @@ export const ArchitectPortfolioView: React.FC = () => {
       techStack: ['Angular', 'React', 'Node.js', 'RabbitMQ', 'Redis', 'Postman', 'Kubernetes', 'Docker', 'k3s'],
       accentBorder: 'border-emerald-500/30',
       accentBg: 'bg-emerald-950/10',
-    },
-
-    // 2. FREELANCE & CLIENT SYSTEMS (NaiBooking, GrowthHikes, Orealfit)
-    {
-      id: 'naibooking',
-      company: 'NaiBooking',
-      shortName: 'NaiBooking',
-      category: 'freelance' as const,
-      year: '2026',
-      role: 'Software Engineer — High-Concurrency Booking Systems & Microservices',
-      period: 'Aug 2026 – Present',
-      location: 'Bangalore, India (Remote)',
-      badge: 'Freelance & Client System',
-      badgeColor: 'bg-sky-950/50 text-sky-300 border-sky-800/40',
-      linkedinUrl: null,
-      icon: <NaiBookingLogo className="w-4 h-4 text-sky-400" />,
-      logo: (
-        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-sky-500/40 flex items-center justify-center p-2 shrink-0 text-sky-400 shadow-inner">
-          <NaiBookingLogo className="w-7 h-7" />
-        </div>
-      ),
-      highlights: [
-        'Architecting high-scale booking infrastructure and distributed scheduling microservices with low-latency event synchronization.',
-        'Engineering fault-tolerant transaction ledgers, PostgreSQL advisory locking, and multi-tier Redis caching to handle high-frequency appointment spikes.',
-        'Automated CI/CD deployment pipelines and cloud infrastructure observability across distributed remote service nodes.',
-      ],
-      techStack: ['TypeScript', 'Node.js', 'PostgreSQL', 'Redis', 'Docker', 'Microservices', 'REST APIs', 'CI/CD'],
-      accentBorder: 'border-sky-500/30',
-      accentBg: 'bg-sky-950/10',
-    },
-    {
-      id: 'growthhikes',
-      company: 'GrowthHikes',
-      shortName: 'GrowthHikes',
-      category: 'freelance' as const,
-      year: '2026',
-      role: 'Full Stack Engineer — Web Platform & Autonomous Marketing Pipelines',
-      period: '2026 (Contract)',
-      location: 'Remote',
-      badge: 'Freelance & Client System',
-      badgeColor: 'bg-sky-950/50 text-sky-300 border-sky-800/40',
-      linkedinUrl: null,
-      icon: <GrowthHikesLogo className="w-4 h-4 text-sky-400" />,
-      logo: (
-        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-sky-500/40 flex items-center justify-center p-2.5 shrink-0 text-sky-400 shadow-inner">
-          <GrowthHikesLogo className="w-7 h-7" />
-        </div>
-      ),
-      highlights: [
-        'Engineered modern web platform and interactive client calculators deployed serverless to Cloudflare Workers with edge caching.',
-        'Built automated agentic content workflows and scheduled marketing operations pipelines with real-time analytics aggregation.',
-        'Delivered responsive, high-performance UI components with accessibility, instant client-side routing, and zero-runtime bundle bloat.',
-      ],
-      techStack: ['React', 'Next.js', 'Cloudflare Workers', 'Node.js', 'Python', 'Tailwind CSS'],
-      accentBorder: 'border-sky-500/30',
-      accentBg: 'bg-sky-950/10',
-    },
-    {
-      id: 'orealfit',
-      company: 'Orealfit',
-      shortName: 'Orealfit',
-      category: 'freelance' as const,
-      year: '2026',
-      role: 'Lead Software Engineer — Wellness Architecture & Autonomous Pipelines',
-      period: 'May 2026 – Jul 2026',
-      location: 'Gurugram, India',
-      badge: 'Freelance & Client System',
-      badgeColor: 'bg-sky-950/50 text-sky-300 border-sky-800/40',
-      linkedinUrl: null,
-      icon: <OrealfitLogo className="w-4 h-4 text-sky-400" />,
-      logo: (
-        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-sky-500/40 flex items-center justify-center p-2.5 shrink-0 text-sky-400 shadow-inner">
-          <OrealfitLogo className="w-7 h-7" />
-        </div>
-      ),
-      highlights: [
-        'Contractually architected and scaled an enterprise sports and wellness ecosystem featuring real-time scorecard streaming.',
-        'Deployed autonomous agentic dev and test pipelines, speeding up release cadence and feature turnaround time.',
-        'Optimized AI infrastructure and RAG telemetry, achieving a 70% reduction in monthly AI token expenditure.',
-        'Engineered edge-computed billing and GST-compliance solution for SMBs with sub-50ms latency.',
-      ],
-      techStack: ['Flutter', 'Next.js', 'Go', 'PostgreSQL', 'Redis', 'Qdrant Vector DB', 'Docker', 'Cloudflare Workers'],
-      accentBorder: 'border-sky-500/30',
-      accentBg: 'bg-sky-950/10',
-    },
-
-    // 3. PERSONAL OPEN-SOURCE & AUTONOMOUS RESEARCH (Mitochondria, Meeseeks)
-    {
-      id: 'quant-break',
-      company: 'Mitochondria — Autonomous Quantitative Trading System',
-      shortName: 'Mitochondria (Quant)',
-      category: 'personal' as const,
-      year: '2025–26',
-      role: 'Quantitative Research, Algorithmic Execution & Low-Latency HFT',
-      period: 'Dec 2025 – Apr 2026',
-      location: 'Autonomous System & Research',
-      badge: 'Personal System & Research',
-      badgeColor: 'bg-purple-950/50 text-purple-300 border-purple-800/40',
-      linkedinUrl: null,
-      icon: <QuantTradingLogo className="w-4 h-4 text-purple-400" />,
-      logo: (
-        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/50 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
-          <QuantTradingLogo className="w-7 h-7" />
-        </div>
-      ),
-      highlights: [
-        'Dedicated quantitative deep-dive mastering Algorithmic Trading strategies, statistical arbitrage, and High-Frequency Trading (HFT) architectures.',
-        'Formulated mathematical trading models and tick-level backtesting engines streaming real-time order-book telemetry via NATS JetStream.',
-        'Engineered sub-millisecond in-memory ring buffers and MetaTrader 5 execution bridges with zero open database ports on private VPCs.',
-        'Developed invariant-based risk safeguards: dynamic position sizing, trailing circuit breakers, and automated drawdown enforcement.',
-      ],
-      techStack: ['Quantitative Research', 'Algorithmic Trading', 'HFT Systems', 'MetaTrader 5', 'Python', 'C++', 'Go', 'NATS JetStream'],
-      accentBorder: 'border-purple-500/40',
-      accentBg: 'bg-purple-950/20',
-    },
-    {
-      id: 'ai-break',
-      company: 'Meeseeks — Autonomous Multi-Agent AI Framework',
-      shortName: 'Meeseeks (AI Swarms)',
-      category: 'personal' as const,
-      year: '2024',
-      role: 'Autonomous AI Agents, Multi-Agent Swarms & AST Context Compression',
-      period: 'Apr 2024 – Jun 2024',
-      location: 'Autonomous System & Research',
-      badge: 'Personal System & Research',
-      badgeColor: 'bg-purple-950/50 text-purple-300 border-purple-800/40',
-      linkedinUrl: null,
-      icon: <AIAgentLogo className="w-4 h-4 text-purple-400" />,
-      logo: (
-        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/50 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
-          <AIAgentLogo className="w-7 h-7" />
-        </div>
-      ),
-      highlights: [
-        'Researched and built AST context compression algorithms reducing LLM context window consumption by ~71.4% with dynamic prompt caching.',
-        'Implemented secure Docker sandbox execution runtimes for autonomous coding agents with deterministic verification loops.',
-        'Designed hybrid agentic RAG retrieval architectures, hierarchical vector indexing strategies, and automated decision verification loops.',
-      ],
-      techStack: ['Autonomous AI Agents', 'Multi-Agent Swarms', 'AST Code Parsing', 'Vector Embeddings', 'LLM Orchestration', 'Python', 'Docker'],
-      accentBorder: 'border-purple-500/40',
-      accentBg: 'bg-purple-950/20',
     },
   ];
 
@@ -520,13 +526,13 @@ export const ArchitectPortfolioView: React.FC = () => {
             </div>
           </div>
 
-          {/* Category Tabs: All, Personal, Fulltime, Freelance */}
+          {/* Category Tabs: All, Fulltime, Freelance, Career Breaks */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
             {[
               { id: 'all', label: 'All', count: experienceList.length },
-              { id: 'personal', label: 'Personal', count: experienceList.filter(e => e.category === 'personal').length },
               { id: 'fulltime', label: 'Fulltime', count: experienceList.filter(e => e.category === 'fulltime').length },
               { id: 'freelance', label: 'Freelance', count: experienceList.filter(e => e.category === 'freelance').length },
+              { id: 'personal', label: 'Career Breaks', count: experienceList.filter(e => e.category === 'personal').length },
             ].map((tab) => {
               const isSelected = experienceCategory === tab.id;
               return (
@@ -554,73 +560,124 @@ export const ArchitectPortfolioView: React.FC = () => {
           </div>
 
           <p className="text-sm text-zinc-400 max-w-2xl leading-relaxed">
-            Strict separation between commercial full-time roles (GymWise, BigHit, Gamix Labs), client freelance systems (NaiBooking, GrowthHikes, Orealfit), and personal autonomous systems (Mitochondria, Meeseeks).
+            Strict separation between commercial full-time roles (GymWise, BigHit, Gamix Labs), client freelance systems (NaiBooking, GrowthHikes, Orealfit), and dedicated career break systems (Mitochondria, Meeseeks).
           </p>
         </div>
 
         {/* FULL CONTINUOUS TIMELINE LIST */}
         <div className="flex flex-col gap-6">
-            {filteredExperience.map((job) => (
-              <div
-                key={job.id}
-                className={`p-6 sm:p-8 rounded-2xl border ${job.accentBorder} ${job.accentBg} flex flex-col gap-5`}
-              >
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-zinc-800/80 pb-4">
-                  <div className="flex items-start gap-3.5">
-                    <div className="shrink-0">{job.logo}</div>
-                    <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center gap-2.5 flex-wrap">
-                        <h3 className="font-display font-bold text-lg sm:text-xl text-white">
-                          {job.company}
-                        </h3>
-                        {job.badge && (
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-mono border ${job.badgeColor}`}>
-                            {job.badge}
+            {filteredExperience.map((job) => {
+              const isCareerBreak = job.category === 'personal' || job.id.includes('break');
+
+              if (isCareerBreak) {
+                return (
+                  <div
+                    key={job.id}
+                    className="p-4 sm:p-5 rounded-2xl border border-zinc-800/80 bg-zinc-950/40 hover:bg-zinc-950/70 hover:border-purple-500/40 transition-all flex flex-col gap-3.5 shadow-sm"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-zinc-800/60 pb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-purple-500/30 flex items-center justify-center shrink-0 text-purple-400 shadow-inner">
+                          {job.icon}
+                        </div>
+                        <div className="flex flex-col">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h3 className="font-display font-bold text-base text-white">
+                              {job.company}
+                            </h3>
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono border bg-purple-950/50 text-purple-300 border-purple-800/40">
+                              Career Break • Research
+                            </span>
+                          </div>
+                          <span className="text-xs font-mono text-purple-400">
+                            {job.role}
                           </span>
-                        )}
-                        {job.linkedinUrl && (
-                          <a
-                            href={job.linkedinUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border border-[#0A66C2]/30 text-[#70b5f9] hover:text-white text-[11px] font-mono transition-all"
-                            title={`View ${job.company} on LinkedIn`}
-                          >
-                            <LinkedInLogo className="w-3 h-3" />
-                            <span>LinkedIn ↗</span>
-                          </a>
-                        )}
+                        </div>
                       </div>
-                      <span className="text-sm font-medium text-emerald-400">
-                        {job.role}
-                      </span>
+
+                      <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 shrink-0 self-start sm:self-center">
+                        <Calendar className="w-3.5 h-3.5 text-zinc-500" />
+                        <span>{job.period}</span>
+                      </div>
+                    </div>
+
+                    <ul className="text-xs text-zinc-300 space-y-1.5 list-disc list-inside leading-relaxed">
+                      {job.highlights.map((h, i) => (
+                        <li key={i}>{h}</li>
+                      ))}
+                    </ul>
+
+                    <div className="flex flex-wrap gap-1.5 pt-2 border-t border-zinc-800/50">
+                      {job.techStack.map((tech) => (
+                        <TechSkillBadge key={tech} name={tech} />
+                      ))}
                     </div>
                   </div>
-                  <div className="flex sm:flex-col sm:items-end gap-1.5 text-xs font-mono text-zinc-400 shrink-0">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-zinc-500" />
-                      <span>{job.period}</span>
+                );
+              }
+
+              return (
+                <div
+                  key={job.id}
+                  className={`p-6 sm:p-8 rounded-2xl border ${job.accentBorder} ${job.accentBg} flex flex-col gap-5`}
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-zinc-800/80 pb-4">
+                    <div className="flex items-start gap-3.5">
+                      <div className="shrink-0">{job.logo}</div>
+                      <div className="flex flex-col gap-1.5">
+                        <div className="flex items-center gap-2.5 flex-wrap">
+                          <h3 className="font-display font-bold text-lg sm:text-xl text-white">
+                            {job.company}
+                          </h3>
+                          {job.badge && (
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-mono border ${job.badgeColor}`}>
+                              {job.badge}
+                            </span>
+                          )}
+                          {job.linkedinUrl && (
+                            <a
+                              href={job.linkedinUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border border-[#0A66C2]/30 text-[#70b5f9] hover:text-white text-[11px] font-mono transition-all"
+                              title={`View ${job.company} on LinkedIn`}
+                            >
+                              <LinkedInLogo className="w-3 h-3" />
+                              <span>LinkedIn ↗</span>
+                            </a>
+                          )}
+                        </div>
+                        <span className="text-sm font-medium text-emerald-400">
+                          {job.role}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1.5 text-zinc-500">
-                      <MapPin className="w-3.5 h-3.5" />
-                      <span>{job.location}</span>
+                    <div className="flex sm:flex-col sm:items-end gap-1.5 text-xs font-mono text-zinc-400 shrink-0">
+                      <div className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-zinc-500" />
+                        <span>{job.period}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-zinc-500">
+                        <MapPin className="w-3.5 h-3.5" />
+                        <span>{job.location}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <ul className="text-sm text-zinc-300 space-y-1.5 list-disc list-inside leading-relaxed">
-                  {job.highlights.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
+                  <ul className="text-sm text-zinc-300 space-y-1.5 list-disc list-inside leading-relaxed">
+                    {job.highlights.map((h, i) => (
+                      <li key={i}>{h}</li>
+                    ))}
+                  </ul>
 
-                <div className="flex flex-wrap gap-2 pt-3 border-t border-zinc-800/60">
-                  {job.techStack.map((tech) => (
-                    <TechSkillBadge key={tech} name={tech} />
-                  ))}
+                  <div className="flex flex-wrap gap-2 pt-3 border-t border-zinc-800/60">
+                    {job.techStack.map((tech) => (
+                      <TechSkillBadge key={tech} name={tech} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
       </section>
 
