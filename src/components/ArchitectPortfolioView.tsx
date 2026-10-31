@@ -32,6 +32,7 @@ import {
   QuantTradingLogo,
   AIAgentLogo,
 } from './BrandLogos';
+import { TechRadarMarquee } from './TechRadarMarquee';
 import { PROJECTS_DATA } from '../data/projectsData';
 
 export const ArchitectPortfolioView: React.FC = () => {
@@ -986,151 +987,151 @@ export const ArchitectPortfolioView: React.FC = () => {
         )}
       </section>
 
-      {/* 4. TECHNICAL RADAR & STACK */}
-      <section id="radar" className="flex flex-col gap-8 scroll-mt-24">
+      {/* 4. TECHNICAL RADAR & STACK WITH 4-TRACK SCROLLING MARQUEE */}
+      <section id="radar" className="flex flex-col gap-6 scroll-mt-24">
         <div className="flex flex-col gap-1 border-b border-zinc-800 pb-5">
-          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
-            Core Competencies
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-semibold">
+              Live Architecture &amp; Competency Radar
+            </span>
+          </div>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
-            Technical Stack & Architecture Radar
+            Technical Stack &amp; Architecture Radar
           </h2>
-          <p className="text-sm text-zinc-400 max-w-xl">
-            Technologies and protocols chosen for performance, fault tolerance, and developer velocity.
+          <p className="text-sm text-zinc-400 max-w-2xl leading-relaxed">
+            Continuous architecture telemetry across core runtimes, multi-cloud container orchestration, sub-millisecond streaming buses, and vector databases. Hover over any technology to inspect capabilities.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Card 1 */}
-          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
-            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
-              <Server className="w-5 h-5 text-emerald-400" />
-              <span>Backend & Languages</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {['Go', 'Python', 'TypeScript', 'Dart', 'Kotlin', 'SQL', 'GraphQL', 'gRPC'].map((item) => (
-                <span
-                  key={item}
-                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
-            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
-              <Cpu className="w-5 h-5 text-emerald-400" />
-              <span>Cloud & DevOps</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {['Kubernetes', 'Docker', 'Terraform', 'AWS', 'GCP', 'Cloudflare Workers', 'Linux (Debian/Alpine)', 'CI/CD'].map((item) => (
-                <span
-                  key={item}
-                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
-            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
-              <Layers className="w-5 h-5 text-emerald-400" />
-              <span>Messaging & Streaming</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {['NATS JetStream', 'Apache Kafka', 'RabbitMQ', 'Redis Pub/Sub', 'WebSockets', 'SSE', 'Event-Driven'].map((item) => (
-                <span
-                  key={item}
-                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Card 4 */}
-          <div className="p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 flex flex-col gap-4">
-            <div className="flex items-center gap-2 text-zinc-200 font-display font-semibold">
-              <Database className="w-5 h-5 text-emerald-400" />
-              <span>Storage & Vector DBs</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {['PostgreSQL', 'Amazon Neptune', 'Redis', 'MongoDB', 'Qdrant', 'OpenSearch', 'SQLite'].map((item) => (
-                <span
-                  key={item}
-                  className="px-2.5 py-1 rounded-md text-xs font-mono text-zinc-300 bg-zinc-950 border border-zinc-800"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* 4-Track Alternating Infinite Scrolling Marquee */}
+        <TechRadarMarquee />
       </section>
 
-      {/* 5. CONTACT & COLLABORATION CALLOUT */}
-      <section className="p-8 sm:p-12 rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900/60 to-zinc-950 flex flex-col gap-8">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div className="flex flex-col gap-2 max-w-xl">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
-              Get in touch
-            </span>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight">
-              Let's build something exceptional.
+      {/* 5. CONTACT & COLLABORATION COMMAND CENTER */}
+      <section className="relative overflow-hidden p-8 sm:p-12 rounded-3xl border border-zinc-800/90 bg-gradient-to-b from-zinc-900/80 via-zinc-950 to-black shadow-2xl flex flex-col gap-8">
+        
+        {/* Ambient Radial Mesh Glows */}
+        <div className="absolute -top-32 -left-32 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Top Status & SLA Bar */}
+        <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800/80 pb-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Available for Staff, Principal &amp; Senior Systems Roles</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <span>Response SLA: Under 2 Hours</span>
+          </div>
+        </div>
+
+        {/* Hero Headline & Value Pitch */}
+        <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="flex flex-col gap-3 max-w-2xl">
+            <h2 className="font-display font-bold text-3xl sm:text-5xl text-white tracking-tight leading-[1.1]">
+              Let's build something <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400 bg-clip-text text-transparent">exceptional</span>.
             </h2>
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-              I am currently open to senior engineering opportunities, distributed systems projects, and high-impact infrastructure challenges.
+            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+              Open to high-impact distributed systems, real-time quant execution engines, cloud-native backend infrastructure, and autonomous agent orchestration.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+          {/* Action Hub */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
             <a
               href="mailto:sahil.artits.rathee@gmail.com"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 hover:bg-white active:scale-[0.98] text-zinc-950 font-medium text-sm transition-all shadow-md cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-zinc-100 active:scale-[0.98] text-zinc-950 font-bold text-sm transition-all shadow-xl shadow-white/10 cursor-pointer"
             >
-              <Mail className="w-4 h-4" />
+              <Mail className="w-4 h-4 text-zinc-950" />
               <span>Send an Email</span>
             </a>
 
             <a
+              href="https://linkedin.com/in/rttss-sahil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-[#0a66c2] hover:bg-[#004182] active:scale-[0.98] text-white font-semibold text-sm transition-all shadow-lg shadow-blue-950/40 cursor-pointer"
+            >
+              <LinkedInLogo className="w-4 h-4 fill-current" />
+              <span>Check Sahil on LinkedIn</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText('sahil.artits.rathee@gmail.com');
+                setCopiedEmail(true);
+                setTimeout(() => setCopiedEmail(false), 2000);
+              }}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-2xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-mono text-xs transition-colors cursor-pointer"
+              title="Copy direct email address"
+            >
+              {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-zinc-400" />}
+              <span>{copiedEmail ? 'Copied!' : 'Copy Email'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 4 Architectural Metric Chips */}
+        <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+          <div className="p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 flex flex-col gap-1">
+            <span className="text-[11px] font-mono uppercase text-zinc-500">Commercial Tenure</span>
+            <span className="text-xl font-bold font-mono text-white">4+ Years</span>
+            <span className="text-[11px] text-zinc-400">High-concurrency systems</span>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 flex flex-col gap-1">
+            <span className="text-[11px] font-mono uppercase text-zinc-500">Verified BGV Remuneration</span>
+            <span className="text-xl font-bold font-mono text-emerald-400">₹20.51 Lakhs</span>
+            <span className="text-[11px] text-zinc-400">38 Bank verified salary credits</span>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 flex flex-col gap-1">
+            <span className="text-[11px] font-mono uppercase text-zinc-500">GymWise Lead Architect</span>
+            <span className="text-xl font-bold font-mono text-sky-400">17 Credits</span>
+            <span className="text-[11px] text-zinc-400">Jul 2024 &ndash; Nov 2025</span>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 flex flex-col gap-1">
+            <span className="text-[11px] font-mono uppercase text-zinc-500">Cloud &amp; Infrastructure</span>
+            <span className="text-xl font-bold font-mono text-purple-400">Multi-Cloud</span>
+            <span className="text-[11px] text-zinc-400">AWS &bull; Cloudflare &bull; GCP</span>
+          </div>
+        </div>
+
+        {/* Resume Download Links & Geo Coordinates */}
+        <div className="relative pt-6 border-t border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-zinc-500">Official Downloads:</span>
+            <a
               href="/Sahil-Rathee-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 active:scale-[0.98] border border-zinc-800 text-zinc-200 font-medium text-sm transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs transition-colors"
             >
-              <Download className="w-4 h-4" />
-              <span>1-Page Resume</span>
+              <Download className="w-3.5 h-3.5 text-zinc-400" />
+              <span>1-Page Resume (PDF)</span>
             </a>
-
             <a
               href="/Sahil-Rathee-Resume-Full.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 active:scale-[0.98] border border-zinc-800 text-zinc-300 font-medium text-sm transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-semibold transition-colors"
             >
-              <FileText className="w-4 h-4 text-emerald-400" />
-              <span>Full Detailed Resume</span>
+              <FileText className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Full Detailed CV (PDF)</span>
             </a>
+          </div>
+
+          <div className="flex items-center gap-3 text-zinc-500">
+            <span>New Delhi, India</span>
+            <span>&bull;</span>
+            <span className="text-zinc-300">Open for Remote Worldwide</span>
           </div>
         </div>
 
-        {/* Availability & Location Callout (Socials live authoritatively in global footer directly below) */}
-        <div className="pt-6 border-t border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-zinc-400">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Available for Staff & Senior Systems roles • High-concurrency backends & agentic infrastructure</span>
-          </div>
-          <span className="text-zinc-500">
-            Based in New Delhi • Open for Remote Worldwide
-          </span>
-        </div>
       </section>
     </div>
   );
