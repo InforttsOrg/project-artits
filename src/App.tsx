@@ -6,6 +6,7 @@ import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
 import { HrVerificationView } from './components/HrVerificationView';
 import { NavigationBar } from './components/NavigationBar';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 import {
   GitHubLogo,
   LinkedInLogo,
@@ -164,6 +165,9 @@ export const AppContent: React.FC = () => {
 
       {/* Cookie Consent Banner */}
       <CookieConsentBanner />
+
+      {/* Persistent Theme Switcher */}
+      <ThemeSwitcher />
     </div>
   );
 };
