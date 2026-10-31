@@ -155,10 +155,10 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
               Phone / WhatsApp:
             </span>
             <a
-              href="tel:+919717144437"
+              href="tel:+919625213480"
               className="text-zinc-200 hover:text-white font-mono text-xs"
             >
-              +91 97171 44437
+              +91 96252 13480
             </a>
           </div>
 

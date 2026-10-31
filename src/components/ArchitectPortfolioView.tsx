@@ -33,6 +33,7 @@ import {
   AIAgentLogo,
 } from './BrandLogos';
 import { TechRadarMarquee } from './TechRadarMarquee';
+import { TechSkillBadge } from './TechSkillBadge';
 
 export const ArchitectPortfolioView: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -80,7 +81,7 @@ export const ArchitectPortfolioView: React.FC = () => {
         'Designed and implemented robust software infrastructure, ensuring high availability and scalability of services.',
         'Designed and optimized information systems architecture, improving data flow and cross-service integration.',
       ],
-      techStack: ['Cloud Infrastructure', 'Container Orchestration', 'System Architecture', 'IT Strategy', 'AWS', 'Kubernetes', 'Terraform'],
+      techStack: ['Flutter', 'PHP / Laravel', 'Kubernetes', 'Distributed Systems', 'Go'],
       accentBorder: 'border-emerald-500/30',
       accentBg: 'bg-emerald-950/10',
     },
@@ -108,7 +109,18 @@ export const ArchitectPortfolioView: React.FC = () => {
         'Integrated AWS services including Amazon Neptune graph database, managed OpenSearch clusters, Cache, and Kafka for event streaming.',
         'Designed and developed interactive real-time features including advanced location tracking and dynamic messaging modules.',
       ],
-      techStack: ['TypeScript', 'AWS Neptune', 'OpenSearch', 'Kafka', 'React Native', 'Kubernetes', 'Docker'],
+      techStack: [
+        'React Native',
+        'Flutter / Dart',
+        'Go Functions',
+        'Node.js',
+        'k3s',
+        'Kubernetes',
+        'AWS Serverless',
+        'AWS DynamoDB',
+        'GraphDB (Neptune)',
+        'AWS CodePipeline'
+      ],
       accentBorder: 'border-emerald-500/30',
       accentBg: 'bg-emerald-950/10',
     },
@@ -136,7 +148,7 @@ export const ArchitectPortfolioView: React.FC = () => {
         'Led development and rollout of facial/voice recognition web+native app for secure user verification.',
         'Adopted Test-Driven Development (TDD) for faster feedback loops and reliable codebases.',
       ],
-      techStack: ['Node.js', 'Redis', 'RabbitMQ', 'MongoDB', 'Flutter / Dart', 'TypeScript', 'TDD'],
+      techStack: ['Angular', 'React', 'Node.js', 'RabbitMQ', 'Redis', 'Postman', 'Kubernetes', 'Docker', 'k3s'],
       accentBorder: 'border-emerald-500/30',
       accentBg: 'bg-emerald-950/10',
     },
@@ -378,7 +390,7 @@ export const ArchitectPortfolioView: React.FC = () => {
               className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-950/20 hover:bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-500/50 text-emerald-400 text-xs font-mono transition-all cursor-pointer"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Verified Track Record</span>
+              <span>HR Verification</span>
             </Link>
           </div>
 
@@ -485,10 +497,10 @@ export const ArchitectPortfolioView: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex flex-col gap-1">
               <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-medium">
-                Engineering Experience
+                Experience
               </span>
               <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
-                Work History & Systems Track Record
+                Work Experience
               </h2>
             </div>
           </div>
@@ -587,14 +599,9 @@ export const ArchitectPortfolioView: React.FC = () => {
                   ))}
                 </ul>
 
-                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-zinc-800/60">
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-zinc-800/60">
                   {job.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-950/60 border border-zinc-800"
-                    >
-                      {tech}
-                    </span>
+                    <TechSkillBadge key={tech} name={tech} />
                   ))}
                 </div>
               </div>
@@ -602,25 +609,27 @@ export const ArchitectPortfolioView: React.FC = () => {
           </div>
       </section>
 
-      {/* 4. TECHNICAL RADAR & STACK WITH 4-TRACK SCROLLING MARQUEE */}
+      {/* 3. TECHNICAL STACK WITH 100% WIDTH MARQUEE */}
       <section id="radar" className="flex flex-col gap-6 scroll-mt-24">
         <div className="flex flex-col gap-1 border-b border-zinc-800 pb-5">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-semibold">
-              Live Architecture &amp; Competency Radar
+              Core Stack
             </span>
           </div>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
-            Technical Stack &amp; Architecture Radar
+            Technical Stack
           </h2>
-          <p className="text-sm text-zinc-400 max-w-2xl leading-relaxed">
+          <p className="text-sm text-zinc-400 max-w-xl leading-relaxed">
             Continuous architecture telemetry across core runtimes, multi-cloud container orchestration, sub-millisecond streaming buses, and vector databases. Hover over any technology to inspect capabilities.
           </p>
         </div>
 
-        {/* 4-Track Alternating Infinite Scrolling Marquee */}
-        <TechRadarMarquee />
+        {/* 100% Full Viewport Width Marquee */}
+        <div className="w-screen relative left-1/2 -translate-x-1/2 overflow-hidden py-2">
+          <TechRadarMarquee />
+        </div>
       </section>
 
       {/* 5. CONTACT & COLLABORATION COMMAND CENTER */}
