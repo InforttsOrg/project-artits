@@ -37,7 +37,7 @@ import { TechSkillBadge } from './TechSkillBadge';
 
 export const ArchitectPortfolioView: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [experienceCategory, setExperienceCategory] = useState<'all' | 'personal' | 'fulltime' | 'freelance'>('all');
+  const [experienceCategory, setExperienceCategory] = useState<'fulltime' | 'freelance' | 'personal' | 'all'>('fulltime');
 
   const email = 'sahil.artits.rathee@gmail.com';
 
@@ -47,7 +47,7 @@ export const ArchitectPortfolioView: React.FC = () => {
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const handleCategoryFilter = (catId: 'all' | 'personal' | 'fulltime' | 'freelance') => {
+  const handleCategoryFilter = (catId: 'fulltime' | 'freelance' | 'personal' | 'all') => {
     const currentScrollY = window.scrollY;
     setExperienceCategory(catId);
     requestAnimationFrame(() => {
@@ -316,7 +316,9 @@ export const ArchitectPortfolioView: React.FC = () => {
     },
   ];
 
-  const filteredExperience = experienceCategory === 'all'
+  const filteredExperience = experienceCategory === 'fulltime'
+    ? experienceList.filter((item) => item.category === 'fulltime' || item.category === 'personal')
+    : experienceCategory === 'all'
     ? experienceList
     : experienceList.filter((item) => item.category === experienceCategory);
 
@@ -526,13 +528,13 @@ export const ArchitectPortfolioView: React.FC = () => {
             </div>
           </div>
 
-          {/* Category Tabs: All, Fulltime, Freelance, Career Breaks */}
+          {/* Category Tabs: Full-Time & Breaks (Default), Freelance, Career Breaks, All */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
             {[
-              { id: 'all', label: 'All', count: experienceList.length },
-              { id: 'fulltime', label: 'Fulltime', count: experienceList.filter(e => e.category === 'fulltime').length },
+              { id: 'fulltime', label: 'Full-Time & Breaks', count: experienceList.filter(e => e.category === 'fulltime' || e.category === 'personal').length },
               { id: 'freelance', label: 'Freelance', count: experienceList.filter(e => e.category === 'freelance').length },
               { id: 'personal', label: 'Career Breaks', count: experienceList.filter(e => e.category === 'personal').length },
+              { id: 'all', label: 'All', count: experienceList.length },
             ].map((tab) => {
               const isSelected = experienceCategory === tab.id;
               return (
@@ -573,7 +575,7 @@ export const ArchitectPortfolioView: React.FC = () => {
                 return (
                   <div
                     key={job.id}
-                    className="p-4 sm:p-5 rounded-2xl border border-zinc-800/80 bg-zinc-950/40 hover:bg-zinc-950/70 hover:border-purple-500/40 transition-all flex flex-col gap-3.5 shadow-sm"
+                    className="p-4 sm:p-5 rounded-2xl border border-zinc-800/80 bg-zinc-950/40 hover:bg-zinc-950/70 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-950/20 hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-3.5 shadow-sm"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-zinc-800/60 pb-3">
                       <div className="flex items-center gap-3">
@@ -619,7 +621,7 @@ export const ArchitectPortfolioView: React.FC = () => {
               return (
                 <div
                   key={job.id}
-                  className={`p-6 sm:p-8 rounded-2xl border ${job.accentBorder} ${job.accentBg} flex flex-col gap-5`}
+                  className={`p-6 sm:p-8 rounded-2xl border ${job.accentBorder} ${job.accentBg} flex flex-col gap-5 hover:shadow-2xl hover:shadow-emerald-950/20 hover:border-emerald-500/50 hover:-translate-y-0.5 transition-all duration-300`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-zinc-800/80 pb-4">
                     <div className="flex items-start gap-3.5">
