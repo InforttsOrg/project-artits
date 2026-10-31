@@ -59,7 +59,7 @@ export const HrVerificationView: React.FC = () => {
       model: 'Full-Time Corporate Employment',
       payoutType: 'Monthly Corporate NEFT / IMPS Credits',
       pfStatus: 'Standard Corporate Remuneration on Record',
-      bankVerified: '9 credits verified (₹4,09,437 total in Kotak 5945XXXX866)',
+      bankVerified: '17 credits verified (₹10,37,447 total in Kotak 5945XXXX866)',
       taxTreatment: 'Standard Corporate Remuneration',
       documentsAvailable: ['Relieving Letter', 'Experience Letter', 'Verified Bank Statement Extract']
     },
@@ -298,8 +298,8 @@ export const HrVerificationView: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
                 <div className="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800">
                   <span className="text-zinc-500 text-[11px] block">GymWise India Pvt Ltd</span>
-                  <span className="text-emerald-400 font-bold text-sm">₹4,09,437</span>
-                  <span className="text-zinc-400 text-[11px] block mt-0.5">9 Verified Credits (2024-2025)</span>
+                  <span className="text-emerald-400 font-bold text-sm">₹10,37,447</span>
+                  <span className="text-zinc-400 text-[11px] block mt-0.5">17 Verified Credits (2024-2025)</span>
                 </div>
                 <div className="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800">
                   <span className="text-zinc-500 text-[11px] block">BigHit Pvt Ltd</span>
@@ -314,7 +314,7 @@ export const HrVerificationView: React.FC = () => {
               </div>
 
               <div className="text-[11px] text-zinc-400 bg-zinc-950/40 p-3 rounded-xl border border-zinc-800/80">
-                <strong className="text-zinc-200">Total Authenticated Payroll:</strong> ₹14,23,159.96 across 30 monthly bank deposits. Account number, recipient name (Sahil Rathee), transaction reference IDs, and IFSC are verified and certified for background check (BGV) clearance.
+                <strong className="text-zinc-200">Total Authenticated Payroll:</strong> ₹20,51,170.29 across 38 monthly bank deposits. Account number, recipient name (Sahil Rathee), transaction reference IDs, and IFSC are verified and certified for background check (BGV) clearance.
               </div>
             </div>
 
