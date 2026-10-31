@@ -18,3 +18,9 @@ secrets*
 **/key.properties
 **/google-services.json
 **/GoogleService-Info.plist
+
+# Markdown documentation & ad-hoc notes (clean codebase, keep README.md)
+*.md
+!README.md
+!**/README.md
+
