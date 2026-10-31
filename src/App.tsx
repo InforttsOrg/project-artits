@@ -7,6 +7,7 @@ import { HrVerificationView } from './components/HrVerificationView';
 import { NavigationBar } from './components/NavigationBar';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
+import { CustomCursor } from './components/CustomCursor';
 import {
   GitHubLogo,
   LinkedInLogo,
@@ -29,8 +30,9 @@ const ScrollToTop: React.FC = () => {
 
 export const AppContent: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 font-sans selection:bg-zinc-800 selection:text-white flex flex-col">
+    <div className="min-h-screen bg-[#09090b] text-zinc-100 font-sans selection:bg-zinc-800 selection:text-white flex flex-col relative bg-grid-boxes">
       <ScrollToTop />
+      <CustomCursor />
 
       {/* Global Navigation Bar */}
       <NavigationBar />

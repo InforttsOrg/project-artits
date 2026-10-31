@@ -359,7 +359,7 @@ const TechBadge: React.FC<{ item: TechItem }> = ({ item }) => (
       backgroundColor: item.bg,
       borderColor: item.border
     }}
-    className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl border backdrop-blur-md shrink-0 transition-all hover:scale-105 hover:border-white/50 cursor-default select-none shadow-sm"
+    className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl border backdrop-blur-md shrink-0 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/10 hover:border-white/50 cursor-default select-none shadow-sm"
   >
     <div style={{ color: item.color }} className="shrink-0 flex items-center justify-center">
       {item.icon}
