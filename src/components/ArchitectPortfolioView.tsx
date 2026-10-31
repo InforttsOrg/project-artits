@@ -420,7 +420,7 @@ export const ArchitectPortfolioView: React.FC = () => {
             </button>
 
             <Link
-              to="/verify?token=verified"
+              to="/verify"
               className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-950/20 hover:bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-500/50 text-emerald-400 text-xs font-mono transition-all cursor-pointer"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
