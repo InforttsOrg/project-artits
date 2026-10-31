@@ -62,6 +62,7 @@ export const ArchitectPortfolioView: React.FC = () => {
       company: 'NaiBooking',
       shortName: 'NaiBooking',
       category: 'freelance' as const,
+      isCareerBreak: false,
       year: '2026',
       role: 'Software Engineer — High-Concurrency Booking Systems & Microservices',
       period: 'Aug 2026 – Present',
@@ -89,6 +90,7 @@ export const ArchitectPortfolioView: React.FC = () => {
       company: 'Orealfit',
       shortName: 'Orealfit',
       category: 'freelance' as const,
+      isCareerBreak: false,
       year: '2026',
       role: 'Lead Software Engineer — Wellness Architecture & Autonomous Pipelines',
       period: 'May 2026 – Jul 2026',
@@ -117,6 +119,7 @@ export const ArchitectPortfolioView: React.FC = () => {
       company: 'GrowthHikes',
       shortName: 'GrowthHikes',
       category: 'freelance' as const,
+      isCareerBreak: false,
       year: '2026',
       role: 'Full Stack Engineer — Web Platform & Autonomous Marketing Pipelines',
       period: '2026 (Contract)',
@@ -140,42 +143,101 @@ export const ArchitectPortfolioView: React.FC = () => {
       accentBg: 'bg-sky-950/10',
     },
 
-    // 2. CAREER BREAK & QUANTITATIVE RESEARCH (Dec 2025 – Apr 2026)
+    // 2. PERSONAL SYSTEMS & PLATFORMS (Started in 2026)
     {
-      id: 'quant-break',
-      company: 'Mitochondria — Autonomous Quantitative Trading System',
-      shortName: 'Mitochondria (Quant)',
+      id: 'meeseeks',
+      company: 'Meeseeks — Autonomous Multi-Agent AI Platform',
+      shortName: 'Meeseeks',
       category: 'personal' as const,
-      year: '2025–26',
-      role: 'Quantitative Research, Algorithmic Execution & Low-Latency HFT',
-      period: 'Dec 2025 – Apr 2026',
-      location: 'Autonomous System & Research',
-      badge: 'Career Break • Research',
+      isCareerBreak: false,
+      year: '2026',
+      role: 'Founder & Lead Architect — Autonomous Multi-Agent AI Framework',
+      period: '2026 – Present',
+      location: 'Autonomous Platform • meeseeks.infortts.site',
+      badge: 'Personal System • AI Swarms',
+      badgeColor: 'bg-purple-950/50 text-purple-300 border-purple-800/40',
+      linkedinUrl: null,
+      icon: <AIAgentLogo className="w-4 h-4 text-purple-400" />,
+      logo: (
+        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/40 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
+          <AIAgentLogo className="w-7 h-7" />
+        </div>
+      ),
+      highlights: [
+        'Built an autonomous multi-agent orchestration framework in Python and Go supporting tool-calling supervisor loops, vector-backed shared memory, and deterministic self-healing routines.',
+        'Implemented AST-based context compression algorithms reducing LLM context window consumption by ~71.4% with dynamic prompt caching.',
+        'Engineered secure Docker sandbox execution runtimes for autonomous coding agents with automated decision verification loops.',
+        'Designed hybrid agentic RAG retrieval architectures and hierarchical vector indexing for long-horizon task persistence.',
+      ],
+      techStack: ['Autonomous AI Agents', 'Multi-Agent Swarms', 'Python', 'Go', 'Docker', 'AST Parsing', 'Vector Embeddings', 'LLM Orchestration'],
+      accentBorder: 'border-purple-500/30',
+      accentBg: 'bg-purple-950/10',
+    },
+    {
+      id: 'mitochondria',
+      company: 'Mitochondria — Autonomous Quantitative Trading System',
+      shortName: 'Mitochondria',
+      category: 'personal' as const,
+      isCareerBreak: false,
+      year: '2026',
+      role: 'Lead Architect — Quantitative Telemetry & Execution Engine',
+      period: '2026 – Present',
+      location: 'Quantitative Research & Execution Engine',
+      badge: 'Personal System • Quant Engine',
       badgeColor: 'bg-purple-950/50 text-purple-300 border-purple-800/40',
       linkedinUrl: null,
       icon: <QuantTradingLogo className="w-4 h-4 text-purple-400" />,
       logo: (
-        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/50 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
+        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/40 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
           <QuantTradingLogo className="w-7 h-7" />
         </div>
       ),
       highlights: [
-        'Dedicated quantitative deep-dive mastering Algorithmic Trading strategies, statistical arbitrage, and High-Frequency Trading (HFT) architectures.',
-        'Formulated mathematical trading models and tick-level backtesting engines streaming real-time order-book telemetry via NATS JetStream.',
-        'Engineered sub-millisecond in-memory ring buffers and MetaTrader 5 execution bridges with zero open database ports on private VPCs.',
-        'Developed invariant-based risk safeguards: dynamic position sizing, trailing circuit breakers, and automated drawdown enforcement.',
+        'Architected tick-level market data streaming and simulation backtesting pipelines in Go and Python with sub-millisecond execution latency.',
+        'Formulated mathematical trading models and real-time order-book telemetry streaming via NATS JetStream and in-memory ring buffers.',
+        'Engineered sub-millisecond MetaTrader 5 execution bridge with zero open database ports on private isolated VPC container networks.',
+        'Developed invariant-based risk safeguards: dynamic position sizing, trailing circuit breakers, and programmatic drawdown enforcement.',
       ],
-      techStack: ['Quantitative Research', 'Algorithmic Trading', 'HFT Systems', 'MetaTrader 5', 'Python', 'C++', 'Go', 'NATS JetStream'],
-      accentBorder: 'border-purple-500/40',
-      accentBg: 'bg-purple-950/20',
+      techStack: ['Quantitative Systems', 'Algorithmic Trading', 'Go', 'Python', 'C++', 'NATS JetStream', 'MetaTrader 5', 'HFT Systems'],
+      accentBorder: 'border-purple-500/30',
+      accentBg: 'bg-purple-950/10',
     },
 
-    // 3. FULL-TIME CORPORATE ROLE: GymWise (Jul 2024 – Nov 2025)
+    // 3. CAREER BREAK: Professional Development & Technical Upskilling (Dec 2025 – Present)
+    {
+      id: 'career-break-2025',
+      company: 'Career Break',
+      shortName: 'Career Break',
+      category: 'fulltime' as const,
+      isCareerBreak: true,
+      year: '2025–26',
+      role: 'Professional Development, Continuous Technical Upskilling & Systems Research',
+      period: 'Dec 2025 – Present',
+      location: 'New Delhi, India',
+      badge: 'Career Break • Professional Development',
+      badgeColor: 'bg-zinc-800/80 text-zinc-300 border-zinc-700/60',
+      linkedinUrl: null,
+      icon: <Terminal className="w-4 h-4 text-emerald-400" />,
+      logo: null,
+      highlights: [
+        'Dedicated period of intentional professional development, deep-dive learning, and mastering emerging software engineering architectures across multiple technical domains.',
+        'Deepened theoretical and practical expertise across distributed systems primitives, memory management, high-concurrency Go and Python runtimes, and Linux kernel internals.',
+        'Researched modern AI engineering paradigms: autonomous agent orchestration loops, AST code parsing, prompt caching, hierarchical vector indexing, and RAG retrieval.',
+        'Researched quantitative finance architectures, tick data streaming engines, low-latency messaging with NATS JetStream, and algorithmic execution models.',
+        'Studied cloud infrastructure automation, zero-trust network topologies, Kubernetes container orchestration, and compiler fundamentals through hands-on technical experiments.',
+      ],
+      techStack: ['Distributed Systems', 'Go', 'Python', 'Linux Internals', 'Concurrency', 'Agentic AI', 'Vector DBs', 'Kubernetes', 'System Design'],
+      accentBorder: 'border-zinc-700/60',
+      accentBg: 'bg-zinc-900/30',
+    },
+
+    // 4. FULL-TIME CORPORATE ROLE: GymWise (Jul 2024 – Nov 2025)
     {
       id: 'gymwise',
       company: 'GymWise India Private Limited',
       shortName: 'GymWise',
       category: 'fulltime' as const,
+      isCareerBreak: false,
       year: '2024–25',
       role: 'Solution Architect & Lead Full Stack Engineer',
       period: 'Jul 2024 – Nov 2025',
@@ -213,41 +275,38 @@ export const ArchitectPortfolioView: React.FC = () => {
       accentBg: 'bg-emerald-950/10',
     },
 
-    // 4. CAREER BREAK & AI AGENTS RESEARCH (Apr 2024 – Jun 2024)
+    // 5. CAREER BREAK: Self-Directed Learning & Research (Apr 2024 – Jun 2024)
     {
-      id: 'ai-break',
-      company: 'Meeseeks — Autonomous Multi-Agent AI Framework',
-      shortName: 'Meeseeks (AI Swarms)',
-      category: 'personal' as const,
+      id: 'career-break-2024',
+      company: 'Career Break',
+      shortName: 'Career Break',
+      category: 'fulltime' as const,
+      isCareerBreak: true,
       year: '2024',
-      role: 'Autonomous AI Agents, Multi-Agent Swarms & AST Context Compression',
+      role: 'Self-Directed Upskilling, System Design & Technical Exploration',
       period: 'Apr 2024 – Jun 2024',
-      location: 'Autonomous System & Research',
-      badge: 'Career Break • Research',
-      badgeColor: 'bg-purple-950/50 text-purple-300 border-purple-800/40',
+      location: 'New Delhi, India',
+      badge: 'Career Break • Professional Development',
+      badgeColor: 'bg-zinc-800/80 text-zinc-300 border-zinc-700/60',
       linkedinUrl: null,
-      icon: <AIAgentLogo className="w-4 h-4 text-purple-400" />,
-      logo: (
-        <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-purple-500/50 flex items-center justify-center p-2.5 shrink-0 text-purple-400 shadow-inner">
-          <AIAgentLogo className="w-7 h-7" />
-        </div>
-      ),
+      icon: <Terminal className="w-4 h-4 text-emerald-400" />,
+      logo: null,
       highlights: [
-        'Researched and built AST context compression algorithms reducing LLM context window consumption by ~71.4% with dynamic prompt caching.',
-        'Implemented secure Docker sandbox execution runtimes for autonomous coding agents with deterministic verification loops.',
-        'Designed hybrid agentic RAG retrieval architectures, hierarchical vector indexing strategies, and automated decision verification loops.',
+        'Self-directed study focusing on large-scale distributed architectures, mobile cross-platform performance (Flutter/Dart), and Go backend design patterns.',
+        'Strengthened core competencies in cloud containerization (Docker, Kubernetes) and microservices before leading the rewrite at GymWise.',
       ],
-      techStack: ['Autonomous AI Agents', 'Multi-Agent Swarms', 'AST Code Parsing', 'Vector Embeddings', 'LLM Orchestration', 'Python', 'Docker'],
-      accentBorder: 'border-purple-500/40',
-      accentBg: 'bg-purple-950/20',
+      techStack: ['Go', 'Flutter / Dart', 'Distributed Systems', 'Docker', 'Kubernetes', 'System Design'],
+      accentBorder: 'border-zinc-700/60',
+      accentBg: 'bg-zinc-900/30',
     },
 
-    // 5. FULL-TIME CORPORATE ROLE: BigHit (Nov 2022 – Mar 2024)
+    // 6. FULL-TIME CORPORATE ROLE: BigHit (Nov 2022 – Mar 2024)
     {
       id: 'bighit',
       company: 'BigHit Pvt Ltd',
       shortName: 'BigHit',
       category: 'fulltime' as const,
+      isCareerBreak: false,
       year: '2022–24',
       role: 'Full Stack Engineer — Cloud Modernization & Backend',
       period: 'Nov 2022 – Mar 2024',
@@ -285,12 +344,13 @@ export const ArchitectPortfolioView: React.FC = () => {
       accentBg: 'bg-emerald-950/10',
     },
 
-    // 6. FULL-TIME CORPORATE ROLE: Gamix Labs (Mar 2022 – Oct 2022)
+    // 7. FULL-TIME CORPORATE ROLE: Gamix Labs (Mar 2022 – Oct 2022)
     {
       id: 'gamixlabs',
       company: 'Gamix Labs Private Limited',
       shortName: 'Gamix Labs',
       category: 'fulltime' as const,
+      isCareerBreak: false,
       year: '2022',
       role: 'Full Stack Developer — Real-Time Game Servers & Services',
       period: 'Mar 2022 – Oct 2022',
@@ -317,7 +377,7 @@ export const ArchitectPortfolioView: React.FC = () => {
   ];
 
   const filteredExperience = experienceCategory === 'fulltime'
-    ? experienceList.filter((item) => item.category === 'fulltime' || item.category === 'personal')
+    ? experienceList.filter((item) => item.category === 'fulltime' || item.isCareerBreak)
     : experienceCategory === 'all'
     ? experienceList
     : experienceList.filter((item) => item.category === experienceCategory);
@@ -528,12 +588,12 @@ export const ArchitectPortfolioView: React.FC = () => {
             </div>
           </div>
 
-          {/* Category Tabs: Full-Time & Breaks (Default), Freelance, Career Breaks, All */}
+          {/* Category Tabs: Full-Time (Default), Freelance, Personal, All */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
             {[
-              { id: 'fulltime', label: 'Full-Time & Breaks', count: experienceList.filter(e => e.category === 'fulltime' || e.category === 'personal').length },
+              { id: 'fulltime', label: 'Full-Time', count: experienceList.filter(e => e.category === 'fulltime' || e.isCareerBreak).length },
               { id: 'freelance', label: 'Freelance', count: experienceList.filter(e => e.category === 'freelance').length },
-              { id: 'personal', label: 'Career Breaks', count: experienceList.filter(e => e.category === 'personal').length },
+              { id: 'personal', label: 'Personal', count: experienceList.filter(e => e.category === 'personal').length },
               { id: 'all', label: 'All', count: experienceList.length },
             ].map((tab) => {
               const isSelected = experienceCategory === tab.id;
@@ -562,24 +622,24 @@ export const ArchitectPortfolioView: React.FC = () => {
           </div>
 
           <p className="text-sm text-zinc-400 max-w-2xl leading-relaxed">
-            Strict separation between commercial full-time roles (GymWise, BigHit, Gamix Labs), client freelance systems (NaiBooking, GrowthHikes, Orealfit), and dedicated career break systems (Mitochondria, Meeseeks).
+            Strict separation between commercial full-time roles (GymWise, BigHit, Gamix Labs) with career breaks, client freelance systems (NaiBooking, GrowthHikes, Orealfit), and personal platforms (Meeseeks, Mitochondria).
           </p>
         </div>
 
         {/* FULL CONTINUOUS TIMELINE LIST */}
         <div className="flex flex-col gap-6">
             {filteredExperience.map((job) => {
-              const isCareerBreak = job.category === 'personal' || job.id.includes('break');
+              const isCareerBreak = !!job.isCareerBreak;
 
               if (isCareerBreak) {
                 return (
                   <div
                     key={job.id}
-                    className="p-4 sm:p-5 rounded-2xl border border-zinc-800/80 bg-zinc-950/40 hover:bg-zinc-950/70 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-950/20 hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-3.5 shadow-sm"
+                    className="p-4 sm:p-5 rounded-2xl border border-zinc-800/80 bg-zinc-950/40 hover:bg-zinc-950/70 hover:border-zinc-700/80 hover:shadow-xl hover:shadow-emerald-950/10 hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-3.5 shadow-sm"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-zinc-800/60 pb-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-purple-500/30 flex items-center justify-center shrink-0 text-purple-400 shadow-inner">
+                        <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-700/60 flex items-center justify-center shrink-0 text-emerald-400 shadow-inner">
                           {job.icon}
                         </div>
                         <div className="flex flex-col">
@@ -587,11 +647,11 @@ export const ArchitectPortfolioView: React.FC = () => {
                             <h3 className="font-display font-bold text-base text-white">
                               {job.company}
                             </h3>
-                            <span className="px-2 py-0.5 rounded text-[10px] font-mono border bg-purple-950/50 text-purple-300 border-purple-800/40">
-                              Career Break • Research
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono border bg-zinc-800/80 text-zinc-300 border-zinc-700/60">
+                              {job.badge}
                             </span>
                           </div>
-                          <span className="text-xs font-mono text-purple-400">
+                          <span className="text-xs font-mono text-emerald-400">
                             {job.role}
                           </span>
                         </div>
