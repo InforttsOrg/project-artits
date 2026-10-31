@@ -41,103 +41,120 @@ export const AppContent: React.FC = () => {
         </Routes>
       </main>
 
-      {/* Global Clean Colophon Footer */}
-      <footer className="border-t border-zinc-800/60 bg-zinc-950/80 py-12 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-zinc-500">
-          <div className="flex items-center gap-3">
-            <span className="font-display font-semibold text-zinc-300">Sahil Rathee</span>
-            <span>•</span>
-            <span>New Delhi, India</span>
-            <span>•</span>
-            <span className="font-mono text-xs">rttss-sahil</span>
+      {/* Global Clean Editorial Colophon Footer */}
+      <footer className="border-t border-zinc-800/80 bg-zinc-950 py-12 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto flex flex-col gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Column 1: Identity & Availability */}
+            <div className="flex flex-col gap-3">
+              <span className="font-display font-bold text-lg text-white">Sahil Rathee</span>
+              <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
+                Senior Systems & Infrastructure Engineer specializing in resilient distributed backends, quantitative execution, and autonomous agentic workflows.
+              </p>
+              <div className="flex items-center gap-2 pt-2 text-xs font-mono text-zinc-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Available for Senior & Staff Roles • New Delhi (Remote Worldwide)</span>
+              </div>
+            </div>
+
+            {/* Column 2: Documents & Dossier */}
+            <div className="flex flex-col gap-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold">
+                Dossier & Resumes
+              </span>
+              <ul className="flex flex-col gap-2 text-sm">
+                <li>
+                  <a
+                    href="/Sahil-Rathee-Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>1-Page Resume (PDF)</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/Sahil-Rathee-Resume-Full.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Full Detailed Resume (PDF)</span>
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    to="/verify?token=verified"
+                    className="text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>HR & Employment Verification</span>
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="/resume"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-zinc-400 hover:text-zinc-200 transition-colors inline-flex items-center gap-1.5 text-xs font-mono"
+                  >
+                    <span>Web Resume (HTML) ↗</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Verified Channels */}
+            <div className="flex flex-col gap-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold">
+                Verified Channels
+              </span>
+              <div className="flex flex-col gap-2 text-sm">
+                <a
+                  href="mailto:sahil.artits.rathee@gmail.com"
+                  className="text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-2"
+                >
+                  <Mail className="w-4 h-4 text-zinc-400" />
+                  <span className="font-mono text-xs">sahil.artits.rathee@gmail.com</span>
+                </a>
+                <a
+                  href="https://github.com/rttss-sahil"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-2"
+                >
+                  <GitHubLogo className="w-4 h-4" />
+                  <span>GitHub: @rttss-sahil</span>
+                </a>
+                <a
+                  href="https://linkedin.com/in/rttss-sahil"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-300 hover:text-[#0A66C2] transition-colors inline-flex items-center gap-2"
+                >
+                  <LinkedInLogo className="w-4 h-4" />
+                  <span>LinkedIn: @rttss-sahil</span>
+                </a>
+                <a
+                  href="https://x.com/rttss_sahil"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-2"
+                >
+                  <XLogo className="w-3.5 h-3.5" />
+                  <span>X (Twitter): @rttss_sahil</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <a
-              href="mailto:sahil.artits.rathee@gmail.com"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
-              title="Email (sahil.artits.rathee@gmail.com)"
-              aria-label="Email"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
-            <a
-              href="https://github.com/rttss-sahil"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
-              title="GitHub Profile"
-              aria-label="GitHub"
-            >
-              <GitHubLogo className="w-4 h-4" />
-            </a>
-            <a
-              href="https://linkedin.com/in/rttss-sahil"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#0A66C2] transition-all hover:scale-105 shadow-sm"
-              title="LinkedIn Profile"
-              aria-label="LinkedIn"
-            >
-              <LinkedInLogo className="w-4 h-4" />
-            </a>
-            <a
-              href="https://x.com/rttss_sahil"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-105 shadow-sm"
-              title="X Profile"
-              aria-label="X"
-            >
-              <XLogo className="w-3.5 h-3.5" />
-            </a>
-            <a
-              href="https://leetcode.com/u/rttss-sahil/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#FFA116] transition-all hover:scale-105 shadow-sm"
-              title="LeetCode Profile"
-              aria-label="LeetCode"
-            >
-              <LeetCodeLogo className="w-4 h-4" />
-            </a>
-            <a
-              href="https://stackoverflow.com/users/14934835/rttss-sahil"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#F48024] transition-all hover:scale-105 shadow-sm"
-              title="Stack Overflow Profile"
-              aria-label="Stack Overflow"
-            >
-              <StackOverflowLogo className="w-4 h-4" />
-            </a>
-            <a
-              href="https://www.instagram.com/rttss_sahil/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#E4405F] transition-all hover:scale-105 shadow-sm"
-              title="Instagram Profile"
-              aria-label="Instagram"
-            >
-              <InstagramLogo className="w-4 h-4" />
-            </a>
-            <a
-              href="/Sahil-Rathee-Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-emerald-400 transition-all hover:scale-105 shadow-sm"
-              title="Download Resume PDF"
-              aria-label="Resume PDF"
-            >
-              <FileText className="w-4 h-4" />
-            </a>
-            <Link
-              to="/verify?token=verified"
-              className="w-9 h-9 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-emerald-400 transition-all hover:scale-105 shadow-sm"
-              title="HR & Employment Verification"
-              aria-label="HR Verification"
-            >
-              <ShieldCheck className="w-4 h-4" />
-            </Link>
+
+          {/* Bottom Colophon Bar */}
+          <div className="pt-6 border-t border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
+            <span>© 2026 Sahil Rathee • Systems & Infrastructure Architect</span>
+            <span>Hosted on Cloudflare Pages via GitHub Actions</span>
           </div>
         </div>
       </footer>

@@ -188,10 +188,19 @@ export const HrVerificationView: React.FC = () => {
                   href="/Sahil-Rathee-Resume.pdf"
                   target="_blank"
                   rel="noreferrer"
+                  className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-colors flex items-center gap-1.5 border border-zinc-700"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>1-Page Resume (PDF)</span>
+                </a>
+                <a
+                  href="/Sahil-Rathee-Resume-Full.pdf"
+                  target="_blank"
+                  rel="noreferrer"
                   className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-lg shadow-emerald-500/10"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download Master CV</span>
+                  <span>Full Detailed CV (PDF)</span>
                 </a>
               </div>
             </div>
@@ -300,8 +309,8 @@ export const HrVerificationView: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800 flex flex-col justify-between gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <span className="text-xs font-bold text-white">Full Professional Resume</span>
-                    <span className="text-[11px] text-zinc-400">Complete verified technical experience & project history</span>
+                    <span className="text-xs font-bold text-white">1-Page Executive Resume</span>
+                    <span className="text-[11px] text-zinc-400">Strict single-page summary with core achievements</span>
                   </div>
                   <a
                     href="/Sahil-Rathee-Resume.pdf"
@@ -310,7 +319,23 @@ export const HrVerificationView: React.FC = () => {
                     className="w-full py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs text-center font-medium text-zinc-200 transition-colors flex items-center justify-center gap-1.5"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download PDF</span>
+                    <span>Download 1-Page PDF</span>
+                  </a>
+                </div>
+
+                <div className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800 flex flex-col justify-between gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-xs font-bold text-white">Full Comprehensive CV</span>
+                    <span className="text-[11px] text-zinc-400">Detailed multi-page technical experience & systems architecture</span>
+                  </div>
+                  <a
+                    href="/Sahil-Rathee-Resume-Full.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs text-center font-medium transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download Full CV PDF</span>
                   </a>
                 </div>
 
