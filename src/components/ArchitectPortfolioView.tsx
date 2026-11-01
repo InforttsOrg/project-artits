@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ArrowUpRight,
   Download,
   Mail,
   Copy,
   Check,
-  Server,
-  Cpu,
-  Layers,
-  Database,
-  ChevronRight,
-  ChevronLeft,
   Calendar,
   MapPin,
   Terminal,
@@ -25,7 +18,6 @@ import {
   XLogo,
   LeetCodeLogo,
   StackOverflowLogo,
-  InstagramLogo,
   NaiBookingLogo,
   GrowthHikesLogo,
   OrealfitLogo,

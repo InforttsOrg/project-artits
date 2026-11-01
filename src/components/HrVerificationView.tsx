@@ -17,8 +17,7 @@ import {
   X,
   Send,
   KeyRound,
-  RefreshCw,
-  Sparkles
+  RefreshCw
 } from 'lucide-react';
 import { trackVisitorEvent } from '../utils/visitorTracker';
 
@@ -81,6 +80,17 @@ export const HrVerificationView: React.FC = () => {
     setIsOtpModalOpen(false);
     setErrorMsg('');
   };
+
+  useEffect(() => {
+    if (!isOtpModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleCloseModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOtpModalOpen]);
 
   const handleLockSession = () => {
     localStorage.removeItem('artits_bgv_session');
@@ -670,8 +680,16 @@ export const HrVerificationView: React.FC = () => {
 
       {/* RECRUITER EMAIL OTP VERIFICATION MODAL */}
       {isOtpModalOpen && (
-        <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-sans">
-          <div className="relative w-full max-w-md bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden">
+        <div
+          onClick={handleCloseModal}
+          className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-sans cursor-pointer"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
+          >
             
             {/* Ambient Glow */}
             <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-48 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
