@@ -406,17 +406,30 @@ export const ArchitectPortfolioView: React.FC = () => {
             </p>
           </div>
 
-          {/* Photo */}
+          {/* 3D Avatar Portrait */}
           <div className="relative group shrink-0">
-            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border-2 border-zinc-800 bg-zinc-900 shadow-2xl transition-all duration-300 group-hover:border-zinc-700">
+            {/* Ambient Radial Glow */}
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-emerald-500/25 via-sky-500/15 to-indigo-500/20 blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            
+            {/* Circular Frame */}
+            <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-zinc-700/80 bg-zinc-950 shadow-2xl ring-4 ring-emerald-500/10 group-hover:ring-emerald-500/25 group-hover:border-emerald-500/50 transition-all duration-500">
               <img
-                src="/sahil.png"
-                alt="Sahil Rathee"
-                className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-300"
+                src="/sahil-3d.png"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src.indexOf('sahil-3d.png') !== -1) {
+                    target.src = '/sahil.png';
+                  }
+                }}
+                alt="Sahil Rathee — 3D Systems Architect Avatar"
+                className="w-full h-full object-cover object-center scale-[1.03] group-hover:scale-110 transition-transform duration-500"
               />
             </div>
-            <div className="absolute -bottom-2 -right-2 px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-zinc-400 shadow-lg">
-              rttss-sahil
+
+            {/* Perimeter Verified Badge */}
+            <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 px-3 py-1 rounded-full bg-zinc-950/90 border border-zinc-700/80 text-[11px] font-mono font-medium text-emerald-400 shadow-xl backdrop-blur-md flex items-center gap-1.5 z-10">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>rttss-sahil</span>
             </div>
           </div>
         </div>
