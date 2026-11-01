@@ -435,7 +435,7 @@ export const ArchitectPortfolioView: React.FC = () => {
               href="/Sahil-Rathee-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 hover:bg-white active:scale-[0.98] text-zinc-950 font-medium text-sm transition-all shadow-md cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 hover:bg-white active:scale-[0.98] text-zinc-950 font-medium text-sm transition-all shadow-md cursor-pointer hero-primary-btn"
             >
               <Download className="w-4 h-4" />
               <span>1-Page Resume (PDF)</span>
@@ -800,7 +800,7 @@ export const ArchitectPortfolioView: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
             <a
               href="mailto:sahil.artits.rathee@gmail.com"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-zinc-100 active:scale-[0.98] text-zinc-950 font-bold text-sm transition-all shadow-xl shadow-white/10 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-zinc-100 active:scale-[0.98] text-zinc-950 font-bold text-sm transition-all shadow-xl shadow-white/10 cursor-pointer contact-email-btn"
             >
               <Mail className="w-4 h-4 text-zinc-950" />
               <span>Send an Email</span>
@@ -810,7 +810,7 @@ export const ArchitectPortfolioView: React.FC = () => {
               href="https://linkedin.com/in/rttss-sahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-[#0a66c2] hover:bg-[#004182] active:scale-[0.98] text-white font-semibold text-sm transition-all shadow-lg shadow-blue-950/40 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-[#0a66c2] hover:bg-[#004182] active:scale-[0.98] text-white font-semibold text-sm transition-all shadow-lg shadow-blue-950/40 cursor-pointer btn-linkedin"
             >
               <LinkedInLogo className="w-4 h-4 fill-current" />
               <span>Check Sahil on LinkedIn</span>
