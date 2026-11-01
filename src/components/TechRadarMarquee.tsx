@@ -359,7 +359,7 @@ const TechBadge: React.FC<{ item: TechItem }> = ({ item }) => (
       backgroundColor: item.bg,
       borderColor: item.border
     }}
-    className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl border backdrop-blur-md shrink-0 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/10 hover:border-white/50 cursor-default select-none shadow-sm"
+    className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl border backdrop-blur-md shrink-0 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/10 hover:border-white/50 cursor-default select-none shadow-sm tech-badge"
   >
     <div style={{ color: item.color }} className="shrink-0 flex items-center justify-center">
       {item.icon}
@@ -385,8 +385,8 @@ export const TechRadarMarquee: React.FC = () => {
     <div className="relative w-full flex flex-col gap-3 py-2 overflow-hidden">
       
       {/* Edge Blur & Vignette Mask (Left & Right Fades) */}
-      <div className="absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-[#09090b] via-[#09090b]/80 to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-[#09090b] via-[#09090b]/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-24 sm:w-48 marquee-fade-left z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 sm:w-48 marquee-fade-right z-10 pointer-events-none" />
 
       {/* Row 1: Left to Right */}
       <div className="w-full overflow-hidden py-0.5">

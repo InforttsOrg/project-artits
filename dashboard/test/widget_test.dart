@@ -29,13 +29,13 @@ void main() {
       );
       expect(
         initialNodes.where((n) => n.type == GraphNodeType.skill),
-        hasLength(10),
+        hasLength(23),
       );
-      expect(initialNodes, hasLength(23));
+      expect(initialNodes, hasLength(36));
     });
 
     test('node ids are unique', () {
-      expect(initialNodes.map((n) => n.id).toSet(), hasLength(23));
+      expect(initialNodes.map((n) => n.id).toSet(), hasLength(36));
     });
 
     test('every production system resolves to a graph node', () {

@@ -122,7 +122,7 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleLinkedInClick}
-            className="w-full py-3.5 px-4 rounded-2xl bg-[#0a66c2] hover:bg-[#004182] active:scale-[0.98] text-white font-bold text-sm transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-blue-900/30 cursor-pointer group"
+            className="w-full py-3.5 px-4 rounded-2xl bg-[#0a66c2] hover:bg-[#004182] active:scale-[0.98] text-white font-bold text-sm transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-blue-900/30 cursor-pointer group btn-linkedin"
           >
             <Linkedin className="w-4 h-4 fill-current" />
             <span>Check Sahil on LinkedIn</span>

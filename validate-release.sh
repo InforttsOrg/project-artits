@@ -6,6 +6,15 @@
 # Ensure we run from the project root
 cd "$(dirname "$0")"
 
+TEST_ONLY=0
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --test-only) TEST_ONLY=1 ;;
+        *) ;;
+    esac
+    shift
+done
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -25,7 +34,7 @@ echo -e "${YELLOW}🔍 Current Version: v$CURRENT_VERSION${NC}"
 # 2. Frontend Production Build Verification (Flutter dashboard)
 echo -e "${YELLOW}📦 Verifying Flutter dashboard & Pages Functions...${NC}"
 
-export PATH="$HOME/flutter/bin:$PATH"
+export PATH="/Users/admin/develop/flutter/bin:$HOME/flutter/bin:$PATH"
 
 if ! (cd dashboard && flutter pub get) > /dev/null 2>&1; then
     echo -e "${RED}❌ Artits dependency resolution failed! Release rejected.${NC}"
@@ -58,6 +67,14 @@ test -f dist/index.html || { echo -e "${RED}❌ dist/index.html missing.${NC}"; 
 test -f functions/api/ai.ts || { echo -e "${RED}❌ functions/api/ai.ts missing.${NC}"; exit 1; }
 
 echo -e "${GREEN}✅ Build compiled successfully.${NC}"
+
+if [ "$TEST_ONLY" -eq 1 ]; then
+    echo -e "\n===================================================="
+    echo -e "${GREEN}🎉 ARTITS RELEASE TEST VALIDATION PASSED (Test-Only Mode)${NC}"
+    echo -e "Version preserved at: v$CURRENT_VERSION"
+    echo "===================================================="
+    exit 0
+fi
 
 # 3. Bump version on successful validation (Epoch.Major.Minor concept)
 IFS='.' read -r epoch major minor <<< "$CURRENT_VERSION"

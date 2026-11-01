@@ -541,7 +541,7 @@ export const TechSkillBadge: React.FC<TechSkillBadgeProps> = ({ name }) => {
   return (
     <span
       style={{ backgroundColor: bg, borderColor: border }}
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:border-zinc-500/40 select-none shadow-sm cursor-default"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:border-zinc-500/40 select-none shadow-sm cursor-default tech-skill-badge"
     >
       <span style={{ color }} className="shrink-0 flex items-center justify-center">
         {icon}
