@@ -118,10 +118,10 @@ export const PortfolioDrawer: React.FC<PortfolioDrawerProps> = ({
           {/* Contact Details */}
           <div className="drawer-contact-card">
             <h4>Get in Touch</h4>
-            <p>Available for Senior & Staff Software Engineer and AI Architect roles.</p>
+            <p>Available for Senior &amp; Staff roles across Software Engineering, Cloud DevOps, Security, and Technical Management.</p>
             <div className="contact-links-row">
-              <a href="tel:+919625213480" className="contact-pill">📱 +91 9625213480</a>
-              <a href="mailto:contact@infortts.site" className="contact-pill">✉️ contact@infortts.site</a>
+              <a href="tel:+919625213480" className="contact-pill">📱 +91 96252 13480</a>
+              <a href="mailto:sahil.artits.rathee@gmail.com" className="contact-pill">✉️ sahil.artits.rathee@gmail.com</a>
               <a href="https://linkedin.com/in/rttss-sahil" target="_blank" rel="noopener noreferrer" className="contact-pill">💼 LinkedIn</a>
               <a href="https://x.com/rttss_sahil" target="_blank" rel="noopener noreferrer" className="contact-pill">💬 X / Twitter</a>
               <a href="https://github.com/InforttsOrg" target="_blank" rel="noopener noreferrer" className="contact-pill">🐙 GitHub Organization</a>

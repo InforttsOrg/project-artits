@@ -11,6 +11,9 @@ import {
   FileText,
   ShieldCheck,
   ExternalLink,
+  Code2,
+  Cloud,
+  Briefcase,
 } from 'lucide-react';
 import {
   GitHubLogo,
@@ -380,9 +383,9 @@ export const ArchitectPortfolioView: React.FC = () => {
       <section className="flex flex-col gap-8">
         {/* Availability Badge */}
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-zinc-900 border border-zinc-800 text-zinc-300">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono bg-zinc-900/90 border border-zinc-800 text-zinc-300 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            AVAILABLE FOR SENIOR & STAFF ROLES • SECTOR 46, GURUGRAM
+            <span>AVAILABLE FOR SENIOR &amp; STAFF ROLES • SECTOR 46, GURUGRAM</span>
           </span>
         </div>
 
@@ -393,11 +396,10 @@ export const ArchitectPortfolioView: React.FC = () => {
               Sahil Rathee
             </h1>
             <p className="font-display text-xl sm:text-2xl text-zinc-300 font-medium">
-              Senior Systems & Infrastructure Engineer
+              Staff / Senior Engineer &amp; Technical Lead
             </p>
             <p className="text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed">
-              Architecting resilient distributed systems, sub-millisecond event streaming engines, and autonomous agentic AI runtimes with Go, Python, and Kubernetes.
-              Engineered high-throughput cloud backends, zero-trust container networks, and mission-critical execution architectures across{' '}
+              Available for Senior and Staff roles across <strong className="text-zinc-200 font-semibold">Software Engineering</strong>, <strong className="text-zinc-200 font-semibold">DevOps &amp; Platform Infrastructure</strong>, <strong className="text-zinc-200 font-semibold">Systems Security &amp; DevSecOps</strong>, and <strong className="text-zinc-200 font-semibold">Technical Management</strong>. Proven track record architecting resilient distributed cloud systems, sub-millisecond event streaming engines, and autonomous execution architectures across{' '}
               <span className="text-zinc-200 font-medium">GymWise</span>,{' '}
               <span className="text-zinc-200 font-medium">BigHit</span>, and{' '}
               <span className="text-zinc-200 font-medium">Gamix Labs</span>.
@@ -416,6 +418,49 @@ export const ArchitectPortfolioView: React.FC = () => {
             <div className="absolute -bottom-2 -right-2 px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-zinc-400 shadow-lg">
               rttss-sahil
             </div>
+          </div>
+        </div>
+
+        {/* Corporate Competency & Practice Domains */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+          <div className="p-3.5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors flex flex-col gap-1.5 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-emerald-400">
+              <Code2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Software Engineering</span>
+            </div>
+            <p className="text-xs text-zinc-400 leading-snug">
+              Distributed backends, high-concurrency microservices, sub-millisecond execution engines, and real-time APIs in Go and Python.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors flex flex-col gap-1.5 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-sky-400">
+              <Cloud className="w-4 h-4 text-sky-400 shrink-0" />
+              <span>DevOps &amp; Platform</span>
+            </div>
+            <p className="text-xs text-zinc-400 leading-snug">
+              Kubernetes orchestration (K8s / k3s), multi-cloud CI/CD pipelines, Infrastructure as Code, SRE monitoring, and telemetry.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors flex flex-col gap-1.5 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-purple-400">
+              <ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" />
+              <span>Security &amp; DevSecOps</span>
+            </div>
+            <p className="text-xs text-zinc-400 leading-snug">
+              Zero-trust architecture, hardened container runtimes, identity governance, secrets management, and proactive vulnerability mitigation.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 hover:border-zinc-700 transition-colors flex flex-col gap-1.5 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-amber-400">
+              <Briefcase className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Technical Management</span>
+            </div>
+            <p className="text-xs text-zinc-400 leading-snug">
+              Engineering leadership, architectural governance, technical roadmapping, cross-functional delivery, and mentoring engineering teams.
+            </p>
           </div>
         </div>
 
@@ -769,11 +814,11 @@ export const ArchitectPortfolioView: React.FC = () => {
         <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800/80 pb-5">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Available for Staff, Principal &amp; Senior Systems Roles</span>
+            <span>Available for Staff &amp; Senior Roles: Software • DevOps • Security • Technical Management</span>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>Response SLA: Under 2 Hours</span>
+            <span>Response SLA: Under 2 Hours • Sector 46, Gurugram</span>
           </div>
         </div>
 
@@ -784,7 +829,7 @@ export const ArchitectPortfolioView: React.FC = () => {
               Let's build something <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400 bg-clip-text text-transparent">exceptional</span>.
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-              Open to high-impact distributed systems, real-time quant execution engines, cloud-native backend infrastructure, and autonomous agent orchestration.
+              Open to high-impact Senior &amp; Staff opportunities, technical leadership, and engineering management roles across enterprise software architectures, cloud-native DevOps platforms, and zero-trust security infrastructure.
             </p>
           </div>
 

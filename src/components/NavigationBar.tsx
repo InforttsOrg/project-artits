@@ -53,7 +53,7 @@ export const NavigationBar: React.FC = () => {
             </span>
             <span className="text-[11px] text-zinc-400 font-mono tracking-wide flex items-center gap-1.5">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Available for roles
+              Available for Senior &amp; Staff roles
             </span>
           </div>
         </Link>

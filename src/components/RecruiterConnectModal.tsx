@@ -84,7 +84,7 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
                   VERIFIED
                 </span>
               </div>
-              <p className="text-xs text-zinc-400">Direct executive connect with Sahil Rathee</p>
+              <p className="text-xs text-zinc-400">Executive connect • Senior &amp; Staff roles: Software, DevOps, Security, Management</p>
             </div>
           </div>
           <button

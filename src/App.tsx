@@ -58,11 +58,11 @@ export const AppContent: React.FC = () => {
             <div className="flex flex-col gap-3">
               <span className="font-display font-bold text-lg text-white">Sahil Rathee</span>
               <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
-                Senior Systems & Infrastructure Engineer specializing in resilient distributed backends, quantitative execution, and autonomous agentic workflows.
+                Staff &amp; Senior Systems Engineer specializing in Software Engineering, Cloud Platform DevOps, Zero-Trust Security, and Technical Management.
               </p>
               <div className="flex items-center gap-2 pt-2 text-xs font-mono text-zinc-400">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Available for Senior & Staff Roles • Sector 46, Gurugram (Remote Worldwide)</span>
+                <span>Available for Senior &amp; Staff Roles • Software • DevOps • Security • Management</span>
               </div>
             </div>
 
