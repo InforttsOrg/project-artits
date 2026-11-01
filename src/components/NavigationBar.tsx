@@ -30,13 +30,14 @@ export const NavigationBar: React.FC = () => {
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all duration-200 ${
-        scrolled
-          ? 'bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 py-3 shadow-lg shadow-black/20'
-          : 'bg-zinc-950/60 backdrop-blur-sm border-b border-zinc-800/40 py-4'
-      }`}
-    >
+    <>
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-200 ${
+          scrolled
+            ? 'bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 py-3 shadow-lg shadow-black/20'
+            : 'bg-zinc-950/60 backdrop-blur-sm border-b border-zinc-800/40 py-4'
+        }`}
+      >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         {/* Brand */}
         <Link
@@ -194,11 +195,13 @@ export const NavigationBar: React.FC = () => {
         </div>
       )}
 
+      </header>
+
       {/* Recruiter & Lead LinkedIn Introduction Modal */}
       <RecruiterConnectModal
         isOpen={recruiterModalOpen}
         onClose={() => setRecruiterModalOpen(false)}
       />
-    </header>
+    </>
   );
 };
