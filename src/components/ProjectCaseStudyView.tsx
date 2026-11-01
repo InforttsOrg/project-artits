@@ -256,7 +256,7 @@ export const ProjectCaseStudyView: React.FC<ProjectCaseStudyViewProps> = () => {
               Interested in this architecture?
             </h3>
             <p className="text-xs sm:text-sm text-zinc-400">
-              Sahil is available for Senior / Staff Backend & Infrastructure roles.
+              Sahil is available for Senior &amp; Staff roles across Software Engineering, Cloud DevOps, Security, and Technical Management.
             </p>
           </div>
           <div className="flex items-center gap-3">

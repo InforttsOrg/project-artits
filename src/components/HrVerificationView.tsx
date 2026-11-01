@@ -673,7 +673,7 @@ export const HrVerificationView: React.FC = () => {
             <div>
               <h4 className="font-semibold text-white">Q: Is candidate immediately available to join?</h4>
               <p className="text-zinc-400 text-xs mt-1">
-                A: Yes. Notice period is <strong>Immediate (0 Days)</strong> with zero contractual encumbrances or ongoing non-compete liabilities.
+                A: Yes. Notice period is <strong>Immediate (0 Days)</strong> with zero contractual encumbrances or ongoing non-compete liabilities. Open to Staff and Senior roles across Software Engineering, Cloud DevOps, Security, and Technical Management.
               </p>
             </div>
             <div>
@@ -886,7 +886,7 @@ export const HrVerificationView: React.FC = () => {
 
             <div className="pt-2 border-t border-zinc-800/60 text-center">
               <span className="text-[11px] text-zinc-500 font-mono">
-                Candidate: Sahil Rathee • Senior Software Engineer & AI Architect
+                Candidate: Sahil Rathee • Staff &amp; Senior Engineer (Software, DevOps, Security, Technical Management)
               </span>
             </div>
 

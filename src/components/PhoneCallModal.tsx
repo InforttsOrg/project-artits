@@ -84,7 +84,7 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
 
         <div className="phone-modal-body">
           <p className="phone-intro-text">
-            Connect directly with Sahil Rathee regarding Senior Software Engineer roles, distributed backend architecture, or technical collaboration:
+            Connect directly with Sahil Rathee regarding Senior &amp; Staff roles across Software Engineering, Cloud DevOps, Security, and Technical Management:
           </p>
 
           <div className="call-actions-grid">
@@ -152,7 +152,7 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
 
         <div className="phone-modal-footer">
           <span className="terminal-status">
-            <span className="dot-green" /> Open for Senior Software Engineer Roles • Sector 46, Gurugram, India
+            <span className="dot-green" /> Open for Senior &amp; Staff Roles • Sector 46, Gurugram, India
           </span>
           <button type="button" className="action-btn" onClick={onClose}>
             Close [Esc]
