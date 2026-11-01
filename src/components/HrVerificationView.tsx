@@ -690,15 +690,25 @@ export const HrVerificationView: React.FC = () => {
       {/* RECRUITER EMAIL OTP VERIFICATION MODAL */}
       {isOtpModalOpen && createPortal(
         <div
-          onClick={handleCloseModal}
-          className="fixed inset-0 z-[999999] overflow-y-auto bg-black/80 backdrop-blur-md animate-fade-in font-sans cursor-pointer p-4 sm:p-6"
+          className="fixed inset-0 z-[999999] overflow-y-auto"
           role="dialog"
           aria-modal="true"
         >
-          <div className="min-h-full flex items-center justify-center p-0">
+          {/* Fullscreen Backdrop */}
+          <div
+            onClick={handleCloseModal}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity cursor-pointer animate-fadeIn font-sans"
+            aria-hidden="true"
+          />
+
+          {/* Centering wrapper */}
+          <div
+            onClick={handleCloseModal}
+            className="relative min-h-full flex justify-center items-center p-3 sm:p-6 cursor-pointer font-sans"
+          >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md my-8 bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
+              className="relative w-full max-w-md my-auto bg-zinc-950 border border-zinc-800 rounded-3xl p-5 sm:p-6 shadow-2xl text-zinc-100 flex flex-col gap-4 overflow-hidden cursor-default z-10"
             >
             
             {/* Ambient Glow */}
