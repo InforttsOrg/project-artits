@@ -466,7 +466,7 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
         </div>
 
         <div className="footer-copyright-statement">
-          Crafted in Agave Nerd Font • Infortts Architecture • New Delhi, India
+          Crafted in Agave Nerd Font • Infortts Architecture • Sector 46, Gurugram, India
         </div>
       </div>
     </section>

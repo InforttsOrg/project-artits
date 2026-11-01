@@ -113,7 +113,7 @@ export const ComeSayHiModal: React.FC<ComeSayHiModalProps> = ({
 
         {/* Footer stamp */}
         <div className="say-hi-footer">
-          <span>NEW DELHI, INDIA • BORN 2002 • OPEN TO SENIOR SOFTWARE ENGINEER ROLES</span>
+          <span>SECTOR 46, GURUGRAM, INDIA • BORN 2002 • OPEN TO SENIOR SOFTWARE ENGINEER ROLES</span>
         </div>
       </div>
     </div>

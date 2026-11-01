@@ -44,7 +44,7 @@ export const EntryLoader: React.FC<EntryLoaderProps> = ({ onComplete }) => {
       } else if (current < 75) {
         setStatusText('[03/04] PREPARING INTERACTIVE DEMOS & CODEBASE GRAPH');
       } else if (current < 100) {
-        setStatusText('[04/04] VERIFYING PRODUCTION SYSTEMS • NEW DELHI // 2002');
+        setStatusText('[04/04] VERIFYING PRODUCTION SYSTEMS • SECTOR 46, GURUGRAM // 2002');
       } else {
         clearInterval(interval);
         setStatusText('SYSTEMS READY // PORTFOLIO LOADED');

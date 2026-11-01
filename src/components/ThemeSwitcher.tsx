@@ -69,23 +69,23 @@ export const ThemeSwitcher: React.FC = () => {
     {
       id: 'system',
       label: 'System',
-      icon: <Laptop className="w-3.5 h-3.5" />
+      icon: <Laptop className="w-4 h-4" />
     },
     {
       id: 'light',
       label: 'Light',
-      icon: <Sun className="w-3.5 h-3.5" />
+      icon: <Sun className="w-4 h-4" />
     },
     {
       id: 'dark',
       label: 'Dark',
-      icon: <Moon className="w-3.5 h-3.5" />
+      icon: <Moon className="w-4 h-4" />
     }
   ];
 
   return (
     <div
-      className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[99999] flex items-center p-1 rounded-2xl bg-zinc-950/90 border border-zinc-800/80 shadow-2xl backdrop-blur-md select-none transition-all hover:border-zinc-700 theme-switcher-container"
+      className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[99999] flex items-center gap-1 p-1.5 rounded-2xl bg-zinc-950/90 border border-zinc-800/80 shadow-2xl backdrop-blur-md select-none transition-all hover:border-zinc-700 theme-switcher-container"
       role="group"
       aria-label="Theme Switcher"
     >
@@ -97,15 +97,15 @@ export const ThemeSwitcher: React.FC = () => {
             type="button"
             onClick={() => setTheme(mode.id)}
             title={`Switch to ${mode.label} Theme`}
+            aria-label={`Switch to ${mode.label} Theme`}
             aria-pressed={isActive}
-            className={`relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 cursor-pointer ${
+            className={`relative flex items-center justify-center p-2 rounded-xl transition-all duration-200 cursor-pointer ${
               isActive
                 ? 'bg-zinc-800 text-white shadow-sm theme-switcher-active'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 theme-switcher-inactive'
             }`}
           >
             {mode.icon}
-            <span className="hidden sm:inline text-[11px]">{mode.label}</span>
           </button>
         );
       })}
