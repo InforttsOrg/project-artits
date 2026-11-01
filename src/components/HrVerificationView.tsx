@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import {
   ShieldCheck,
@@ -83,13 +84,21 @@ export const HrVerificationView: React.FC = () => {
 
   useEffect(() => {
     if (!isOtpModalOpen) return;
+
+    // Lock body scroll while OTP modal is open
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         handleCloseModal();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOtpModalOpen]);
 
   const handleLockSession = () => {
@@ -679,16 +688,16 @@ export const HrVerificationView: React.FC = () => {
       </div>
 
       {/* RECRUITER EMAIL OTP VERIFICATION MODAL */}
-      {isOtpModalOpen && (
+      {isOtpModalOpen && createPortal(
         <div
           onClick={handleCloseModal}
-          className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-sans cursor-pointer"
+          className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-sans cursor-pointer overflow-y-auto"
           role="dialog"
           aria-modal="true"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-md bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
+            className="relative w-full max-w-md my-auto bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
           >
             
             {/* Ambient Glow */}
@@ -882,7 +891,8 @@ export const HrVerificationView: React.FC = () => {
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>
