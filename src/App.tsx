@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom';
-import { Mail, FileText, ShieldCheck } from 'lucide-react';
+import { Mail, FileText, ShieldCheck, Users, MapPin } from 'lucide-react';
 import { ArchitectPortfolioView } from './components/ArchitectPortfolioView';
 import { ProjectCaseStudyView } from './components/ProjectCaseStudyView';
 import { HrVerificationView } from './components/HrVerificationView';
@@ -13,7 +13,7 @@ import {
   LinkedInLogo,
   XLogo,
 } from './components/BrandLogos';
-import { trackVisitorEvent } from './utils/visitorTracker';
+import { trackVisitorEvent, getTodayVisitorCount } from './utils/visitorTracker';
 
 // Automatic scroll-to-top and route telemetry
 const ScrollToTop: React.FC = () => {
@@ -26,6 +26,12 @@ const ScrollToTop: React.FC = () => {
 };
 
 export const AppContent: React.FC = () => {
+  const [visitorCount, setVisitorCount] = useState<number>(() => getTodayVisitorCount());
+
+  useEffect(() => {
+    setVisitorCount(getTodayVisitorCount());
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#09090b] text-zinc-100 font-sans selection:bg-zinc-800 selection:text-white flex flex-col relative bg-grid-boxes">
       <ScrollToTop />
@@ -47,7 +53,7 @@ export const AppContent: React.FC = () => {
       {/* Global Clean Editorial Colophon Footer */}
       <footer className="border-t border-zinc-800/80 bg-zinc-950 py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col gap-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Column 1: Identity & Availability */}
             <div className="flex flex-col gap-3">
               <span className="font-display font-bold text-lg text-white">Sahil Rathee</span>
@@ -56,7 +62,7 @@ export const AppContent: React.FC = () => {
               </p>
               <div className="flex items-center gap-2 pt-2 text-xs font-mono text-zinc-400">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Available for Senior & Staff Roles • New Delhi (Remote Worldwide)</span>
+                <span>Available for Senior & Staff Roles • Sector 46, Gurugram (Remote Worldwide)</span>
               </div>
             </div>
 
@@ -152,11 +158,46 @@ export const AppContent: React.FC = () => {
                 </a>
               </div>
             </div>
+
+            {/* Column 4: Live Telemetry & Verified Visits */}
+            <div className="flex flex-col gap-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold">
+                Live Telemetry
+              </span>
+              <div className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex flex-col gap-3 shadow-lg">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold">
+                      Today's Visitors Today
+                    </span>
+                  </div>
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 shrink-0">
+                    <Users className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white font-mono tracking-tight">
+                    {visitorCount}
+                  </span>
+                  <span className="text-xs text-emerald-400 font-semibold">
+                    Verified Visits Today
+                  </span>
+                </div>
+                <div className="pt-2.5 border-t border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                  <span className="flex items-center gap-1.5 text-zinc-500">
+                    <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                    Location:
+                  </span>
+                  <span className="text-zinc-200 font-medium">Sector 46, Gurugram</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Bottom Colophon Bar */}
           <div className="pt-6 border-t border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
-            <span>© 2026 Sahil Rathee • Systems & Infrastructure Architect</span>
+            <span>© 2026 Sahil Rathee • Systems & Infrastructure Architect • Sector 46, Gurugram</span>
             <span>Hosted on Cloudflare Pages via GitHub Actions</span>
           </div>
         </div>

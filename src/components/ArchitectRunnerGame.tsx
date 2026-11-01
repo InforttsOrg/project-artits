@@ -1431,7 +1431,7 @@ export const ArchitectRunnerGame: React.FC<ArchitectRunnerGameProps> = ({
             <img src="/sahil.png" alt="Sahil Rathee" width="32" height="32" />
             <div className="t">
               <b>Sahil Rathee • Senior Software Engineer & AI Systems Architect</b>
-              <small>Infortts Core • {inforttsFeedsCount}+ Telemetry Feeds Online • New Delhi, India</small>
+              <small>Infortts Core • {inforttsFeedsCount}+ Telemetry Feeds Online • Sector 46, Gurugram, India</small>
             </div>
             <a href="/Sahil-Rathee-Resume.pdf" target="_blank" rel="noopener noreferrer">
               ⬇ Resume PDF

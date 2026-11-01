@@ -152,7 +152,7 @@ export const PhoneCallModal: React.FC<PhoneCallModalProps> = ({ isOpen, onClose 
 
         <div className="phone-modal-footer">
           <span className="terminal-status">
-            <span className="dot-green" /> Open for Senior Software Engineer Roles • New Delhi, India
+            <span className="dot-green" /> Open for Senior Software Engineer Roles • Sector 46, Gurugram, India
           </span>
           <button type="button" className="action-btn" onClick={onClose}>
             Close [Esc]

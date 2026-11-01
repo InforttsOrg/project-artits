@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Linkedin, ExternalLink, Users, Mail, Phone, MapPin, Check } from 'lucide-react';
-import { trackVisitorEvent } from '../utils/visitorTracker';
+import { trackVisitorEvent, getTodayVisitorCount } from '../utils/visitorTracker';
 
 interface RecruiterConnectModalProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface RecruiterConnectModalProps {
 }
 
 export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ isOpen, onClose }) => {
-  const [visitorCount, setVisitorCount] = useState<number>(48);
+  const [visitorCount, setVisitorCount] = useState<number>(() => getTodayVisitorCount());
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   useEffect(() => {
@@ -17,29 +17,7 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
 
     // Track modal opening
     trackVisitorEvent('recruiter_modal_open', { path: window.location.pathname });
-
-    // Calculate today's visitor count
-    try {
-      const todayStr = new Date().toISOString().split('T')[0];
-      const storedDate = localStorage.getItem('artits_visitor_date');
-      let count = parseInt(localStorage.getItem('artits_visitor_count') || '0', 10);
-
-      if (storedDate !== todayStr) {
-        // Daily seeded base (between 42 and 58)
-        const d = new Date();
-        const seed = (d.getFullYear() * 37 + (d.getMonth() + 1) * 19 + d.getDate() * 11) % 17;
-        count = 42 + seed;
-        localStorage.setItem('artits_visitor_date', todayStr);
-        localStorage.setItem('artits_visitor_count', count.toString());
-      } else if (!sessionStorage.getItem('artits_session_counted')) {
-        count += 1;
-        localStorage.setItem('artits_visitor_count', count.toString());
-        sessionStorage.setItem('artits_session_counted', 'true');
-      }
-      setVisitorCount(count);
-    } catch {
-      setVisitorCount(48);
-    }
+    setVisitorCount(getTodayVisitorCount());
   }, [isOpen]);
 
   useEffect(() => {
@@ -198,7 +176,7 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
               Location:
             </span>
             <span className="text-zinc-300 text-xs">
-              New Delhi, India • Remote Worldwide
+              Sector 46, Gurugram, India • Remote Worldwide
             </span>
           </div>
         </div>

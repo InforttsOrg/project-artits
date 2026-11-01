@@ -205,7 +205,7 @@ export const ArchitectPortfolioView: React.FC = () => {
       year: '2025–26',
       role: 'Professional Development, Continuous Technical Upskilling & Systems Research',
       period: 'Dec 2025 – Present',
-      location: 'New Delhi, India',
+      location: 'Sector 46, Gurugram, India',
       badge: 'Career Break • Professional Development',
       badgeColor: 'bg-zinc-800/80 text-zinc-300 border-zinc-700/60',
       linkedinUrl: null,
@@ -382,7 +382,7 @@ export const ArchitectPortfolioView: React.FC = () => {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-zinc-900 border border-zinc-800 text-zinc-300">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            AVAILABLE FOR SENIOR & STAFF ROLES • NEW DELHI
+            AVAILABLE FOR SENIOR & STAFF ROLES • SECTOR 46, GURUGRAM
           </span>
         </div>
 
@@ -882,7 +882,7 @@ export const ArchitectPortfolioView: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 text-zinc-500">
-            <span>New Delhi, India</span>
+            <span>Sector 46, Gurugram, India</span>
             <span>&bull;</span>
             <span className="text-zinc-300">Open for Remote Worldwide</span>
           </div>

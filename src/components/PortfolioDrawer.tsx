@@ -67,7 +67,7 @@ export const PortfolioDrawer: React.FC<PortfolioDrawerProps> = ({
             <div>
               <span className="drawer-label">ARCHITECTURAL PORTFOLIO</span>
               <h2 id="drawer-title" className="drawer-name">Sahil Rathee</h2>
-              <span className="drawer-sub">Senior Software Engineer & AI Systems Architect • New Delhi</span>
+              <span className="drawer-sub">Senior Software Engineer & AI Systems Architect • Sector 46, Gurugram</span>
             </div>
           </div>
           <button type="button" className="drawer-close-btn" onClick={onClose} aria-label="Close portfolio">

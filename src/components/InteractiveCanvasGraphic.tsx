@@ -181,7 +181,7 @@ export const InteractiveCanvasGraphic: React.FC = () => {
         {activeBadge && (
           <div className="canvas-badge-callout">
             {activeBadge === 'sahil' && (
-              <span>⚡ <b>Sahil Rathee:</b> Senior Software Engineer & Distributed Systems Architect based in New Delhi.</span>
+              <span>⚡ <b>Sahil Rathee:</b> Senior Software Engineer & Distributed Systems Architect based in Sector 46, Gurugram.</span>
             )}
             {activeBadge === '2002' && (
               <span>📅 <b>Born in 2002:</b> Engineering low-latency engines and autonomous AI swarms since age 19.</span>
