@@ -691,14 +691,15 @@ export const HrVerificationView: React.FC = () => {
       {isOtpModalOpen && createPortal(
         <div
           onClick={handleCloseModal}
-          className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-sans cursor-pointer overflow-y-auto"
+          className="fixed inset-0 z-[999999] overflow-y-auto bg-black/80 backdrop-blur-md animate-fade-in font-sans cursor-pointer p-4 sm:p-6"
           role="dialog"
           aria-modal="true"
         >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-md my-auto bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
-          >
+          <div className="min-h-full flex items-center justify-center p-0">
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md my-8 bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
+            >
             
             {/* Ambient Glow */}
             <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-48 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
@@ -890,6 +891,7 @@ export const HrVerificationView: React.FC = () => {
               </span>
             </div>
 
+          </div>
           </div>
         </div>,
         document.body
