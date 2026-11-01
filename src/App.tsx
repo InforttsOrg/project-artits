@@ -12,9 +12,6 @@ import {
   GitHubLogo,
   LinkedInLogo,
   XLogo,
-  LeetCodeLogo,
-  StackOverflowLogo,
-  InstagramLogo,
 } from './components/BrandLogos';
 import { trackVisitorEvent } from './utils/visitorTracker';
 

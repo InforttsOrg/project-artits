@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Linkedin, ExternalLink, Users, Eye, Sparkles, Mail, Phone, MapPin, Check } from 'lucide-react';
+import { X, Linkedin, ExternalLink, Users, Mail, Phone, MapPin, Check } from 'lucide-react';
 import { trackVisitorEvent } from '../utils/visitorTracker';
 
 interface RecruiterConnectModalProps {
@@ -41,6 +41,20 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Handle Escape key to close modal
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleLinkedInClick = () => {
@@ -57,8 +71,16 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
   };
 
   return (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-md bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in cursor-pointer"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-md bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
+      >
         
         {/* Ambient Top Glow */}
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-48 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
