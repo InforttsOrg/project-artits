@@ -29,7 +29,7 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
 
     // Handle Escape key to close modal
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' || e.key === 'Esc') {
         onClose();
       }
     };
@@ -58,22 +58,32 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
 
   return createPortal(
     <div
-      onClick={onClose}
-      className="fixed inset-0 z-[999999] overflow-y-auto bg-black/80 backdrop-blur-md animate-fade-in cursor-pointer p-4 sm:p-6"
+      className="fixed inset-0 z-[999999] overflow-y-auto"
       role="dialog"
       aria-modal="true"
     >
-      <div className="min-h-full flex items-center justify-center p-0">
+      {/* 1. Dedicated Fullscreen Backdrop with immediate click dismissal */}
+      <div
+        onClick={onClose}
+        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity cursor-pointer animate-fadeIn"
+        aria-hidden="true"
+      />
+
+      {/* 2. Scroll-friendly flex wrapper that centers when space allows, never overflows top */}
+      <div
+        onClick={onClose}
+        className="relative min-h-full flex justify-center items-center p-3 sm:p-6 cursor-pointer"
+      >
         <div
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-md my-8 bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl text-zinc-100 flex flex-col gap-5 overflow-hidden cursor-default"
+          className="relative w-full max-w-md my-auto bg-zinc-950 border border-zinc-800 rounded-3xl p-5 sm:p-6 shadow-2xl text-zinc-100 flex flex-col gap-4 overflow-hidden cursor-default z-10"
         >
         
         {/* Ambient Top Glow */}
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-48 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Header */}
-        <div className="relative flex items-center justify-between border-b border-zinc-800/80 pb-4">
+        <div className="relative flex items-center justify-between border-b border-zinc-800/80 pb-3.5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-[#0a66c2]/10 border border-[#0a66c2]/30 flex items-center justify-center text-[#0a66c2] shadow-inner">
               <Linkedin className="w-5 h-5 fill-current" />
@@ -90,7 +100,7 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800/80 transition-colors"
+            className="p-2 -mr-1 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800/80 transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -98,7 +108,7 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
         </div>
 
         {/* TODAY'S VISITORS TODAY TELEMETRY CARD */}
-        <div className="relative p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center justify-between gap-4">
+        <div className="relative p-3.5 sm:p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 shrink-0">
               <Users className="w-5 h-5" />
@@ -125,13 +135,13 @@ export const RecruiterConnectModal: React.FC<RecruiterConnectModalProps> = ({ is
         </div>
 
         {/* PRIMARY CTA: CHECK SAHIL ON LINKEDIN */}
-        <div className="flex flex-col gap-2 pt-1">
+        <div className="flex flex-col gap-2 pt-0.5">
           <a
             href="https://linkedin.com/in/rttss-sahil"
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleLinkedInClick}
-            className="w-full py-3.5 px-4 rounded-2xl bg-[#0a66c2] hover:bg-[#004182] active:scale-[0.98] text-white font-bold text-sm transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-blue-900/30 cursor-pointer group btn-linkedin"
+            className="w-full py-3 px-4 rounded-2xl bg-[#0a66c2] hover:bg-[#004182] active:scale-[0.98] text-white font-bold text-sm transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-blue-900/30 cursor-pointer group btn-linkedin"
           >
             <Linkedin className="w-4 h-4 fill-current" />
             <span>Check Sahil on LinkedIn</span>
