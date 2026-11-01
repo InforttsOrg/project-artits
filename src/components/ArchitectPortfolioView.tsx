@@ -390,23 +390,8 @@ export const ArchitectPortfolioView: React.FC = () => {
         </div>
 
         {/* Profile & Main Headline */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div className="flex-1 flex flex-col gap-4">
-            <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-none">
-              Sahil Rathee
-            </h1>
-            <p className="font-display text-xl sm:text-2xl text-zinc-300 font-medium">
-              Staff / Senior Engineer &amp; Technical Lead
-            </p>
-            <p className="text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed">
-              Available for Senior and Staff roles across <strong className="text-zinc-200 font-semibold">Software Engineering</strong>, <strong className="text-zinc-200 font-semibold">DevOps &amp; Platform Infrastructure</strong>, <strong className="text-zinc-200 font-semibold">Systems Security &amp; DevSecOps</strong>, and <strong className="text-zinc-200 font-semibold">Technical Management</strong>. Proven track record architecting resilient distributed cloud systems, sub-millisecond event streaming engines, and autonomous execution architectures across{' '}
-              <span className="text-zinc-200 font-medium">GymWise</span>,{' '}
-              <span className="text-zinc-200 font-medium">BigHit</span>, and{' '}
-              <span className="text-zinc-200 font-medium">Gamix Labs</span>.
-            </p>
-          </div>
-
-          {/* 3D Avatar Portrait */}
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
+          {/* 3D Avatar Portrait (Left) */}
           <div className="relative group shrink-0">
             {/* Ambient Radial Glow */}
             <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-emerald-500/25 via-sky-500/15 to-indigo-500/20 blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -431,6 +416,22 @@ export const ArchitectPortfolioView: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>rttss-sahil</span>
             </div>
+          </div>
+
+          {/* Text Headline */}
+          <div className="flex-1 flex flex-col gap-4">
+            <h1 className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-none">
+              Sahil Rathee
+            </h1>
+            <p className="font-display text-xl sm:text-2xl text-zinc-300 font-medium">
+              Staff / Senior Engineer &amp; Technical Lead
+            </p>
+            <p className="text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+              Available for Senior and Staff roles across <strong className="text-zinc-200 font-semibold">Software Engineering</strong>, <strong className="text-zinc-200 font-semibold">DevOps &amp; Platform Infrastructure</strong>, <strong className="text-zinc-200 font-semibold">Systems Security &amp; DevSecOps</strong>, and <strong className="text-zinc-200 font-semibold">Technical Management</strong>. Proven track record architecting resilient distributed cloud systems, sub-millisecond event streaming engines, and autonomous execution architectures across{' '}
+              <span className="text-zinc-200 font-medium">GymWise</span>,{' '}
+              <span className="text-zinc-200 font-medium">BigHit</span>, and{' '}
+              <span className="text-zinc-200 font-medium">Gamix Labs</span>.
+            </p>
           </div>
         </div>
 

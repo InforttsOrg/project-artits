@@ -47,13 +47,23 @@ export const AboutCapabilitiesSection: React.FC<AboutCapabilitiesSectionProps> =
           </div>
 
           <div className="avatar-portrait-wrap">
-            <img src="/sahil.png" alt="Sahil Rathee" className="avatar-portrait-img" />
+            <img
+              src="/sahil-3d.png"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src.indexOf('sahil-3d.png') !== -1) {
+                  target.src = '/sahil.png';
+                }
+              }}
+              alt="Sahil Rathee"
+              className="avatar-portrait-img"
+            />
             <span className="avatar-online-dot" title="Available for Staff / Senior roles" />
           </div>
 
           <div className="bio-under-portrait">
             <span className="bio-name">SAHIL RATHEE</span>
-            <span className="bio-role">SENIOR SOFTWARE ENGINEER | FULL STACK & DISTRIBUTED SYSTEMS</span>
+            <span className="bio-role">SENIOR SOFTWARE ENGINEER • FULL STACK &amp; DISTRIBUTED SYSTEMS</span>
             <p className="bio-copy">
               Born in 2002 in New Delhi, India. Software engineer specializing in scalable backend architectures,
               cloud infrastructure, and practical AI systems. Experienced in taking projects from zero to production at scale.
