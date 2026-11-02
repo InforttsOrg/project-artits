@@ -4,8 +4,6 @@ interface Env {
   OTP_SECRET?: string;
 }
 
-const DEFAULT_BOT_TOKEN = '8729591979:AAGeGhTHJ-KIwK5szPu0QL_VkYMoIzSzrYw';
-const DEFAULT_CHAT_ID = '1888142090';
 const DEFAULT_SECRET = 'artits-recruiter-vault-secure-hmac-key-2026';
 
 async function createHmac(secret: string, data: string): Promise<string> {
@@ -124,39 +122,41 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       sig: sessionSig
     }));
 
-    // 6. Alert Telegram on Successful Unlock
-    const botToken = env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
-    const chatId = env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
+    // 6. Alert Telegram on Successful Unlock (if configured)
+    const botToken = env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID;
 
-    const cf = (request as any).cf || {};
-    const city = cf.city || 'Unknown City';
-    const country = cf.country || 'Unknown Country';
-    const asOrg = cf.asOrganization || (cf.asn ? `AS${cf.asn}` : 'Corporate/ISP Network');
+    if (botToken && chatId) {
+      const cf = (request as any).cf || {};
+      const city = cf.city || 'Unknown City';
+      const country = cf.country || 'Unknown Country';
+      const asOrg = cf.asOrganization || (cf.asn ? `AS${cf.asn}` : 'Corporate/ISP Network');
 
-    const tgAlert = [
-      '🎉 <b>BGV Remuneration Dossier Unlocked!</b>',
-      '',
-      `<b>Verified Corporate Email:</b> <code>${cleanEmail}</code>`,
-      `<b>Access Duration:</b> 24 Hours Session`,
-      `<b>Location:</b> 📍 ${city}, ${country}`,
-      `<b>Network:</b> 🏢 ${asOrg}`,
-      `<b>Timestamp:</b> ${new Date().toISOString()}`
-    ].join('\n');
+      const tgAlert = [
+        '🎉 <b>BGV Remuneration Dossier Unlocked!</b>',
+        '',
+        `<b>Verified Corporate Email:</b> <code>${cleanEmail}</code>`,
+        `<b>Access Duration:</b> 24 Hours Session`,
+        `<b>Location:</b> 📍 ${city}, ${country}`,
+        `<b>Network:</b> 🏢 ${asOrg}`,
+        `<b>Timestamp:</b> ${new Date().toISOString()}`
+      ].join('\n');
 
-    context.waitUntil(
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: tgAlert,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true
+      context.waitUntil(
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: tgAlert,
+            parse_mode: 'HTML',
+            disable_web_page_preview: true
+          })
+        }).catch(err => {
+          console.error('Telegram notification error:', err);
         })
-      }).catch(err => {
-        console.error('Telegram notification error:', err);
-      })
-    );
+      );
+    }
 
     return new Response(JSON.stringify({
       success: true,

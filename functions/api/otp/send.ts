@@ -7,8 +7,6 @@ interface Env {
   BREVO_API_KEY?: string;
 }
 
-const DEFAULT_BOT_TOKEN = '8729591979:AAGeGhTHJ-KIwK5szPu0QL_VkYMoIzSzrYw';
-const DEFAULT_CHAT_ID = '1888142090';
 const DEFAULT_SECRET = 'artits-recruiter-vault-secure-hmac-key-2026';
 
 async function createHmac(secret: string, data: string): Promise<string> {
@@ -175,39 +173,41 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }
     }
 
-    // 6. Real-time Telegram Alert to Sahil
-    const botToken = env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
-    const chatId = env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
+    // 6. Real-time Telegram Alert to Sahil (if configured)
+    const botToken = env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID;
 
-    const tgLines = [
-      '🔐 <b>Recruiter BGV Verification Requested</b>',
-      '',
-      `<b>Corporate Email:</b> <code>${cleanEmail}</code>`,
-      name ? `<b>Contact Name:</b> ${name}` : null,
-      company ? `<b>Organization:</b> 🏢 <b>${company}</b>` : null,
-      linkedin ? `<b>LinkedIn:</b> ${linkedin}` : null,
-      `<b>Issued OTP:</b> 🔑 <code>${otp}</code>`,
-      `<b>Email Dispatch:</b> ${emailDelivered ? '✅ Sent via Provider' : (emailError ? `⚠️ Provider Error: ${emailError.slice(0, 100)}` : '📲 Alert Dispatched')}`,
-      `<b>Location:</b> 📍 ${city}${region ? ', ' + region : ''}, ${country}`,
-      `<b>Network:</b> ${asOrg}`,
-      `<b>Expires:</b> 10 minutes`,
-      `<b>Timestamp:</b> ${new Date().toISOString()}`
-    ].filter(Boolean).join('\n');
+    if (botToken && chatId) {
+      const tgLines = [
+        '🔐 <b>Recruiter BGV Verification Requested</b>',
+        '',
+        `<b>Corporate Email:</b> <code>${cleanEmail}</code>`,
+        name ? `<b>Contact Name:</b> ${name}` : null,
+        company ? `<b>Organization:</b> 🏢 <b>${company}</b>` : null,
+        linkedin ? `<b>LinkedIn:</b> ${linkedin}` : null,
+        `<b>Issued OTP:</b> 🔑 <code>${otp}</code>`,
+        `<b>Email Dispatch:</b> ${emailDelivered ? '✅ Sent via Provider' : (emailError ? `⚠️ Provider Error: ${emailError.slice(0, 100)}` : '📲 Alert Dispatched')}`,
+        `<b>Location:</b> 📍 ${city}${region ? ', ' + region : ''}, ${country}`,
+        `<b>Network:</b> ${asOrg}`,
+        `<b>Expires:</b> 10 minutes`,
+        `<b>Timestamp:</b> ${new Date().toISOString()}`
+      ].filter(Boolean).join('\n');
 
-    context.waitUntil(
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: tgLines,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true
+      context.waitUntil(
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: tgLines,
+            parse_mode: 'HTML',
+            disable_web_page_preview: true
+          })
+        }).catch(err => {
+          console.error('Telegram dispatch error:', err);
         })
-      }).catch(err => {
-        console.error('Telegram dispatch error:', err);
-      })
-    );
+      );
+    }
 
     return new Response(JSON.stringify({
       success: true,

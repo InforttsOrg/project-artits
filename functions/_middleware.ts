@@ -3,9 +3,6 @@ interface Env {
   TELEGRAM_CHAT_ID?: string;
 }
 
-const DEFAULT_BOT_TOKEN = '8729591979:AAGeGhTHJ-KIwK5szPu0QL_VkYMoIzSzrYw';
-const DEFAULT_CHAT_ID = '1888142090';
-
 // Skip static assets to prevent notification spam
 const IGNORE_EXTS = [
   '.js', '.css', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico',
@@ -54,47 +51,49 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     return next();
   }
 
-  const botToken = env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
-  const chatId = env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
+  const botToken = env.TELEGRAM_BOT_TOKEN;
+  const chatId = env.TELEGRAM_CHAT_ID;
 
-  let alertTitle = '🌐 New Portfolio Visit';
-  if (ref) {
-    alertTitle = `🎯 Targeted Visitor Link Opened [${ref}]`;
-  } else if (referrer.includes('linkedin.com')) {
-    alertTitle = '💼 LinkedIn Referral Visitor';
-  } else if (pathname.includes('/verify')) {
-    alertTitle = '🛡️ HR Verification Dossier Accessed';
-  } else if (pathname.includes('/resume')) {
-    alertTitle = '📄 Resume Accessed / Downloaded';
-  }
+  if (botToken && chatId) {
+    let alertTitle = '🌐 New Portfolio Visit';
+    if (ref) {
+      alertTitle = `🎯 Targeted Visitor Link Opened [${ref}]`;
+    } else if (referrer.includes('linkedin.com')) {
+      alertTitle = '💼 LinkedIn Referral Visitor';
+    } else if (pathname.includes('/verify')) {
+      alertTitle = '🛡️ HR Verification Dossier Accessed';
+    } else if (pathname.includes('/resume')) {
+      alertTitle = '📄 Resume Accessed / Downloaded';
+    }
 
-  const payloadLines = [
-    `<b>${alertTitle}</b>`,
-    '',
-    `<b>Path:</b> <code>${url.pathname}</code>`,
-    ref ? `<b>Campaign Ref:</b> <code>${ref}</code>` : null,
-    utmCampaign ? `<b>Campaign:</b> ${utmCampaign}` : null,
-    utmMedium ? `<b>Medium:</b> ${utmMedium}` : null,
-    `<b>Organization / ISP:</b> 🏢 <b>${asOrg}</b>`,
-    `<b>Location:</b> 📍 ${city}${region ? ', ' + region : ''}, ${country}`,
-    referrer ? `<b>Referrer:</b> 🔗 ${referrer}` : null,
-    `<b>Time:</b> ${new Date().toISOString()}`
-  ].filter(Boolean).join('\n');
+    const payloadLines = [
+      `<b>${alertTitle}</b>`,
+      '',
+      `<b>Path:</b> <code>${url.pathname}</code>`,
+      ref ? `<b>Campaign Ref:</b> <code>${ref}</code>` : null,
+      utmCampaign ? `<b>Campaign:</b> ${utmCampaign}` : null,
+      utmMedium ? `<b>Medium:</b> ${utmMedium}` : null,
+      `<b>Organization / ISP:</b> 🏢 <b>${asOrg}</b>`,
+      `<b>Location:</b> 📍 ${city}${region ? ', ' + region : ''}, ${country}`,
+      referrer ? `<b>Referrer:</b> 🔗 ${referrer}` : null,
+      `<b>Time:</b> ${new Date().toISOString()}`
+    ].filter(Boolean).join('\n');
 
-  context.waitUntil(
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: payloadLines,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true
+    context.waitUntil(
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: payloadLines,
+          parse_mode: 'HTML',
+          disable_web_page_preview: true
+        })
+      }).catch(err => {
+        console.error('Telegram notification error:', err);
       })
-    }).catch(err => {
-      console.error('Telegram notification error:', err);
-    })
-  );
+    );
+  }
 
   return next();
 };
