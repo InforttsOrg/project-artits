@@ -239,23 +239,23 @@
     <div class="section-title">Technical Competencies</div>
     <div class="skills-row">
       <div class="skills-label">Languages:</div>
-      <div class="skills-content">Go (Golang), Python, TypeScript, JavaScript, SQL, C++, Dart, Bash</div>
+      <div class="skills-content">Python (4+ yrs), TypeScript (4+ yrs), Go (Golang), JavaScript, SQL, C++, Dart, Bash</div>
     </div>
     <div class="skills-row">
       <div class="skills-label">Backend &amp; Frameworks:</div>
       <div class="skills-content">Node.js, Express.js, Angular, Next.js (SSR/Edge), FastAPI, React Native (Expo), Flutter, WebSockets</div>
     </div>
     <div class="skills-row">
-      <div class="skills-label">Cloud &amp; DevOps:</div>
-      <div class="skills-content">Docker, Kubernetes (EKS), AWS (Neptune, OpenSearch, EC2), GCP, Terraform IaC, Ansible, Jenkins CI/CD, Cloudflare</div>
+      <div class="skills-label">Cloud &amp; Serverless:</div>
+      <div class="skills-content">AWS (Lambda, API Gateway, Step Functions, DynamoDB, S3, Neptune, OpenSearch, EC2), Docker, Kubernetes (EKS), GCP, Terraform IaC, Ansible, Jenkins CI/CD, Cloudflare</div>
     </div>
     <div class="skills-row">
-      <div class="skills-label">Databases &amp; Caching:</div>
-      <div class="skills-content">PostgreSQL, MongoDB, Redis, Qdrant Vector DB, Amazon Neptune (Graph DB), NATS JetStream, RabbitMQ</div>
+      <div class="skills-label">Databases &amp; Storage:</div>
+      <div class="skills-content">Amazon DynamoDB, Amazon S3, PostgreSQL, MongoDB, Redis, Qdrant Vector DB, Amazon Neptune (Graph DB), NATS JetStream, RabbitMQ</div>
     </div>
     <div class="skills-row">
-      <div class="skills-label">AI &amp; Quantitative:</div>
-      <div class="skills-content">Agentic Workflows (LangGraph, Function Calling, Multi-Agent RAG), MetaTrader 5, Tick Telemetry, Monte Carlo Simulation</div>
+      <div class="skills-label">AI &amp; Generative AI:</div>
+      <div class="skills-content">Generative AI, Agentic Workflows (LangGraph, Tool/Function Calling, Multi-Agent RAG), MetaTrader 5, Tick Telemetry</div>
     </div>
   </section>
 
@@ -277,9 +277,9 @@
       <ul class="bullet-list">
         <li>Re-architected monolithic codebase into <strong>3 standalone Flutter/Dart apps</strong> via build flavors (Customer, Partner with biometric attendance, Admin) alongside a Next.js web portal, live on Google Play &amp; App Store.</li>
         <li>Re-engineered backend microservices from PHP Laravel to <strong>Go (Golang)</strong> backed by Redis buffer and <strong>Qdrant Vector DB</strong> for member discovery and similarity matching.</li>
-        <li>Built multi-cloud infrastructure: <strong>AWS</strong> compute &amp; container orchestration via <strong>Terraform IaC and Ansible</strong>; GCP for Maps APIs and OAuth services; implemented automated commission workflows.</li>
+        <li>Architected <strong>AWS</strong> cloud infrastructure (EC2, S3 storage pipelines, API Gateway) via <strong>Terraform IaC and Ansible</strong>; GCP for Maps APIs and OAuth services; implemented automated commission workflows.</li>
       </ul>
-      <div class="tech-stack-tag"><strong>Tech Stack:</strong> Flutter, Dart, Go (Golang), AWS, GCP, Redis, Qdrant Vector DB, PostgreSQL, Terraform IaC, Ansible, Docker Swarm</div>
+      <div class="tech-stack-tag"><strong>Tech Stack:</strong> Flutter, Dart, Go (Golang), AWS (EC2, S3, API Gateway), GCP, Redis, Qdrant Vector DB, PostgreSQL, Terraform IaC, Ansible, Docker</div>
     </div>
 
     <!-- BigHit -->
@@ -295,10 +295,10 @@
       </div>
       <ul class="bullet-list">
         <li>Developed real-time <strong>Socket.io Node.js server</strong> powering dynamic chat for 2,000 Concurrent Active Users (~400 events/sec peak throughput).</li>
-        <li>Built real-time score updates and live telemetry engine for live-streamed football tournaments (BigHit Sportz), featuring a third-umpire web console with role-based access control.</li>
-        <li>Migrated legacy relational SQL database to <strong>Amazon Neptune graph DB (Gremlin)</strong>, optimizing multi-degree athlete-to-scout social graph traversal queries; optimized OpenSearch clusters.</li>
+        <li>Engineered live score updates and match telemetry for live-streamed tournaments using <strong>AWS Lambda, Amazon API Gateway, and AWS Step Functions</strong> with a third-umpire web console.</li>
+        <li>Architected high-throughput ingestion on <strong>Amazon DynamoDB</strong> and media assets on <strong>Amazon S3</strong>; migrated relational database to <strong>Amazon Neptune (Gremlin)</strong> &amp; optimized OpenSearch.</li>
       </ul>
-      <div class="tech-stack-tag"><strong>Tech Stack:</strong> TypeScript, React Native, Node.js, Socket.io, GraphQL, AWS Neptune (Graph DB), OpenSearch, Docker, Kubernetes, AWS IaC, CI/CD</div>
+      <div class="tech-stack-tag"><strong>Tech Stack:</strong> TypeScript, Node.js, AWS (Lambda, API Gateway, Step Functions, DynamoDB, S3, Neptune, OpenSearch), Socket.io, Redis, Docker, CI/CD</div>
     </div>
 
     <!-- Gamix Labs -->
@@ -313,9 +313,8 @@
         <span class="job-meta">Mar 2022 &ndash; Oct 2022 &bull; On-site (Noida, India)</span>
       </div>
       <ul class="bullet-list">
-        <li>Engineered real-time mathematical simulation engines for Vegas slot machines (HTML5/Facebook Instant Games on Cocos Creator Engine) with Node.js and RabbitMQ event streaming backends.</li>
-        <li>Formulated and verified Return-to-Player (RTP) and win frequency probability algorithms via Monte Carlo simulations (10M+ spins at 99.9% confidence interval) ensuring statistical house edge.</li>
-        <li>Architected multi-database backends across client games utilizing both SQL and NoSQL engines (MongoDB and Firebase Realtime Database / Firestore).</li>
+        <li>Engineered real-time game simulation backends in Node.js with RabbitMQ messaging, Redis caching, and SQL/NoSQL persistence (MongoDB, Firebase).</li>
+        <li>Formulated and verified Return-to-Player (RTP) probability algorithms via Monte Carlo simulations (10M+ spins at 99.9% confidence interval) ensuring statistical house edge.</li>
       </ul>
       <div class="tech-stack-tag"><strong>Tech Stack:</strong> TypeScript, Cocos Creator Engine, Node.js, RabbitMQ, MongoDB, Firebase, SQL, Redis, Angular, Flutter, GCP</div>
     </div>
@@ -374,9 +373,9 @@
         <span class="job-meta">meeseeks.infortts.site</span>
       </div>
       <ul class="bullet-list">
-        <li>Built an autonomous multi-agent orchestration framework supporting tool-calling supervisor loops, vector-backed shared memory, and self-healing diagnostic routines in Python, Go, and FastAPI.</li>
+        <li>Architected an autonomous multi-agent Gen AI orchestration framework supporting tool-calling supervisor loops, vector-backed shared memory (Qdrant), and LangGraph multi-agent workflows in Python &amp; FastAPI.</li>
       </ul>
-      <div class="tech-stack-tag"><strong>Tech Stack:</strong> Python, Go, FastAPI, LangGraph, Docker, Qdrant Vector DB, Redis</div>
+      <div class="tech-stack-tag"><strong>Tech Stack:</strong> Python, FastAPI, LangGraph, Generative AI, Multi-Agent RAG, Docker, Qdrant Vector DB, Redis</div>
     </div>
 
     <!-- Mitochondria -->

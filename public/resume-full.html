@@ -224,23 +224,23 @@
     <div class="section-title">Technical Competencies</div>
     <div class="skills-row">
       <div class="skills-label">Languages:</div>
-      <div class="skills-content">Go (Golang), Python, TypeScript, JavaScript, SQL, C++, Dart, Bash</div>
+      <div class="skills-content">Python (4+ yrs), TypeScript (4+ yrs), Go (Golang), JavaScript, SQL, C++, Dart, Bash</div>
     </div>
     <div class="skills-row">
       <div class="skills-label">Backend &amp; Frameworks:</div>
       <div class="skills-content">Node.js, Express.js, Angular, Next.js (SSR/Edge), FastAPI, React Native (Expo), Flutter, WebSockets</div>
     </div>
     <div class="skills-row">
-      <div class="skills-label">Cloud &amp; DevOps:</div>
-      <div class="skills-content">Docker, Kubernetes (EKS), AWS (Neptune, OpenSearch, EC2), GCP, Terraform IaC, Ansible, Jenkins CI/CD, Cloudflare</div>
+      <div class="skills-label">Cloud &amp; Serverless:</div>
+      <div class="skills-content">AWS (Lambda, API Gateway, Step Functions, DynamoDB, S3, Neptune, OpenSearch, EC2), Docker, Kubernetes (EKS), GCP, Terraform IaC, Ansible, Jenkins CI/CD, Cloudflare</div>
     </div>
     <div class="skills-row">
-      <div class="skills-label">Databases &amp; Caching:</div>
-      <div class="skills-content">PostgreSQL, MongoDB, Redis, Qdrant Vector DB, Amazon Neptune (Graph DB), NATS JetStream, RabbitMQ</div>
+      <div class="skills-label">Databases &amp; Storage:</div>
+      <div class="skills-content">Amazon DynamoDB, Amazon S3, PostgreSQL, MongoDB, Redis, Qdrant Vector DB, Amazon Neptune (Graph DB), NATS JetStream, RabbitMQ</div>
     </div>
     <div class="skills-row">
-      <div class="skills-label">AI &amp; Quantitative:</div>
-      <div class="skills-content">Agentic Workflows (LangGraph, Function Calling, Multi-Agent RAG), MetaTrader 5, Tick Telemetry, Monte Carlo Simulation</div>
+      <div class="skills-label">AI &amp; Generative AI:</div>
+      <div class="skills-content">Generative AI, Agentic Workflows (LangGraph, Tool/Function Calling, Multi-Agent RAG), MetaTrader 5, Tick Telemetry</div>
     </div>
   </section>
 
@@ -262,10 +262,10 @@
       <ul class="bullet-list">
         <li>Re-architected monolithic codebase into <strong>3 standalone Flutter/Dart apps</strong> via build flavors: GymWise Customer, GymWise Partner (with biometric attendance), and GymWise Admin, along with a Next.js web portal, live on Google Play and App Store.</li>
         <li>Re-engineered backend microservices from PHP Laravel to <strong>Go (Golang)</strong> backed by Redis buffer and <strong>Qdrant Vector DB</strong> for member discovery and similarity matching.</li>
-        <li>Built multi-cloud infrastructure: <strong>AWS</strong> compute and container orchestration managed via <strong>Terraform IaC and Ansible</strong>; GCP for Maps APIs and OAuth services.</li>
+        <li>Built multi-cloud infrastructure: <strong>AWS</strong> compute (EC2), asset storage pipelines (S3), and API Gateway integrations managed via <strong>Terraform IaC and Ansible</strong>; GCP for Maps APIs and OAuth services.</li>
         <li>Implemented gym marketplace business logic: zero upfront cost to gym owners, automated commission collection on customer bookings, and algorithmic dynamic pricing based on user engagement.</li>
       </ul>
-      <div class="tech-stack-tag"><strong>Tech Stack:</strong> Flutter, Dart, Go (Golang), AWS, GCP, Redis, Qdrant Vector DB, PostgreSQL, Terraform IaC, Ansible, Docker Swarm</div>
+      <div class="tech-stack-tag"><strong>Tech Stack:</strong> Flutter, Dart, Go (Golang), AWS (EC2, S3, API Gateway), GCP, Redis, Qdrant Vector DB, PostgreSQL, Terraform IaC, Ansible, Docker Swarm</div>
     </div>
 
     <!-- BigHit -->
@@ -281,12 +281,12 @@
       </div>
       <ul class="bullet-list">
         <li>Developed real-time <strong>Socket.io Node.js server</strong> powering dynamic chat for 2,000 Concurrent Active Users (~400 events/sec peak throughput).</li>
-        <li>Built real-time score updates and live telemetry engine for live-streamed football tournaments (BigHit Sportz), featuring a dedicated third-umpire web console with role-based access control.</li>
-        <li>Migrated legacy relational SQL database to <strong>Amazon Neptune graph DB (Gremlin)</strong>, optimizing multi-degree athlete-to-scout social graph traversal and talent discovery queries.</li>
+        <li>Built real-time score updates and live telemetry engine for live-streamed football tournaments (BigHit Sportz) using <strong>AWS Lambda</strong>, <strong>Amazon API Gateway</strong>, and <strong>AWS Step Functions</strong>, featuring a dedicated third-umpire web console with role-based access control.</li>
+        <li>Migrated legacy relational SQL database to <strong>Amazon Neptune graph DB (Gremlin)</strong> and <strong>Amazon DynamoDB</strong> for high-throughput match ingestion, with media asset pipelines on <strong>Amazon S3</strong>, optimizing athlete-to-scout social graph traversal.</li>
         <li>Modernized mobile &amp; backend infrastructure, achieving an ~80% reduction in app bundle size and ~60% increase in server efficiency.</li>
         <li>Integrated and managed AWS cloud infrastructure with Amazon Neptune and <strong>OpenSearch</strong> clusters, reducing API response latency under peak tournament load.</li>
       </ul>
-      <div class="tech-stack-tag"><strong>Tech Stack:</strong> TypeScript, React Native, Node.js, Socket.io, GraphQL, AWS Neptune (Graph DB), OpenSearch, Docker, Kubernetes, AWS IaC, CI/CD</div>
+      <div class="tech-stack-tag"><strong>Tech Stack:</strong> TypeScript, React Native, Node.js, Socket.io, GraphQL, AWS (Lambda, API Gateway, Step Functions, DynamoDB, S3, Neptune), OpenSearch, Docker, Kubernetes, AWS IaC, CI/CD</div>
     </div>
 
     <!-- Gamix Labs -->
@@ -379,7 +379,7 @@
         <span class="job-meta">meeseeks.infortts.site</span>
       </div>
       <ul class="bullet-list">
-        <li>Built an autonomous multi-agent orchestration framework supporting tool-calling supervisor loops, vector-backed shared memory, and self-healing diagnostic routines.</li>
+        <li>Built an autonomous multi-agent Generative AI orchestration framework supporting tool-calling supervisor loops, vector-backed shared memory, and multi-agent RAG.</li>
         <li>Engineered AST context compression and isolated container execution environments for reliable agentic task completion.</li>
       </ul>
       <div class="tech-stack-tag"><strong>Tech Stack:</strong> Python, Go, FastAPI, LangGraph, Docker, Qdrant Vector DB, Redis</div>
